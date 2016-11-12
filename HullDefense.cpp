@@ -1,7 +1,7 @@
 // Programming 2D Games
 // Copyright (c) 2011 by: 
 // Charles Kelly
-// createThisClass.cpp v1.1
+// HullDefense.cpp v1.1
 // This class is the core of the game
 
 #include "HullDefense.h"
