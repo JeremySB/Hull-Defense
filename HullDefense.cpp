@@ -4,12 +4,12 @@
 // createThisClass.cpp v1.1
 // This class is the core of the game
 
-#include "createThisClass.h"
+#include "HullDefense.h"
 
 //=============================================================================
 // Constructor
 //=============================================================================
-CreateThis::CreateThis() : Game()
+HullDefense::HullDefense() : Game()
 {
     dxFont = new TextDX();  // DirectX font
     messageY = 0;
@@ -18,7 +18,7 @@ CreateThis::CreateThis() : Game()
 //=============================================================================
 // Destructor
 //=============================================================================
-CreateThis::~CreateThis()
+HullDefense::~HullDefense()
 {
     releaseAll();           // call onLostDevice() for every graphics item
     safeDelete(dxFont);
@@ -28,7 +28,7 @@ CreateThis::~CreateThis()
 // Initializes the game
 // Throws GameError on error
 //=============================================================================
-void CreateThis::initialize(HWND hwnd)
+void HullDefense::initialize(HWND hwnd)
 {
     Game::initialize(hwnd); // throws GameError
 
@@ -77,7 +77,7 @@ void CreateThis::initialize(HWND hwnd)
 //=============================================================================
 // Update all game items
 //=============================================================================
-void CreateThis::update()
+void HullDefense::update()
 {
     static float delay = 0;
     delay += frameTime;
@@ -109,19 +109,19 @@ void CreateThis::update()
 //=============================================================================
 // Artificial Intelligence
 //=============================================================================
-void CreateThis::ai()
+void HullDefense::ai()
 {}
 
 //=============================================================================
 // Handle collisions
 //=============================================================================
-void CreateThis::collisions()
+void HullDefense::collisions()
 {}
 
 //=============================================================================
 // Render game items
 //=============================================================================
-void CreateThis::render()
+void HullDefense::render()
 {
     graphics->spriteBegin();                // begin drawing sprites
 
@@ -137,7 +137,7 @@ void CreateThis::render()
 // The graphics device was lost.
 // Release all reserved video memory so graphics device may be reset.
 //=============================================================================
-void CreateThis::releaseAll()
+void HullDefense::releaseAll()
 {
     dxFont->onLostDevice();
     menuTexture.onLostDevice();
@@ -149,7 +149,7 @@ void CreateThis::releaseAll()
 // The grahics device has been reset.
 // Recreate all surfaces.
 //=============================================================================
-void CreateThis::resetAll()
+void HullDefense::resetAll()
 {
     menuTexture.onResetDevice();
     dxFont->onResetDevice();

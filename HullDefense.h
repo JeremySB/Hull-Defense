@@ -1,10 +1,10 @@
 // Programming 2D Games
 // Copyright (c) 2011 by: 
 // Charles Kelly
-// createThisClass.h
+// HULLDEFENSE.h
 
-#ifndef _CREATETHIS_H           // Prevent multiple definitions if this 
-#define _CREATETHIS_H           // file is included in more than one place
+#ifndef _HULLDEFENSE_H           // Prevent multiple definitions if this 
+#define _HULLDEFENSE_H           // file is included in more than one place
 #define WIN32_LEAN_AND_MEAN
 
 #include <string>
@@ -17,7 +17,7 @@
 //=============================================================================
 // This class is the core of the game
 //=============================================================================
-class CreateThis : public Game
+class HullDefense : public Game
 {
 private:
     // game items
@@ -30,9 +30,9 @@ private:
 
 public:
     // Constructor
-    CreateThis();
+    HullDefense();
     // Destructor
-    virtual ~CreateThis();
+    virtual ~HullDefense();
     // Initialize the game
     void initialize(HWND hwnd);
     void update();      // must override pure virtual from Game

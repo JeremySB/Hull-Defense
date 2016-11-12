@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectName>GameEngine</ProjectName>
+    <ProjectName>Hull Defense</ProjectName>
     <ProjectGuid>{0259B800-2046-467E-94A2-D13B6F5210BC}</ProjectGuid>
     <RootNamespace>Destroyer</RootNamespace>
   </PropertyGroup>
@@ -99,7 +99,7 @@
     <ClCompile Include="text.cpp" />
     <ClCompile Include="textureManager.cpp" />
     <ClCompile Include="input.cpp" />
-    <ClCompile Include="createThisClass.cpp" />
+    <ClCompile Include="HullDefense.cpp" />
     <ClCompile Include="image.cpp" />
     <ClCompile Include="textDX.cpp" />
     <ClCompile Include="winmain.cpp" />
@@ -119,7 +119,7 @@
     <ClInclude Include="text.h" />
     <ClInclude Include="textureManager.h" />
     <ClInclude Include="input.h" />
-    <ClInclude Include="createThisClass.h" />
+    <ClInclude Include="HullDefense.h" />
     <ClInclude Include="image.h" />
     <ClInclude Include="textDX.h" />
   </ItemGroup>
