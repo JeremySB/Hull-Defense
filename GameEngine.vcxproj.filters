@@ -66,6 +66,9 @@
     <ClCompile Include="HullDefense.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="structureGrid.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="constants.h">
@@ -117,6 +120,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="HullDefense.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="structureGrid.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
