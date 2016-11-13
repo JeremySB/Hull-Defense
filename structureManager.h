@@ -15,13 +15,15 @@ public:
 	StructureManager();
 	~StructureManager();
 
-	void initialize(Graphics* graphics);
+	void initialize(Graphics* graphics, Game* game);
+
+	void draw() { grid.draw(); }
+	
+	// update structures
+	void update(float frameTime) { grid.update(frameTime); }
 
 	// add wall at location in pixels
 	void addWall(int x, int y);
-
-	// update structures
-	void update(float frameTime) { grid.update(frameTime); }
 
 	void onLostDevice();
 	void onResetDevice();
@@ -30,5 +32,6 @@ private:
 	StructureGrid grid;
 	TextureManager wallTexture;
 	Graphics* graphics;
+	Game* game;
 };
 

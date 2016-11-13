@@ -25,6 +25,8 @@ public:
 	// get structure at a point
 	Structure* at(int x, int y) { return structures[x][y]; }
 
+	void draw();
+
 	// call update on structures in frame
 	void update(float frameTime);
 

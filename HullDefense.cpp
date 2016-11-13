@@ -31,7 +31,7 @@ void HullDefense::initialize(HWND hwnd)
 {
     Game::initialize(hwnd); // throws GameError
 
-	structureManager.initialize(graphics);
+	structureManager.initialize(graphics, this);
 
     // background texture
     if (!backgroundTexture.initialize(graphics, BACKGROUND_IMAGE))
@@ -67,6 +67,8 @@ void HullDefense::update()
 {
     static float delay = 0;
     delay += frameTime;
+
+	structureManager.update(frameTime);
 
     if(menu.getDegrees() > 0)
     {
@@ -111,6 +113,8 @@ void HullDefense::render()
     background.draw(graphicsNS::ALPHA50);
     menu.draw();
     dxFont->setFontColor(graphicsNS::ORANGE);
+
+	structureManager.draw();
 
     graphics->spriteEnd();                  // end drawing sprites
 }

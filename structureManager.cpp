@@ -11,18 +11,20 @@ StructureManager::~StructureManager()
 {
 }
 
-void StructureManager::initialize(Graphics* graphics)
+void StructureManager::initialize(Graphics* graphics, Game* game)
 {
+	this->game = game;
 	this->graphics = graphics;
 	if (!wallTexture.initialize(graphics, WALL_IMAGE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing wall texture"));
-	addWall(3, 4);
+	addWall(40, 50);
 }
 
 void StructureManager::addWall(int x, int y)
 {
-	Wall wall;
-	wall.initialize();
+	Wall* wall = new Wall();
+	wall->initialize(game, 1, 1, 0, &wallTexture);
+	grid.addAtPixelCoords(wall, x, y);
 }
 
 void StructureManager::onLostDevice()
