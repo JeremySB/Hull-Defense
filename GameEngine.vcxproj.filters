@@ -72,6 +72,9 @@
     <ClCompile Include="structure.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="structureManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="constants.h">
@@ -129,6 +132,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="structure.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="structureManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

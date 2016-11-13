@@ -1,3 +1,7 @@
+// Created by Jeremy Bost
+//
+// Base class for various structures that are to be put into the structure grid.
+
 #pragma once
 #include "entity.h"
 

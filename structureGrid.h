@@ -1,4 +1,4 @@
-// Created by Jeremy Bost for Hull Defense
+// Created by Jeremy Bost
 // 
 // Creates a grid of structures that contains wall and tower entities.
 // Allows structure placement in the grid and returns entities at given positions.

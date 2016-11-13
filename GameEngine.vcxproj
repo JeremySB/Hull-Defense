@@ -98,6 +98,7 @@
     <ClCompile Include="net.cpp" />
     <ClCompile Include="structure.cpp" />
     <ClCompile Include="structureGrid.cpp" />
+    <ClCompile Include="structureManager.cpp" />
     <ClCompile Include="text.cpp" />
     <ClCompile Include="textureManager.cpp" />
     <ClCompile Include="input.cpp" />
@@ -120,6 +121,7 @@
     <ClInclude Include="net.h" />
     <ClInclude Include="structure.h" />
     <ClInclude Include="structureGrid.h" />
+    <ClInclude Include="structureManager.h" />
     <ClInclude Include="text.h" />
     <ClInclude Include="textureManager.h" />
     <ClInclude Include="input.h" />
