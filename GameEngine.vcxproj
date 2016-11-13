@@ -96,6 +96,7 @@
     <ClCompile Include="inputDialog.cpp" />
     <ClCompile Include="messageDialog.cpp" />
     <ClCompile Include="net.cpp" />
+    <ClCompile Include="structure.cpp" />
     <ClCompile Include="structureGrid.cpp" />
     <ClCompile Include="text.cpp" />
     <ClCompile Include="textureManager.cpp" />
@@ -117,6 +118,7 @@
     <ClInclude Include="inputDialog.h" />
     <ClInclude Include="messageDialog.h" />
     <ClInclude Include="net.h" />
+    <ClInclude Include="structure.h" />
     <ClInclude Include="structureGrid.h" />
     <ClInclude Include="text.h" />
     <ClInclude Include="textureManager.h" />

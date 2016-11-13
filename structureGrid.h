@@ -2,29 +2,34 @@
 // 
 // Creates a grid of structures that contains wall and tower entities.
 // Allows structure placement in the grid and returns entities at given positions.
+//
+// x is across, y is down
 
 #pragma once
 
-#include "entity.h"
+#include "structure.h"
 #include <vector>
 
-class structureGrid
+class StructureGrid
 {
 public:
-	structureGrid(void);
-	~structureGrid(void);
+	StructureGrid(void);
+	~StructureGrid(void);
 
-	// Initialize grid with a certain cell width and height. Grid fills screen.
-	void initialize(float cellWidth, float cellHeight);
+	// add Structure at grid location
+	void addAtGridCoords(Structure* ent, int x, int y);
 
-	// add entity at grid location
-	void addAtGridCoords(Entity* ent, int x, int y);
-
-	// add entity at pixel location - translates into nearest grid
-	void addAtPixelCoords(Entity* ent, int x, int y);
+	// add Structure at pixel location - translates into nearest grid
+	void addAtPixelCoords(Structure* ent, int x, int y);
 
 private:
 	float cellWidth, cellHeight;
-	std::vector< std::vector<Entity*> > entities;
+	std::vector< std::vector<Structure*> > structures;
+
+	int gridXLoc(int pixelLoc);
+	int gridYLoc(int pixelLoc);
+
+	int pixelXLoc(int gridLoc);
+	int pixelYLoc(int gridLoc);
 };
 
