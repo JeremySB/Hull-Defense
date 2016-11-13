@@ -12,7 +12,6 @@
 HullDefense::HullDefense() : Game()
 {
     dxFont = new TextDX();  // DirectX font
-    messageY = 0;
 }
 
 //=============================================================================
@@ -31,6 +30,8 @@ HullDefense::~HullDefense()
 void HullDefense::initialize(HWND hwnd)
 {
     Game::initialize(hwnd); // throws GameError
+
+	structureManager.initialize(graphics);
 
     // background texture
     if (!backgroundTexture.initialize(graphics, BACKGROUND_IMAGE))
@@ -55,21 +56,6 @@ void HullDefense::initialize(HWND hwnd)
 
     menu.setDegrees(300);
     menu.setScale(0.002861f);
-
-    message = "\n\n\nUtilizes Object Oriented C++ and DirectX\n\n";
-    message += "Sprites with Transparency\n\n";
-    message += "Collision Detection Supported:\n";
-    message += "     - Circular (Distance)\n";
-    message += "     - Axis-aligned bounding box\n";
-    message += "     - Rotated bounding box\n";
-    message += "     - Rotated bounding box and circle\n";
-    message += "     - Pixel Perfect\n\n";
-    message += "XACT Audio\n\n";
-    message += "Sprite and DirectX Text\n\n";
-    message += "Tile Based Graphics\n\n";
-    message += "Xbox 360 Controller Input\n\n";
-    message += "TCP/IP and UDP/IP Network Support\n\n";
-    messageY = GAME_HEIGHT;
 
     return;
 }
@@ -96,13 +82,10 @@ void HullDefense::update()
         menu.setScale(0.002861f);
         menu.setY(0);
         delay = 0;
-        messageY = GAME_HEIGHT;
     }
     else if(delay > 5)
     {
         menu.setY(menu.getY() - frameTime * 300);
-        if (messageY > 10)
-            messageY -= frameTime * 300;
     }
 }
 
@@ -128,7 +111,6 @@ void HullDefense::render()
     background.draw(graphicsNS::ALPHA50);
     menu.draw();
     dxFont->setFontColor(graphicsNS::ORANGE);
-    dxFont->print(message,20,(int)messageY);
 
     graphics->spriteEnd();                  // end drawing sprites
 }
@@ -141,6 +123,7 @@ void HullDefense::releaseAll()
 {
     dxFont->onLostDevice();
     menuTexture.onLostDevice();
+	structureManager.onLostDevice();
     Game::releaseAll();
     return;
 }
@@ -153,6 +136,7 @@ void HullDefense::resetAll()
 {
     menuTexture.onResetDevice();
     dxFont->onResetDevice();
+	structureManager.onResetDevice();
     Game::resetAll();
     return;
 }

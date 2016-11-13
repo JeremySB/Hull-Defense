@@ -13,6 +13,7 @@
 #include "textureManager.h"
 #include "image.h"
 #include "textDX.h"
+#include "structureManager.h"
 
 //=============================================================================
 // This class is the core of the game
@@ -22,11 +23,10 @@ class HullDefense : public Game
 private:
     // game items
     TextureManager menuTexture, backgroundTexture; // textures
+	StructureManager structureManager;
     Image   menu;               // menu image
     Image   background;         // background image
     TextDX  *dxFont;            // DirectX font
-    std::string  message;
-    float messageY;
 
 public:
     // Constructor
