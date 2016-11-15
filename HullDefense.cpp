@@ -31,7 +31,7 @@ void HullDefense::initialize(HWND hwnd)
 {
     Game::initialize(hwnd); // throws GameError
 
-	structureManager.initialize(graphics, this);
+	structureManager.initialize(graphics, this, input);
 
     // background texture
     if (!backgroundTexture.initialize(graphics, BACKGROUND_IMAGE))
@@ -199,7 +199,7 @@ void HullDefense::render()
     graphics->spriteBegin();                // begin drawing sprites
 
     background.draw(graphicsNS::ALPHA50);
-    menu.draw();
+    //menu.draw();
     dxFont->setFontColor(graphicsNS::ORANGE);
 	towerMenu.draw();
 	turretMenu.draw();

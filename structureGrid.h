@@ -22,13 +22,28 @@ public:
 	// add Structure at pixel location - translates into nearest grid
 	void addAtPixelCoords(Structure* ent, int x, int y);
 
-	// get structure at a point
-	Structure* at(int x, int y) { return structures[x][y]; }
+	// remove structure at a location in pixels
+	void removeAtPixelCoords(int x, int y) { removeAtGridCoords(gridXLoc(x), gridXLoc(y)); }
+
+	// remove structure at a location in grid
+	void removeAtGridCoords(int x, int y);
+
+	// get structure at a location in pixels
+	Structure* atPixelCoords(int x, int y) { return atGridCoords(gridXLoc(x), gridXLoc(y)); }
+
+	// get structure at a location in grid
+	Structure* atGridCoords(int x, int y) { return structures[x][y]; }
 
 	void draw();
 
 	// call update on structures in frame
 	void update(float frameTime);
+
+	int gridXLoc(int pixelLoc);
+	int gridYLoc(int pixelLoc);
+
+	int pixelXLoc(int gridLoc);
+	int pixelYLoc(int gridLoc);
 
 private:
 	float cellWidth, cellHeight;
@@ -36,10 +51,5 @@ private:
 
 	int maxX, maxY;
 
-	int gridXLoc(int pixelLoc);
-	int gridYLoc(int pixelLoc);
-
-	int pixelXLoc(int gridLoc);
-	int pixelYLoc(int gridLoc);
 };
 

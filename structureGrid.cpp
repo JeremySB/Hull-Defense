@@ -1,14 +1,16 @@
+// Created by Jeremy Bost
+
 #include "structureGrid.h"
 
 
-StructureGrid::StructureGrid(void) : structures((int)(GAME_WIDTH / CELL_WIDTH), 
-										std::vector<Structure*>((int)(GAME_HEIGHT / CELL_HEIGHT)))
+StructureGrid::StructureGrid(void) : structures((int)(GAME_WIDTH / CELL_WIDTH) + 1, 
+										std::vector<Structure*>((int)(GAME_HEIGHT / CELL_HEIGHT) + 1, nullptr))
 {
 	this->cellHeight = CELL_HEIGHT;
 	this->cellWidth = CELL_WIDTH;
 
-	maxX = (int)(GAME_WIDTH / CELL_WIDTH) - 1;
-	maxY = (int)(GAME_HEIGHT / CELL_HEIGHT) - 1;
+	maxX = (int)(GAME_WIDTH / CELL_WIDTH);
+	maxY = (int)(GAME_HEIGHT / CELL_HEIGHT);
 }
 
 
@@ -25,7 +27,7 @@ StructureGrid::~StructureGrid(void)
 
 void StructureGrid::addAtGridCoords(Structure* in, int x, int y)
 {
-	if(!(x >= 0 && y >= 0 && x + in->getWidthInGrid() - 1 <= maxX && y + in->getHeightInGrid() - 1 <= maxY))
+	if(!(x >= 0 && y >= 0 && x + in->getWidthInGrid() <= maxX && y + in->getHeightInGrid() <= maxY))
 		throw(GameError(gameErrorNS::WARNING, "Structure out of grid boundary"));
 
 	in->setX(pixelXLoc(x));
@@ -44,12 +46,28 @@ void StructureGrid::addAtPixelCoords(Structure* in, int x, int y)
 	addAtGridCoords(in, gridXLoc(x), gridYLoc(y));
 }
 
+void StructureGrid::removeAtGridCoords(int x, int y)
+{
+	// have to loop through to delete multi-cell structures
+	Structure* toDelete = atGridCoords(x, y);
+
+	for (auto iter = structures.begin(); iter != structures.end(); iter++) {
+		for (auto iter2 = iter->begin(); iter2 != iter->end(); iter2++)
+		{
+			if (*iter2 == toDelete)
+				*iter2 = nullptr;
+		}
+	}
+	safeDelete(toDelete);
+}
+
 void StructureGrid::draw()
 {
 	for (auto iter = structures.begin(); iter != structures.end(); iter++) {
 		for (auto iter2 = iter->begin(); iter2 != iter->end(); iter2++)
 		{
-			if (*iter2) (*iter2)->draw();
+			if (*iter2) 
+				(*iter2)->draw();
 		}
 	}
 }
