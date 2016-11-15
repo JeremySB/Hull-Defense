@@ -36,6 +36,14 @@ const double PI = 3.14159265;
 const char MENU_IMAGE[] =     "pictures\\menu.png";      // menu texture
 const char BACKGROUND_IMAGE[] = "pictures\\background1.png";  // background
 const char WALL_IMAGE[] = "pictures\\wallJEREMY.png";
+const char TOWERMENU_IMAGE[] = "pictures\\towerMenuDANIEL.png";
+const char TURRETMENU_IMAGE[] = "pictures\\turretsMenuDANIEL.png";
+const char WALLMENU_IMAGE[] = "pictures\\wallMenuDANIEL.png";
+const char DEFMENU_IMAGE[] = "pictures\\menuDefaultDANIEL.png";
+
+// menu
+const int TABS_WIDTH = 140;
+const int TABS_HEIGHT = 27;
 
 // audio files required by audio.cpp
 // WAVE_BANK must be location of .xwb file.

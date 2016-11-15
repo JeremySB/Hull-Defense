@@ -22,11 +22,16 @@ class HullDefense : public Game
 {
 private:
     // game items
-    TextureManager menuTexture, backgroundTexture; // textures
+    TextureManager menuTexture, backgroundTexture, towermenuTexture, turretmenuTexture, wallmenuTexture, defmenuTexture; // textures
 	StructureManager structureManager;
     Image   menu;               // menu image
+	Image	towerMenu;
+	Image	turretMenu;
+	Image	wallMenu;
+	Image	defMenu;
     Image   background;         // background image
     TextDX  *dxFont;            // DirectX font
+	bool menuActive;
 
 public:
     // Constructor
