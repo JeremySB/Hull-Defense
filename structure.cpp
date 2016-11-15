@@ -1,3 +1,5 @@
+// Created by Jeremy Bost
+
 #include "structure.h"
 
 

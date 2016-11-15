@@ -15,15 +15,21 @@ public:
 	StructureManager();
 	~StructureManager();
 
-	void initialize(Graphics* graphics, Game* game);
+	void initialize(Graphics* graphics, Game* game, Input* input);
 
-	void draw() { grid.draw(); }
+	void draw();
 	
 	// update structures
-	void update(float frameTime) { grid.update(frameTime); }
+	void update(float frameTime);
 
-	// add wall at location in pixels
-	void addWall(int x, int y);
+	// add wall at location in pixels. Returns false if object there
+	bool addWall(int x, int y);
+
+	// opens selection process for placing a wall
+	void addWallSelection();
+
+	// checking if there is a structure at a given pixel location
+	bool isOccupied(int x, int y);
 
 	void onLostDevice();
 	void onResetDevice();
@@ -33,5 +39,8 @@ private:
 	TextureManager wallTexture;
 	Graphics* graphics;
 	Game* game;
+	Input* input;
+	enum Mode {normal, wallSelection, towerSelection} mode;
+	bool lastLMBState;
 };
 
