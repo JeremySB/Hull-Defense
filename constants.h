@@ -16,8 +16,8 @@
 //=============================================================================
 
 // window
-const char CLASS_NAME[] = "createThisClass";
-const char GAME_TITLE[] = "Game Engine v4.0 Demo";
+const char CLASS_NAME[] = "HullDefense";
+const char GAME_TITLE[] = "Hull Defense";
 const bool FULLSCREEN = false;              // windowed or fullscreen
 const UINT GAME_WIDTH =  1100;               // width of game in pixels
 const UINT GAME_HEIGHT = 600;               // height of game in pixels
@@ -36,8 +36,9 @@ const double PI = 3.14159265;
 
 // graphic images
 const char MENU_IMAGE[] =     "pictures\\menu.png";      // menu texture
-const char BACKGROUND_IMAGE[] = "pictures\\background1.png";  // background
+const char BACKGROUND_IMAGE[] = "pictures\\background1DAN.png";  // background
 const char WALL_IMAGE[] = "pictures\\wallJEREMY.png";
+const char GOOD_SELECTION_IMAGE[] = "pictures\\goodSelectionJEREMY.png";
 
 // audio files required by audio.cpp
 // WAVE_BANK must be location of .xwb file.

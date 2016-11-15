@@ -36,11 +36,15 @@ public:
 
 private:
 	StructureGrid grid;
-	TextureManager wallTexture;
+	TextureManager wallTexture, goodSelectionTexture;
+	Image goodSelectionImage;
 	Graphics* graphics;
 	Game* game;
 	Input* input;
-	enum Mode {normal, wallSelection, towerSelection} mode;
+	enum Mode {normal, wallSelection, towerSelection, turretSelection} mode;
 	bool lastLMBState;
+
+	// runs every update and controls hovering and structure selection
+	void selection();
 };
 

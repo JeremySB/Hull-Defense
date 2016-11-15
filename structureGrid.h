@@ -39,16 +39,17 @@ public:
 	// call update on structures in frame
 	void update(float frameTime);
 
+	int gridXLoc(int pixelLoc);
+	int gridYLoc(int pixelLoc);
+
+	int pixelXLoc(int gridLoc);
+	int pixelYLoc(int gridLoc);
+
 private:
 	float cellWidth, cellHeight;
 	std::vector< std::vector<Structure*> > structures;
 
 	int maxX, maxY;
 
-	int gridXLoc(int pixelLoc);
-	int gridYLoc(int pixelLoc);
-
-	int pixelXLoc(int gridLoc);
-	int pixelYLoc(int gridLoc);
 };
 
