@@ -8,6 +8,7 @@
 #include "structureGrid.h"
 #include "textureManager.h"
 #include "wall.h"
+#include "turret.h"
 
 class StructureManager
 {
@@ -23,8 +24,12 @@ public:
 	void update(float frameTime);
 
 	// add wall at location in pixels. Returns false if object there
+	bool addTurret(int x, int y);
+	// add wall at location in pixels. Returns false if object there
 	bool addWall(int x, int y);
 
+	// opens selection process for placing a turret
+	void addTurretSelection();
 	// opens selection process for placing a wall
 	void addWallSelection();
 

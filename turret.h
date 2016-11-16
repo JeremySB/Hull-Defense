@@ -7,7 +7,7 @@
 
 namespace turretNS {
 	const float RANGE = 50;
-	const float PROJECTILE_SPEED = 100;
+	const float PROJECTILE_DURATION = 0.1; // in seconds
 }
 
 class Turret : public Structure
@@ -16,14 +16,19 @@ public:
 	Turret();
 	~Turret();
 
-	bool initialize(Game *gamePtr, int widthInGrid, int heightInGrid, int ncols, TextureManager *textureM);
-
+	void draw();
 	void update(float frameTime);
 
 	void attackTarget(Entity* target);
 
+	void setProjectileTexture(TextureManager* tm);
+
 private:
-	TextureManager projectile;
+	TextureManager* projectileTexture;
 	Entity* target;
+	Image projectileImage;
+
+	float projectileDisplayTimer;
+	bool targetChanged;
 };
 

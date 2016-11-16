@@ -48,6 +48,9 @@ void StructureGrid::addAtPixelCoords(Structure* in, int x, int y)
 
 void StructureGrid::removeAtGridCoords(int x, int y)
 {
+	if (!(x >= 0 && y >= 0 && x <= maxX && y <= maxY))
+		throw(GameError(gameErrorNS::WARNING, "Structure out of grid boundary"));
+	
 	// have to loop through to delete multi-cell structures
 	Structure* toDelete = atGridCoords(x, y);
 
@@ -59,6 +62,13 @@ void StructureGrid::removeAtGridCoords(int x, int y)
 		}
 	}
 	safeDelete(toDelete);
+}
+
+Structure * StructureGrid::atGridCoords(int x, int y)
+{
+	if ((x >= 0 && y >= 0 && x <= maxX && y <= maxY))
+		return structures[x][y];
+	return nullptr;
 }
 
 void StructureGrid::draw()

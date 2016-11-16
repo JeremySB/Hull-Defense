@@ -48,8 +48,6 @@ void HullDefense::initialize(HWND hwnd)
     if(dxFont->initialize(graphics, 18, true, false, "Arial") == false)
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing DirectX font"));
 
-    menu.setDegrees(300);
-    menu.setScale(0.002861f);
 
     return;
 }
@@ -86,11 +84,12 @@ void HullDefense::render()
 {
     graphics->spriteBegin();                // begin drawing sprites
 
-    background.draw(graphicsNS::ALPHA50);
-    //menu.draw();
+    background.draw();
     dxFont->setFontColor(graphicsNS::ORANGE);
-	gameMenu.draw();
+	
 	structureManager.draw();
+
+	gameMenu.draw();
 
     graphics->spriteEnd();                  // end drawing sprites
 }
