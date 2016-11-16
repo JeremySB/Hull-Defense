@@ -4,11 +4,26 @@
 
 #pragma once
 #include "structure.h"
-class Turret :
-	public Structure
+
+namespace turretNS {
+	const float RANGE = 50;
+	const float PROJECTILE_SPEED = 100;
+}
+
+class Turret : public Structure
 {
 public:
 	Turret();
 	~Turret();
+
+	bool initialize(Game *gamePtr, int widthInGrid, int heightInGrid, int ncols, TextureManager *textureM);
+
+	void update(float frameTime);
+
+	void attackTarget(Entity* target);
+
+private:
+	TextureManager projectile;
+	Entity* target;
 };
 

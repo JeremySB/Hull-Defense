@@ -23,15 +23,19 @@ void StructureManager::initialize(Graphics* graphics, Game* game, Input* input)
 	if (!wallTexture.initialize(graphics, WALL_IMAGE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing wall texture"));
 
+	if (!turretTexture.initialize(graphics, TURRET_IMAGE))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing turret texture"));
+
+	if (!turretProjectileTexture.initialize(graphics, TURRET_PROJECTILE_IMAGE))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing turret projectile texture"));
+
 	if (!goodSelectionTexture.initialize(graphics, GOOD_SELECTION_IMAGE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing selection texture"));
 
 	if (!goodSelectionImage.initialize(graphics, CELL_WIDTH, CELL_HEIGHT, 0, &goodSelectionTexture))
-		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing selection image"));
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing selection image")); 
 
 	goodSelectionImage.setVisible(false);
-	
-	addWallSelection();
 }
 
 void StructureManager::draw()
