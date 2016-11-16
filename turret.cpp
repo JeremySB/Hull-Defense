@@ -8,6 +8,7 @@ Turret::Turret()
 	projectileDisplayTimer = turretNS::PROJECTILE_DURATION;
 	target = nullptr;
 	targetChanged = false;
+	type = turret;
 }
 
 
