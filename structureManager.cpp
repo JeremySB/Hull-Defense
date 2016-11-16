@@ -36,6 +36,12 @@ void StructureManager::initialize(Graphics* graphics, Game* game, Input* input)
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing selection image")); 
 
 	goodSelectionImage.setVisible(false);
+	addTurret(40, 40);
+	addTurret(100, 100);
+	Turret* t1 = (Turret*)(grid.atPixelCoords(40, 40));
+	Turret* t2 = (Turret*)(grid.atPixelCoords(100, 100));
+	t2->attackTarget(t1);
+	addTurretSelection();
 }
 
 void StructureManager::draw()
@@ -54,6 +60,18 @@ void StructureManager::update(float frameTime)
 	else lastLMBState = false;
 }
 
+bool StructureManager::addTurret(int x, int y)
+{
+	if (isOccupied(x, y)) return false;
+
+	Turret* turret = new Turret();
+	turret->initialize(game, 1, 1, 0, &turretTexture);
+	grid.addAtPixelCoords(turret, x, y);
+	turret->setProjectileTexture(&turretProjectileTexture);
+
+	return true;
+}
+
 bool StructureManager::addWall(int x, int y)
 {
 	if (isOccupied(x, y)) return false;
@@ -63,6 +81,11 @@ bool StructureManager::addWall(int x, int y)
 	grid.addAtPixelCoords(wall, x, y);
 
 	return true;
+}
+
+void StructureManager::addTurretSelection()
+{
+	mode = turretSelection;
 }
 
 void StructureManager::addWallSelection()
@@ -79,11 +102,17 @@ bool StructureManager::isOccupied(int x, int y)
 void StructureManager::onLostDevice()
 {
 	wallTexture.onLostDevice();
+	turretTexture.onLostDevice();
+	turretProjectileTexture.onLostDevice();
+	goodSelectionTexture.onLostDevice();
 }
 
 void StructureManager::onResetDevice()
 {
 	wallTexture.onResetDevice();
+	turretTexture.onResetDevice();
+	turretProjectileTexture.onResetDevice();
+	goodSelectionTexture.onResetDevice();
 }
 
 void StructureManager::selection()
@@ -93,9 +122,10 @@ void StructureManager::selection()
 
 	// only trigger on LMB up
 	if (mode == wallSelection && !input->getMouseLButton() && lastLMBState) {
-		if (!isOccupied(x, y)) {
-			addWall(x, y);
-		}
+		addWall(x, y); // function checks for existing structures
+	}
+	else if (mode == turretSelection && !input->getMouseLButton() && lastLMBState) {
+		addTurret(x, y);
 	}
 
 	// add green highlight if good selection

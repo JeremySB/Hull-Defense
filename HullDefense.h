@@ -26,7 +26,6 @@ private:
     TextureManager menuTexture, backgroundTexture, towermenuTexture, turretmenuTexture, wallmenuTexture, defmenuTexture; // textures
 	StructureManager structureManager;
 	GameMenu gameMenu;
-    Image   menu;               // menu image
     Image   background;         // background image
     TextDX  *dxFont;            // DirectX font
 

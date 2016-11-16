@@ -13,6 +13,10 @@ public:
 
 	bool initialize(Game *gamePtr, int widthInGrid, int heightInGrid, int ncols, TextureManager *textureM);
 
+	virtual void draw() { Entity::draw(); }
+
+	virtual void drawProjectiles() {}
+
 	int getWidthInGrid() { return widthInGrid; }
 	int getHeightInGrid() { return heightInGrid; }
 

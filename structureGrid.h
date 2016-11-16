@@ -32,7 +32,7 @@ public:
 	Structure* atPixelCoords(int x, int y) { return atGridCoords(gridXLoc(x), gridXLoc(y)); }
 
 	// get structure at a location in grid
-	Structure* atGridCoords(int x, int y) { return structures[x][y]; }
+	Structure* atGridCoords(int x, int y);
 
 	void draw();
 
