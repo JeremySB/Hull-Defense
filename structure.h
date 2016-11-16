@@ -15,6 +15,8 @@ public:
 
 	virtual void draw() { Entity::draw(); }
 
+	virtual void drawProjectiles() {}
+
 	int getWidthInGrid() { return widthInGrid; }
 	int getHeightInGrid() { return heightInGrid; }
 

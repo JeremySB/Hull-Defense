@@ -80,6 +80,14 @@ void StructureGrid::draw()
 				(*iter2)->draw();
 		}
 	}
+
+	for (auto iter = structures.begin(); iter != structures.end(); iter++) {
+		for (auto iter2 = iter->begin(); iter2 != iter->end(); iter2++)
+		{
+			if (*iter2)
+				(*iter2)->drawProjectiles();
+		}
+	}
 }
 
 void StructureGrid::update(float frameTime)

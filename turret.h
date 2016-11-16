@@ -7,7 +7,8 @@
 
 namespace turretNS {
 	const float RANGE = 50;
-	const float PROJECTILE_DURATION = 0.1; // in seconds
+	const float PROJECTILE_DURATION = 0.15; // in seconds
+	const float TIME_BETWEEN_SHOTS = 0.5; // in seconds
 }
 
 class Turret : public Structure
@@ -16,7 +17,7 @@ public:
 	Turret();
 	~Turret();
 
-	void draw();
+	void drawProjectiles();
 	void update(float frameTime);
 
 	void attackTarget(Entity* target);

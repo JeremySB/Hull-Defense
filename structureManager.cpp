@@ -36,8 +36,12 @@ void StructureManager::initialize(Graphics* graphics, Game* game, Input* input)
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing selection image")); 
 
 	goodSelectionImage.setVisible(false);
-
-	//addTurretSelection();
+	addTurret(40, 40);
+	addTurret(100, 100);
+	Turret* t1 = (Turret*)(grid.atPixelCoords(40, 40));
+	Turret* t2 = (Turret*)(grid.atPixelCoords(100, 100));
+	t2->attackTarget(t1);
+	addTurretSelection();
 }
 
 void StructureManager::draw()
