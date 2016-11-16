@@ -65,6 +65,10 @@ void HullDefense::update()
 	structureManager.update(frameTime);
 	gameMenu.update(frameTime);
 	
+	// exit on esc
+	if(input->isKeyDown(VK_ESCAPE)){
+		exit(1);
+	}
 }
 
 //=============================================================================
