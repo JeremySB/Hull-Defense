@@ -21,6 +21,7 @@ public:
 	void update(float frameTime);
 
 	void attackTarget(Entity* target);
+	void damage(int weapon);
 
 	void setProjectileTexture(TextureManager* tm);
 

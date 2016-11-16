@@ -8,6 +8,7 @@ Turret::Turret()
 	projectileDisplayTimer = turretNS::PROJECTILE_DURATION;
 	target = nullptr;
 	targetChanged = false;
+	setHealth(100);
 }
 
 
@@ -66,4 +67,8 @@ void Turret::setProjectileTexture(TextureManager * tm)
 	projectileImage.setWidth(0);
 	projectileImage.setRect();
 	projectileImage.setColorFilter(graphicsNS::WHITE);
+}
+
+void Turret::damage(int weapon){
+	setHealth(getHealth()-weapon);
 }

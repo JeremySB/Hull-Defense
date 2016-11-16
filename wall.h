@@ -9,5 +9,7 @@ class Wall : public Structure
 public:
 	Wall();
 	~Wall();
+
+	void damage(int weapon);
 };
 
