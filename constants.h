@@ -21,7 +21,7 @@ const char GAME_TITLE[] = "Hull Defense";
 const bool FULLSCREEN = false;              // windowed or fullscreen
 const UINT GAME_WIDTH =  1100;               // width of game in pixels
 const UINT GAME_HEIGHT = 600;               // height of game in pixels
-
+	
 // careful about changing these, the grid might not line up well
 const UINT CELL_WIDTH = 25;               // width of grid cell in pixels
 const UINT CELL_HEIGHT = 25;               // height of grid cell in pixels
@@ -38,9 +38,9 @@ const double PI = 3.14159265;
 const char MENU_IMAGE[] =     "pictures\\menu.png";      // menu texture
 const char BACKGROUND_IMAGE[] = "pictures\\background1DAN.png";  // background
 const char WALL_IMAGE[] = "pictures\\wallJEREMY.png";
-const char TOWERMENU_IMAGE[] = "pictures\\towerMenuDANIEL.png";
-const char TURRETMENU_IMAGE[] = "pictures\\turretsMenuDANIEL.png";
-const char WALLMENU_IMAGE[] = "pictures\\wallMenuDANIEL.png";
+const char TOWERMENU_IMAGE[] = "pictures\\buildmenuDANIEL.png";
+const char TURRETMENU_IMAGE[] = "pictures\\repairmenuDANIEL.png";
+const char WALLMENU_IMAGE[] = "pictures\\sellmenuDANIEL.png";
 const char DEFMENU_IMAGE[] = "pictures\\menuDefaultDANIEL.png";
 const char GOOD_SELECTION_IMAGE[] = "pictures\\goodSelectionJEREMY.png";
 

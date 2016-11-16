@@ -14,6 +14,7 @@
 #include "image.h"
 #include "textDX.h"
 #include "structureManager.h"
+#include "gameMenu.h"
 
 //=============================================================================
 // This class is the core of the game
@@ -24,14 +25,10 @@ private:
     // game items
     TextureManager menuTexture, backgroundTexture, towermenuTexture, turretmenuTexture, wallmenuTexture, defmenuTexture; // textures
 	StructureManager structureManager;
+	GameMenu gameMenu;
     Image   menu;               // menu image
-	Image	towerMenu;
-	Image	turretMenu;
-	Image	wallMenu;
-	Image	defMenu;
     Image   background;         // background image
     TextDX  *dxFont;            // DirectX font
-	bool menuActive;
 
 public:
     // Constructor
