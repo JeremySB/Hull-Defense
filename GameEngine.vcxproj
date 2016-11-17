@@ -99,6 +99,7 @@
     <ClCompile Include="inputDialog.cpp" />
     <ClCompile Include="messageDialog.cpp" />
     <ClCompile Include="net.cpp" />
+    <ClCompile Include="PathFinding.cpp" />
     <ClCompile Include="structure.cpp" />
     <ClCompile Include="structureGrid.cpp" />
     <ClCompile Include="structureManager.cpp" />
@@ -128,6 +129,7 @@
     <ClInclude Include="inputDialog.h" />
     <ClInclude Include="messageDialog.h" />
     <ClInclude Include="net.h" />
+    <ClInclude Include="PathFinding.h" />
     <ClInclude Include="structure.h" />
     <ClInclude Include="structureGrid.h" />
     <ClInclude Include="structureManager.h" />

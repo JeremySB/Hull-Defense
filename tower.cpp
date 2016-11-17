@@ -4,6 +4,7 @@
 
 Tower::Tower()
 {
+	type = tower;
 	setCollisionRadius(towerNS::RANGE);
 	projectileDisplayTimer = towerNS::PROJECTILE_DURATION;
 	target = nullptr;

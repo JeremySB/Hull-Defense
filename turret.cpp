@@ -4,6 +4,7 @@
 
 Turret::Turret()
 {
+	type = turret;
 	setCollisionRadius(turretNS::RANGE);
 	projectileDisplayTimer = turretNS::PROJECTILE_DURATION;
 	target = nullptr;

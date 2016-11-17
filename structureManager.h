@@ -45,7 +45,8 @@ public:
 
 private:
 	//StructureGrid grid;
-	TextureManager wallTexture, turretTexture, turretProjectileTexture, goodSelectionTexture;
+	TextureManager wallTexture, turretTexture, turretProjectileTexture, goodSelectionTexture,turretBaseTexture,turretGunTexture,towerBaseTexture;
+	TextureManager towerProjectileTexture,towerGunTexture;
 	Image goodSelectionImage;
 	Graphics* graphics;
 	Game* game;
