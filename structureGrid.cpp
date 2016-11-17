@@ -31,6 +31,8 @@ void StructureGrid::addAtGridCoords(Structure* in, int x, int y)
 	if(!(x >= 0 && y >= 0 && x + in->getWidthInGrid() <= maxX && y + in->getHeightInGrid() <= maxY))
 		throw(GameError(gameErrorNS::WARNING, "Structure out of grid boundary"));
 
+	structureList.push_back(in);
+
 	in->setX(pixelXLoc(x));
 	in->setY(pixelYLoc(y));
 
@@ -55,6 +57,8 @@ void StructureGrid::removeAtGridCoords(int x, int y)
 	// have to loop through to delete multi-cell structures
 	Structure* toDelete = atGridCoords(x, y);
 
+	structureList.remove(toDelete);
+
 	for (auto iter = structures.begin(); iter != structures.end(); iter++) {
 		for (auto iter2 = iter->begin(); iter2 != iter->end(); iter2++)
 		{
@@ -74,43 +78,28 @@ Structure * StructureGrid::atGridCoords(int x, int y)
 
 void StructureGrid::draw()
 {
-	for (auto iter = structures.begin(); iter != structures.end(); iter++) {
-		for (auto iter2 = iter->begin(); iter2 != iter->end(); iter2++)
-		{
-			if (*iter2) 
-				(*iter2)->draw();
-		}
+	for (auto iter = structureList.begin(); iter != structureList.end(); iter++) {
+		if (*iter)
+			(*iter)->draw();
 	}
 
-	for (auto iter = structures.begin(); iter != structures.end(); iter++) {
-		for (auto iter2 = iter->begin(); iter2 != iter->end(); iter2++)
-		{
-			if (*iter2)
-				(*iter2)->drawProjectiles();
-		}
+	for (auto iter = structureList.begin(); iter != structureList.end(); iter++) {
+		if (*iter)
+			(*iter)->drawProjectiles();
 	}
 }
 
 void StructureGrid::update(float frameTime)
 {
-	for (auto iter = structures.begin(); iter != structures.end(); iter++) {
-		for (auto iter2 = iter->begin(); iter2 != iter->end(); iter2++)
-		{
-			if(*iter2) (*iter2)->update(frameTime);
-		}
+	for (auto iter = structureList.begin(); iter != structureList.end(); iter++) {
+		if (*iter)
+			(*iter)->update(frameTime);
 	}
 }
 
 std::list<Structure*> StructureGrid::getStructures()
 {
-	std::list<Structure*> list;
-	for (auto iter = structures.begin(); iter != structures.end(); iter++) {
-		for (auto iter2 = iter->begin(); iter2 != iter->end(); iter2++)
-		{
-			if (*iter2) list.push_back(*iter2);
-		}
-	}
-	return list;
+	return structureList;
 }
 
 int StructureGrid::gridXLoc(int pixelLoc)

@@ -31,21 +31,26 @@ void Turret::draw()
 void Turret::update(float frameTime)
 {
 	Entity::update(frameTime);
-	if (projectileDisplayTimer < turretNS::PROJECTILE_DURATION + turretNS::TIME_BETWEEN_SHOTS) {
-		if (targetChanged && target != nullptr) {
-			float distance = std::sqrt(std::pow(target->getCenterX() - getCenterX(), 2) + std::pow(target->getCenterX() - getCenterX(), 2));
+	if (projectileDisplayTimer < turretNS::PROJECTILE_DURATION + turretNS::TIME_BETWEEN_SHOTS && target != nullptr)
+	{
+		float distance = std::sqrt(std::pow(target->getCenterX() - getCenterX(), 2) + std::pow(target->getCenterY() - getCenterY(), 2));
+		if (distance <= turretNS::RANGE) {
 			projectileImage.setWidth(distance);
 			projectileImage.setRect();
-			projectileImage.setX(getCenterX() + (target->getCenterX() - getCenterX())/2 - projectileImage.getWidth()/2);
+			projectileImage.setX(getCenterX() + (target->getCenterX() - getCenterX()) / 2 - projectileImage.getWidth() / 2);
 			projectileImage.setY(getCenterY() + (target->getCenterY() - getCenterY()) / 2 - projectileImage.getHeight() / 2);
 			float radians = std::atan2(target->getCenterY() - getCenterY(), target->getCenterX() - getCenterX());
 			projectileImage.setRadians(radians);
-			gunImage.setRadians(radians + PI/2);
+			gunImage.setRadians(radians + PI / 2);
 			targetChanged = false;
+			projectileImage.setVisible(true);
+			projectileImage.setColorFilter(SETCOLOR_ARGB((int)(255 * (1 - min(1, projectileDisplayTimer / turretNS::PROJECTILE_DURATION))), 255, 255, 255));
+			projectileDisplayTimer += frameTime;
 		}
-		projectileImage.setVisible(true);
-		projectileImage.setColorFilter(SETCOLOR_ARGB((int)(255 * (1 - min(1, projectileDisplayTimer / turretNS::PROJECTILE_DURATION))), 255, 255, 255));
-		projectileDisplayTimer += frameTime;
+		else
+		{
+			projectileImage.setVisible(false);
+		}
 	}
 	else {
 		projectileImage.setVisible(false);

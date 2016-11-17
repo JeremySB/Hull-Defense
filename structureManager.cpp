@@ -60,9 +60,9 @@ void StructureManager::initialize(Graphics* graphics, Game* game, Input* input)
 
 	Turret* t1 = (Turret*)(grid.atPixelCoords(100, 100));
 	Turret* t2 = (Turret*)(grid.atPixelCoords(100, 200));
-	//Tower* t3 = (Tower*)(grid.atPixelCoords(200, 200));
+	Tower* t3 = (Tower*)(grid.atPixelCoords(200, 200));
 	t2->attackTarget(t1);
-	//t3->attackTarget(t2);
+	t3->attackTarget(t2);
 
 	addTowerSelection();
 }

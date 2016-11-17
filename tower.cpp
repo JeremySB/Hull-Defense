@@ -6,7 +6,7 @@ Tower::Tower()
 {
 	type = tower;
 	setCollisionRadius(towerNS::RANGE);
-	projectileDisplayTimer = towerNS::PROJECTILE_DURATION;
+	projectileDisplayTimer = towerNS::PROJECTILE_DURATION + towerNS::TIME_BETWEEN_SHOTS;
 	target = nullptr;
 	targetChanged = false;
 }
@@ -31,9 +31,10 @@ void Tower::draw()
 void Tower::update(float frameTime)
 {
 	Entity::update(frameTime);
-	if (projectileDisplayTimer < towerNS::PROJECTILE_DURATION + towerNS::TIME_BETWEEN_SHOTS) {
-		if (targetChanged && target != nullptr) {
-			float distance = std::sqrt(std::pow(target->getCenterX() - getCenterX(), 2) + std::pow(target->getCenterX() - getCenterX(), 2));
+	if (projectileDisplayTimer < towerNS::PROJECTILE_DURATION + towerNS::TIME_BETWEEN_SHOTS && target != nullptr) 
+	{
+		float distance = std::sqrt(std::pow(target->getCenterX() - getCenterX(), 2) + std::pow(target->getCenterY() - getCenterY(), 2));
+		if (distance <= towerNS::RANGE) {
 			projectileImage.setWidth(distance);
 			projectileImage.setRect();
 			projectileImage.setX(getCenterX() + (target->getCenterX() - getCenterX()) / 2 - projectileImage.getWidth() / 2);
@@ -42,10 +43,14 @@ void Tower::update(float frameTime)
 			projectileImage.setRadians(radians);
 			gunImage.setRadians(radians + PI / 2);
 			targetChanged = false;
+			projectileImage.setVisible(true);
+			projectileImage.setColorFilter(SETCOLOR_ARGB((int)(255 * (1 - min(1, projectileDisplayTimer / towerNS::PROJECTILE_DURATION))), 255, 255, 255));
+			projectileDisplayTimer += frameTime;
 		}
-		projectileImage.setVisible(true);
-		projectileImage.setColorFilter(SETCOLOR_ARGB((int)(255 * (1 - min(1, projectileDisplayTimer / towerNS::PROJECTILE_DURATION))), 255, 255, 255));
-		projectileDisplayTimer += frameTime;
+		else
+		{
+			projectileImage.setVisible(false);
+		}
 	}
 	else {
 		projectileImage.setVisible(false);

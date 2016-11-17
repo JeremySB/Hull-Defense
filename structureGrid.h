@@ -10,6 +10,7 @@
 #include "structure.h"
 #include <vector>
 #include <list>
+#include <set>
 
 class StructureGrid
 {
@@ -51,6 +52,7 @@ public:
 private:
 	float cellWidth, cellHeight;
 	std::vector< std::vector<Structure*> > structures;
+	std::list<Structure*> structureList; // used for draw(), update(), etc. Points to things also in the structures vector
 
 	int maxX, maxY;
 
