@@ -38,11 +38,11 @@ public:
     std::stack<VECTOR2> backstep();
 	std::stack<VECTOR2> findPath(Entity* from, Entity* to);
     bool nextStep(Entity* target);
-    void discoverAdjacent(VECTOR2 coor, Entity* to);
+    void discoverAdjacent(Tile parent, Entity* to);
 //    void loadMap(int map[7][6],int x,int y);
 	void loadMap(StructureGrid *map);
     void updateMap();
-	Tile* generateTile(VECTOR2 coor, Entity* to);
+	Tile* generateTile(VECTOR2 coor, Entity* to,float parentWeight);
 
 private:
 //	DoublyLinkedList<Tile> discovered;

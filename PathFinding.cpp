@@ -5,27 +5,21 @@
 
 std::stack<VECTOR2>  PathFinding::backstep() {
 	// the stack to return
-    std::stack<VECTOR2> *ret = new std::stack<VECTOR2>;
+    std::stack<VECTOR2> ret;
     // the starting point of our list
-
-    this->map[(int)path.top().coordinates.x][(int)path.top().coordinates.y] *= -1;
-    this->path.pop();
-	VECTOR2 tmp( (int)(path.top().coordinates.x * CELL_WIDTH)+CELL_WIDTH/2,
-	             (int)(path.top().coordinates.y * CELL_HEIGHT)+CELL_HEIGHT/2);
-    
-	ret->push(tmp);
-    this->map[(int)path.top().coordinates.x][(int)path.top().coordinates.y] *= -1;
-	this->path.pop();
+	VECTOR2 tmp;
+	//path.pop();
 
     // goes through the path we found earlier
 	while (!path.empty()) {
 		// makes sure the tiles are only one away from eachother
-
-        if (( abs((int)this->path.top().coordinates.x - (int)ret->top().x) == 1) ||
-            ( abs((int)this->path.top().coordinates.y - (int)ret->top().y) == 1)) {
-            tmp = VECTOR2((int)(path.top().coordinates.x * CELL_WIDTH) + CELL_WIDTH / 2,
+        tmp = VECTOR2((int)(path.top().coordinates.x * CELL_WIDTH) + CELL_WIDTH / 2,
                 (int)(path.top().coordinates.y * CELL_HEIGHT) + CELL_HEIGHT / 2);
-            ret->push(tmp);
+		if (ret.empty() || 
+			( abs((int)tmp.x - (int)ret.top().x) <= CELL_WIDTH) &&
+			( abs((int)tmp.y - (int)ret.top().y) <= CELL_HEIGHT)) {
+
+            ret.push(tmp);
         }
         
         this->map[(int)path.top().coordinates.x][(int)path.top().coordinates.y] *= -1;
@@ -34,33 +28,41 @@ std::stack<VECTOR2>  PathFinding::backstep() {
 	
 	while(!discovered.empty()){
 		Tile loc = *discovered.top();
+		this->map[(int)discovered.top()->coordinates.x][(int)discovered.top()->coordinates.y] *= -1;
+		//abs(this->map[(int) discovered.top()->coordinates.x][(int) discovered.top()->coordinates.y]);
 		discovered.pop();
-		this->map[(int)loc.coordinates.x][(int)loc.coordinates.y] = abs(this->map[(int) loc.coordinates.x][(int) loc.coordinates.y]);
+		//this->map[(int)loc.coordinates.x][(int)loc.coordinates.y] = abs(this->map[(int) loc.coordinates.x][(int) loc.coordinates.y]);
 	}
-    
-    return *ret;
+    ret.pop();
+    return ret;
 }
 
-Tile* PathFinding::generateTile(VECTOR2 coor, Entity* to){
+Tile* PathFinding::generateTile(VECTOR2 coor, Entity* to,float parentWeight){
     Tile *tmp = new Tile();
-    tmp->coordinates.y=coor.y;
+
+	tmp->coordinates.y=coor.y;
     tmp->coordinates.x=coor.x;
-	//tmp->weight = this->map[(int)coor.x][(int)coor.y] * ( pow( coor.y - to->getCenterY() / CELL_HEIGHT, 2 ) +pow( coor.x - to->getCenterX() / CELL_WIDTH, 2 ) );
 
-    //tmp->weight = PATHFINDING_MODIFIER * this->map[(int)coor.x][(int)coor.y]; //* 
-    tmp->weight = sqrt(pow(((int)coor.y) - (int)to->getCenterY()/CELL_HEIGHT, 2) + pow(((int)coor.x ) - (int)to->getCenterX() / CELL_WIDTH, 2));
-    tmp->weight *= ((this->map[(int) coor.x][(int) coor.y]-1) * PATHFINDING_MODIFIER);//,2);
-
+    tmp->weight = pow(((int)coor.y) - (int)(to->getCenterY()/CELL_HEIGHT ), 2);
+	tmp->weight += pow(((int)coor.x ) - (int)(to->getCenterX() / CELL_WIDTH), 2);
+    tmp->weight *= this->map[(int) coor.x][(int) coor.y] * PATHFINDING_MODIFIER;//,2);
+	
+	if(tmp->weight)
+		tmp->weight += parentWeight;
+	//if(tmp->weight == parentWeight)
+	//	tmp->weight = 0;
 	this->map[(int)coor.x][(int)coor.y] *= -1;//-this->map[(int)coor.x][(int)coor.y];
-    return tmp;
+    
+	return tmp;
 }
 
 
 std::stack<VECTOR2> PathFinding::findPath(Entity* from, Entity* to) {
 	while(!discovered.empty())
 		discovered.pop();
-	this->discovered.push(generateTile( VECTOR2( (int)(from->getCenterX() / CELL_WIDTH), (int)(from->getCenterY() / CELL_HEIGHT)), to ));
-    //map[(int) from->getCenterX() / CELL_WIDTH][(int)from->getCenterY() / CELL_HEIGHT] *= -1;
+	
+	this->discovered.push(generateTile( VECTOR2( (int)(from->getCenterX() / CELL_WIDTH), (int)(from->getCenterY() / CELL_HEIGHT)), to,0 ));
+
     int counter = 0;
 	while(!nextStep(to))
         counter++;
@@ -78,21 +80,21 @@ bool PathFinding::nextStep(Entity* to){
 	discovered.pop();
 	// we push it onto the path list that we have
     this->path.push(prev);
-	//this->map[(int)prev.coordinates.x][(int)prev.coordinates.y] *= -1;//this->map[(int)prev.coordinates.x][(int)prev.coordinates.y];
 	// if the weight is 0 we have reached our to
     if(prev.weight==0){
         return true;
     }
-    discoverAdjacent(prev.coordinates,to);
+    discoverAdjacent(prev,to);
     return false;
 }
 
-void PathFinding::discoverAdjacent(VECTOR2 coor,Entity* to){
+void PathFinding::discoverAdjacent(Tile parent,Entity* to){
 	// discover all adjacent tiles
-	for(int x = (coor.x-1 < 0 ? 0 : coor.x-1); x < coor.x + 1 && x < GRID_WIDTH; x++){
-		for(int y = (coor.y-1 < 0 ? 0 : coor.y-1); y < coor.y + 1 && y < GRID_HEIGHT; y++){
-			if(!(x == coor.x && y == coor.y) &&  map[x][y] > 0){
-					this->discovered.push(generateTile(VECTOR2(x,y),to));
+	VECTOR2 coor = parent.coordinates;
+	for(int x = (coor.x-1 < 0 ? 0 : coor.x-1); x <= coor.x + 1 && x < GRID_WIDTH; x++){
+		for(int y = (coor.y-1 < 0 ? 0 : coor.y-1); y <= coor.y + 1 && y < GRID_HEIGHT; y++){
+			if(  map[x][y] > 0){
+				this->discovered.push(generateTile(VECTOR2(x,y),to,parent.weight));
 			}
 		}
 	} 

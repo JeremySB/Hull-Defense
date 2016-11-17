@@ -53,7 +53,7 @@ void HullDefense::initialize(HWND hwnd)
     Enemy * tmp = new Enemy();
     if(!tmp->initialize(this, 0, 0, 0, &enemyTexture))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing enemy"));
-    tmp->setX(GAME_WIDTH/2);
+	tmp->setX(0);
     tmp->setY(GAME_HEIGHT/2);
     //Turret* bob = new Turret();
     //if (!bob->initialize(this, 0, 0, 0, &enemyTexture))
