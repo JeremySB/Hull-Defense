@@ -100,6 +100,18 @@ void StructureGrid::update(float frameTime)
 	}
 }
 
+std::list<Structure*> StructureGrid::getStructures()
+{
+	std::list<Structure*> list;
+	for (auto iter = structures.begin(); iter != structures.end(); iter++) {
+		for (auto iter2 = iter->begin(); iter2 != iter->end(); iter2++)
+		{
+			if (*iter2) list.push_back(*iter2);
+		}
+	}
+	return list;
+}
+
 int StructureGrid::gridXLoc(int pixelLoc)
 {
 	return (int)(pixelLoc / cellWidth);

@@ -10,6 +10,5 @@ public:
 	Wall();
 	~Wall();
 
-	void damage(int weapon);
 };
 

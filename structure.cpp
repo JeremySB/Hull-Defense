@@ -24,3 +24,8 @@ bool Structure::initialize(Game * gamePtr, int widthInGrid, int heightInGrid, in
 	int height = heightInGrid * CELL_HEIGHT;
 	return Entity::initialize(gamePtr, width, height, ncols, textureM);
 }
+
+void Structure::damage(int weapon)
+{
+	setHealth(getHealth() - weapon);
+}

@@ -69,6 +69,4 @@ void Turret::setProjectileTexture(TextureManager * tm)
 	projectileImage.setColorFilter(graphicsNS::WHITE);
 }
 
-void Turret::damage(int weapon){
-	setHealth(getHealth()-weapon);
 }

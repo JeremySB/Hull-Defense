@@ -9,6 +9,7 @@
 
 #include "structure.h"
 #include <vector>
+#include <list>
 
 class StructureGrid
 {
@@ -38,6 +39,8 @@ public:
 
 	// call update on structures in frame
 	void update(float frameTime);
+
+	std::list<Structure*> getStructures();
 
 	int gridXLoc(int pixelLoc);
 	int gridYLoc(int pixelLoc);

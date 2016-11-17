@@ -11,7 +11,3 @@ Wall::Wall()
 Wall::~Wall()
 {
 }
-
-void Wall::damage(int weapon){
-	setHealth(getHealth()-weapon);
-}

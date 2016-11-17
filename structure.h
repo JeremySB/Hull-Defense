@@ -17,6 +17,8 @@ public:
 
 	virtual void drawProjectiles() {}
 
+	void damage(int weapon);
+
 	int getWidthInGrid() { return widthInGrid; }
 	int getHeightInGrid() { return heightInGrid; }
 
