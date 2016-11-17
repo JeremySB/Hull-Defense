@@ -55,19 +55,13 @@ void StructureManager::initialize(Graphics* graphics, Game* game, Input* input)
 
 
 	addTurret(100, 100);
-	addTurret(100, 400);
-	addTurret(800, 100);
-	addTurret(800, 400);
-	Turret* t1 = (Turret*)(grid.atPixelCoords(100, 100));
-	Turret* t2 = (Turret*)(grid.atPixelCoords(100, 400));
-	Turret* t3 = (Turret*)(grid.atPixelCoords(800, 100));
-	Turret* t4 = (Turret*)(grid.atPixelCoords(800, 400));
-	t2->attackTarget(t1);
-	t3->attackTarget(t2);
-	t4->attackTarget(t3);
-	t1->attackTarget(t4);
+	addTurret(200, 200);
 
-	addTurretSelection();
+	Turret* t1 = (Turret*)(grid.atPixelCoords(100, 100));
+	Turret* t2 = (Turret*)(grid.atPixelCoords(200, 200));
+	t2->attackTarget(t1);
+
+	addTowerSelection();
 }
 
 void StructureManager::draw()
@@ -84,6 +78,19 @@ void StructureManager::update(float frameTime)
 
 	if (input->getMouseLButton()) lastLMBState = true;
 	else lastLMBState = false;
+}
+
+bool StructureManager::addTower(int x, int y)
+{
+	if (isOccupied(x, y)) return false;
+
+	Tower* tower = new Tower();
+	tower->initialize(game, 3, 3, 0, &towerBaseTexture);
+	grid.addAtPixelCoords(tower, x, y);
+	tower->setProjectileTexture(&towerProjectileTexture);
+	tower->setGunTexture(&towerGunTexture);
+
+	return true;
 }
 
 bool StructureManager::addTurret(int x, int y)
@@ -108,6 +115,11 @@ bool StructureManager::addWall(int x, int y)
 	grid.addAtPixelCoords(wall, x, y);
 
 	return true;
+}
+
+void StructureManager::addTowerSelection()
+{
+	mode = towerSelection;
 }
 
 void StructureManager::addTurretSelection()
@@ -162,15 +174,46 @@ void StructureManager::selection()
 	else if (mode == turretSelection && !input->getMouseLButton() && lastLMBState) {
 		addTurret(x, y);
 	}
+	else if (mode == towerSelection && !input->getMouseLButton() && lastLMBState) {
+		addTower(x, y);
+	}
 
 	// add green highlight if good selection
 	if ((mode == wallSelection || mode == turretSelection)
 		&& !isOccupied(x, y) && x > 0 && y > 0 && x < GAME_WIDTH && y < GAME_HEIGHT) {
 		goodSelectionImage.setHeight(CELL_HEIGHT);
 		goodSelectionImage.setWidth(CELL_WIDTH);
+		goodSelectionImage.setRect();
 		goodSelectionImage.setX(grid.pixelXLoc(grid.gridXLoc(x)));
 		goodSelectionImage.setY(grid.pixelYLoc(grid.gridYLoc(y)));
 		goodSelectionImage.setVisible(true);
+	}
+	else if ((mode == towerSelection)
+		&& !isOccupied(x, y) && x > 0 && y > 0 && x < GAME_WIDTH - 2*CELL_WIDTH && y < GAME_HEIGHT - 2 * CELL_HEIGHT) {
+		bool occupied = false;
+		// check the other grid locations that aren't the first
+		for (int i = grid.gridXLoc(x); i < grid.gridXLoc(x) + 3; i++)
+		{
+			for (int j = grid.gridYLoc(y); j < grid.gridYLoc(y) + 3; j++)
+			{
+				if (isOccupied(grid.pixelYLoc(i), grid.pixelYLoc(j))) {
+					occupied = true;
+					break;
+				}
+			}
+			if (occupied) break;
+		}
+		if (!occupied) {
+			goodSelectionImage.setHeight(3 * CELL_HEIGHT);
+			goodSelectionImage.setWidth(3 * CELL_WIDTH);
+			goodSelectionImage.setRect();
+			goodSelectionImage.setX(grid.pixelXLoc(grid.gridXLoc(x)));
+			goodSelectionImage.setY(grid.pixelYLoc(grid.gridYLoc(y)));
+			goodSelectionImage.setVisible(true);
+		}
+		else {
+			goodSelectionImage.setVisible(false);
+		}
 	}
 	else {
 		goodSelectionImage.setVisible(false);

@@ -25,10 +25,14 @@ public:
 	void update(float frameTime);
 
 	// add wall at location in pixels. Returns false if object there
+	bool addTower(int x, int y);
+	// add wall at location in pixels. Returns false if object there
 	bool addTurret(int x, int y);
 	// add wall at location in pixels. Returns false if object there
 	bool addWall(int x, int y);
 
+	// opens selection process for placing a turret
+	void addTowerSelection();
 	// opens selection process for placing a turret
 	void addTurretSelection();
 	// opens selection process for placing a wall
@@ -44,7 +48,6 @@ public:
 	void onResetDevice();
 
 private:
-	//StructureGrid grid;
 	TextureManager wallTexture, turretTexture, turretProjectileTexture, goodSelectionTexture,turretBaseTexture,turretGunTexture,towerBaseTexture;
 	TextureManager towerProjectileTexture,towerGunTexture;
 	Image goodSelectionImage;

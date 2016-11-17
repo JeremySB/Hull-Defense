@@ -16,10 +16,11 @@ StructureGrid::StructureGrid(void) : structures((int)(GAME_WIDTH / CELL_WIDTH) +
 
 StructureGrid::~StructureGrid(void)
 {
-	for (auto iter = structures.begin(); iter != structures.end(); iter++) {
-		for (auto iter2 = iter->begin(); iter2 != iter->end(); iter2++)
+	for (int i = 0; i < structures.size(); i++) {
+		for (int j = 0; j < structures[i].size(); j++)
 		{
-			safeDelete(*iter2);
+			if (structures[i][j])
+				removeAtGridCoords(i, j);
 		}
 	}
 }

@@ -49,7 +49,7 @@ void Turret::update(float frameTime)
 	}
 	else {
 		projectileImage.setVisible(false);
-		projectileDisplayTimer = 0;
+		projectileDisplayTimer = 0; // remove this later
 	}
 }
 

@@ -49,7 +49,7 @@ void Tower::update(float frameTime)
 	}
 	else {
 		projectileImage.setVisible(false);
-		projectileDisplayTimer = 0;
+		projectileDisplayTimer = 0; // remove this later
 	}
 }
 
@@ -84,6 +84,6 @@ void Tower::setGunTexture(TextureManager * tm)
 	if (!gunImage.initialize(graphics, 0, 0, 0, gunTexture)) {
 		throw GameError(gameErrorNS::FATAL_ERROR, "Error initializing tower gun image");
 	}
-	gunImage.setX(getX());
-	gunImage.setY(getY() - (gunImage.getHeight() - getHeight()) / 2);
+	gunImage.setX(getCenterX() - gunImage.getWidth() / 2);
+	gunImage.setY(getCenterY() - gunImage.getHeight() / 2);
 }
