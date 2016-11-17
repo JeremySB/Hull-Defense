@@ -7,6 +7,7 @@
 StructureManager::StructureManager()
 {
 	lastLMBState = false;
+    placedThisFrame = false;
 }
 
 
@@ -78,7 +79,7 @@ void StructureManager::draw()
 void StructureManager::update(float frameTime)
 {
 	grid.update(frameTime);
-
+    placedThisFrame = !input->getMouseLButton() && lastLMBState;
 	selection();
 
 	if (input->getMouseLButton()) lastLMBState = true;
@@ -179,4 +180,13 @@ void StructureManager::selection()
 	if (mode != normal && input->getMouseRButton()) {
 		mode = normal;
 	}
+}
+
+
+StructureGrid* StructureManager::getGrid(){
+    return &grid;
+}
+
+bool StructureManager::getPlacedThisFrame(){
+    return this->placedThisFrame;
 }

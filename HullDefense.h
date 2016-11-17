@@ -15,6 +15,7 @@
 #include "textDX.h"
 #include "structureManager.h"
 #include "gameMenu.h"
+#include "EnemyManager.h"
 
 //=============================================================================
 // This class is the core of the game
@@ -23,8 +24,9 @@ class HullDefense : public Game
 {
 private:
     // game items
-    TextureManager menuTexture, backgroundTexture, towermenuTexture, turretmenuTexture, wallmenuTexture, defmenuTexture; // textures
+    TextureManager menuTexture, backgroundTexture, towermenuTexture, turretmenuTexture, wallmenuTexture, defmenuTexture, enemyTexture; // textures
 	StructureManager structureManager;
+    EnemyManager enemyManager;
 	GameMenu gameMenu;
     Image   background;         // background image
     TextDX  *dxFont;            // DirectX font

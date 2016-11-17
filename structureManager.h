@@ -38,21 +38,22 @@ public:
 
 	// checking if there is a structure at a given pixel location
 	bool isOccupied(int x, int y);
-
+    StructureGrid* getGrid();
+    bool getPlacedThisFrame();
 	void onLostDevice();
 	void onResetDevice();
 
 private:
-	StructureGrid grid;
-	TextureManager wallTexture, turretBaseTexture, turretGunTexture, turretProjectileTexture, 
-		towerBaseTexture, towerGunTexture, towerProjectileTexture, goodSelectionTexture;
+	//StructureGrid grid;
+	TextureManager wallTexture, turretTexture, turretProjectileTexture, goodSelectionTexture;
 	Image goodSelectionImage;
 	Graphics* graphics;
 	Game* game;
 	Input* input;
 	enum Mode {normal, wallSelection, towerSelection, turretSelection} mode;
 	bool lastLMBState;
-
+    bool placedThisFrame;
+    StructureGrid grid;
 	// runs every update and controls hovering and structure selection
 	void selection();
 };
