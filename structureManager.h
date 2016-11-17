@@ -42,6 +42,9 @@ public:
 
 	// checking if there is a structure at a given pixel location
 	bool isOccupied(int x, int y);
+
+	// check if free at grid coords and number of cells
+	bool isOccupiedAtGrid(int x, int y, int widthInCells, int heightInCells);
     StructureGrid* getGrid();
     bool getPlacedThisFrame();
 	void onLostDevice();

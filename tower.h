@@ -4,7 +4,7 @@
 #include "structure.h"
 
 namespace towerNS {
-	const float RANGE = 50;
+	const float RANGE = 100;
 	const float PROJECTILE_DURATION = 0.12f; // in seconds
 	const float TIME_BETWEEN_SHOTS = 0.5f; // in seconds
 }

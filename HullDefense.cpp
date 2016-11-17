@@ -55,7 +55,7 @@ void HullDefense::initialize(HWND hwnd)
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing enemy"));
 	tmp->setX(0);
     tmp->setY(GAME_HEIGHT/2);
-    //Turret* bob = new Turret();
+    
     //if (!bob->initialize(this, 0, 0, 0, &enemyTexture))
     //    throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing enemy"));
 
@@ -64,8 +64,8 @@ void HullDefense::initialize(HWND hwnd)
 
     //tmp->setTarget(bob);
     enemyManager.setGrid(structureManager.getGrid());
-    //Turret* t1 = (Turret*)(structureManager.getGrid()->atPixelCoords(40, 40));
-    //Turret* t1 = (Turret*)(structureManager.getGrid()->atGridCoords(100, 100));
+    
+
 	tmp->setTarget(structureManager.getStructures().front());//t1);
     enemyManager.addChild(tmp);
     enemyManager.findPaths();
@@ -77,10 +77,7 @@ void HullDefense::initialize(HWND hwnd)
 //=============================================================================
 void HullDefense::update()
 {
-    static float delay = 0;
-    delay += frameTime;
-
-	structureManager.update(frameTime);
+    structureManager.update(frameTime);
 	gameMenu.update(frameTime);
     if(structureManager.getPlacedThisFrame()){
         enemyManager.findPaths();

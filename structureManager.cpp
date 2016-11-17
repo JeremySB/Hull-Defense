@@ -55,11 +55,14 @@ void StructureManager::initialize(Graphics* graphics, Game* game, Input* input)
 
 
 	addTurret(100, 100);
-	addTurret(200, 200);
+	addTurret(100, 200);
+	addTower(200, 200);
 
 	Turret* t1 = (Turret*)(grid.atPixelCoords(100, 100));
-	Turret* t2 = (Turret*)(grid.atPixelCoords(200, 200));
+	Turret* t2 = (Turret*)(grid.atPixelCoords(100, 200));
+	//Tower* t3 = (Tower*)(grid.atPixelCoords(200, 200));
 	t2->attackTarget(t1);
+	//t3->attackTarget(t2);
 
 	addTowerSelection();
 }
@@ -82,7 +85,7 @@ void StructureManager::update(float frameTime)
 
 bool StructureManager::addTower(int x, int y)
 {
-	if (isOccupied(x, y)) return false;
+	if (isOccupiedAtGrid(grid.gridXLoc(x), grid.gridYLoc(y), 3, 3)) return false;
 
 	Tower* tower = new Tower();
 	tower->initialize(game, 3, 3, 0, &towerBaseTexture);
@@ -189,31 +192,13 @@ void StructureManager::selection()
 		goodSelectionImage.setVisible(true);
 	}
 	else if ((mode == towerSelection)
-		&& !isOccupied(x, y) && x > 0 && y > 0 && x < GAME_WIDTH - 2*CELL_WIDTH && y < GAME_HEIGHT - 2 * CELL_HEIGHT) {
-		bool occupied = false;
-		// check the other grid locations that aren't the first
-		for (int i = grid.gridXLoc(x); i < grid.gridXLoc(x) + 3; i++)
-		{
-			for (int j = grid.gridYLoc(y); j < grid.gridYLoc(y) + 3; j++)
-			{
-				if (isOccupied(grid.pixelYLoc(i), grid.pixelYLoc(j))) {
-					occupied = true;
-					break;
-				}
-			}
-			if (occupied) break;
-		}
-		if (!occupied) {
-			goodSelectionImage.setHeight(3 * CELL_HEIGHT);
-			goodSelectionImage.setWidth(3 * CELL_WIDTH);
-			goodSelectionImage.setRect();
-			goodSelectionImage.setX(grid.pixelXLoc(grid.gridXLoc(x)));
-			goodSelectionImage.setY(grid.pixelYLoc(grid.gridYLoc(y)));
-			goodSelectionImage.setVisible(true);
-		}
-		else {
-			goodSelectionImage.setVisible(false);
-		}
+		&& !isOccupiedAtGrid(grid.gridXLoc(x), grid.gridYLoc(y), 3, 3) && x > 0 && y > 0 && x < GAME_WIDTH - 2*CELL_WIDTH && y < GAME_HEIGHT - 2 * CELL_HEIGHT) {
+		goodSelectionImage.setHeight(3 * CELL_HEIGHT);
+		goodSelectionImage.setWidth(3 * CELL_WIDTH);
+		goodSelectionImage.setRect();
+		goodSelectionImage.setX(grid.pixelXLoc(grid.gridXLoc(x)));
+		goodSelectionImage.setY(grid.pixelYLoc(grid.gridYLoc(y)));
+		goodSelectionImage.setVisible(true);
 	}
 	else {
 		goodSelectionImage.setVisible(false);
@@ -225,6 +210,20 @@ void StructureManager::selection()
 	}
 }
 
+
+bool StructureManager::isOccupiedAtGrid(int x, int y, int widthInCells, int heightInCells)
+{
+	for (int i = x; i < x + widthInCells; i++)
+	{
+		for (int j = y; j < y + heightInCells; j++)
+		{
+			if (grid.atGridCoords(i, j) != nullptr) {
+				return true;
+			}
+		}
+	}
+	return false;
+}
 
 StructureGrid* StructureManager::getGrid(){
     return &grid;
