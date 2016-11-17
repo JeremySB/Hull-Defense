@@ -23,6 +23,7 @@ void StructureManager::initialize(Graphics* graphics, Game* game, Input* input)
 	if (!wallTexture.initialize(graphics, WALL_IMAGE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing wall texture"));
 
+	// turret textures
 	if (!turretBaseTexture.initialize(graphics, TURRET_BASE_IMAGE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing turret base texture"));
 
@@ -31,6 +32,17 @@ void StructureManager::initialize(Graphics* graphics, Game* game, Input* input)
 
 	if (!turretProjectileTexture.initialize(graphics, TURRET_PROJECTILE_IMAGE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing turret projectile texture"));
+
+	// tower textures
+	if (!towerBaseTexture.initialize(graphics, TOWER_BASE_IMAGE))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing tower base texture"));
+
+	if (!towerGunTexture.initialize(graphics, TOWER_GUN_IMAGE))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing tower gun texture"));
+
+	if (!towerProjectileTexture.initialize(graphics, TOWER_PROJECTILE_IMAGE))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing tower projectile texture"));
+
 
 	if (!goodSelectionTexture.initialize(graphics, GOOD_SELECTION_IMAGE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing selection texture"));
@@ -119,6 +131,9 @@ void StructureManager::onLostDevice()
 	turretBaseTexture.onLostDevice();
 	turretGunTexture.onLostDevice();
 	turretProjectileTexture.onLostDevice();
+	towerBaseTexture.onLostDevice();
+	towerGunTexture.onLostDevice();
+	towerProjectileTexture.onLostDevice();
 	goodSelectionTexture.onLostDevice();
 }
 
@@ -128,6 +143,9 @@ void StructureManager::onResetDevice()
 	turretBaseTexture.onResetDevice();
 	turretGunTexture.onResetDevice();
 	turretProjectileTexture.onResetDevice();
+	towerBaseTexture.onResetDevice();
+	towerGunTexture.onResetDevice();
+	towerProjectileTexture.onResetDevice();
 	goodSelectionTexture.onResetDevice();
 }
 

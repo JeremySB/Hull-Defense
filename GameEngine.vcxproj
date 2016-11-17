@@ -106,6 +106,7 @@
     <ClCompile Include="HullDefense.cpp" />
     <ClCompile Include="image.cpp" />
     <ClCompile Include="textDX.cpp" />
+    <ClCompile Include="tower.cpp" />
     <ClCompile Include="turret.cpp" />
     <ClCompile Include="wall.cpp" />
     <ClCompile Include="winmain.cpp" />
@@ -132,6 +133,7 @@
     <ClInclude Include="HullDefense.h" />
     <ClInclude Include="image.h" />
     <ClInclude Include="textDX.h" />
+    <ClInclude Include="tower.h" />
     <ClInclude Include="turret.h" />
     <ClInclude Include="wall.h" />
   </ItemGroup>

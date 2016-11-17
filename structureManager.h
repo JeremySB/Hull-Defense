@@ -9,6 +9,7 @@
 #include "textureManager.h"
 #include "wall.h"
 #include "turret.h"
+#include "tower.h"
 
 class StructureManager
 {
@@ -43,7 +44,8 @@ public:
 
 private:
 	StructureGrid grid;
-	TextureManager wallTexture, turretBaseTexture, turretGunTexture, turretProjectileTexture, goodSelectionTexture;
+	TextureManager wallTexture, turretBaseTexture, turretGunTexture, turretProjectileTexture, 
+		towerBaseTexture, towerGunTexture, towerProjectileTexture, goodSelectionTexture;
 	Image goodSelectionImage;
 	Graphics* graphics;
 	Game* game;
