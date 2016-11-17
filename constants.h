@@ -25,7 +25,14 @@ const UINT GAME_HEIGHT = 600;               // height of game in pixels
 // careful about changing these, the grid might not line up well
 const UINT CELL_WIDTH = 25;               // width of grid cell in pixels
 const UINT CELL_HEIGHT = 25;               // height of grid cell in pixels
- 
+const UINT GRID_WIDTH = GAME_WIDTH/CELL_WIDTH;
+const UINT GRID_HEIGHT = GAME_HEIGHT/CELL_HEIGHT;
+const UINT MAX_ENEMIES = 30;
+
+enum StructureTypes {wall = 2,tower = 3,turret = 4};
+
+const UINT PATHFINDING_MODIFIER = 5;
+
 // game
 const bool VSYNC = false;                   // true locks display to vertical sync rate
 const float FRAME_RATE = 240.0f;            // the target frame rate (frames/sec)
@@ -41,7 +48,7 @@ const char WALL_IMAGE[] = "pictures\\wallJEREMY.png";
 const char TURRET_IMAGE[] = "pictures\\turretJEREMY.png";
 const char TURRET_PROJECTILE_IMAGE[] = "pictures\\turretProjectileJEREMY2.png";
 const char GOOD_SELECTION_IMAGE[] = "pictures\\goodSelectionJEREMY.png";
-
+const char ENEMY_IMAGE[] = "pictures\\enemy.png";
 // menu images
 const char TOWERMENU_IMAGE[] = "pictures\\buildmenuDANIEL.png";
 const char TURRETMENU_IMAGE[] = "pictures\\repairmenuDANIEL.png";

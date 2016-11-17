@@ -7,8 +7,8 @@
 
 namespace turretNS {
 	const float RANGE = 50;
-	const float PROJECTILE_DURATION = 0.15; // in seconds
-	const float TIME_BETWEEN_SHOTS = 0.5; // in seconds
+	const float PROJECTILE_DURATION = 0.15f; // in seconds
+	const float TIME_BETWEEN_SHOTS = 0.5f; // in seconds
 }
 
 class Turret : public Structure

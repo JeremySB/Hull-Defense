@@ -90,6 +90,8 @@
     <ClCompile Include="audio.cpp" />
     <ClCompile Include="console.cpp" />
     <ClCompile Include="dashboard.cpp" />
+    <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="EnemyManager.cpp" />
     <ClCompile Include="entity.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="gameMenu.cpp" />
@@ -97,6 +99,7 @@
     <ClCompile Include="inputDialog.cpp" />
     <ClCompile Include="messageDialog.cpp" />
     <ClCompile Include="net.cpp" />
+    <ClCompile Include="PathFinding.cpp" />
     <ClCompile Include="structure.cpp" />
     <ClCompile Include="structureGrid.cpp" />
     <ClCompile Include="structureManager.cpp" />
@@ -115,6 +118,8 @@
     <ClInclude Include="console.h" />
     <ClInclude Include="constants.h" />
     <ClInclude Include="dashboard.h" />
+    <ClInclude Include="Enemy.h" />
+    <ClInclude Include="EnemyManager.h" />
     <ClInclude Include="entity.h" />
     <ClInclude Include="gameError.h" />
     <ClInclude Include="game.h" />
@@ -123,6 +128,7 @@
     <ClInclude Include="inputDialog.h" />
     <ClInclude Include="messageDialog.h" />
     <ClInclude Include="net.h" />
+    <ClInclude Include="PathFinding.h" />
     <ClInclude Include="structure.h" />
     <ClInclude Include="structureGrid.h" />
     <ClInclude Include="structureManager.h" />
