@@ -5,6 +5,7 @@
 Wall::Wall()
 {
 	setHealth(100);
+	type = wall;
 }
 
 

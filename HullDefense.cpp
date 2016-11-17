@@ -1,3 +1,4 @@
+
 // Programming 2D Games
 // Copyright (c) 2011 by: 
 // Charles Kelly
@@ -124,4 +125,4 @@ void HullDefense::resetAll()
 	gameMenu.onResetDevice();
     Game::resetAll();
     return;
-}
+}
