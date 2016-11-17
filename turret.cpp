@@ -9,7 +9,6 @@ Turret::Turret()
 	target = nullptr;
 	targetChanged = false;
 	setHealth(100);
-	type = turret;
 }
 
 

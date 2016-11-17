@@ -19,11 +19,8 @@ public:
 
 	int getWidthInGrid() { return widthInGrid; }
 	int getHeightInGrid() { return heightInGrid; }
-	StructureTypes getType(){ return type;}
 
 private:
 	int widthInGrid, heightInGrid;
-protected:
-	StructureTypes type;
 };
 

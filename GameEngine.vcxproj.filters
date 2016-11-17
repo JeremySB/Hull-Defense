@@ -84,9 +84,6 @@
     <ClCompile Include="gameMenu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="PathFinding.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="constants.h">
@@ -156,9 +153,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="gameMenu.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="PathFinding.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
