@@ -45,7 +45,8 @@ void EnemyManager::updateChildren(float frameTime){
 void EnemyManager::findPaths(){
     pathFinder.updateMap();
 	for( int i = 0; i < numChildren; i++){
-		children[i]->setPath(pathFinder.findPath(reinterpret_cast<Entity*>(children[i]),reinterpret_cast<Entity *>(children[i]->getTarget()))); 
+        if(children[i]->getTarget())
+		    children[i]->setPath(pathFinder.findPath(reinterpret_cast<Entity*>(children[i]),reinterpret_cast<Entity *>(children[i]->getTarget()))); 
 	}
 }
 

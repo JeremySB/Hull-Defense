@@ -64,8 +64,8 @@ void HullDefense::initialize(HWND hwnd)
 
     //tmp->setTarget(bob);
     enemyManager.setGrid(structureManager.getGrid());
-    //Turret* t1 = (Turret*)(structureManager.getGrid()->atPixelCoords(40, 40));
-    Turret* t1 = (Turret*)(structureManager.getGrid()->atGridCoords(2, 4));
+    Turret* t1 = (Turret*)(structureManager.getGrid()->atPixelCoords(40, 40));
+    //Turret* t1 = (Turret*)(structureManager.getGrid()->atGridCoords(100, 100));
     tmp->setTarget(t1);
     enemyManager.addChild(tmp);
     enemyManager.findPaths();
