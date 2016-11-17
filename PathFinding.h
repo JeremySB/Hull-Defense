@@ -2,13 +2,13 @@
 #ifndef _PATH_FINDING_
 #define _PATH_FINDING_
 #include <stack>
-//#include "DLL.h"
 #include "structureGrid.h"
 #include <queue>
-// 0 is empty
-// 1 is a wall
-// 2 is the start
-// 3 is the end
+// 1 is empty
+// 2 is a wall
+// 3 is a turret
+// 4 is a tower
+
 /*template<class T>
 struct ptr_less
     : public binary_function<T, T, bool> {  
@@ -25,13 +25,13 @@ struct Tile {
 
 class PathFinding {
 public:
-    std::stack<int*> backstep();
-	std::stack<int*> findPath(Entity* target);
+    std::stack<VECTOR2> backstep();
+	std::stack<VECTOR2> findPath(Entity* from, Entity* to);
     bool nextStep(Entity* target);
-    void discoverAdjacent(int coor[2], Entity* target);
+    void discoverAdjacent(int coor[2], Entity* to);
 //    void loadMap(int map[7][6],int x,int y);
 	void loadMap(StructureGrid *map);
-	Tile generateTile(int y,int x, Entity* target);
+	Tile generateTile(int y,int x, Entity* to);
 
 private:
 //	DoublyLinkedList<Tile> discovered;
@@ -40,8 +40,6 @@ private:
 	StructureGrid* grid;
 	int **map;
     std::stack<Tile> path;
-    int start[2];
-    int end[2];
 
 };
 #endif

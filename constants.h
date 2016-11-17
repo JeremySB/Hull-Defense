@@ -27,6 +27,7 @@ const UINT CELL_WIDTH = 25;               // width of grid cell in pixels
 const UINT CELL_HEIGHT = 25;               // height of grid cell in pixels
 const UINT GRID_WIDTH = GAME_WIDTH/CELL_WIDTH;
 const UINT GRID_HEIGHT = GAME_HEIGHT/CELL_HEIGHT;
+const UINT MAX_ENEMIES = 30;
 
 enum StructureTypes {wall = 2,tower = 3,turret = 4};
 
