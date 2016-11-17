@@ -48,7 +48,27 @@ void HullDefense::initialize(HWND hwnd)
     if(dxFont->initialize(graphics, 18, true, false, "Arial") == false)
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing DirectX font"));
 
+    if (!enemyTexture.initialize(graphics, ENEMY_IMAGE))
+        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing enemy"));
+    Enemy * tmp = new Enemy();
+    if(!tmp->initialize(this, 0, 0, 0, &enemyTexture))
+        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing enemy"));
+    tmp->setX(0);
+    tmp->setY(GAME_HEIGHT/2);
+    //Turret* bob = new Turret();
+    //if (!bob->initialize(this, 0, 0, 0, &enemyTexture))
+    //    throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing enemy"));
 
+    //bob->setX(GAME_WIDTH/2);
+    //bob->setY(GAME_HEIGHT/2);
+
+    //tmp->setTarget(bob);
+    enemyManager.setGrid(structureManager.getGrid());
+    //Turret* t1 = (Turret*)(structureManager.getGrid()->atPixelCoords(40, 40));
+    Turret* t1 = (Turret*)(structureManager.getGrid()->atGridCoords(2, 4));
+    tmp->setTarget(t1);
+    enemyManager.addChild(tmp);
+    enemyManager.findPaths();
     return;
 }
 
@@ -62,7 +82,10 @@ void HullDefense::update()
 
 	structureManager.update(frameTime);
 	gameMenu.update(frameTime);
-	
+    if(structureManager.getPlacedThisFrame()){
+        enemyManager.findPaths();
+    }
+	enemyManager.updateChildren(frameTime);
 }
 
 //=============================================================================
@@ -88,10 +111,10 @@ void HullDefense::render()
     dxFont->setFontColor(graphicsNS::ORANGE);
 	
 	structureManager.draw();
-
+    enemyManager.draw();
 	gameMenu.draw();
-
     graphics->spriteEnd();                  // end drawing sprites
+
 }
 
 //=============================================================================

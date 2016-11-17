@@ -1,19 +1,19 @@
 #include "Entity.h"
 #include <stack>
 
-class Enemy: Entity{
+class Enemy: public Entity{
 public:
 	Enemy();
 	~Enemy();
-	void initialize();
+	//void initialize();
 	void update(float frameTime);
-	void attack();
-	void getPath();
+	//void attack();
+	void setPath(std::stack<VECTOR2> path){this->path=path;};
 	Entity* getTarget(){ return target;}
 	void setTarget(Entity* target){ this->target = target;}
-	std::stack<VECTOR2> path;
+
 private:
 	float speed;
-
+    std::stack<VECTOR2> path;
 	Entity* target;
 };

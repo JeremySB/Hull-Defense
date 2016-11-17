@@ -1,8 +1,15 @@
 #include "EnemyManager.h"
 
+EnemyManager::EnemyManager():numChildren(0){
+    for ( int i = 0; i < MAX_ENEMIES; i ++){
+        children[i] = nullptr;
+    }
+}
 
 void EnemyManager::addChild(Enemy* toAdd){
-	children[numChildren++] = toAdd;
+    if(numChildren < MAX_ENEMIES){
+	    children[numChildren++] = toAdd;
+    }
 }
 
 Enemy** EnemyManager::getChildren(){
@@ -11,7 +18,7 @@ Enemy** EnemyManager::getChildren(){
 
 void EnemyManager::removeChild(Enemy* toRemove){
 	bool deleted = false;
-	for(int i = 0; i < numChildren; i++){
+	for(int i = 0; i < numChildren || (deleted && i+1 < numChildren); i++){
 		if(children[i] == toRemove){
 			delete children[i];
 			deleted = true;
@@ -36,7 +43,15 @@ void EnemyManager::updateChildren(float frameTime){
 }
 
 void EnemyManager::findPaths(){
+    pathFinder.updateMap();
 	for( int i = 0; i < numChildren; i++){
-		children[i]->path = pathFinder.findPath(reinterpret_cast<Entity*>(children[i]),reinterpret_cast<Entity *>(children[i]->getTarget())); 
+		children[i]->setPath(pathFinder.findPath(reinterpret_cast<Entity*>(children[i]),reinterpret_cast<Entity *>(children[i]->getTarget()))); 
 	}
+}
+
+void EnemyManager::draw(){
+    for( int i = 0; i < numChildren; i++){
+        if(children[i] != nullptr)
+            children[i]->draw();
+    }
 }
