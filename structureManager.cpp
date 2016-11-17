@@ -41,11 +41,19 @@ void StructureManager::initialize(Graphics* graphics, Game* game, Input* input)
 	goodSelectionImage.setVisible(false);
 
 
-	addTurret(40, 40);
 	addTurret(100, 100);
-	Turret* t1 = (Turret*)(grid.atPixelCoords(40, 40));
-	Turret* t2 = (Turret*)(grid.atPixelCoords(100, 100));
+	addTurret(100, 400);
+	addTurret(800, 100);
+	addTurret(800, 400);
+	Turret* t1 = (Turret*)(grid.atPixelCoords(100, 100));
+	Turret* t2 = (Turret*)(grid.atPixelCoords(100, 400));
+	Turret* t3 = (Turret*)(grid.atPixelCoords(800, 100));
+	Turret* t4 = (Turret*)(grid.atPixelCoords(800, 400));
 	t2->attackTarget(t1);
+	t3->attackTarget(t2);
+	t4->attackTarget(t3);
+	t1->attackTarget(t4);
+
 	addTurretSelection();
 }
 
