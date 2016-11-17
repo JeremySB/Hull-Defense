@@ -3,6 +3,9 @@
 
 GameMenu::GameMenu(void)
 {
+	scoreFont = new TextDX();
+	currencyFont = new TextDX();
+	objDescriptionFont = new TextDX();
 }
 
 
@@ -15,6 +18,21 @@ void GameMenu::initialize(Graphics* graphics, Game* game, Input* input){
 	this->input = input;
 	this->game = game;
 	this->graphics = graphics;
+
+	normalColor = graphicsNS::WHITE;
+	scoreFont = new TextDX();
+	currencyFont = new TextDX();
+	objDescriptionFont = new TextDX();
+
+	if(scoreFont->initialize(graphics, 15, true, false, "Calibri") == false)
+        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing score font"));
+	if(currencyFont->initialize(graphics, 18, true, false, "Calibri") == false)
+        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing currency font"));
+	if(objDescriptionFont->initialize(graphics, 25, true, false, "Calibri") == false)
+        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing objDescription font"));
+	scoreFont->setFontColor(normalColor);
+	currencyFont->setFontColor(normalColor);
+	objDescriptionFont->setFontColor(normalColor);
 
 	// tower menu
 	if (!towermenuTexture.initialize(graphics, TOWERMENU_IMAGE))

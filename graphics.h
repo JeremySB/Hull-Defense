@@ -31,6 +31,9 @@ class Graphics;
 #define LP_VERTEXBUFFER LPDIRECT3DVERTEXBUFFER9
 #define LP_DXLINE   LPD3DXLINE
 
+//font stuff
+#define LP_DXFONT   LPD3DXFONT
+
 // Color defines
 // ARGB numbers range from 0 through 255
 // a = Alpha channel (transparency where 255 is opaque)

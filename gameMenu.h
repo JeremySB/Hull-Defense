@@ -21,6 +21,11 @@ private:
 	Image	defMenu;
 	bool menuActive;
 
+	TextDX *scoreFont;
+	TextDX *currencyFont;
+	TextDX *objDescriptionFont;
+	COLOR_ARGB normalColor;
+
 	Graphics* graphics;
 	Game* game;
 	Input* input;
