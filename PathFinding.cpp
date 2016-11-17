@@ -2,7 +2,12 @@
 #include <iostream>
 
 //#include "Display.h"
-
+PathFinding::~PathFinding(){
+	for( int x = 0; x < GRID_WIDTH; x++){
+		delete[] map[x];
+	}
+	delete[] map;
+}
 std::stack<VECTOR2>  PathFinding::backstep() {
 	// the stack to return
     std::stack<VECTOR2> ret;
@@ -27,31 +32,25 @@ std::stack<VECTOR2>  PathFinding::backstep() {
     }
 	
 	while(!discovered.empty()){
-		Tile loc = *discovered.top();
-		this->map[(int)discovered.top()->coordinates.x][(int)discovered.top()->coordinates.y] *= -1;
-		//abs(this->map[(int) discovered.top()->coordinates.x][(int) discovered.top()->coordinates.y]);
+		Tile loc = discovered.top();
+		this->map[(int)discovered.top().coordinates.x][(int)discovered.top().coordinates.y] *= -1;
 		discovered.pop();
-		//this->map[(int)loc.coordinates.x][(int)loc.coordinates.y] = abs(this->map[(int) loc.coordinates.x][(int) loc.coordinates.y]);
 	}
     ret.pop();
     return ret;
 }
 
-Tile* PathFinding::generateTile(VECTOR2 coor, Entity* to,float parentWeight){
-    Tile *tmp = new Tile();
+Tile PathFinding::generateTile(VECTOR2 coor, Entity* to,float parentWeight){
+    Tile tmp;
 
-	tmp->coordinates.y=coor.y;
-    tmp->coordinates.x=coor.x;
+	tmp.coordinates.y=coor.y;
+    tmp.coordinates.x=coor.x;
 
-    tmp->weight = pow(((int)coor.y) - (int)(to->getCenterY()/CELL_HEIGHT ), 2);
-	tmp->weight += pow(((int)coor.x ) - (int)(to->getCenterX() / CELL_WIDTH), 2);
-    tmp->weight *= this->map[(int) coor.x][(int) coor.y] * PATHFINDING_MODIFIER;//,2);
+    tmp.weight = pow(((int)coor.y) - (int)(to->getCenterY()/CELL_HEIGHT ), 2);
+	tmp.weight += pow(((int)coor.x ) - (int)(to->getCenterX() / CELL_WIDTH), 2);
+    tmp.weight *= this->map[(int) coor.x][(int) coor.y] * PATHFINDING_MODIFIER;
 	
-	if(tmp->weight)
-		tmp->weight += parentWeight;
-	//if(tmp->weight == parentWeight)
-	//	tmp->weight = 0;
-	this->map[(int)coor.x][(int)coor.y] *= -1;//-this->map[(int)coor.x][(int)coor.y];
+	this->map[(int)coor.x][(int)coor.y] *= -1;
     
 	return tmp;
 }
@@ -76,7 +75,7 @@ bool PathFinding::nextStep(Entity* to){
 		return true;
 	}
 	// we get the lowest cost tile off of the queue
-    Tile prev=*discovered.top();
+    Tile prev=discovered.top();
 	discovered.pop();
 	// we push it onto the path list that we have
     this->path.push(prev);
