@@ -1,6 +1,6 @@
 #include "Enemy.h"
 
-Enemy::Enemy():speed(10){
+Enemy::Enemy():speed(5){
 
 
 }
@@ -11,7 +11,7 @@ void Enemy::update(float frameTime){
     if(this->path.empty())
         return;
 	VECTOR2 distance = *this->getCenter() - this->path.top();
-	if ( pow(distance.x,2)+pow(distance.y,2) < 5){
+	if ( pow(distance.x,2)+pow(distance.y,2) < 100){//5){
         path.pop();
         if(this->path.empty())
             return;
