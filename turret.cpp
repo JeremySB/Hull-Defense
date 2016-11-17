@@ -8,7 +8,6 @@ Turret::Turret()
 	projectileDisplayTimer = turretNS::PROJECTILE_DURATION;
 	target = nullptr;
 	targetChanged = false;
-	setHealth(100);
 }
 
 
@@ -19,6 +18,13 @@ Turret::~Turret()
 void Turret::drawProjectiles()
 {
 	projectileImage.draw(projectileImage.getColorFilter());
+	gunImage.draw();
+}
+
+void Turret::draw()
+{
+	Structure::draw();
+	//gunImage.draw();
 }
 
 void Turret::update(float frameTime)
@@ -31,7 +37,9 @@ void Turret::update(float frameTime)
 			projectileImage.setRect();
 			projectileImage.setX(getCenterX() + (target->getCenterX() - getCenterX())/2 - projectileImage.getWidth()/2);
 			projectileImage.setY(getCenterY() + (target->getCenterY() - getCenterY()) / 2 - projectileImage.getHeight() / 2);
-			projectileImage.setRadians(std::atan2(target->getCenterY() - getCenterY(), target->getCenterX() - getCenterX()));
+			float radians = std::atan2(target->getCenterY() - getCenterY(), target->getCenterX() - getCenterX());
+			projectileImage.setRadians(radians);
+			gunImage.setRadians(radians + PI/2);
 			targetChanged = false;
 		}
 		projectileImage.setVisible(true);
@@ -69,4 +77,12 @@ void Turret::setProjectileTexture(TextureManager * tm)
 	projectileImage.setColorFilter(graphicsNS::WHITE);
 }
 
+void Turret::setGunTexture(TextureManager * tm)
+{
+	gunTexture = tm;
+	if (!gunImage.initialize(graphics, 0, 0, 0, gunTexture)) {
+		throw GameError(gameErrorNS::FATAL_ERROR, "Error initializing turret gun image");
+	}
+	gunImage.setX(getX());
+	gunImage.setY(getY() - (gunImage.getHeight() - getHeight())/2);
 }

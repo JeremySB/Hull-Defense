@@ -4,7 +4,6 @@
 
 Wall::Wall()
 {
-	setHealth(100);
 }
 
 

@@ -23,8 +23,11 @@ void StructureManager::initialize(Graphics* graphics, Game* game, Input* input)
 	if (!wallTexture.initialize(graphics, WALL_IMAGE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing wall texture"));
 
-	if (!turretTexture.initialize(graphics, TURRET_IMAGE))
-		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing turret texture"));
+	if (!turretBaseTexture.initialize(graphics, TURRET_BASE_IMAGE))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing turret base texture"));
+
+	if (!turretGunTexture.initialize(graphics, TURRET_GUN_IMAGE))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing turret gun texture"));
 
 	if (!turretProjectileTexture.initialize(graphics, TURRET_PROJECTILE_IMAGE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing turret projectile texture"));
@@ -36,6 +39,8 @@ void StructureManager::initialize(Graphics* graphics, Game* game, Input* input)
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing selection image")); 
 
 	goodSelectionImage.setVisible(false);
+
+
 	addTurret(40, 40);
 	addTurret(100, 100);
 	Turret* t1 = (Turret*)(grid.atPixelCoords(40, 40));
@@ -65,9 +70,10 @@ bool StructureManager::addTurret(int x, int y)
 	if (isOccupied(x, y)) return false;
 
 	Turret* turret = new Turret();
-	turret->initialize(game, 1, 1, 0, &turretTexture);
+	turret->initialize(game, 1, 1, 0, &turretBaseTexture);
 	grid.addAtPixelCoords(turret, x, y);
 	turret->setProjectileTexture(&turretProjectileTexture);
+	turret->setGunTexture(&turretGunTexture);
 
 	return true;
 }
@@ -102,7 +108,8 @@ bool StructureManager::isOccupied(int x, int y)
 void StructureManager::onLostDevice()
 {
 	wallTexture.onLostDevice();
-	turretTexture.onLostDevice();
+	turretBaseTexture.onLostDevice();
+	turretGunTexture.onLostDevice();
 	turretProjectileTexture.onLostDevice();
 	goodSelectionTexture.onLostDevice();
 }
@@ -110,7 +117,8 @@ void StructureManager::onLostDevice()
 void StructureManager::onResetDevice()
 {
 	wallTexture.onResetDevice();
-	turretTexture.onResetDevice();
+	turretBaseTexture.onResetDevice();
+	turretGunTexture.onResetDevice();
 	turretProjectileTexture.onResetDevice();
 	goodSelectionTexture.onResetDevice();
 }

@@ -38,7 +38,8 @@ const double PI = 3.14159265;
 const char MENU_IMAGE[] =     "pictures\\menu.png";      // menu texture
 const char BACKGROUND_IMAGE[] = "pictures\\background1DAN.png";  // background
 const char WALL_IMAGE[] = "pictures\\wallJEREMY.png";
-const char TURRET_IMAGE[] = "pictures\\turretJEREMY.png";
+const char TURRET_BASE_IMAGE[] = "pictures\\turretBaseDANIEL.png";
+const char TURRET_GUN_IMAGE[] = "pictures\\turretGunDANIEL.png";
 const char TURRET_PROJECTILE_IMAGE[] = "pictures\\turretProjectileJEREMY2.png";
 const char GOOD_SELECTION_IMAGE[] = "pictures\\goodSelectionJEREMY.png";
 

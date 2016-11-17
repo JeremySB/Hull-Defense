@@ -18,16 +18,18 @@ public:
 	~Turret();
 
 	void drawProjectiles();
+	void draw();
 	void update(float frameTime);
 
 	void attackTarget(Entity* target);
 
 	void setProjectileTexture(TextureManager* tm);
+	void setGunTexture(TextureManager* tm);
 
 private:
-	TextureManager* projectileTexture;
+	TextureManager* projectileTexture, *gunTexture;
 	Entity* target;
-	Image projectileImage;
+	Image projectileImage, gunImage;
 
 	float projectileDisplayTimer;
 	bool targetChanged;
