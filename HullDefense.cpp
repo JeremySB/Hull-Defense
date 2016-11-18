@@ -44,7 +44,7 @@ void HullDefense::initialize(HWND hwnd)
     if (!background.initialize(graphics, 0, 0, 0, &backgroundTexture))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background"));
 
-
+	audio->playCue(BACKGROUND);
     // initialize DirectX font
     // 18 pixel high Arial
     if(dxFont->initialize(graphics, 18, true, false, "Arial") == false)
