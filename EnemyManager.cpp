@@ -48,6 +48,7 @@ void EnemyManager::removeChild(Enemy* toRemove){
 		if(children[i] == toRemove){
             state->addCurrency(children[i]->getValue());
 			delete children[i];
+			
             numChildren--;
 			deleted = true;
 		}

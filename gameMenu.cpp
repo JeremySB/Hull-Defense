@@ -88,15 +88,22 @@ void GameMenu::initialize(Graphics* graphics, Game* game, Input* input, Audio* a
 void GameMenu::update(float frameTime){
 	if(menuActive){
 		if(input->getMouseLButton()){
-			// build
-			if(input->getMouseX()>(0) && input->getMouseX()<(TABS_WIDTH) && input->getMouseY()>(GAME_HEIGHT-towerMenu.getHeight()) && input->getMouseY()<(GAME_HEIGHT-towerMenu.getHeight()+TABS_HEIGHT)){
+			if((input->getMouseX()>0 && input->getMouseX()<GAME_WIDTH/3)&&input->getMouseY()>GAME_HEIGHT-towerMenu.getHeight()){
+				// Tower
+			}else if((input->getMouseX()>GAME_WIDTH/3 && input->getMouseX()<2*(GAME_WIDTH/3))&&input->getMouseY()>GAME_HEIGHT-towerMenu.getHeight()){
+				// Turret
+			}else if((input->getMouseX()>2*(GAME_WIDTH/3) && input->getMouseX()<GAME_WIDTH)&&input->getMouseY()>GAME_HEIGHT-towerMenu.getHeight()){
+				// Wall
+			}
+			// build tab
+			else if(input->getMouseX()>(0) && input->getMouseX()<(TABS_WIDTH) && input->getMouseY()>(GAME_HEIGHT-towerMenu.getHeight()) && input->getMouseY()<(GAME_HEIGHT-towerMenu.getHeight()+TABS_HEIGHT)){
 				towerMenu.setVisible(true);
 				wallMenu.setVisible(false);
 				turretMenu.setVisible(false);
 				defMenu.setVisible(false);
 				menuActive = true;
 			}
-			// sell
+			// sell tab
 			else if(input->getMouseX()>(TABS_WIDTH) && input->getMouseX()<(2*TABS_WIDTH) &&  input->getMouseY()>(GAME_HEIGHT-towerMenu.getHeight()) && input->getMouseY()<(GAME_HEIGHT-towerMenu.getHeight()+TABS_HEIGHT)){
 				towerMenu.setVisible(false);
 				wallMenu.setVisible(true);
@@ -104,7 +111,7 @@ void GameMenu::update(float frameTime){
 				defMenu.setVisible(false);
 				menuActive = false;
 			}
-			// repair
+			// repair tab
 			else if(input->getMouseX()>(2*TABS_WIDTH) && input->getMouseX()<(3*TABS_WIDTH) && input->getMouseY()>(GAME_HEIGHT-towerMenu.getHeight()) && input->getMouseY()<(GAME_HEIGHT-towerMenu.getHeight()+TABS_HEIGHT)){
 				towerMenu.setVisible(false);
 				wallMenu.setVisible(false);
