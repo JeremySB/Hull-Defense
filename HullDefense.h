@@ -15,7 +15,7 @@
 #include "textDX.h"
 #include "structureManager.h"
 #include "gameMenu.h"
-#include "EnemyManager.h"
+#include "enemyManager.h"
 #include "Waves.h"
 
 //=============================================================================

@@ -4,7 +4,6 @@
 #include "entity.h"
 #include "text.h"
 #include "audio.h"
-#include "hullDefense.h"
 
 class GameMenu 
 {
