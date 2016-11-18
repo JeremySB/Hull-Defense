@@ -19,7 +19,7 @@ Waves::Waves(EnemyManager* manager):betweenWaves(true),currentWave(0){
     }
 }
 void Waves::startWave(){
-    this->betweenWaves = ! currentWave < 5;
+    this->betweenWaves =  currentWave == 5;
 }
 void Waves::update(float frameTime){
     if(this->betweenWaves)
