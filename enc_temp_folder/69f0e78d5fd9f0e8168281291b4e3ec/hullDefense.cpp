@@ -268,14 +268,8 @@ void HullDefense::update()
             gameState.setGamePhase(GameState::won);
 		break;
 	case GameState::won:
-        if (!input->getMouseLButton() && lastClickState) {
-            gameState.setGamePhase(GameState::intro);
-        }
 		break;
 	case GameState::lost:
-        if (!input->getMouseLButton() && lastClickState) {
-            gameState.setGamePhase(GameState::intro);
-        }
 		break;
 	default:
 		break;
