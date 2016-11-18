@@ -193,6 +193,7 @@ void HullDefense::initialize(HWND hwnd)
 //=============================================================================
 void HullDefense::update()
 {
+	std::list<Enemy*> enemies;
 	gameState.setHealth(structureManager.getBaseHealth());
 	switch (gameState.getGamePhase())
 	{
@@ -221,32 +222,43 @@ void HullDefense::update()
 		}
 		break;
 	case GameState::level1Init:
+		enemies = enemyManager.getChildren();
+		for (auto i = enemies.begin(); i != enemies.end(); i++)
+		{
+			(*i)->setHealth(-1);
+		}
+		enemyManager.updateChildren(frameTime);
+		level1waves->currentWave = 0;
 		structureManager.reset();
 		structureManager.addBase(950, 10);
-		gameState.setCurrency(1000);
+		gameState.setCurrency(1500);
 		gameState.setGamePhase(GameState::level1Play);
-		break;
-	case GameState::level1Build:
-		// probably skipping
-		if (input->wasKeyPressed(' ')) {
-			gameState.setGamePhase(GameState::level1Play);
-		}
 		break;
 	case GameState::level1Play:
         structureManager.update(frameTime);
         gameMenu.update(frameTime);
         level1waves->update(frameTime);
         enemyManager.updateChildren(frameTime);
+		enemies = enemyManager.getChildren();
         if (structureManager.getPlacedThisFrame()) {
             enemyManager.updateStructures();
             enemyManager.findPaths();
         } 
         if (level1waves->currentWave == 5 && enemyManager.getNumChildren() == 0)
             gameState.setGamePhase(GameState::level2Init);
+		if (structureManager.getBaseHealth() <= 0)
+			gameState.setGamePhase(GameState::lost);
 		break;
 	case GameState::level2Init:
+		enemies = enemyManager.getChildren();
+		for (auto i = enemies.begin(); i != enemies.end(); i++)
+		{
+			(*i)->setHealth(-1);
+		}
+		enemyManager.updateChildren(frameTime);
+		level2waves->currentWave = 0;
 		structureManager.reset();
-		gameState.setCurrency(1000);
+		gameState.setCurrency(1500);
 		structureManager.addBase(400, 200);
         gameState.setGamePhase(GameState::level2Play);
 		break;
@@ -266,6 +278,8 @@ void HullDefense::update()
         }
         if (level2waves->currentWave == 5 && enemyManager.getNumChildren() == 0)
             gameState.setGamePhase(GameState::won);
+		if (structureManager.getBaseHealth() <= 0)
+			gameState.setGamePhase(GameState::lost);
 		break;
 	case GameState::won:
         if (!input->getMouseLButton() && lastClickState) {

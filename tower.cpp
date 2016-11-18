@@ -91,10 +91,7 @@ void Tower::attackTarget(Entity* target)
 		firstShot = true;
 		audio->playCue(LASER);
 	}
-	if (this->target != target) {
-		this->target = target;
-		
-	}
+	this->target = target;
 }
 
 void Tower::setProjectileTexture(TextureManager * tm)

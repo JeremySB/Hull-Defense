@@ -86,10 +86,7 @@ void Turret::attackTarget(Entity* target)
 		firstShot = true;
 		audio->playCue(LASER);
 	}
-	if (this->target != target) {
-		this->target = target;
-		firstShot = true;
-	}
+	this->target = target;
 }
 
 void Turret::setProjectileTexture(TextureManager * tm)

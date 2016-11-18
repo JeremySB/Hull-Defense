@@ -8,7 +8,7 @@ EnemyManager::EnemyManager():numChildren(0),spawn(0, GAME_HEIGHT / 2),strongest(
 }
 void EnemyManager::reset(){
     auto tmp = getChildren();
-    if(!tmp.empty()){
+    while(!tmp.empty()){
         removeChild(tmp.front());
     }
 }

@@ -6,7 +6,7 @@
 class LightEnemy : public Enemy {
 public:
     LightEnemy() {
-        speed = 20;
+        speed = 100;
         value = 30;
         health = 100;
         damage = 30;

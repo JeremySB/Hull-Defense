@@ -6,10 +6,10 @@
 class MediumEnemy : public Enemy {
 public:
     MediumEnemy() {
-        speed = 15;
+        speed = 75;
         value = 60;
-        health = 200;
-        damage = 80;
+        health = 150;
+        damage = 50;
         targeting = strongestTarget;
         colorFilter = SETCOLOR_ARGB(255, 0, 125, 0);
     }

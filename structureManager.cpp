@@ -173,7 +173,7 @@ void StructureManager::repair(int x, int y)
 	if (!isOccupied(x, y)) return;
 	Structure* toRepair = grid.atPixelCoords(x, y);
 	if (toRepair->getType() == StructureTypes::base) return;
-	gameState->addCurrency(-toRepair->getPrice() / 2);
+	gameState->addCurrency(- (toRepair->getPrice() / 2));
 	toRepair->repair();
 	gameState->setSelectionMode(GameState::normal);
 }
@@ -255,6 +255,9 @@ void StructureManager::selection()
 	else if (mode == GameState::sell && !input->getMouseLButton() && lastLMBState) {
 		sell(x, y);
 	}
+	else if (mode == GameState::repair && !input->getMouseLButton() && lastLMBState) {
+		repair(x, y);
+	}
 
 	// add green highlight if good selection
 	if ((mode == GameState::wallSelection || mode == GameState::turretSelection)
@@ -275,7 +278,7 @@ void StructureManager::selection()
 		goodSelectionImage.setY(grid.pixelYLoc(grid.gridYLoc(y) - 1));
 		goodSelectionImage.setVisible(true);
 	}
-	else if (mode == GameState::sell && isOccupied(x, y)) {
+	else if ((mode == GameState::sell || mode == GameState::repair) && isOccupied(x, y)) {
 		Structure* highlighted = grid.atPixelCoords(x, y);
 		if (highlighted->getType() != StructureTypes::base) {
 			goodSelectionImage.setHeight(CELL_HEIGHT * highlighted->getHeightInGrid());
