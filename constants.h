@@ -72,13 +72,13 @@ const int TABS_HEIGHT = 27;
 
 // audio files required by audio.cpp
 // WAVE_BANK must be location of .xwb file.
-const char WAVE_BANK[]  = "";
+const char WAVE_BANK[]  = "audio\\Win\\project2.xwb";
 // SOUND_BANK must be location of .xsb file.
-const char SOUND_BANK[] = "";
-// XGS_FILE must be location of .xgs file.
-const char XGS_FILE[]   = "";
+const char SOUND_BANK[] = "audio\\Win\\project2.xsb";
 
 // audio cues
+const char BACKGROUND[] = "backgroundmusic";
+const char LASER[] = "laser";
 
 // key mappings
 // In this game simple constants are used for key mappings. If variables were used

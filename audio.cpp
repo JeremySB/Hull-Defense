@@ -81,32 +81,6 @@ HRESULT Audio::initialize()
     DWORD dwGlobalSettingsFileSize = 0;
     bool bSuccess = false;
 
-    hFile = CreateFile( XGS_FILE, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, 0, NULL );
-    if( hFile )
-    {
-        dwGlobalSettingsFileSize = GetFileSize( hFile, NULL );
-        if( dwGlobalSettingsFileSize != INVALID_FILE_SIZE )
-        {
-            pGlobalSettingsData = CoTaskMemAlloc( dwGlobalSettingsFileSize );
-            if( pGlobalSettingsData )
-            {
-                if( 0 != ReadFile( hFile, pGlobalSettingsData, dwGlobalSettingsFileSize, &bytesRead, NULL ) )
-                {
-                    bSuccess = true;
-                }
-            }
-        }
-        CloseHandle( hFile );
-    }
-    if( !bSuccess )
-    {
-        if( pGlobalSettingsData )
-            CoTaskMemFree( pGlobalSettingsData );
-        pGlobalSettingsData = NULL;
-        dwGlobalSettingsFileSize = 0;
-    }
-
-
     // Initialize & create the XACT runtime 
     XACT_RUNTIME_PARAMETERS xactParams = {0};
     xactParams.pGlobalSettingsBuffer = pGlobalSettingsData;

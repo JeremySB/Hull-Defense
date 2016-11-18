@@ -3,6 +3,7 @@
 #pragma once
 #include "entity.h"
 #include "text.h"
+#include "audio.h"
 
 class GameMenu : public Entity
 {
@@ -11,7 +12,7 @@ public:
 	~GameMenu(void);
 
 	void update(float frameTime);
-	void initialize(Graphics* graphics, Game* game, Input* input);
+	void initialize(Graphics* graphics, Game* game, Input* input, Audio* audio);
 	void draw();
 	void onLostDevice();
 	void onResetDevice();
@@ -32,6 +33,7 @@ private:
 	TextDX *currencyFont;
 	TextDX *objDescriptionFont;
 	COLOR_ARGB normalColor;
+	Audio *audio;
 
 	//TextDX ckfont;
 

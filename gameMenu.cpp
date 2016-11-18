@@ -14,11 +14,12 @@ GameMenu::~GameMenu(void)
 {
 }
 
-void GameMenu::initialize(Graphics* graphics, Game* game, Input* input){
+void GameMenu::initialize(Graphics* graphics, Game* game, Input* input, Audio* audio){
 
 	this->input = input;
 	this->game = game;
 	this->graphics = graphics;
+	this->audio = audio;
 
 	normalColor = graphicsNS::WHITE;
 	scoreFont = new TextDX();
@@ -173,7 +174,7 @@ int GameMenu::getCur(){
 
 void GameMenu::display(){
 	//setCur(+1);
-	currencyStr = "Energy: " + std::to_string(getCur()) + " - Base Health: " + std::to_string(1000);
+	currencyStr = "Energy: " + std::to_string(getCur()) + " - Base Health: " ;
 	if(menuActive){
 		currencyFont->print(currencyStr,GAME_WIDTH-MENU_RIGHT_WIDTH,GAME_HEIGHT-towerMenu.getHeight());
 	}else{
