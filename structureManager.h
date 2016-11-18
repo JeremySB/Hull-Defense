@@ -40,6 +40,8 @@ public:
 	// add wall at location in pixels. Returns false if object there
 	bool addWall(int x, int y);
 
+	void sell(int x, int y);
+
 	// opens selection process for placing a turret
 	void addTowerSelection();
 	// opens selection process for placing a turret

@@ -24,8 +24,8 @@ public:
 private:
 	TextureManager towermenuTexture, turretmenuTexture, wallmenuTexture, defmenuTexture; // textures
 	Image	towerMenu;
-	Image	turretMenu;
-	Image	wallMenu;
+	Image	repairMenu;
+	Image	sellMenu;
 	Image	defMenu;
 	bool menuActive;
 

@@ -26,10 +26,12 @@ public:
 
 	int getWidthInGrid() { return widthInGrid; }
 	int getHeightInGrid() { return heightInGrid; }
+	int getPrice() { return price; }
 	StructureTypes getType(){ return type;}
 	
 protected:
 	StructureTypes type;
 	int widthInGrid, heightInGrid;
+	int price;
 };
 

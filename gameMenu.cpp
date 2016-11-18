@@ -57,11 +57,11 @@ void GameMenu::initialize(Graphics* graphics, Game* game, Input* input, Audio* a
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing tower menu"));
 
 	// turret menu
-	if (!turretMenu.initialize(graphics, 0, 0, 0, &turretmenuTexture))
+	if (!repairMenu.initialize(graphics, 0, 0, 0, &turretmenuTexture))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing turret menu"));
 
 	// wall menu
-	if (!wallMenu.initialize(graphics, 0, 0, 0, &wallmenuTexture))
+	if (!sellMenu.initialize(graphics, 0, 0, 0, &wallmenuTexture))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing wall menu"));
 
 	// def menu
@@ -70,18 +70,18 @@ void GameMenu::initialize(Graphics* graphics, Game* game, Input* input, Audio* a
 	
 	towerMenu.setX(0);
 	towerMenu.setY(GAME_HEIGHT-towerMenu.getHeight());
-	turretMenu.setX(0);
-	turretMenu.setY(GAME_HEIGHT-TABS_HEIGHT);
-	wallMenu.setX(0);
-	wallMenu.setY(GAME_HEIGHT-TABS_HEIGHT);
+	repairMenu.setX(0);
+	repairMenu.setY(GAME_HEIGHT-TABS_HEIGHT);
+	sellMenu.setX(0);
+	sellMenu.setY(GAME_HEIGHT-TABS_HEIGHT);
 	defMenu.setX(0);
 	defMenu.setY(GAME_HEIGHT-TABS_HEIGHT);
 
 	menuActive = false;
 
 	towerMenu.setVisible(false);
-	wallMenu.setVisible(false);
-	turretMenu.setVisible(false);
+	sellMenu.setVisible(false);
+	repairMenu.setVisible(false);
 	defMenu.setVisible(true);
 }
 
@@ -98,26 +98,26 @@ void GameMenu::update(float frameTime){
 			// build tab
 			else if(input->getMouseX()>(0) && input->getMouseX()<(TABS_WIDTH) && input->getMouseY()>(GAME_HEIGHT-towerMenu.getHeight()) && input->getMouseY()<(GAME_HEIGHT-towerMenu.getHeight()+TABS_HEIGHT)){
 				towerMenu.setVisible(true);
-				wallMenu.setVisible(false);
-				turretMenu.setVisible(false);
+				repairMenu.setVisible(false);
 				defMenu.setVisible(false);
 				menuActive = true;
+				gameState->setSelectionMode(GameState::normal);
 			}
 			// sell tab
 			else if(input->getMouseX()>(TABS_WIDTH) && input->getMouseX()<(2*TABS_WIDTH) &&  input->getMouseY()>(GAME_HEIGHT-towerMenu.getHeight()) && input->getMouseY()<(GAME_HEIGHT-towerMenu.getHeight()+TABS_HEIGHT)){
 				towerMenu.setVisible(false);
-				wallMenu.setVisible(true);
-				turretMenu.setVisible(false);
+				repairMenu.setVisible(false);
 				defMenu.setVisible(false);
 				menuActive = false;
+				gameState->setSelectionMode(GameState::sell);
 			}
 			// repair tab
 			else if(input->getMouseX()>(2*TABS_WIDTH) && input->getMouseX()<(3*TABS_WIDTH) && input->getMouseY()>(GAME_HEIGHT-towerMenu.getHeight()) && input->getMouseY()<(GAME_HEIGHT-towerMenu.getHeight()+TABS_HEIGHT)){
 				towerMenu.setVisible(false);
-				wallMenu.setVisible(false);
-				turretMenu.setVisible(true);
+				repairMenu.setVisible(true);
 				defMenu.setVisible(false);
 				menuActive = false;
+				gameState->setSelectionMode(GameState::repair);
 			}
 		}
 	}else{
@@ -125,26 +125,26 @@ void GameMenu::update(float frameTime){
 			// build
 			if(input->getMouseX() >(0) && input->getMouseX()<(TABS_WIDTH) && input->getMouseY()>(GAME_HEIGHT-TABS_HEIGHT) && input->getMouseY()<(GAME_HEIGHT)){
 				towerMenu.setVisible(true);
-				wallMenu.setVisible(false);
-				turretMenu.setVisible(false);
+				repairMenu.setVisible(false);
 				defMenu.setVisible(false);
 				menuActive = true;
+				gameState->setSelectionMode(GameState::normal);
 			}
 			// sell
 			else if(input->getMouseX()>(TABS_WIDTH) && input->getMouseX()<(2*TABS_WIDTH) && input->getMouseY()>(GAME_HEIGHT-TABS_HEIGHT) && input->getMouseY()<(GAME_HEIGHT)){
 				towerMenu.setVisible(false);
-				wallMenu.setVisible(true);
-				turretMenu.setVisible(false);
+				repairMenu.setVisible(false);
 				defMenu.setVisible(false);
 				menuActive = false;
+				gameState->setSelectionMode(GameState::sell);
 			}
 			// repair
 			else if(input->getMouseX()>(2*TABS_WIDTH) && input->getMouseX()<(3*TABS_WIDTH) && input->getMouseY()>(GAME_HEIGHT-TABS_HEIGHT) && input->getMouseY()<(GAME_HEIGHT)){
 				towerMenu.setVisible(false);
-				wallMenu.setVisible(false);
-				turretMenu.setVisible(true);
+				repairMenu.setVisible(true);
 				defMenu.setVisible(false);
 				menuActive = false;
+				gameState->setSelectionMode(GameState::repair);
 			}
 		}
 	}
@@ -152,16 +152,24 @@ void GameMenu::update(float frameTime){
 	if(input->getMouseLButton() && input->getMouseY()<GAME_HEIGHT-towerMenu.getHeight()){
 		defMenu.setVisible(true);
 		towerMenu.setVisible(false);
-		wallMenu.setVisible(false);
-		turretMenu.setVisible(false);
+		repairMenu.setVisible(false);
 		menuActive = false;
+	}
+
+	if (gameState->getSelectionMode() == GameState::sell) {
+		sellMenu.setVisible(true);
+		defMenu.setVisible(false);
+	}
+	else {
+		sellMenu.setVisible(false);
+		defMenu.setVisible(true);
 	}
 }
 
 void GameMenu::draw(){
 	towerMenu.draw();
-	wallMenu.draw();
-	turretMenu.draw();
+	sellMenu.draw();
+	repairMenu.draw();
 	defMenu.draw();
 	display();
 }

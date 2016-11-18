@@ -7,6 +7,7 @@ Wall::Wall()
 	Structure::Structure();
 	type = wall;
 	health = wallNS::STARTING_HEALTH;
+	price = wallNS::PRICE;
 }
 
 

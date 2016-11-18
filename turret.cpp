@@ -11,6 +11,8 @@ Turret::Turret()
 	target = nullptr;
 	firstShot = false;
 	setHealth(turretNS::STARTING_HEALTH);
+
+	price = turretNS::PRICE;
 }
 
 

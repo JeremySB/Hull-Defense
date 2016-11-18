@@ -15,6 +15,7 @@ Tower::Tower()
 	heightInGrid = 3;
 
 	setHealth(towerNS::STARTING_HEALTH);
+	price = towerNS::PRICE;
 }
 
 

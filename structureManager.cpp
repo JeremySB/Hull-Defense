@@ -62,16 +62,9 @@ void StructureManager::initialize(Graphics* graphics, Game* game, Input* input, 
 	addTurret(100, 100);
 	addTurret(100, 200);
 	addTower(200, 200);
-
 	addWall(400, 400);
-
 	addBase(550, 300);
 
-	Turret* t1 = (Turret*)(grid.atPixelCoords(100, 100));
-	Turret* t2 = (Turret*)(grid.atPixelCoords(100, 200));
-	Tower* t3 = (Tower*)(grid.atPixelCoords(200, 200));
-
-	addTowerSelection();
 }
 
 void StructureManager::draw()
@@ -168,6 +161,16 @@ bool StructureManager::addWall(int x, int y)
 	return true;
 }
 
+void StructureManager::sell(int x, int y)
+{
+	if (!isOccupied(x, y)) return;
+	Structure* toSell = grid.atPixelCoords(x, y);
+	if (toSell->getType() == StructureTypes::base) return;
+	gameState->addCurrency(toSell->getPrice()/2);
+	grid.removeAtPixelCoords(x, y);
+	gameState->setSelectionMode(GameState::normal);
+}
+
 void StructureManager::addTowerSelection()
 {
 	gameState->setSelectionMode(GameState::towerSelection);
@@ -228,9 +231,9 @@ void StructureManager::selection()
 	GameState::SelectionMode mode = gameState->getSelectionMode();
 
 	// check if in menu area
-	if (y > GAME_HEIGHT - CELL_HEIGHT && !input->getMouseLButton() && lastLMBState) {
+	/*if (y > GAME_HEIGHT - CELL_HEIGHT && !input->getMouseLButton() && lastLMBState) {
 		mode = GameState::normal;
-	}
+	}*/
 
 	// only trigger on LMB up
 	if (mode == GameState::wallSelection && !input->getMouseLButton() && lastLMBState) {
@@ -241,6 +244,9 @@ void StructureManager::selection()
 	}
 	else if (mode == GameState::towerSelection && !input->getMouseLButton() && lastLMBState) {
 		addTower(x, y);
+	}
+	else if (mode == GameState::sell && !input->getMouseLButton() && lastLMBState) {
+		sell(x, y);
 	}
 
 	// add green highlight if good selection
@@ -262,16 +268,17 @@ void StructureManager::selection()
 		goodSelectionImage.setY(grid.pixelYLoc(grid.gridYLoc(y) - 1));
 		goodSelectionImage.setVisible(true);
 	}
-	else if (mode == GameState::sell) {
-		if (isOccupied(x, y))
-		{
-			Structure* highlighted = grid.atPixelCoords(x, y);
+	else if (mode == GameState::sell && isOccupied(x, y)) {
+		Structure* highlighted = grid.atPixelCoords(x, y);
+		if (highlighted->getType() != StructureTypes::base) {
 			goodSelectionImage.setHeight(CELL_HEIGHT * highlighted->getHeightInGrid());
-			goodSelectionImage.setWidth(CELL_WIDTH * highlighted->getHeightInGrid());
+			goodSelectionImage.setWidth(CELL_WIDTH * highlighted->getWidthInGrid());
 			goodSelectionImage.setRect();
 			goodSelectionImage.setX(highlighted->getX());
 			goodSelectionImage.setY(highlighted->getY());
+			goodSelectionImage.setVisible(true);
 		}
+		
 	}
 	else {
 		goodSelectionImage.setVisible(false);
