@@ -17,11 +17,12 @@ StructureManager::~StructureManager()
 
 }
 
-void StructureManager::initialize(Graphics* graphics, Game* game, Input* input)
+void StructureManager::initialize(Graphics* graphics, Game* game, Input* input, GameState* gameState)
 {
 	this->input = input;
 	this->game = game;
 	this->graphics = graphics;
+	this->gameState = gameState;
 
 	if (!wallTexture.initialize(graphics, WALL_IMAGE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing wall texture"));
@@ -169,17 +170,22 @@ bool StructureManager::addWall(int x, int y)
 
 void StructureManager::addTowerSelection()
 {
-	mode = towerSelection;
+	gameState->setSelectionMode(GameState::towerSelection);
 }
 
 void StructureManager::addTurretSelection()
 {
-	mode = turretSelection;
+	gameState->setSelectionMode(GameState::turretSelection);
 }
 
 void StructureManager::addWallSelection()
 {
-	mode = wallSelection;
+	gameState->setSelectionMode(GameState::wallSelection);
+}
+
+void StructureManager::sellSelection()
+{
+	gameState->setSelectionMode(GameState::sell);
 }
 
 bool StructureManager::isOccupied(int x, int y)
@@ -219,25 +225,27 @@ void StructureManager::selection()
 	int x = input->getMouseX();
 	int y = input->getMouseY();
 
+	GameState::SelectionMode mode = gameState->getSelectionMode();
+
 	// check if in menu area
 	if (y > GAME_HEIGHT - CELL_HEIGHT && !input->getMouseLButton() && lastLMBState) {
-		mode = normal;
+		mode = GameState::normal;
 	}
 
 	// only trigger on LMB up
-	if (mode == wallSelection && !input->getMouseLButton() && lastLMBState) {
+	if (mode == GameState::wallSelection && !input->getMouseLButton() && lastLMBState) {
 		addWall(x, y); // function checks for existing structures
 	}
-	else if (mode == turretSelection && !input->getMouseLButton() && lastLMBState) {
+	else if (mode == GameState::turretSelection && !input->getMouseLButton() && lastLMBState) {
 		addTurret(x, y);
 	}
-	else if (mode == towerSelection && !input->getMouseLButton() && lastLMBState) {
+	else if (mode == GameState::towerSelection && !input->getMouseLButton() && lastLMBState) {
 		addTower(x, y);
 	}
 
 	// add green highlight if good selection
-	if ((mode == wallSelection || mode == turretSelection)
-		&& !isOccupied(x, y) && x > 0 && y > 0 && x < GAME_WIDTH && y < GAME_HEIGHT - CELL_HEIGHT) {
+	if ((mode == GameState::wallSelection || mode == GameState::turretSelection)
+			&& !isOccupied(x, y) && x > 0 && y > 0 && x < GAME_WIDTH && y < GAME_HEIGHT - CELL_HEIGHT) {
 		goodSelectionImage.setHeight(CELL_HEIGHT);
 		goodSelectionImage.setWidth(CELL_WIDTH);
 		goodSelectionImage.setRect();
@@ -245,8 +253,8 @@ void StructureManager::selection()
 		goodSelectionImage.setY(grid.pixelYLoc(grid.gridYLoc(y)));
 		goodSelectionImage.setVisible(true);
 	}
-	else if ((mode == towerSelection)
-		&& !isOccupiedAtGrid(grid.gridXLoc(x) - 1, grid.gridYLoc(y) - 1, 3, 3) && x > CELL_HEIGHT && y > CELL_HEIGHT && x < GAME_WIDTH - 1 * CELL_WIDTH && y < GAME_HEIGHT - 2 * CELL_HEIGHT) {
+	else if ((mode == GameState::towerSelection)
+			&& !isOccupiedAtGrid(grid.gridXLoc(x) - 1, grid.gridYLoc(y) - 1, 3, 3) && x > CELL_HEIGHT && y > CELL_HEIGHT && x < GAME_WIDTH - 1 * CELL_WIDTH && y < GAME_HEIGHT - 2 * CELL_HEIGHT) {
 		goodSelectionImage.setHeight(3 * CELL_HEIGHT);
 		goodSelectionImage.setWidth(3 * CELL_WIDTH);
 		goodSelectionImage.setRect();
@@ -254,14 +262,27 @@ void StructureManager::selection()
 		goodSelectionImage.setY(grid.pixelYLoc(grid.gridYLoc(y) - 1));
 		goodSelectionImage.setVisible(true);
 	}
+	else if (mode == GameState::sell) {
+		if (isOccupied(x, y))
+		{
+			Structure* highlighted = grid.atPixelCoords(x, y);
+			goodSelectionImage.setHeight(CELL_HEIGHT * highlighted->getHeightInGrid());
+			goodSelectionImage.setWidth(CELL_WIDTH * highlighted->getHeightInGrid());
+			goodSelectionImage.setRect();
+			goodSelectionImage.setX(highlighted->getX());
+			goodSelectionImage.setY(highlighted->getY());
+		}
+	}
 	else {
 		goodSelectionImage.setVisible(false);
 	}
 
 	// exit selection mode if right click
-	if (mode != normal && input->getMouseRButton()) {
-		mode = normal;
+	if (mode != GameState::normal && input->getMouseRButton()) {
+		mode = GameState::normal;
 	}
+
+	gameState->setSelectionMode(mode);
 }
 
 

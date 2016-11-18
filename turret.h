@@ -6,6 +6,7 @@
 #include "structure.h"
 
 namespace turretNS {
+	const int PRICE = 100;
 	const float RANGE = 150.0f;
 	const float PROJECTILE_DURATION = 0.12f; // in seconds
 	const float TIME_BETWEEN_SHOTS = 0.7f; // in seconds

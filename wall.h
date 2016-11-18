@@ -4,6 +4,12 @@
 
 #pragma once
 #include "structure.h"
+
+namespace wallNS {
+	const int PRICE = 20;
+	const int STARTING_HEALTH = 50;
+}
+
 class Wall : public Structure
 {
 public:

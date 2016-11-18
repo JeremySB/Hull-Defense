@@ -96,6 +96,7 @@
     <ClCompile Include="entity.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="gameMenu.cpp" />
+    <ClCompile Include="gameState.cpp" />
     <ClCompile Include="graphics.cpp" />
     <ClCompile Include="inputDialog.cpp" />
     <ClCompile Include="messageDialog.cpp" />
@@ -129,6 +130,7 @@
     <ClInclude Include="gameError.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="gameMenu.h" />
+    <ClInclude Include="gameState.h" />
     <ClInclude Include="graphics.h" />
     <ClInclude Include="HeavyEnemy.h" />
     <ClInclude Include="inputDialog.h" />

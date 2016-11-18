@@ -12,6 +12,7 @@
 #include "tower.h"
 #include "Enemy.h"
 #include "base.h"
+#include "gameState.h"
 #include <list>
 
 class StructureManager
@@ -20,7 +21,7 @@ public:
 	StructureManager();
 	~StructureManager();
 
-	void initialize(Graphics* graphics, Game* game, Input* input);
+	void initialize(Graphics* graphics, Game* game, Input* input, GameState* gameState);
 
 	void draw();
 
@@ -46,7 +47,9 @@ public:
 	// opens selection process for placing a wall
 	void addWallSelection();
 
-	void removeSelection() { mode = normal; };
+	void sellSelection();
+
+	void removeSelection() { gameState->setSelectionMode(GameState::normal); };
 
 	std::list<Structure*> getStructures() { return grid.getStructures(); }
 
@@ -67,6 +70,8 @@ public:
 	void onLostDevice();
 	void onResetDevice();
 
+	void setGameState(GameState* in) { gameState = in; }
+
 private:
 	TextureManager wallTexture, turretTexture, turretProjectileTexture, goodSelectionTexture,turretBaseTexture,turretGunTexture,towerBaseTexture;
 	TextureManager towerProjectileTexture, towerGunTexture, baseTexture;
@@ -75,7 +80,7 @@ private:
 	Game* game;
 	Input* input;
 	Base* base;
-	enum Mode {normal, wallSelection, towerSelection, turretSelection} mode;
+	GameState* gameState;
 	bool lastLMBState;
     bool placedThisFrame;
     StructureGrid grid;
