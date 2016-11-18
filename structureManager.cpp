@@ -80,8 +80,8 @@ void StructureManager::collisions(std::list<Enemy*> entities)
 		float dist = 2000.0f;
 		Entity* closest = nullptr;
 		for (auto entity = entities.begin(); entity != entities.end(); entity++) {
-			if (*entity && (*structure)->collidesWith(**entity, VECTOR2())) {
-				float newDist = std::sqrt(std::pow((*entity)->getCenterX() - (*structure)->getCenterX(), 2) + std::pow((*entity)->getCenterY() - (*structure)->getCenterY(), 2));
+			float newDist = std::sqrt(std::pow((*entity)->getCenterX() - (*structure)->getCenterX(), 2) + std::pow((*entity)->getCenterY() - (*structure)->getCenterY(), 2));
+			if ((*structure)->getRange() >= newDist) {
 				if (newDist < dist) {
 					closest = *entity;
 					dist = newDist;
