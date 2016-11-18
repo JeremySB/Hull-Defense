@@ -10,6 +10,7 @@ Wave::~Wave(){
 Wave::Wave():timeSinceLastSpawn(0),spawnTime(0){
 
 }
+
 bool Wave::update(float frameTime){
     timeSinceLastSpawn += frameTime;
     if(timeSinceLastSpawn > spawnTime){
