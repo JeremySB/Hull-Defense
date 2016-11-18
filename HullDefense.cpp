@@ -137,6 +137,7 @@ void HullDefense::initialize(HWND hwnd)
 //=============================================================================
 void HullDefense::update()
 {
+	gameState.setHealth(structureManager.getBaseHealth());
 	GameState::GamePhase phase = gameState.getGamePhase();
 	switch (phase)
 	{

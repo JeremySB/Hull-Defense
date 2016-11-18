@@ -126,7 +126,7 @@ bool StructureManager::addTower(int x, int y)
 {
 	int xGrid = grid.gridXLoc(x) - 1;
 	int yGrid = grid.gridYLoc(y) - 1;
-	if (isOccupiedAtGrid(xGrid, yGrid, 3, 3)) return false;
+	if (isOccupiedAtGrid(xGrid, yGrid, 3, 3) || gameState->getCurrency() < towerNS::PRICE) return false;
 
 	Tower* tower = new Tower();
 	tower->initialize(game, 3, 3, 0, &towerBaseTexture);
@@ -134,12 +134,14 @@ bool StructureManager::addTower(int x, int y)
 	tower->setProjectileTexture(&towerProjectileTexture);
 	tower->setGunTexture(&towerGunTexture);
 
+	gameState->addCurrency(-towerNS::PRICE);
+
 	return true;
 }
 
 bool StructureManager::addTurret(int x, int y)
 {
-	if (isOccupied(x, y)) return false;
+	if (isOccupied(x, y) || gameState->getCurrency() < turretNS::PRICE) return false;
 
 	Turret* turret = new Turret();
 	turret->initialize(game, 1, 1, 0, &turretBaseTexture);
@@ -147,16 +149,19 @@ bool StructureManager::addTurret(int x, int y)
 	turret->setProjectileTexture(&turretProjectileTexture);
 	turret->setGunTexture(&turretGunTexture);
 
+	gameState->addCurrency(-turretNS::PRICE);
+
 	return true;
 }
 
 bool StructureManager::addWall(int x, int y)
 {
-	if (isOccupied(x, y)) return false;
+	if (isOccupied(x, y) || gameState->getCurrency() < wallNS::PRICE) return false;
 
 	Wall* wall = new Wall();
 	wall->initialize(game, 1, 1, 0, &wallTexture);
 	grid.addAtPixelCoords(wall, x, y);
+	gameState->addCurrency(-wallNS::PRICE);
 
 	return true;
 }

@@ -30,7 +30,7 @@ bool StructureGrid::addAtGridCoords(Structure* in, int x, int y)
 {
 	if (!(x >= 0 && y >= 0 && x + in->getWidthInGrid() <= maxX && y + in->getHeightInGrid() <= maxY))
 		return false;
-
+	
 	structureList.push_back(in);
 
 	in->setX(pixelXLoc(x));

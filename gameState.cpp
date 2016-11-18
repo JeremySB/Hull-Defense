@@ -4,7 +4,7 @@
 
 GameState::GameState()
 {
-	currency = 0;
+	currency = 1000;
 	health = 0;
 	selectionMode = normal;
 	gamePhase = intro;
