@@ -3,7 +3,7 @@
 class HeavyEnemy : public Enemy {
 public:
     HeavyEnemy(){
-        speed = 10;
+        speed = 5;
         value = 100;
         health = 200;
         damage = 20;
