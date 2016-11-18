@@ -58,7 +58,7 @@ void StructureGrid::removeAtGridCoords(int x, int y)
 	
 	// have to loop through to delete multi-cell structures
 	Structure* toDelete = atGridCoords(x, y);
-
+	
 	structureList.remove(toDelete);
 
 	for (auto iter = structures.begin(); iter != structures.end(); iter++) {

@@ -24,6 +24,8 @@ public:
 	// Get structure's range. Default is 0
 	virtual float getRange() { return 0.0f; }
 
+	virtual void repair() {}
+
 	int getWidthInGrid() { return widthInGrid; }
 	int getHeightInGrid() { return heightInGrid; }
 	int getPrice() { return price; }

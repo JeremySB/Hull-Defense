@@ -41,6 +41,7 @@ public:
 	bool addWall(int x, int y);
 
 	void sell(int x, int y);
+	void repair(int x, int y);
 
 	// opens selection process for placing a turret
 	void addTowerSelection();
@@ -81,7 +82,6 @@ private:
 	Graphics* graphics;
 	Game* game;
 	Input* input;
-	Base* base;
 	GameState* gameState;
 	bool lastLMBState;
     bool placedThisFrame;

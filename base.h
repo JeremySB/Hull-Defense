@@ -12,6 +12,8 @@ public:
 	Base();
 	~Base();
 
+	void repair() {}
+
 	bool initialize(Game * gamePtr, int widthInGrid, int heightInGrid, int ncols, TextureManager * textureM);
 };
 

@@ -32,6 +32,8 @@ public:
 	
 	float getRange() { return turretNS::RANGE; }
 
+	void repair() { health = turretNS::STARTING_HEALTH; }
+
 	void setProjectileTexture(TextureManager* tm);
 	void setGunTexture(TextureManager* tm);
 

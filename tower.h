@@ -36,6 +36,8 @@ public:
 	void setProjectileTexture(TextureManager* tm);
 	void setGunTexture(TextureManager* tm);
 
+	void repair() { health = towerNS::STARTING_HEALTH; }
+
 private:
 	TextureManager* projectileTexture, *gunTexture;
 	Entity* target;

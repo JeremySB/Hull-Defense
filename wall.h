@@ -16,6 +16,8 @@ public:
 	Wall();
 	~Wall();
 
+	void repair() { health = wallNS::STARTING_HEALTH; }
+
 	bool initialize(Game * gamePtr, int widthInGrid, int heightInGrid, int ncols, TextureManager * textureM);
 
 };

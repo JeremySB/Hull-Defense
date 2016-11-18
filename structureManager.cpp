@@ -8,7 +8,6 @@ StructureManager::StructureManager()
 {
 	lastLMBState = false;
     placedThisFrame = false;
-	base = nullptr;
 }
 
 
@@ -103,13 +102,12 @@ void StructureManager::update(float frameTime)
 
 bool StructureManager::addBase(int x, int y)
 {
-	safeDelete(base);
-	
+		
 	int xGrid = grid.gridXLoc(x);
 	int yGrid = grid.gridYLoc(y);
 	if (isOccupiedAtGrid(xGrid, yGrid, 4, 4)) return false;
 
-	base = new Base();
+	Base* base = new Base();
 	base->initialize(game, 4, 4, 0, &baseTexture);
 	grid.addAtGridCoords(base, xGrid, yGrid);
 
@@ -167,6 +165,16 @@ void StructureManager::sell(int x, int y)
 	if (toSell->getType() == StructureTypes::base) return;
 	gameState->addCurrency(toSell->getPrice()/2);
 	grid.removeAtPixelCoords(x, y);
+	gameState->setSelectionMode(GameState::normal);
+}
+
+void StructureManager::repair(int x, int y)
+{
+	if (!isOccupied(x, y)) return;
+	Structure* toRepair = grid.atPixelCoords(x, y);
+	if (toRepair->getType() == StructureTypes::base) return;
+	gameState->addCurrency(-toRepair->getPrice() / 2);
+	toRepair->repair();
 	gameState->setSelectionMode(GameState::normal);
 }
 
@@ -316,8 +324,12 @@ bool StructureManager::getPlacedThisFrame(){
 
 int StructureManager::getBaseHealth()
 {
-	if(base)
-		return base->getHealth();
+	std::list<Structure*> structureList = grid.getStructures();
+	for (auto iter = structureList.begin(); iter != structureList.end(); iter++) {
+		if ((*iter)->getType() == StructureTypes::base) {
+			return (*iter)->getHealth();
+		}
+	}
 	return 0;
 }
 
