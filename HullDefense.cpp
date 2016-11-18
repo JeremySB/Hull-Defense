@@ -9,6 +9,8 @@ HullDefense::HullDefense() : Game()
     waveTimeout = 2;
     timeIntoTimeout = 0;
     dxFont = new TextDX();  // DirectX font
+
+	lastClickState = false;
 }
 
 //=============================================================================
@@ -192,23 +194,31 @@ void HullDefense::initialize(HWND hwnd)
 void HullDefense::update()
 {
 	gameState.setHealth(structureManager.getBaseHealth());
-	GameState::GamePhase phase = gameState.getGamePhase();
-	switch (phase)
+	switch (gameState.getGamePhase())
 	{
 	case GameState::intro:
-		if(input->getMouseLButton()){
+		if(!input->getMouseLButton() && lastClickState){
 			if(input->getMouseX()>GAME_WIDTH/2){
 				gameState.setGamePhase(GameState::instructions);
 			}else{
-				gameState.setGamePhase(GameState::level1Play);
+				gameState.setGamePhase(GameState::level1Init);
 			}
 		}
 		break;
 	case GameState::instructions:
+		if(!input->getMouseLButton() && lastClickState){
+			gameState.setGamePhase(GameState::level1Init);
+		}
 		break;
 	case GameState::level1Init:
+		structureManager.addBase(950, 10);
+		gameState.setGamePhase(GameState::level1Play);
 		break;
 	case GameState::level1Build:
+		// probably skipping
+		if (input->wasKeyPressed(' ')) {
+			gameState.setGamePhase(GameState::level1Play);
+		}
 		break;
 	case GameState::level1Play:
         structureManager.update(frameTime);
@@ -221,6 +231,7 @@ void HullDefense::update()
         }
 		break;
 	case GameState::level2Init:
+		structureManager.addBase(400, 200);
 		break;
 	case GameState::level2Build:
 		break;
@@ -268,6 +279,8 @@ void HullDefense::update()
 	if(input->isKeyDown(VK_ESCAPE)){
 		exit(1);
 	}
+	if (input->getMouseLButton()) lastClickState = true;
+	else lastClickState = false;
 }
 
 //=============================================================================

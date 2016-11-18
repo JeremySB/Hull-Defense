@@ -47,6 +47,8 @@ private:
 
 	GameState gameState;
 
+	bool lastClickState;
+
 public:
     // Constructor
     HullDefense();
