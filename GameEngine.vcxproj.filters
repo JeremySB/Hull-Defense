@@ -146,9 +146,6 @@
     <ClInclude Include="net.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="HullDefense.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="structureGrid.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -170,13 +167,16 @@
     <ClInclude Include="tower.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Enemy.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="EnemyManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="PathFinding.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="enemy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="enemyManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HullDefense.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

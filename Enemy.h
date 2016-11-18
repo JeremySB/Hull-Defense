@@ -1,3 +1,5 @@
+// Created by Samuel Casteel
+
 #pragma once
 
 #include "Entity.h"

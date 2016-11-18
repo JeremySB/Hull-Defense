@@ -1,6 +1,7 @@
+
+// Created by Jeremy Bost
+
 #include "tower.h"
-
-
 
 Tower::Tower()
 {

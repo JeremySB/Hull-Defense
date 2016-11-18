@@ -1,3 +1,5 @@
+// Created by Daniel Toney
+
 #pragma once
 #include "entity.h"
 

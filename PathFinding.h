@@ -1,3 +1,6 @@
+
+// Created by Samuel Casteel
+
 #pragma once
 #ifndef _PATH_FINDING_
 #define _PATH_FINDING_
