@@ -6,8 +6,9 @@ EnemyManager::EnemyManager():numChildren(0),spawn(0, GAME_HEIGHT / 2),strongest(
     }
 }
 
-void EnemyManager::initialize(Game* game,StructureGrid* grid){
+void EnemyManager::initialize(Game* game,StructureGrid* grid,Audio* audio){
     this->game = game;
+	this->audio = audio;
     if (!enemyTexture.initialize(game->getGraphics(), ENEMY_IMAGE))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing enemy"));
     setGrid(grid);
@@ -46,7 +47,7 @@ void EnemyManager::removeChild(Enemy* toRemove){
 		if(children[i] == toRemove){
             
 			delete children[i];
-			
+			audio->playCue(SQUISH);
             numChildren--;
 			deleted = true;
 		}

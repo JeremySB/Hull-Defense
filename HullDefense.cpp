@@ -38,7 +38,7 @@ void HullDefense::initialize(HWND hwnd)
 	structureManager.initialize(graphics, this, input, &gameState);
 	gameMenu.initialize(graphics, this, input, audio);
 	gameMenu.setGameState(&gameState);
-    enemyManager.initialize(this,structureManager.getGrid());
+    enemyManager.initialize(this,structureManager.getGrid(),audio);
     level1waves = new Waves(&enemyManager);
     level1waves->waves[0].spawnTime = 1;
     level1waves->waves[1].spawnTime = 1;

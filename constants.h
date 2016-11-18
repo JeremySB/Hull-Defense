@@ -80,6 +80,7 @@ const char SOUND_BANK[] = "audio\\Win\\project2.xsb";
 // audio cues
 const char BACKGROUND[] = "backgroundmusic";
 const char LASER[] = "laser";
+const char SQUISH[] = "Squish";
 
 // key mappings
 // In this game simple constants are used for key mappings. If variables were used

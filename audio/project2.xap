@@ -16,8 +16,8 @@ Global Settings
     Header File = ..\project2.h;
     Exclude Category Names = 0;
     Exclude Variable Names = 0;
-    Last Modified Low = 3885999618;
-    Last Modified High = 30556527;
+    Last Modified Low = 3618389480;
+    Last Modified High = 30556555;
 
     Category
     {
@@ -227,8 +227,8 @@ Wave Bank
     Compression Preset Name = <none>;
     Xbox Bank Last Modified Low = 0;
     Xbox Bank Last Modified High = 0;
-    PC Bank Last Modified Low = 2395306562;
-    PC Bank Last Modified High = 30556546;
+    PC Bank Last Modified Low = 161562169;
+    PC Bank Last Modified High = 30556556;
     Bank Last Revised Low = 2098845819;
     Bank Last Revised High = 30556546;
 
@@ -309,8 +309,6 @@ Sound Bank
     Windows File = Win\project2.xsb;
     Xbox Bank Path Edited = 0;
     Windows Bank Path Edited = 0;
-    Bank Last Modified Low = 346806547;
-    Bank Last Modified High = 30556548;
     Header Last Modified High = 0;
     Header Last Modified Low = 0;
 
@@ -365,7 +363,7 @@ Sound Bank
     Sound
     {
         Name = laser;
-        Volume = -3360;
+        Volume = -2680;
         Pitch = 0;
         Priority = 0;
 
@@ -412,7 +410,7 @@ Sound Bank
     Sound
     {
         Name = Squish;
-        Volume = -1670;
+        Volume = -1730;
         Pitch = 0;
         Priority = 0;
 

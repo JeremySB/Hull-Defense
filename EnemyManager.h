@@ -12,7 +12,7 @@ public:
 	EnemyManager();
 	~EnemyManager();
 
-    void initialize(Game* game, StructureGrid* grid);
+    void initialize(Game* game, StructureGrid* grid, Audio* audio);
 
 	std::list<Enemy*> getChildren();
 	void addChild(Enemy *toAdd);
@@ -37,5 +37,6 @@ private:
     Structure *strongest, *weakest, *base;
 	unsigned int numChildren;
 	PathFinding pathFinder;
+	Audio* audio;
     VECTOR2 spawn;
 };
