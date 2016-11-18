@@ -5,7 +5,7 @@
 #include "text.h"
 #include "audio.h"
 
-class GameMenu : public Entity
+class GameMenu 
 {
 public:
 	GameMenu(void);
@@ -16,10 +16,9 @@ public:
 	void draw();
 	void onLostDevice();
 	void onResetDevice();
-	void setCur(int cur);
-	void render();
 	void display();
-	int getCur();
+	void setCurrency(int in) { currency = in; }
+	void setHealth(int in) { baseHealth = in; }
 
 private:
 	TextureManager towermenuTexture, turretmenuTexture, wallmenuTexture, defmenuTexture; // textures
@@ -38,6 +37,8 @@ private:
 	//TextDX ckfont;
 
 	int currency;
+	int baseHealth;
+	
 	std::string currencyStr;
 
 	Graphics* graphics;
