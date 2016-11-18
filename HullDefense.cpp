@@ -216,14 +216,28 @@ void HullDefense::update()
 	case GameState::level1Build:
 		break;
 	case GameState::level1Play:
+        structureManager.update(frameTime);
+        gameMenu.update(frameTime);
         level1waves->update(frameTime);
+        enemyManager.updateChildren(frameTime);
+        if (structureManager.getPlacedThisFrame()) {
+            enemyManager.updateStructures();
+            enemyManager.findPaths();
+        }
 		break;
 	case GameState::level2Init:
 		break;
 	case GameState::level2Build:
 		break;
 	case GameState::level2Play:
+        structureManager.update(frameTime);
+        gameMenu.update(frameTime);
         level2waves->update(frameTime);
+        enemyManager.updateChildren(frameTime);
+        if (structureManager.getPlacedThisFrame()) {
+            enemyManager.updateStructures();
+            enemyManager.findPaths();
+        }
 		break;
 	case GameState::won:
 		break;
@@ -233,15 +247,15 @@ void HullDefense::update()
 		break;
 	}
 	
-	structureManager.update(frameTime);
-	gameMenu.update(frameTime);
-    enemyManager.updateChildren(frameTime);
+	//structureManager.update(frameTime);
+	//gameMenu.update(frameTime);
+    //enemyManager.updateChildren(frameTime);
 
-    if(structureManager.getPlacedThisFrame()){
+   /* if(structureManager.getPlacedThisFrame()){
 		enemyManager.updateStructures();
         enemyManager.findPaths();
-    }
-    level1waves->update(frameTime);
+    }*/
+    //level1waves->update(frameTime);
     if(input->isKeyDown('R')){
         auto tmp = structureManager.getStructures();
         while(!tmp.empty()){
@@ -272,10 +286,6 @@ void HullDefense::ai()
 //=============================================================================
 void HullDefense::collisions()
 {
-	//Enemy** enemies = enemyManager.getChildren();
-	//int test = sizeof(Enemy*);
-	//std::list<Enemy*> enemyList(enemies, enemies + MAX_ENEMIES);
-	//structureManager.collisions(enemyList);
     structureManager.collisions(enemyManager.getChildren());
 }
 
@@ -307,6 +317,9 @@ void HullDefense::render()
 		break;
 	case GameState::level1Play:
         level1waves->update(frameTime);
+        structureManager.draw();
+        enemyManager.draw();
+        gameMenu.draw();
 		break;
 	case GameState::level2Init:
 		break;
@@ -314,6 +327,9 @@ void HullDefense::render()
 		break;
 	case GameState::level2Play:
         level2waves->update(frameTime);
+        structureManager.draw();
+        enemyManager.draw();
+        gameMenu.draw();
 		break;
 	case GameState::won:
 		break;
@@ -323,9 +339,8 @@ void HullDefense::render()
 		break;
 	}
 	
-	structureManager.draw();
-    enemyManager.draw();
-	gameMenu.draw();
+
+
     graphics->spriteEnd();                  // end drawing sprites
 
 }
