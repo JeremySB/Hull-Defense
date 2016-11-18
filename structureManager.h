@@ -59,6 +59,8 @@ public:
     StructureGrid* getGrid();
 
     bool getPlacedThisFrame();
+	
+	int getBaseHealth() { return base->getHealth(); }
 
 	void reset();
 

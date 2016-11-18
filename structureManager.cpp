@@ -103,10 +103,10 @@ void StructureManager::collisions(std::list<Enemy*> entities)
 
 void StructureManager::update(float frameTime)
 {
+    placedThisFrame = !input->getMouseLButton() && lastLMBState;
 	if (grid.update(frameTime)) {
 		placedThisFrame = true;
 	}
-    placedThisFrame = !input->getMouseLButton() && lastLMBState;
 	selection();
 
 	if (input->getMouseLButton()) lastLMBState = true;
