@@ -1,5 +1,12 @@
 // Created by Samuel Casteel
 #include "wave.h"
+Wave::~Wave(){
+    while(!toSpawn.empty()){
+        delete toSpawn.front();
+        toSpawn.pop_front();
+    }
+}
+
 Wave::Wave():timeSinceLastSpawn(0),spawnTime(0){
 
 }

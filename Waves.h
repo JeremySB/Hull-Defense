@@ -5,6 +5,7 @@
 class Waves {
 public:
     Waves(EnemyManager* manager);
+    ~Waves();
     void startWave();
     void update(float frameTime);
 

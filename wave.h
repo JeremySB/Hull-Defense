@@ -5,6 +5,7 @@
 class Wave {
 public:
     Wave();
+    ~Wave();
     bool update(float frameTime);
 //private:
     EnemyManager* manager;
