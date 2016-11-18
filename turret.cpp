@@ -9,7 +9,7 @@ Turret::Turret()
 	setCollisionRadius(turretNS::RANGE);
 	projectileDisplayTimer = turretNS::PROJECTILE_DURATION + turretNS::TIME_BETWEEN_SHOTS;
 	target = nullptr;
-	targetChanged = false;
+	firstShot = false;
 	setHealth(turretNS::STARTING_HEALTH);
 }
 
@@ -53,13 +53,16 @@ void Turret::update(float frameTime)
 			float radians = std::atan2(target->getCenterY() - getCenterY(), target->getCenterX() - getCenterX());
 			projectileImage.setRadians(radians);
 			gunImage.setRadians(radians + PI / 2);
-			targetChanged = false;
+			
 			projectileImage.setVisible(true);
 			projectileImage.setColorFilter(SETCOLOR_ARGB((int)(255 * (1 - min(1, projectileDisplayTimer / turretNS::PROJECTILE_DURATION))), 255, 255, 255));
 			projectileDisplayTimer += frameTime;
 
 			// apply damage to target
-			target->setHealth(target->getHealth() - turretNS::DAMAGE);
+			if(firstShot)
+				target->setHealth(target->getHealth() - turretNS::DAMAGE);
+			
+			firstShot = false;
 			
 		}
 		else
@@ -78,10 +81,11 @@ void Turret::attackTarget(Entity* target)
 {
 	if (projectileDisplayTimer >= turretNS::PROJECTILE_DURATION + turretNS::TIME_BETWEEN_SHOTS) {
 		projectileDisplayTimer = 0;
+		firstShot = true;
 	}
 	if (this->target != target) {
 		this->target = target;
-		targetChanged = true;
+		firstShot = true;
 	}
 }
 

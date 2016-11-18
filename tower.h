@@ -38,6 +38,6 @@ private:
 	Image projectileImage, gunImage;
 
 	float projectileDisplayTimer;
-	bool targetChanged;
+	bool firstShot;
 };
 

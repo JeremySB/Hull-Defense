@@ -9,7 +9,7 @@ Tower::Tower()
 	type = tower;
 	projectileDisplayTimer = towerNS::PROJECTILE_DURATION + towerNS::TIME_BETWEEN_SHOTS;
 	target = nullptr;
-	targetChanged = false;
+	firstShot = false;
 
 	widthInGrid = 3;
 	heightInGrid = 3;
@@ -56,13 +56,17 @@ void Tower::update(float frameTime)
 			float radians = std::atan2(target->getCenterY() - getCenterY(), target->getCenterX() - getCenterX());
 			projectileImage.setRadians(radians);
 			gunImage.setRadians(radians + PI / 2);
-			targetChanged = false;
+			
 			projectileImage.setVisible(true);
 			projectileImage.setColorFilter(SETCOLOR_ARGB((int)(255 * (1 - min(1, projectileDisplayTimer / towerNS::PROJECTILE_DURATION))), 255, 255, 255));
+			
+			if(firstShot)
+				target->setHealth(target->getHealth() - towerNS::DAMAGE);
+
+			firstShot = false;
 			projectileDisplayTimer += frameTime;
 
-			// apply damage to target
-			target->setHealth(target->getHealth() - towerNS::DAMAGE);
+			
 		}
 		else
 		{
@@ -80,10 +84,11 @@ void Tower::attackTarget(Entity* target)
 {
 	if (projectileDisplayTimer >= towerNS::PROJECTILE_DURATION + towerNS::TIME_BETWEEN_SHOTS) {
 		projectileDisplayTimer = 0;
+		firstShot = true;
 	}
 	if (this->target != target) {
 		this->target = target;
-		targetChanged = true;
+		
 	}
 }
 
