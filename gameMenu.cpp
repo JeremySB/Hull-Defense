@@ -25,11 +25,11 @@ void GameMenu::initialize(Graphics* graphics, Game* game, Input* input){
 	currencyFont = new TextDX();
 	objDescriptionFont = new TextDX();
 
-	if(scoreFont->initialize(graphics, 24, true, false, "Calibri") == false)
+	if(scoreFont->initialize(graphics, 20, true, false, "Calibri") == false)
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing score font"));
-	if(currencyFont->initialize(graphics, 24, true, false, "Calibri") == false)
+	if(currencyFont->initialize(graphics, 20, true, false, "Calibri") == false)
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing currency font"));
-	if(objDescriptionFont->initialize(graphics, 24, true, false, "Calibri") == false)
+	if(objDescriptionFont->initialize(graphics, 20, true, false, "Calibri") == false)
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing objDescription font"));
 	scoreFont->setFontColor(normalColor);
 	currencyFont->setFontColor(normalColor);
@@ -173,6 +173,10 @@ int GameMenu::getCur(){
 
 void GameMenu::display(){
 	//setCur(+1);
-	currencyStr = "Energy: " + std::to_string(getCur());
-	currencyFont->print(currencyStr,GAME_WIDTH-MENU_RIGHT_WIDTH,GAME_HEIGHT-26);
+	currencyStr = "Energy: " + std::to_string(getCur()) + " - Base Health: " + std::to_string(1000);
+	if(menuActive){
+		currencyFont->print(currencyStr,GAME_WIDTH-MENU_RIGHT_WIDTH,GAME_HEIGHT-towerMenu.getHeight());
+	}else{
+		currencyFont->print(currencyStr,GAME_WIDTH-MENU_RIGHT_WIDTH,GAME_HEIGHT-22);
+	}
 }
