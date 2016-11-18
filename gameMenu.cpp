@@ -7,6 +7,7 @@ GameMenu::GameMenu(void)
 	scoreFont = new TextDX();
 	currencyFont = new TextDX();
 	objDescriptionFont = new TextDX();
+	lastClickState = false;
 }
 
 
@@ -86,14 +87,17 @@ void GameMenu::initialize(Graphics* graphics, Game* game, Input* input, Audio* a
 }
 
 void GameMenu::update(float frameTime){
-	if(menuActive){
-		if(input->getMouseLButton()){
+	if(gameState->getSelectionMode() == GameState::build){
+		if(!input->getMouseLButton() && lastClickState){
 			if((input->getMouseX()>0 && input->getMouseX()<GAME_WIDTH/3)&&input->getMouseY()>GAME_HEIGHT-towerMenu.getHeight()){
 				// Tower
+				gameState->setSelectionMode(GameState::towerSelection);
 			}else if((input->getMouseX()>GAME_WIDTH/3 && input->getMouseX()<2*(GAME_WIDTH/3))&&input->getMouseY()>GAME_HEIGHT-towerMenu.getHeight()){
 				// Turret
+				gameState->setSelectionMode(GameState::turretSelection);
 			}else if((input->getMouseX()>2*(GAME_WIDTH/3) && input->getMouseX()<GAME_WIDTH)&&input->getMouseY()>GAME_HEIGHT-towerMenu.getHeight()){
 				// Wall
+				gameState->setSelectionMode(GameState::wallSelection);
 			}
 			// build tab
 			else if(input->getMouseX()>(0) && input->getMouseX()<(TABS_WIDTH) && input->getMouseY()>(GAME_HEIGHT-towerMenu.getHeight()) && input->getMouseY()<(GAME_HEIGHT-towerMenu.getHeight()+TABS_HEIGHT)){
@@ -101,7 +105,7 @@ void GameMenu::update(float frameTime){
 				repairMenu.setVisible(false);
 				defMenu.setVisible(false);
 				menuActive = true;
-				gameState->setSelectionMode(GameState::normal);
+				gameState->setSelectionMode(GameState::build);
 			}
 			// sell tab
 			else if(input->getMouseX()>(TABS_WIDTH) && input->getMouseX()<(2*TABS_WIDTH) &&  input->getMouseY()>(GAME_HEIGHT-towerMenu.getHeight()) && input->getMouseY()<(GAME_HEIGHT-towerMenu.getHeight()+TABS_HEIGHT)){
@@ -121,14 +125,14 @@ void GameMenu::update(float frameTime){
 			}
 		}
 	}else{
-		if(input->getMouseLButton()){
+		if(!input->getMouseLButton() && lastClickState){
 			// build
 			if(input->getMouseX() >(0) && input->getMouseX()<(TABS_WIDTH) && input->getMouseY()>(GAME_HEIGHT-TABS_HEIGHT) && input->getMouseY()<(GAME_HEIGHT)){
 				towerMenu.setVisible(true);
 				repairMenu.setVisible(false);
 				defMenu.setVisible(false);
 				menuActive = true;
-				gameState->setSelectionMode(GameState::normal);
+				gameState->setSelectionMode(GameState::build);
 			}
 			// sell
 			else if(input->getMouseX()>(TABS_WIDTH) && input->getMouseX()<(2*TABS_WIDTH) && input->getMouseY()>(GAME_HEIGHT-TABS_HEIGHT) && input->getMouseY()<(GAME_HEIGHT)){
@@ -149,21 +153,45 @@ void GameMenu::update(float frameTime){
 		}
 	}
 
-	if(input->getMouseLButton() && input->getMouseY()<GAME_HEIGHT-towerMenu.getHeight()){
+	/*if(input->getMouseLButton() && input->getMouseY()<GAME_HEIGHT-towerMenu.getHeight()){
 		defMenu.setVisible(true);
 		towerMenu.setVisible(false);
 		repairMenu.setVisible(false);
+		sellMenu.setVisible(false);
+		menuActive = false;
+	}*/
+
+	if (gameState->getSelectionMode() == GameState::build) {
+		towerMenu.setVisible(true);
+		repairMenu.setVisible(false);
+		sellMenu.setVisible(false);
+		defMenu.setVisible(false);
+		menuActive = true;
+	}
+	else if (gameState->getSelectionMode() == GameState::sell) {
+		towerMenu.setVisible(false);
+		repairMenu.setVisible(false);
+		sellMenu.setVisible(true);
+		defMenu.setVisible(false);
+		menuActive = false;
+	}
+	else if (gameState->getSelectionMode() == GameState::repair) {
+		towerMenu.setVisible(false);
+		repairMenu.setVisible(true);
+		sellMenu.setVisible(false);
+		defMenu.setVisible(false);
+		menuActive = false;
+	}
+	else {
+		towerMenu.setVisible(false);
+		repairMenu.setVisible(false);
+		sellMenu.setVisible(false);
+		defMenu.setVisible(true);
 		menuActive = false;
 	}
 
-	if (gameState->getSelectionMode() == GameState::sell) {
-		sellMenu.setVisible(true);
-		defMenu.setVisible(false);
-	}
-	else {
-		sellMenu.setVisible(false);
-		defMenu.setVisible(true);
-	}
+	if (input->getMouseLButton()) lastClickState = true;
+	else lastClickState = false;
 }
 
 void GameMenu::draw(){

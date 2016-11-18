@@ -29,6 +29,8 @@ private:
 	Image	defMenu;
 	bool menuActive;
 
+	bool lastClickState;
+
 	TextDX *scoreFont;
 	TextDX *currencyFont;
 	TextDX *objDescriptionFont;
