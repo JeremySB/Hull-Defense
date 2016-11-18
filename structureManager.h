@@ -60,6 +60,8 @@ public:
 
     bool getPlacedThisFrame();
 
+	void reset();
+
 	void onLostDevice();
 	void onResetDevice();
 

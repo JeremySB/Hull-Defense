@@ -91,12 +91,26 @@ void StructureGrid::draw()
 	}
 }
 
-void StructureGrid::update(float frameTime)
+bool StructureGrid::update(float frameTime)
 {
-	for (auto iter = structureList.begin(); iter != structureList.end(); iter++) {
-		if (*iter)
-			(*iter)->update(frameTime);
+	bool deleted = false;
+	for (int i = 0; i < structures.size(); i++) {
+		for (int j = 0; j < structures[i].size(); j++)
+		{
+			if (structures[i][j] && structures[i][j]->getHealth() <= 0) {
+				removeAtGridCoords(i, j);
+				deleted = true;
+			}
+		}
 	}
+
+	for (auto iter = structureList.begin(); iter != structureList.end(); iter++) {
+		if (*iter) {
+			(*iter)->update(frameTime);
+		}
+	}
+
+	return deleted;
 }
 
 std::list<Structure*> StructureGrid::getStructures()

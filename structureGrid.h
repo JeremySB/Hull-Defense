@@ -39,7 +39,7 @@ public:
 	void draw();
 
 	// call update on structures in frame
-	void update(float frameTime);
+	bool update(float frameTime);
 
 	std::list<Structure*> getStructures();
 
