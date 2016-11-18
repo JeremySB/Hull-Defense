@@ -207,11 +207,23 @@ void HullDefense::update()
 		break;
 	case GameState::instructions:
 		if(!input->getMouseLButton() && lastClickState){
+			gameState.setGamePhase(GameState::instructions1);
+		}
+		break;
+	case GameState::instructions1:
+		if (!input->getMouseLButton() && lastClickState) {
+			gameState.setGamePhase(GameState::instructions2);
+		}
+		break;
+	case GameState::instructions2:
+		if (!input->getMouseLButton() && lastClickState) {
 			gameState.setGamePhase(GameState::level1Init);
 		}
 		break;
 	case GameState::level1Init:
+		structureManager.reset();
 		structureManager.addBase(950, 10);
+		gameState.setCurrency(1000);
 		gameState.setGamePhase(GameState::level1Play);
 		break;
 	case GameState::level1Build:
@@ -231,6 +243,8 @@ void HullDefense::update()
         }
 		break;
 	case GameState::level2Init:
+		structureManager.reset();
+		gameState.setCurrency(1000);
 		structureManager.addBase(400, 200);
 		break;
 	case GameState::level2Build:
@@ -318,9 +332,12 @@ void HullDefense::render()
 		break;
 	case GameState::instructions:
 		instruction0.draw();
-		//if(input->getMouseLButton() && !mouseWasDown){
-
-		//}
+		break;
+	case GameState::instructions1:
+		instruction1.draw();
+		break;
+	case GameState::instructions2:
+		instruction2.draw();
 		break;
 	case GameState::level1Init:
 		break;
