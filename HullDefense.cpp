@@ -112,6 +112,8 @@ void HullDefense::initialize(HWND hwnd)
 	// 18 pixel high Arial
 	if(dxFont->initialize(graphics, 18, true, false, "Arial") == false)
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing DirectX font"));
+	level1waves = new Waves(&enemyManager);
+	level2waves = new Waves(&enemyManager);
 	return;
 }
 
@@ -151,7 +153,7 @@ void HullDefense::update()
 	case GameState::level1Init:
 		enemies = enemyManager.getChildren();
 
-		level1waves = new Waves(&enemyManager);
+		
 		level1waves->waves[0].spawnTime = 1;
 		level1waves->waves[1].spawnTime = 1;
 		level1waves->waves[2].spawnTime = 1;
@@ -215,7 +217,7 @@ void HullDefense::update()
 	case GameState::level2Init:
 		enemies = enemyManager.getChildren();
 
-		level2waves = new Waves(&enemyManager);
+		
 		level2waves->waves[0].spawnTime = 1;
 		level2waves->waves[1].spawnTime = .7;
 		level2waves->waves[2].spawnTime = .7;
