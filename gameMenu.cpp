@@ -78,7 +78,6 @@ void GameMenu::initialize(Graphics* graphics, Game* game, Input* input, Audio* a
 	defMenu.setY(GAME_HEIGHT-TABS_HEIGHT);
 
 	menuActive = false;
-	currency = 250;
 
 	towerMenu.setVisible(false);
 	wallMenu.setVisible(false);
@@ -164,17 +163,9 @@ void GameMenu::onResetDevice(){
 	defmenuTexture.onResetDevice();
 }
 
-void GameMenu::setCur(int cur){
-	currency += cur;
-}
-
-int GameMenu::getCur(){
-	return currency;
-}
-
 void GameMenu::display(){
 	//setCur(+1);
-	currencyStr = "Energy: " + std::to_string(getCur()) + " - Base Health: " ;
+	currencyStr = "Energy: " + std::to_string(currency) + " - Base Health: " + std::to_string(baseHealth);
 	if(menuActive){
 		currencyFont->print(currencyStr,GAME_WIDTH-MENU_RIGHT_WIDTH,GAME_HEIGHT-towerMenu.getHeight());
 	}else{

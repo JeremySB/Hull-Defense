@@ -57,7 +57,33 @@ void HullDefense::initialize(HWND hwnd)
 //=============================================================================
 void HullDefense::update()
 {
-    structureManager.update(frameTime);
+	switch (gameState)
+	{
+	case intro:
+		break;
+	case instructions:
+		break;
+	case level1Init:
+		break;
+	case level1Build:
+		break;
+	case level1Play:
+		break;
+	case level2Init:
+		break;
+	case level2Build:
+		break;
+	case level2Play:
+		break;
+	case won:
+		break;
+	case lost:
+		break;
+	default:
+		break;
+	}
+	
+	structureManager.update(frameTime);
 	gameMenu.update(frameTime);
     enemyManager.updateChildren(frameTime);
     if(structureManager.getPlacedThisFrame()){
