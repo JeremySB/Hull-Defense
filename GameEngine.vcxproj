@@ -131,6 +131,7 @@
     <ClInclude Include="HeavyEnemy.h" />
     <ClInclude Include="inputDialog.h" />
     <ClInclude Include="LightEnemy.h" />
+    <ClInclude Include="MediumEnemy.h" />
     <ClInclude Include="messageDialog.h" />
     <ClInclude Include="net.h" />
     <ClInclude Include="pathFinding.h" />

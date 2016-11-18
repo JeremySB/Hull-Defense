@@ -50,6 +50,7 @@ void EnemyManager::removeChild(Enemy* toRemove){
 	for(int i = 0; i < numChildren || (deleted && i+1 < numChildren); i++){
 		if(children[i] == toRemove){
 			delete children[i];
+            numChildren--;
 			deleted = true;
 		}
 		if(deleted){

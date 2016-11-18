@@ -10,6 +10,6 @@ public:
         health = 100;
         damage = 80;
         targeting = strongestTarget;
-        colorFilter = SETCOLOR_ARGB(255, 0, 255, 0);
+        colorFilter = SETCOLOR_ARGB(255, 0, 125, 0);
     }
 };
