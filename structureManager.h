@@ -43,6 +43,8 @@ public:
 	// opens selection process for placing a wall
 	void addWallSelection();
 
+	void removeSelection() { mode = normal; };
+
 	std::list<Structure*> getStructures() { return grid.getStructures(); }
 
 	// checking if there is a structure at a given pixel location

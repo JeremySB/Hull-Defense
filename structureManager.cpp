@@ -105,11 +105,13 @@ void StructureManager::update(float frameTime)
 
 bool StructureManager::addTower(int x, int y)
 {
-	if (isOccupiedAtGrid(grid.gridXLoc(x), grid.gridYLoc(y), 3, 3)) return false;
+	int xGrid = grid.gridXLoc(x) - 1;
+	int yGrid = grid.gridYLoc(y) - 1;
+	if (isOccupiedAtGrid(xGrid, yGrid, 3, 3)) return false;
 
 	Tower* tower = new Tower();
 	tower->initialize(game, 3, 3, 0, &towerBaseTexture);
-	grid.addAtPixelCoords(tower, x, y);
+	grid.addAtGridCoords(tower, xGrid, yGrid);
 	tower->setProjectileTexture(&towerProjectileTexture);
 	tower->setGunTexture(&towerGunTexture);
 
@@ -190,6 +192,11 @@ void StructureManager::selection()
 	int x = input->getMouseX();
 	int y = input->getMouseY();
 
+	// check if in menu area
+	if (y > GAME_HEIGHT - CELL_HEIGHT && !input->getMouseLButton() && lastLMBState) {
+		mode = normal;
+	}
+
 	// only trigger on LMB up
 	if (mode == wallSelection && !input->getMouseLButton() && lastLMBState) {
 		addWall(x, y); // function checks for existing structures
@@ -203,7 +210,7 @@ void StructureManager::selection()
 
 	// add green highlight if good selection
 	if ((mode == wallSelection || mode == turretSelection)
-		&& !isOccupied(x, y) && x > 0 && y > 0 && x < GAME_WIDTH && y < GAME_HEIGHT) {
+		&& !isOccupied(x, y) && x > 0 && y > 0 && x < GAME_WIDTH && y < GAME_HEIGHT - CELL_HEIGHT) {
 		goodSelectionImage.setHeight(CELL_HEIGHT);
 		goodSelectionImage.setWidth(CELL_WIDTH);
 		goodSelectionImage.setRect();
@@ -212,12 +219,12 @@ void StructureManager::selection()
 		goodSelectionImage.setVisible(true);
 	}
 	else if ((mode == towerSelection)
-		&& !isOccupiedAtGrid(grid.gridXLoc(x), grid.gridYLoc(y), 3, 3) && x > 0 && y > 0 && x < GAME_WIDTH - 2*CELL_WIDTH && y < GAME_HEIGHT - 2 * CELL_HEIGHT) {
+		&& !isOccupiedAtGrid(grid.gridXLoc(x) - 1, grid.gridYLoc(y) - 1, 3, 3) && x > CELL_HEIGHT && y > CELL_HEIGHT && x < GAME_WIDTH - 1 * CELL_WIDTH && y < GAME_HEIGHT - 2 * CELL_HEIGHT) {
 		goodSelectionImage.setHeight(3 * CELL_HEIGHT);
 		goodSelectionImage.setWidth(3 * CELL_WIDTH);
 		goodSelectionImage.setRect();
-		goodSelectionImage.setX(grid.pixelXLoc(grid.gridXLoc(x)));
-		goodSelectionImage.setY(grid.pixelYLoc(grid.gridYLoc(y)));
+		goodSelectionImage.setX(grid.pixelXLoc(grid.gridXLoc(x) - 1));
+		goodSelectionImage.setY(grid.pixelYLoc(grid.gridYLoc(y) - 1));
 		goodSelectionImage.setVisible(true);
 	}
 	else {

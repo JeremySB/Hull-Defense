@@ -10,7 +10,7 @@ StructureGrid::StructureGrid(void) : structures((int)(GAME_WIDTH / CELL_WIDTH) +
 	this->cellWidth = CELL_WIDTH;
 
 	maxX = (int)(GAME_WIDTH / CELL_WIDTH);
-	maxY = (int)(GAME_HEIGHT / CELL_HEIGHT);
+	maxY = (int)(GAME_HEIGHT / CELL_HEIGHT) - 1;
 }
 
 
@@ -26,10 +26,10 @@ StructureGrid::~StructureGrid(void)
 }
 
 
-void StructureGrid::addAtGridCoords(Structure* in, int x, int y)
+bool StructureGrid::addAtGridCoords(Structure* in, int x, int y)
 {
-	if(!(x >= 0 && y >= 0 && x + in->getWidthInGrid() <= maxX && y + in->getHeightInGrid() <= maxY))
-		throw(GameError(gameErrorNS::WARNING, "Structure out of grid boundary"));
+	if (!(x >= 0 && y >= 0 && x + in->getWidthInGrid() <= maxX && y + in->getHeightInGrid() <= maxY))
+		return false;
 
 	structureList.push_back(in);
 
@@ -42,11 +42,13 @@ void StructureGrid::addAtGridCoords(Structure* in, int x, int y)
 			structures[x + i][y + j] = in;
 		}
 	}
+
+	return true;
 }
 
-void StructureGrid::addAtPixelCoords(Structure* in, int x, int y)
+bool StructureGrid::addAtPixelCoords(Structure* in, int x, int y)
 {
-	addAtGridCoords(in, gridXLoc(x), gridYLoc(y));
+	return addAtGridCoords(in, gridXLoc(x), gridYLoc(y));
 }
 
 void StructureGrid::removeAtGridCoords(int x, int y)

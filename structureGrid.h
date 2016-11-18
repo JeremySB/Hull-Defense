@@ -19,10 +19,10 @@ public:
 	~StructureGrid(void);
 
 	// add Structure at grid location
-	void addAtGridCoords(Structure* ent, int x, int y);
+	bool addAtGridCoords(Structure* ent, int x, int y);
 
 	// add Structure at pixel location - translates into nearest grid
-	void addAtPixelCoords(Structure* ent, int x, int y);
+	bool addAtPixelCoords(Structure* ent, int x, int y);
 
 	// remove structure at a location in pixels
 	void removeAtPixelCoords(int x, int y) { removeAtGridCoords(gridXLoc(x), gridXLoc(y)); }
