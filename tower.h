@@ -9,6 +9,7 @@ namespace towerNS {
 	const float TIME_BETWEEN_SHOTS = 0.3f; // in seconds
 	const float ROTATE_SPEED = 0.5f; // radians per second
 	const int STARTING_HEALTH = 600;
+	const int DAMAGE = 50;
 }
 
 class Tower : public Structure

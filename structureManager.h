@@ -11,6 +11,7 @@
 #include "turret.h"
 #include "tower.h"
 #include "Enemy.h"
+#include "base.h"
 #include <list>
 
 class StructureManager
@@ -29,6 +30,8 @@ public:
 	// update structures
 	void update(float frameTime);
 
+
+	bool addBase(int x, int y);
 	// add wall at location in pixels. Returns false if object there
 	bool addTower(int x, int y);
 	// add wall at location in pixels. Returns false if object there
@@ -67,6 +70,7 @@ private:
 	Graphics* graphics;
 	Game* game;
 	Input* input;
+	Base* base;
 	enum Mode {normal, wallSelection, towerSelection, turretSelection} mode;
 	bool lastLMBState;
     bool placedThisFrame;

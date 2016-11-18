@@ -48,6 +48,7 @@ void Tower::update(float frameTime)
 	{
 		float distance = std::sqrt(std::pow(target->getCenterX() - getCenterX(), 2) + std::pow(target->getCenterY() - getCenterY(), 2));
 		if (distance <= towerNS::RANGE) {
+			// hit is good
 			projectileImage.setWidth(distance);
 			projectileImage.setRect();
 			projectileImage.setX(getCenterX() + (target->getCenterX() - getCenterX()) / 2 - projectileImage.getWidth() / 2);
@@ -59,6 +60,9 @@ void Tower::update(float frameTime)
 			projectileImage.setVisible(true);
 			projectileImage.setColorFilter(SETCOLOR_ARGB((int)(255 * (1 - min(1, projectileDisplayTimer / towerNS::PROJECTILE_DURATION))), 255, 255, 255));
 			projectileDisplayTimer += frameTime;
+
+			// apply damage to target
+			target->setHealth(target->getHealth() - towerNS::DAMAGE);
 		}
 		else
 		{

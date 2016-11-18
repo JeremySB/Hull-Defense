@@ -8,11 +8,13 @@ StructureManager::StructureManager()
 {
 	lastLMBState = false;
     placedThisFrame = false;
+	base = nullptr;
 }
 
 
 StructureManager::~StructureManager()
 {
+
 }
 
 void StructureManager::initialize(Graphics* graphics, Game* game, Input* input)
@@ -56,12 +58,13 @@ void StructureManager::initialize(Graphics* graphics, Game* game, Input* input)
 
 	goodSelectionImage.setVisible(false);
 
-
 	addTurret(100, 100);
 	addTurret(100, 200);
 	addTower(200, 200);
 
 	addWall(400, 400);
+
+	addBase(550, 300);
 
 	Turret* t1 = (Turret*)(grid.atPixelCoords(100, 100));
 	Turret* t2 = (Turret*)(grid.atPixelCoords(100, 200));
@@ -106,6 +109,21 @@ void StructureManager::update(float frameTime)
 
 	if (input->getMouseLButton()) lastLMBState = true;
 	else lastLMBState = false;
+}
+
+bool StructureManager::addBase(int x, int y)
+{
+	safeDelete(base);
+	
+	int xGrid = grid.gridXLoc(x);
+	int yGrid = grid.gridYLoc(y);
+	if (isOccupiedAtGrid(xGrid, yGrid, 4, 4)) return false;
+
+	base = new Base();
+	base->initialize(game, 4, 4, 0, &baseTexture);
+	grid.addAtGridCoords(base, xGrid, yGrid);
+
+	return true;
 }
 
 bool StructureManager::addTower(int x, int y)
