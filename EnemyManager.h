@@ -1,7 +1,6 @@
 // Created by Samuel Casteel
 
 #pragma once
-
 #include "Enemy.h"
 #include "HeavyEnemy.h"
 #include "MediumEnemy.h"
@@ -28,8 +27,8 @@ public:
 
     void setGrid(StructureGrid* tmp){grid = tmp; pathFinder.loadMap(tmp);}
     void updateStructures();
-private:
-    Game* game;
+private: 
+    Game*game;
     StructureGrid* grid;
     TextureManager enemyTexture;
 	Enemy* children[MAX_ENEMIES];

@@ -28,6 +28,8 @@ private:
     TextureManager menuTexture, backgroundTexture, towermenuTexture, turretmenuTexture, wallmenuTexture, defmenuTexture; // textures
 	StructureManager structureManager;
     Waves* waves;
+    float waveTimeout;
+    float timeIntoTimeout;
     EnemyManager enemyManager;
 	GameMenu gameMenu;
     Image   background;         // background image

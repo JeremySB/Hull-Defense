@@ -6,7 +6,7 @@ public:
     Wave();
     bool update(float frameTime);
 //private:
-    EnemyManager *manager;
+    EnemyManager* manager;
     std::list<Enemy*> toSpawn;
     float spawnTime;
     float timeSinceLastSpawn;

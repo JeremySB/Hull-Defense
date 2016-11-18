@@ -11,6 +11,8 @@
 //=============================================================================
 HullDefense::HullDefense() : Game()
 {
+    waveTimeout = 2;
+    timeIntoTimeout = 0;
     dxFont = new TextDX();  // DirectX font
 }
 
@@ -65,7 +67,7 @@ void HullDefense::update()
         enemyManager.findPaths();
     }
     waves->update(frameTime);
-    if(input->isKeyDown(' '))
+    if((timeIntoTimeout += frameTime) >= waveTimeout)
         waves->startWave();
 	// exit on esc
 	if(input->isKeyDown(VK_ESCAPE)){
