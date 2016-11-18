@@ -27,6 +27,8 @@ public:
 
     void setGrid(StructureGrid* tmp){grid = tmp; pathFinder.loadMap(tmp);}
     void updateStructures();
+
+    unsigned int getNumChildren(){return numChildren;}
 private: 
     Game*game;
     StructureGrid* grid;

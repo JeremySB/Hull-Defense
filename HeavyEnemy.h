@@ -5,8 +5,8 @@ public:
     HeavyEnemy(){
         speed = 50;
         value = 100;
-        health = 200;
-        damage = 2000000000;
+        health = 400;
+        damage = 120;
         targeting = weakestTarget;
         colorFilter = SETCOLOR_ARGB(255,125,0,0);
     }
