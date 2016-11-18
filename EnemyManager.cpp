@@ -90,17 +90,24 @@ void EnemyManager::updateChildren(float frameTime){
 }
 void EnemyManager::updateStructures(){
     std::list<Structure*> tmp = grid->getStructures();
-    strongest = tmp.front();
-    weakest = tmp.front();
-    base = tmp.front();
-    while (!tmp.empty()) {
-        if (tmp.front()->getHealth() > strongest->getHealth() && tmp.front()->getType() != baseTarget)
-            strongest = tmp.front();
-        if (tmp.front()->getHealth() < weakest->getHealth())
-            weakest = tmp.front();
-        if(tmp.front()->getType() == baseTarget)
-            base = tmp.front();
-        tmp.pop_front();
+    if(tmp.empty()){
+        strongest = nullptr;
+        weakest = nullptr;
+        base = nullptr;
+    }
+    else{
+        strongest = tmp.front();
+        weakest = tmp.front();
+        base = tmp.front();
+        while (!tmp.empty()) {
+            if (tmp.front()->getHealth() > strongest->getHealth() && tmp.front()->getType() != baseTarget)
+                strongest = tmp.front();
+            if (tmp.front()->getHealth() < weakest->getHealth() && tmp.front()->getType() != baseTarget)
+                weakest = tmp.front();
+            if(tmp.front()->getType() == baseTarget)
+                base = tmp.front();
+            tmp.pop_front();
+        }
     }
     for(int i = 0; i < numChildren; i++){
         switch (children[i]->getTargeting()) {
@@ -122,7 +129,7 @@ void EnemyManager::findPaths(){
     updateStructures();
     pathFinder.updateMap();
 	for( int i = 0; i < numChildren; i++){
-        if(children[i]->getTarget())
+        if(children[i]->getTarget() !=nullptr)
 		    children[i]->setPath(pathFinder.findPath(reinterpret_cast<Entity*>(children[i]),reinterpret_cast<Entity *>(children[i]->getTarget()))); 
 	}
 }
