@@ -13,4 +13,5 @@ public:
     bool betweenWaves;
     float timeBetweenWaves;
     float timePassed;
+    EnemyManager *manager;
 };
