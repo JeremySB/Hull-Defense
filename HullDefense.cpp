@@ -99,7 +99,12 @@ void HullDefense::ai()
 // Handle collisions
 //=============================================================================
 void HullDefense::collisions()
-{}
+{
+	Enemy** enemies = enemyManager.getChildren();
+	int test = sizeof(Enemy*);
+	std::list<Enemy*> enemyList(enemies, enemies + MAX_ENEMIES);
+	structureManager.collisions(enemyList);
+}
 
 //=============================================================================
 // Render game items

@@ -19,13 +19,17 @@ public:
 
 	void damage(int weapon);
 
+	virtual void attackTarget(Entity* target) {}
+
+	// Get structure's range. Default is 0
+	virtual float getRange() { return 0.0f; }
+
 	int getWidthInGrid() { return widthInGrid; }
 	int getHeightInGrid() { return heightInGrid; }
 	StructureTypes getType(){ return type;}
-
-private:
-	int widthInGrid, heightInGrid;
+	
 protected:
 	StructureTypes type;
+	int widthInGrid, heightInGrid;
 };
 

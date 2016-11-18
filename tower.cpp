@@ -4,11 +4,15 @@
 
 Tower::Tower()
 {
+	Structure::Structure();
 	type = tower;
 	setCollisionRadius(towerNS::RANGE);
 	projectileDisplayTimer = towerNS::PROJECTILE_DURATION + towerNS::TIME_BETWEEN_SHOTS;
 	target = nullptr;
 	targetChanged = false;
+
+	widthInGrid = 3;
+	heightInGrid = 3;
 }
 
 
@@ -50,11 +54,12 @@ void Tower::update(float frameTime)
 		else
 		{
 			projectileImage.setVisible(false);
+			gunImage.setRadians(gunImage.getRadians() + frameTime * towerNS::ROTATE_SPEED);
 		}
 	}
 	else {
 		projectileImage.setVisible(false);
-		projectileDisplayTimer = 0; // remove this later
+		gunImage.setRadians(gunImage.getRadians() + frameTime * towerNS::ROTATE_SPEED);
 	}
 }
 

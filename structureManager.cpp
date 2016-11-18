@@ -61,8 +61,6 @@ void StructureManager::initialize(Graphics* graphics, Game* game, Input* input)
 	Turret* t1 = (Turret*)(grid.atPixelCoords(100, 100));
 	Turret* t2 = (Turret*)(grid.atPixelCoords(100, 200));
 	Tower* t3 = (Tower*)(grid.atPixelCoords(200, 200));
-	t2->attackTarget(t1);
-	t3->attackTarget(t2);
 
 	addTowerSelection();
 }
@@ -71,6 +69,28 @@ void StructureManager::draw()
 {
 	grid.draw();
 	goodSelectionImage.draw();
+}
+
+void StructureManager::collisions(std::list<Enemy*> entities)
+{
+	std::list<Structure*> structures = grid.getStructures();
+	structures.remove(NULL);
+	entities.remove(NULL);
+	for (auto structure = structures.begin(); structure != structures.end(); structure++) {
+		float dist = 2000.0f;
+		Entity* closest = nullptr;
+		for (auto entity = entities.begin(); entity != entities.end(); entity++) {
+			if (*entity && (*structure)->collidesWith(**entity, VECTOR2())) {
+				float newDist = std::sqrt(std::pow((*entity)->getCenterX() - (*structure)->getCenterX(), 2) + std::pow((*entity)->getCenterY() - (*structure)->getCenterY(), 2));
+				if (newDist < dist) {
+					closest = *entity;
+					dist = newDist;
+				}
+				(*structure)->attackTarget(*entity);
+			}
+		}
+		(*structure)->attackTarget(closest);
+	}
 }
 
 void StructureManager::update(float frameTime)

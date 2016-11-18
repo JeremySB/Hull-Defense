@@ -4,6 +4,7 @@
 
 Turret::Turret()
 {
+	Structure::Structure();
 	type = turret;
 	setCollisionRadius(turretNS::RANGE);
 	projectileDisplayTimer = turretNS::PROJECTILE_DURATION + turretNS::TIME_BETWEEN_SHOTS;
@@ -19,12 +20,13 @@ Turret::~Turret()
 void Turret::drawProjectiles()
 {
 	projectileImage.draw(projectileImage.getColorFilter());
-	gunImage.draw();
+	gunImage.draw(graphicsNS::GRAY);
 }
 
 void Turret::draw()
 {
-	Structure::draw();
+	//Structure::draw();
+	Entity::draw(graphicsNS::BLUE);
 	//gunImage.draw();
 }
 
@@ -50,11 +52,12 @@ void Turret::update(float frameTime)
 		else
 		{
 			projectileImage.setVisible(false);
+			gunImage.setRadians(gunImage.getRadians() + frameTime * turretNS::ROTATE_SPEED);
 		}
 	}
 	else {
 		projectileImage.setVisible(false);
-		projectileDisplayTimer = 0; // remove this later
+		gunImage.setRadians(gunImage.getRadians() + frameTime * turretNS::ROTATE_SPEED);
 	}
 }
 
@@ -89,6 +92,9 @@ void Turret::setGunTexture(TextureManager * tm)
 	if (!gunImage.initialize(graphics, 0, 0, 0, gunTexture)) {
 		throw GameError(gameErrorNS::FATAL_ERROR, "Error initializing turret gun image");
 	}
-	gunImage.setX(getX());
-	gunImage.setY(getY() - (gunImage.getHeight() - getHeight())/2);
+	//gunImage.setX(getX());
+	//gunImage.setY(getY() - (gunImage.getHeight() - getHeight())/2);
+
+	gunImage.setX(getCenterX() - gunImage.getWidth() / 2);
+	gunImage.setY(getCenterY() - gunImage.getHeight() / 2);
 }

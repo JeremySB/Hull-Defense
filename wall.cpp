@@ -4,6 +4,7 @@
 
 Wall::Wall()
 {
+	Structure::Structure();
 	type = wall;
 }
 

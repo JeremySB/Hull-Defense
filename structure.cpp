@@ -9,6 +9,7 @@ Structure::Structure()
 	Entity::Entity();
 	widthInGrid = 1;
 	heightInGrid = 1;
+	setActive(true);
 }
 
 

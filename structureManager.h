@@ -10,6 +10,8 @@
 #include "wall.h"
 #include "turret.h"
 #include "tower.h"
+#include "Enemy.h"
+#include <list>
 
 class StructureManager
 {
@@ -20,6 +22,9 @@ public:
 	void initialize(Graphics* graphics, Game* game, Input* input);
 
 	void draw();
+
+	// input a list of entities to check if they are within any structure's range
+	void collisions(std::list<Enemy*> entities);
 	
 	// update structures
 	void update(float frameTime);
@@ -45,8 +50,11 @@ public:
 
 	// check if free at grid coords and number of cells
 	bool isOccupiedAtGrid(int x, int y, int widthInCells, int heightInCells);
+
     StructureGrid* getGrid();
+
     bool getPlacedThisFrame();
+
 	void onLostDevice();
 	void onResetDevice();
 

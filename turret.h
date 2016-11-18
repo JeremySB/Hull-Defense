@@ -6,9 +6,10 @@
 #include "structure.h"
 
 namespace turretNS {
-	const float RANGE = 150;
+	const float RANGE = 150.0f;
 	const float PROJECTILE_DURATION = 0.12f; // in seconds
-	const float TIME_BETWEEN_SHOTS = 0.5f; // in seconds
+	const float TIME_BETWEEN_SHOTS = 0.7f; // in seconds
+	const float ROTATE_SPEED = 0.0f; // radians per second
 }
 
 class Turret : public Structure
@@ -23,6 +24,8 @@ public:
 
 	// call this repeatedly to keep attacks going
 	void attackTarget(Entity* target);
+	
+	float getRange() { return turretNS::RANGE; }
 
 	void setProjectileTexture(TextureManager* tm);
 	void setGunTexture(TextureManager* tm);
