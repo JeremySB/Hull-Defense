@@ -30,4 +30,5 @@ private:
     bool didCollideThisFrame;
     std::stack<VECTOR2> path;
 	Entity* target;
+    bool right;
 };

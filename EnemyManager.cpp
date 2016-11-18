@@ -6,7 +6,12 @@ EnemyManager::EnemyManager():numChildren(0),spawn(0, GAME_HEIGHT / 2),strongest(
         children[i] = nullptr;
     }
 }
-
+void EnemyManager::reset(){
+    auto tmp = getChildren();
+    if(!tmp.empty()){
+        removeChild(tmp.front());
+    }
+}
 
 void EnemyManager::initialize(Game* game,StructureGrid* grid, GameState* state,Audio* audio){
     this->game = game;

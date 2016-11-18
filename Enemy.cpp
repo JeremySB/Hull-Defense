@@ -1,9 +1,7 @@
 // Created by Samuel Casteel
 #include "Enemy.h"
-/*Enemy::Enemy(EnemyData data):speed(data.speed),damage(data.damage),targeting(data.toTarget){
-    setHealth(data.health);
-}*/
-Enemy::Enemy():target(nullptr),didCollideThisFrame(false){
+
+Enemy::Enemy():target(nullptr),didCollideThisFrame(false),right(false){
 
 }
 Enemy::~Enemy(){
@@ -13,7 +11,7 @@ void Enemy::update(float frameTime){
     if(this->path.empty())
         return;
 	VECTOR2 distance = *this->getCenter() - this->path.top();
-	if ( pow(distance.x,2)+pow(distance.y,2) < 100){//< 100){//5){
+	if ( pow(distance.x,2)+pow(distance.y,2) < 100){
         path.pop();
         if(this->path.empty())
             return;
@@ -27,7 +25,8 @@ void Enemy::update(float frameTime){
         setY(getY() + distance.y * speed * frameTime);
     }
     else{
-        VECTOR2();
+        setRadians(getRadians() + PI / 16 * (right ? -1 : 1) );
+        right = !right;
     }
     didCollideThisFrame = false;
 }
