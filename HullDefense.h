@@ -24,7 +24,7 @@ class HullDefense : public Game
 {
 private:
     // game items
-    TextureManager menuTexture, backgroundTexture, towermenuTexture, turretmenuTexture, wallmenuTexture, defmenuTexture, enemyTexture; // textures
+    TextureManager menuTexture, backgroundTexture, towermenuTexture, turretmenuTexture, wallmenuTexture, defmenuTexture; // textures
 	StructureManager structureManager;
     EnemyManager enemyManager;
 	GameMenu gameMenu;
