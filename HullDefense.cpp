@@ -32,7 +32,7 @@ void HullDefense::initialize(HWND hwnd)
     Game::initialize(hwnd); // throws GameError
 
 	structureManager.initialize(graphics, this, input);
-	gameMenu.initialize(graphics, this, input);
+	gameMenu.initialize(graphics, this, input, audio);
     enemyManager.initialize(this,structureManager.getGrid());
     waves = new Waves(&enemyManager);
     //enemyManager.addChild(new HeavyEnemy());
