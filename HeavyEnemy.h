@@ -1,5 +1,7 @@
+// Created by Samuel Casteel
 #pragma once
 #include "Enemy.h"
+
 class HeavyEnemy : public Enemy {
 public:
     HeavyEnemy(){

@@ -38,7 +38,7 @@ void HullDefense::initialize(HWND hwnd)
 	structureManager.initialize(graphics, this, input, &gameState);
 	gameMenu.initialize(graphics, this, input, audio);
 	gameMenu.setGameState(&gameState);
-    enemyManager.initialize(this,structureManager.getGrid());
+    enemyManager.initialize(this,structureManager.getGrid(),&gameState);
     level1waves = new Waves(&enemyManager);
     level1waves->waves[0].spawnTime = 1;
     level1waves->waves[1].spawnTime = 1;
@@ -147,12 +147,14 @@ void HullDefense::update()
 	case GameState::level1Build:
 		break;
 	case GameState::level1Play:
+        level1waves->update(frameTime);
 		break;
 	case GameState::level2Init:
 		break;
 	case GameState::level2Build:
 		break;
 	case GameState::level2Play:
+        level2waves->update(frameTime);
 		break;
 	case GameState::won:
 		break;
@@ -171,8 +173,19 @@ void HullDefense::update()
         enemyManager.findPaths();
     }
     level1waves->update(frameTime);
-    if((timeIntoTimeout += frameTime) >= waveTimeout)
-        level1waves->startWave();
+    if(input->isKeyDown('R')){
+        auto tmp = structureManager.getStructures();
+        while(!tmp.empty()){
+            if(tmp.front()->getType() == base){
+                tmp.front()->setHealth(1000000000);
+                break;
+            }
+            tmp.pop_front();
+        }
+    }
+    if(input->isKeyDown('C')){
+        gameState.addCurrency(100000);
+    }
 	// exit on esc
 	if(input->isKeyDown(VK_ESCAPE)){
 		exit(1);

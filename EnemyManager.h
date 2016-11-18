@@ -6,13 +6,14 @@
 #include "MediumEnemy.h"
 #include "LightEnemy.h"
 #include "PathFinding.h"
+#include "gameState.h"
 #include <list>
 class EnemyManager{
 public:
 	EnemyManager();
 	~EnemyManager();
 
-    void initialize(Game* game, StructureGrid* grid);
+    void initialize(Game* game, StructureGrid* grid,GameState* state);
 
 	std::list<Enemy*> getChildren();
 	void addChild(Enemy *toAdd);
@@ -31,6 +32,7 @@ public:
     unsigned int getNumChildren(){return numChildren;}
 private: 
     Game*game;
+    GameState *state;
     StructureGrid* grid;
     TextureManager enemyTexture;
 	Enemy* children[MAX_ENEMIES];

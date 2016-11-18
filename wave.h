@@ -1,3 +1,4 @@
+// Created by Samuel Casteel
 #pragma once
 #include "EnemyManager.h"
 

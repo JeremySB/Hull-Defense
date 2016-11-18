@@ -1,3 +1,4 @@
+// Created by Samuel Casteel
 #include "EnemyManager.h"
 
 EnemyManager::EnemyManager():numChildren(0),spawn(0, GAME_HEIGHT / 2),strongest(nullptr),weakest(nullptr),base(nullptr){
@@ -6,8 +7,9 @@ EnemyManager::EnemyManager():numChildren(0),spawn(0, GAME_HEIGHT / 2),strongest(
     }
 }
 
-void EnemyManager::initialize(Game* game,StructureGrid* grid){
+void EnemyManager::initialize(Game* game,StructureGrid* grid, GameState* state){
     this->game = game;
+    this->state = state;
     if (!enemyTexture.initialize(game->getGraphics(), ENEMY_IMAGE))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing enemy"));
     setGrid(grid);
@@ -44,7 +46,7 @@ void EnemyManager::removeChild(Enemy* toRemove){
 	bool deleted = false;
 	for(int i = 0; i < numChildren || (deleted && i+1 < numChildren); i++){
 		if(children[i] == toRemove){
-            
+            state->addCurrency(children[i]->getValue());
 			delete children[i];
             numChildren--;
 			deleted = true;
