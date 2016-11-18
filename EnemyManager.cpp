@@ -46,6 +46,7 @@ void EnemyManager::removeChild(Enemy* toRemove){
 		if(children[i] == toRemove){
             
 			delete children[i];
+			
             numChildren--;
 			deleted = true;
 		}
