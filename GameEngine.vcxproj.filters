@@ -189,6 +189,8 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="LightEnemy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="base.h">
       <Filter>Header Files</Filter>
     </ClInclude>

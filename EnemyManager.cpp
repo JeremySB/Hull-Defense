@@ -72,7 +72,9 @@ void EnemyManager::updateChildren(float frameTime){
                 tmp.front()->setHealth(tmp.front()->getHealth() - children[i]->getDamage() * frameTime);
                 children[i]->collidedThisFrame();
             }
-		    children[i]->update(frameTime);
+            else{
+		        children[i]->update(frameTime);
+            }
             if(children[i]->getHealth() <=0){
                 removeChild(children[i]);
                 i--;
