@@ -10,6 +10,7 @@ Turret::Turret()
 	projectileDisplayTimer = turretNS::PROJECTILE_DURATION + turretNS::TIME_BETWEEN_SHOTS;
 	target = nullptr;
 	targetChanged = false;
+	setHealth(turretNS::STARTING_HEALTH);
 }
 
 

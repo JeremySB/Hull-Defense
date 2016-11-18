@@ -31,7 +31,7 @@ const UINT GRID_WIDTH = GAME_WIDTH/CELL_WIDTH;
 const UINT GRID_HEIGHT = GAME_HEIGHT/CELL_HEIGHT;
 const UINT MAX_ENEMIES = 30;
 
-enum StructureTypes {wall = 2,turret = 3,tower = 4};
+enum StructureTypes {base = 1, wall = 2, turret = 3, tower = 4};
 
 const UINT PATHFINDING_MODIFIER = 5;
 
@@ -46,6 +46,7 @@ const double PI = 3.14159265;
 // graphic images
 const char MENU_IMAGE[] =     "pictures\\menu.png";      // menu texture
 const char BACKGROUND_IMAGE[] = "pictures\\background1DAN.png";  // background
+const char BASE_IMAGE[] = "pictures\\baseDANIEL.png";
 const char WALL_IMAGE[] = "pictures\\wallJEREMY.png";
 const char TURRET_BASE_IMAGE[] = "pictures\\turretBaseDANIEL.png";
 const char TURRET_GUN_IMAGE[] = "pictures\\turretGunDANIEL.png";

@@ -24,6 +24,9 @@ void StructureManager::initialize(Graphics* graphics, Game* game, Input* input)
 	if (!wallTexture.initialize(graphics, WALL_IMAGE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing wall texture"));
 
+	if (!baseTexture.initialize(graphics, BASE_IMAGE))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing base texture"));
+
 	// turret textures
 	if (!turretBaseTexture.initialize(graphics, TURRET_BASE_IMAGE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing turret base texture"));
@@ -168,6 +171,7 @@ bool StructureManager::isOccupied(int x, int y)
 void StructureManager::onLostDevice()
 {
 	wallTexture.onLostDevice();
+	baseTexture.onLostDevice();
 	turretBaseTexture.onLostDevice();
 	turretGunTexture.onLostDevice();
 	turretProjectileTexture.onLostDevice();
@@ -180,6 +184,7 @@ void StructureManager::onLostDevice()
 void StructureManager::onResetDevice()
 {
 	wallTexture.onResetDevice();
+	baseTexture.onResetDevice();
 	turretBaseTexture.onResetDevice();
 	turretGunTexture.onResetDevice();
 	turretProjectileTexture.onResetDevice();

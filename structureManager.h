@@ -62,7 +62,7 @@ public:
 
 private:
 	TextureManager wallTexture, turretTexture, turretProjectileTexture, goodSelectionTexture,turretBaseTexture,turretGunTexture,towerBaseTexture;
-	TextureManager towerProjectileTexture,towerGunTexture;
+	TextureManager towerProjectileTexture, towerGunTexture, baseTexture;
 	Image goodSelectionImage;
 	Graphics* graphics;
 	Game* game;

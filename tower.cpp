@@ -13,6 +13,8 @@ Tower::Tower()
 
 	widthInGrid = 3;
 	heightInGrid = 3;
+
+	setHealth(towerNS::STARTING_HEALTH);
 }
 
 
