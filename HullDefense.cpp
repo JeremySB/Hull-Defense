@@ -217,7 +217,7 @@ void HullDefense::update()
 		break;
 	case GameState::instructions2:
 		if (!input->getMouseLButton() && lastClickState) {
-			gameState.setGamePhase(GameState::level1Init);
+			gameState.setGamePhase(GameState::intro);
 		}
 		break;
 	case GameState::level1Init:
@@ -240,12 +240,15 @@ void HullDefense::update()
         if (structureManager.getPlacedThisFrame()) {
             enemyManager.updateStructures();
             enemyManager.findPaths();
-        }
+        } 
+        if (level1waves->currentWave == 5 && enemyManager.getNumChildren() == 0)
+            gameState.setGamePhase(GameState::level2Init);
 		break;
 	case GameState::level2Init:
 		structureManager.reset();
 		gameState.setCurrency(1000);
 		structureManager.addBase(400, 200);
+        gameState.setGamePhase(GameState::level2Play);
 		break;
 	case GameState::level2Build:
 		break;
@@ -261,6 +264,8 @@ void HullDefense::update()
             enemyManager.updateStructures();
             enemyManager.findPaths();
         }
+        if (level2waves->currentWave == 5 && enemyManager.getNumChildren() == 0)
+            gameState.setGamePhase(GameState::won);
 		break;
 	case GameState::won:
 		break;
@@ -360,8 +365,10 @@ void HullDefense::render()
         gameMenu.draw();
 		break;
 	case GameState::won:
+        winscreen.draw();
 		break;
 	case GameState::lost:
+        losescreen.draw();
 		break;
 	default:
 		break;
