@@ -96,6 +96,9 @@
     <ClCompile Include="PathFinding.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="base.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="constants.h">
@@ -186,6 +189,7 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="LightEnemy.h">
+    <ClInclude Include="base.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
