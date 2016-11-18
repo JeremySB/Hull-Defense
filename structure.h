@@ -11,7 +11,7 @@ public:
 	Structure();
 	~Structure();
 
-	bool initialize(Game *gamePtr, int widthInGrid, int heightInGrid, int ncols, TextureManager *textureM);
+	virtual bool initialize(Game *gamePtr, int widthInGrid, int heightInGrid, int ncols, TextureManager *textureM);
 
 	virtual void draw() { Entity::draw(); }
 

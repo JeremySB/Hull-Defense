@@ -17,6 +17,13 @@ Turret::~Turret()
 {
 }
 
+bool Turret::initialize(Game * gamePtr, int widthInGrid, int heightInGrid, int ncols, TextureManager * textureM)
+{
+	bool result = Structure::initialize(gamePtr, widthInGrid, heightInGrid, ncols, textureM);
+	setCollisionRadius(getWidth() / 2.0);
+	return result;
+}
+
 void Turret::drawProjectiles()
 {
 	projectileImage.draw(projectileImage.getColorFilter());

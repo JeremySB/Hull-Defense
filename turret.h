@@ -18,6 +18,8 @@ public:
 	Turret();
 	~Turret();
 
+	bool initialize(Game * gamePtr, int widthInGrid, int heightInGrid, int ncols, TextureManager * textureM);
+
 	void drawProjectiles();
 	void draw();
 	void update(float frameTime);

@@ -7,7 +7,6 @@ Tower::Tower()
 {
 	Structure::Structure();
 	type = tower;
-	setCollisionRadius(towerNS::RANGE);
 	projectileDisplayTimer = towerNS::PROJECTILE_DURATION + towerNS::TIME_BETWEEN_SHOTS;
 	target = nullptr;
 	targetChanged = false;
@@ -19,6 +18,13 @@ Tower::Tower()
 
 Tower::~Tower()
 {
+}
+
+bool Tower::initialize(Game * gamePtr, int widthInGrid, int heightInGrid, int ncols, TextureManager * textureM)
+{
+	bool result = Structure::initialize(gamePtr, widthInGrid, heightInGrid, ncols, textureM);
+	setCollisionRadius(getWidth() / 2.0);
+	return result;
 }
 
 void Tower::drawProjectiles()
