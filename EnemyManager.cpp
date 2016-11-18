@@ -80,12 +80,12 @@ void EnemyManager::updateChildren(float frameTime){
             //else{
 		        //children[i]->update(frameTime);
             //}
-            if(children[i]->getHealth() <=0){
-                removeChild(children[i]);
-                i--;
-            }
-            children[i]->update(frameTime);
             tmp.pop_front();
+        }
+        children[i]->update(frameTime);
+        if (children[i]->getHealth() <= 0) {
+            removeChild(children[i]);
+            i--;
         }
     }
 }
