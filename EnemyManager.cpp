@@ -15,30 +15,33 @@ void EnemyManager::initialize(Game* game,StructureGrid* grid){
 }
 
 
-void EnemyManager::addChild(Enemy* toAdd){
-    if (!toAdd->initialize(game, 0, 0, 0, &enemyTexture))
-        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing enemy"));
-    toAdd->setX(spawn.x);
-    toAdd->setY(spawn.y);
-    toAdd->setScale(0.06);
-    toAdd->setCollisionRadius(CELL_WIDTH/2);
-    toAdd->activate();
-    if(numChildren < MAX_ENEMIES){
-	    children[numChildren++] = toAdd;
-    }
-    switch(toAdd->getTargeting()){
-    case(strongestTarget):
-        toAdd->setTarget(strongest);
-        break;
-    case(weakestTarget):
-        toAdd->setTarget(weakest);
-        break;
-    case(baseTarget):
-        toAdd->setTarget(base);
-        break;
-    }
-    if (toAdd->getTarget())
-        toAdd->setPath(pathFinder.findPath(reinterpret_cast<Entity*>(toAdd), reinterpret_cast<Entity *>(toAdd->getTarget())));
+void EnemyManager::addChild(Enemy* toAdd) {
+	if (!toAdd->initialize(game, 0, 0, 0, &enemyTexture))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing enemy"));
+	toAdd->setX(spawn.x);
+	toAdd->setY(spawn.y);
+	toAdd->setScale(0.06);
+	toAdd->setCollisionRadius(CELL_WIDTH / 2);
+	toAdd->activate();
+	if (numChildren < MAX_ENEMIES) {
+		children[numChildren++] = toAdd;
+	}
+	updateStructures();
+	switch (toAdd->getTargeting()) {
+	case(strongestTarget):
+		toAdd->setTarget(strongest);
+		break;
+	case(weakestTarget):
+		toAdd->setTarget(weakest);
+		break;
+	case(baseTarget):
+		toAdd->setTarget(base);
+		break;
+	}
+	if (toAdd->getTarget()) {
+		pathFinder.updateMap();
+		toAdd->setPath(pathFinder.findPath(reinterpret_cast<Entity*>(toAdd), reinterpret_cast<Entity *>(toAdd->getTarget())));
+	}
 }
 
 std::list<Enemy*> EnemyManager::getChildren(){

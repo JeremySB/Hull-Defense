@@ -64,11 +64,15 @@ void StructureGrid::removeAtGridCoords(int x, int y)
 	for (auto iter = structures.begin(); iter != structures.end(); iter++) {
 		for (auto iter2 = iter->begin(); iter2 != iter->end(); iter2++)
 		{
-			if (*iter2 == toDelete)
-				*iter2 = nullptr;
+			if (*iter2 == toDelete) {
+				(*iter2) = nullptr;
+				int t = 0;
+			}
 		}
 	}
-	safeDelete(toDelete);
+	delete toDelete;
+	toDelete = nullptr;
+	//safeDelete(toDelete);
 }
 
 Structure * StructureGrid::atGridCoords(int x, int y)

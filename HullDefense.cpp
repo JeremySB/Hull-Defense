@@ -61,6 +61,7 @@ void HullDefense::update()
 	gameMenu.update(frameTime);
     enemyManager.updateChildren(frameTime);
     if(structureManager.getPlacedThisFrame()){
+		enemyManager.updateStructures();
         enemyManager.findPaths();
     }
     waves->update(frameTime);

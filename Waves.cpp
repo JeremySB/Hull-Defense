@@ -22,8 +22,8 @@ void Waves::startWave(){
     this->betweenWaves =  currentWave == 5;
 }
 void Waves::update(float frameTime){
-    if(this->betweenWaves)
-        return;
+    //if(this->betweenWaves)
+       // return;
     if(currentWave < 5 && !this->waves[currentWave].update(frameTime)){
         this->currentWave++;
         this->betweenWaves = true;
