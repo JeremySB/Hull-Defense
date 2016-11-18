@@ -1,4 +1,3 @@
-
 // Created by Samuel Casteel
 
 #pragma once

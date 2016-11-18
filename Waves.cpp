@@ -1,3 +1,4 @@
+// Created by Samuel Casteel
 #include "Waves.h"
 Waves::Waves(EnemyManager* manager):betweenWaves(true),currentWave(0),timeBetweenWaves(10),timePassed(0){
     this->manager = manager;

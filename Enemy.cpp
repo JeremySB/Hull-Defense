@@ -1,3 +1,4 @@
+// Created by Samuel Casteel
 #include "Enemy.h"
 /*Enemy::Enemy(EnemyData data):speed(data.speed),damage(data.damage),targeting(data.toTarget){
     setHealth(data.health);
