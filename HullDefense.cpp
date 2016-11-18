@@ -41,6 +41,8 @@ void HullDefense::initialize(HWND hwnd)
 
     enemyManager.initialize(this,structureManager.getGrid(),&gameState,audio);
 
+	gameState.setGamePhase(GameState::intro);
+
     level1waves = new Waves(&enemyManager);
     level1waves->waves[0].spawnTime = 1;
     level1waves->waves[1].spawnTime = 1;
@@ -123,6 +125,63 @@ void HullDefense::initialize(HWND hwnd)
     // background image
     if (!background.initialize(graphics, 0, 0, 0, &backgroundTexture))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background"));
+	//
+	// main menu texture
+    if (!mainmenuTexture.initialize(graphics, MAIN_MENU))
+        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing main menu texture"));
+
+    // main menu image
+    if (!mainmenu.initialize(graphics, 0, 0, 0, &mainmenuTexture))
+        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing main menu"));
+	//
+	// instruction0 texture
+    if (!instruction0Texture.initialize(graphics, INSTRUCTION0))
+        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing instruction0 texture"));
+
+    // background image
+    if (!instruction0.initialize(graphics, 0, 0, 0, &instruction0Texture))
+        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background"));
+	//
+	// INSTRUCTION1 texture
+    if (!instruction1Texture.initialize(graphics, INSTRUCTION1))
+        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background texture"));
+
+    // background image
+    if (!instruction1.initialize(graphics, 0, 0, 0, &instruction1Texture))
+        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing instruction1"));
+
+	// INSTRUCTION2 texture
+    if (!instruction2Texture.initialize(graphics, INSTRUCTION2))
+        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background texture"));
+
+    // background image
+    if (!instruction2.initialize(graphics, 0, 0, 0, &instruction2Texture))
+        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing instruction2"));
+	////
+
+	// background texture
+    if (!winscreenTexture.initialize(graphics, WIN_SCREEN))
+        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background texture"));
+
+    // background image
+    if (!winscreen.initialize(graphics, 0, 0, 0, &winscreenTexture))
+        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background"));
+
+	// background texture
+    if (!losescreenTexture.initialize(graphics, LOSE_SCREEN))
+        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background texture"));
+
+    // background image
+    if (!losescreen.initialize(graphics, 0, 0, 0, &losescreenTexture))
+        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background"));
+
+	// background texture
+    if (!wavecompleteTexture.initialize(graphics, WAVE_COMPLETE))
+        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background texture"));
+
+    // background image
+    if (!wavecomplete.initialize(graphics, 0, 0, 0, &wavecompleteTexture))
+        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background"));
 
 	audio->playCue(BACKGROUND);
     // initialize DirectX font
@@ -142,6 +201,13 @@ void HullDefense::update()
 	switch (phase)
 	{
 	case GameState::intro:
+		if(input->getMouseLButton()){
+			if(input->getMouseX()>GAME_WIDTH/2){
+				gameState.setGamePhase(GameState::instructions);
+			}else{
+				gameState.setGamePhase(GameState::level1Play);
+			}
+		}
 		break;
 	case GameState::instructions:
 		break;
@@ -218,10 +284,44 @@ void HullDefense::collisions()
 //=============================================================================
 void HullDefense::render()
 {
-    graphics->spriteBegin();                // begin drawing sprites
+	graphics->spriteBegin();                // begin drawing sprites
 
     background.draw();
     dxFont->setFontColor(graphicsNS::ORANGE);
+
+	GameState::GamePhase phase = gameState.getGamePhase();
+	switch (phase)
+	{
+	case GameState::intro:
+		mainmenu.draw();
+		break;
+	case GameState::instructions:
+		instruction0.draw();
+		/*if(input->getMouseLButton() && !mouseWasDown){
+
+		}*/
+		break;
+	case GameState::level1Init:
+		break;
+	case GameState::level1Build:
+		break;
+	case GameState::level1Play:
+        level1waves->update(frameTime);
+		break;
+	case GameState::level2Init:
+		break;
+	case GameState::level2Build:
+		break;
+	case GameState::level2Play:
+        level2waves->update(frameTime);
+		break;
+	case GameState::won:
+		break;
+	case GameState::lost:
+		break;
+	default:
+		break;
+	}
 	
 	structureManager.draw();
     enemyManager.draw();

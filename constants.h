@@ -58,6 +58,15 @@ const char TOWER_GUN_IMAGE[] = "pictures\\towerGunJEREMY.png";
 const char TOWER_PROJECTILE_IMAGE[] = "pictures\\turretProjectileJEREMY2.png";
 const char GOOD_SELECTION_IMAGE[] = "pictures\\goodSelectionJEREMY.png";
 const char ENEMY_IMAGE[] = "pictures\\EnemyTemp.png";
+// intro images
+const char MAIN_MENU[] = "pictures\\mainScreenDANIEL.png";
+const char INSTRUCTION0[] = "pictures\\instructionDANIEL.png";
+const char INSTRUCTION1[] = "pictures\\instruction1DANIEL.png";
+const char INSTRUCTION2[] = "pictures\\instruction2DANIEL.png";
+const char WIN_SCREEN[] = "pictures\\winScreenDANIEL.png";
+const char WAVE_COMPLETE[] = "pictures\\waveComplete.png";
+const char LOSE_SCREEN[] = "pictures\\loseScreenDANIEL.png";
+
 // menu images
 const char TOWERMENU_IMAGE[] = "pictures\\buildmenuDANIEL.png";
 const char TURRETMENU_IMAGE[] = "pictures\\repairmenuDANIEL.png";
