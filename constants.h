@@ -56,7 +56,7 @@ const char TOWER_BASE_IMAGE[] = "pictures\\towerBaseJEREMY.png";
 const char TOWER_GUN_IMAGE[] = "pictures\\towerGunJEREMY.png";
 const char TOWER_PROJECTILE_IMAGE[] = "pictures\\turretProjectileJEREMY2.png";
 const char GOOD_SELECTION_IMAGE[] = "pictures\\goodSelectionJEREMY.png";
-const char ENEMY_IMAGE[] = "pictures\\enemy.png";
+const char ENEMY_IMAGE[] = "pictures\\EnemyTemp.png";
 // menu images
 const char TOWERMENU_IMAGE[] = "pictures\\buildmenuDANIEL.png";
 const char TURRETMENU_IMAGE[] = "pictures\\repairmenuDANIEL.png";

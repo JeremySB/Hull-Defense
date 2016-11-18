@@ -43,7 +43,7 @@ void EnemyManager::addChild(Enemy* toAdd){
 
 std::list<Enemy*> EnemyManager::getChildren(){
     std::list<Enemy*> ret;
-    for(int i = 0; i < MAX_ENEMIES && children[i] != nullptr; i++){
+    for(int i = 0; i < numChildren && children[i] != nullptr; i++){
         ret.push_back(children[i]);
     }
     return ret;
@@ -99,10 +99,12 @@ void EnemyManager::updateStructures(){
     strongest = tmp.front();
     weakest = tmp.front();
     while (!tmp.empty()) {
-        if (tmp.front()->getHealth() > strongest->getHealth())
+        if (tmp.front()->getHealth() > strongest->getHealth() && tmp.front()->getType() != baseTarget)
             strongest = tmp.front();
         if (tmp.front()->getHealth() < weakest->getHealth())
             weakest = tmp.front();
+        if(tmp.front()->getType() == baseTarget)
+            base = tmp.front();
         tmp.pop_front();
     }
 

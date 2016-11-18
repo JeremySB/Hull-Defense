@@ -87,7 +87,7 @@ void HullDefense::collisions()
 	//int test = sizeof(Enemy*);
 	//std::list<Enemy*> enemyList(enemies, enemies + MAX_ENEMIES);
 	//structureManager.collisions(enemyList);
-   // structureManager.collisions(enemyManager.getChildren());
+    structureManager.collisions(enemyManager.getChildren());
 }
 
 //=============================================================================

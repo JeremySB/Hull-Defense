@@ -83,7 +83,7 @@ void StructureManager::collisions(std::list<Enemy*> entities)
 {
 	std::list<Structure*> structures = grid.getStructures();
 	structures.remove(NULL);
-	entities.remove(NULL);
+	//entities.remove(NULL);
 	for (auto structure = structures.begin(); structure != structures.end(); structure++) {
 		float dist = 2000.0f;
 		Entity* closest = nullptr;

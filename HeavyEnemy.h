@@ -8,6 +8,6 @@ public:
         health = 200;
         damage = 2000000000;
         targeting = weakestTarget;
-        colorFilter = SETCOLOR_ARGB(255,0,125,0);
+        colorFilter = SETCOLOR_ARGB(255,125,0,0);
     }
 };
