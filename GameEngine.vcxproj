@@ -113,6 +113,8 @@
     <ClCompile Include="tower.cpp" />
     <ClCompile Include="turret.cpp" />
     <ClCompile Include="wall.cpp" />
+    <ClCompile Include="wave.cpp" />
+    <ClCompile Include="Waves.cpp" />
     <ClCompile Include="winmain.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -147,7 +149,8 @@
     <ClInclude Include="tower.h" />
     <ClInclude Include="turret.h" />
     <ClInclude Include="wall.h" />
-    <ClInclude Include="Wave Generators.h" />
+    <ClInclude Include="wave.h" />
+    <ClInclude Include="Waves.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Change log.txt" />

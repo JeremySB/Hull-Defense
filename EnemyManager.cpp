@@ -41,8 +41,12 @@ void EnemyManager::addChild(Enemy* toAdd){
         toAdd->setPath(pathFinder.findPath(reinterpret_cast<Entity*>(toAdd), reinterpret_cast<Entity *>(toAdd->getTarget())));
 }
 
-Enemy** EnemyManager::getChildren(){
-	return children;
+std::list<Enemy*> EnemyManager::getChildren(){
+    std::list<Enemy*> ret;
+    for(int i = 0; i < MAX_ENEMIES && children[i] != nullptr; i++){
+        ret.push_back(children[i]);
+    }
+    return ret;
 }
 
 void EnemyManager::removeChild(Enemy* toRemove){

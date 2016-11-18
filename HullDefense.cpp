@@ -34,7 +34,8 @@ void HullDefense::initialize(HWND hwnd)
 	structureManager.initialize(graphics, this, input);
 	gameMenu.initialize(graphics, this, input);
     enemyManager.initialize(this,structureManager.getGrid());
-    enemyManager.addChild(new HeavyEnemy());
+    waves = new Waves(&enemyManager);
+    //enemyManager.addChild(new HeavyEnemy());
     // background texture
     if (!backgroundTexture.initialize(graphics, BACKGROUND_IMAGE))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background texture"));
@@ -62,6 +63,9 @@ void HullDefense::update()
     if(structureManager.getPlacedThisFrame()){
         enemyManager.findPaths();
     }
+    waves->update(frameTime);
+    if(input->isKeyDown('W'))
+        waves->startWave();
 	// exit on esc
 	if(input->isKeyDown(VK_ESCAPE)){
 		exit(1);
@@ -79,10 +83,11 @@ void HullDefense::ai()
 //=============================================================================
 void HullDefense::collisions()
 {
-	Enemy** enemies = enemyManager.getChildren();
-	int test = sizeof(Enemy*);
-	std::list<Enemy*> enemyList(enemies, enemies + MAX_ENEMIES);
-	structureManager.collisions(enemyList);
+	//Enemy** enemies = enemyManager.getChildren();
+	//int test = sizeof(Enemy*);
+	//std::list<Enemy*> enemyList(enemies, enemies + MAX_ENEMIES);
+	//structureManager.collisions(enemyList);
+   // structureManager.collisions(enemyManager.getChildren());
 }
 
 //=============================================================================

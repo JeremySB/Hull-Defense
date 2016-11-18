@@ -16,6 +16,7 @@
 #include "structureManager.h"
 #include "gameMenu.h"
 #include "EnemyManager.h"
+#include "Waves.h"
 
 //=============================================================================
 // This class is the core of the game
@@ -26,6 +27,7 @@ private:
     // game items
     TextureManager menuTexture, backgroundTexture, towermenuTexture, turretmenuTexture, wallmenuTexture, defmenuTexture; // textures
 	StructureManager structureManager;
+    Waves* waves;
     EnemyManager enemyManager;
 	GameMenu gameMenu;
     Image   background;         // background image
