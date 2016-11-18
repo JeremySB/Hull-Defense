@@ -29,6 +29,8 @@ public:
     void setGrid(StructureGrid* tmp){grid = tmp; pathFinder.loadMap(tmp);}
     void updateStructures();
     void reset();
+    VECTOR2 getSpawn(){return spawn;}
+    void setSpawn(VECTOR2 tmp){spawn = tmp;}
     unsigned int getNumChildren(){return numChildren;}
 private: 
     Game*game;

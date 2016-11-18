@@ -228,6 +228,9 @@ void HullDefense::update()
         structureManager.update(frameTime);
         gameMenu.update(frameTime);
         level2waves->update(frameTime);
+
+        enemyManager.setSpawn(VECTOR2( (enemyManager.getSpawn().x ? 0 : GAME_WIDTH - CELL_WIDTH), GAME_HEIGHT/2));
+
         enemyManager.updateChildren(frameTime);
         if (structureManager.getPlacedThisFrame()) {
             enemyManager.updateStructures();
