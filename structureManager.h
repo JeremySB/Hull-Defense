@@ -65,7 +65,7 @@ public:
 
     bool getPlacedThisFrame();
 	
-	int getBaseHealth() { return base->getHealth(); }
+	int getBaseHealth();
 
 	void reset();
 

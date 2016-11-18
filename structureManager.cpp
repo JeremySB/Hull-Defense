@@ -59,12 +59,6 @@ void StructureManager::initialize(Graphics* graphics, Game* game, Input* input, 
 
 	goodSelectionImage.setVisible(false);
 
-	addTurret(100, 100);
-	addTurret(100, 200);
-	addTower(200, 200);
-	addWall(400, 400);
-	addBase(550, 300);
-
 }
 
 void StructureManager::draw()
@@ -318,6 +312,13 @@ StructureGrid* StructureManager::getGrid(){
 
 bool StructureManager::getPlacedThisFrame(){
     return this->placedThisFrame;
+}
+
+int StructureManager::getBaseHealth()
+{
+	if(base)
+		return base->getHealth();
+	return 0;
 }
 
 void StructureManager::reset()
