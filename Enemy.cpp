@@ -2,8 +2,7 @@
 /*Enemy::Enemy(EnemyData data):speed(data.speed),damage(data.damage),targeting(data.toTarget){
     setHealth(data.health);
 }*/
-Enemy::Enemy():target(nullptr){
-
+Enemy::Enemy():target(nullptr),didCollideThisFrame(false){
 
 }
 Enemy::~Enemy(){
@@ -22,7 +21,13 @@ void Enemy::update(float frameTime){
     distance =- distance;
 	D3DXVec2Normalize(&distance,&distance);
     setRadians(getRadians()+angleToTarget(this->path.top()) - PI/2);
-	setX(getX() + distance.x * speed * frameTime);
-    setY(getY() + distance.y * speed * frameTime);
+    if(!didCollideThisFrame){
+	    setX(getX() + distance.x * speed * frameTime);
+        setY(getY() + distance.y * speed * frameTime);
+    }
+    else{
+        VECTOR2();
+    }
+    didCollideThisFrame = false;
 }
 

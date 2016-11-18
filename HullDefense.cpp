@@ -34,6 +34,7 @@ void HullDefense::initialize(HWND hwnd)
 	structureManager.initialize(graphics, this, input);
 	gameMenu.initialize(graphics, this, input);
     enemyManager.initialize(this,structureManager.getGrid());
+    enemyManager.addChild(new HeavyEnemy());
     // background texture
     if (!backgroundTexture.initialize(graphics, BACKGROUND_IMAGE))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background texture"));
@@ -47,27 +48,6 @@ void HullDefense::initialize(HWND hwnd)
     // 18 pixel high Arial
     if(dxFont->initialize(graphics, 18, true, false, "Arial") == false)
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing DirectX font"));
-
-
-    //Enemy * tmp = new Enemy();
-    //if(!tmp->initialize(this, 0, 0, 0, &enemyTexture))
-    //    throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing enemy"));
-	//tmp->setX(0);
-    //tmp->setY(GAME_HEIGHT/2);
-    
-    //if (!bob->initialize(this, 0, 0, 0, &enemyTexture))
-    //    throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing enemy"));
-
-    //bob->setX(GAME_WIDTH/2);
-    //bob->setY(GAME_HEIGHT/2);
-
-    //tmp->setTarget(bob);
-    //enemyManager.setGrid(structureManager.getGrid());
-    
-
-	//tmp->setTarget(structureManager.getStructures().front());//t1);
-
-    //enemyManager.findPaths();
     return;
 }
 
@@ -78,10 +58,10 @@ void HullDefense::update()
 {
     structureManager.update(frameTime);
 	gameMenu.update(frameTime);
+    enemyManager.updateChildren(frameTime);
     if(structureManager.getPlacedThisFrame()){
         enemyManager.findPaths();
     }
-	enemyManager.updateChildren(frameTime);
 	// exit on esc
 	if(input->isKeyDown(VK_ESCAPE)){
 		exit(1);

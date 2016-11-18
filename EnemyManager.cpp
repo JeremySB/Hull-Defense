@@ -11,18 +11,17 @@ void EnemyManager::initialize(Game* game,StructureGrid* grid){
     if (!enemyTexture.initialize(game->getGraphics(), ENEMY_IMAGE))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing enemy"));
     setGrid(grid);
-    Enemy* tmp = new LightEnemy();//HeavyEnemy();
-    if (!tmp->initialize(game, 0, 0, 0, &enemyTexture))
-        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing enemy"));
-    findPaths();
-    addChild(tmp);
+    updateStructures();
 }
 
 
 void EnemyManager::addChild(Enemy* toAdd){
+    if (!toAdd->initialize(game, 0, 0, 0, &enemyTexture))
+        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing enemy"));
     toAdd->setX(spawn.x);
     toAdd->setY(spawn.y);
-    toAdd->setScale(.06);
+    toAdd->setScale(0.06);
+    toAdd->setCollisionRadius(CELL_WIDTH/2);
     if(numChildren < MAX_ENEMIES){
 	    children[numChildren++] = toAdd;
     }
@@ -32,6 +31,9 @@ void EnemyManager::addChild(Enemy* toAdd){
         break;
     case(weakestTarget):
         toAdd->setTarget(weakest);
+        break;
+    case(baseTarget):
+        toAdd->setTarget(base);
         break;
     }
     if (toAdd->getTarget())
@@ -63,24 +65,39 @@ EnemyManager::~EnemyManager(){
 }
 
 void EnemyManager::updateChildren(float frameTime){
-	for( int i = 0; i < numChildren; i++){
-		children[i]->update(frameTime);
-	}
+    std::list<Structure*> tmp = grid->getStructures();
+    while(!tmp.empty()){
+	    for( int i = 0; i < numChildren; i++){
+            if(children[i]->collidesWith(*tmp.front(),VECTOR2())){
+                tmp.front()->setHealth(tmp.front()->getHealth() - children[i]->getDamage() * frameTime);
+                children[i]->collidedThisFrame();
+            }
+		    children[i]->update(frameTime);
+            if(children[i]->getHealth() <=0){
+                removeChild(children[i]);
+                i--;
+            }
+	    }
+        tmp.pop_front();
+    }
 }
-
-void EnemyManager::findPaths(){
-    grid->getStructures();
+void EnemyManager::updateStructures(){
     std::list<Structure*> tmp = grid->getStructures();
     strongest = tmp.front();
     weakest = tmp.front();
-    while(!tmp.empty()){
-        if(tmp.front()->getHealth() > strongest->getHealth())
+    while (!tmp.empty()) {
+        if (tmp.front()->getHealth() > strongest->getHealth())
             strongest = tmp.front();
-        if(tmp.front()->getHealth() < weakest->getHealth())
+        if (tmp.front()->getHealth() < weakest->getHealth())
             weakest = tmp.front();
         tmp.pop_front();
     }
 
+
+}
+
+void EnemyManager::findPaths(){
+    updateStructures();
     pathFinder.updateMap();
 	for( int i = 0; i < numChildren; i++){
         if(children[i]->getTarget())

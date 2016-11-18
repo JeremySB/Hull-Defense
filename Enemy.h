@@ -19,11 +19,14 @@ public:
 	Entity* getTarget(){ return target;}
 	void setTarget(Entity* target){ this->target = target;}
     Targeting getTargeting(){ return targeting;}
+    void collidedThisFrame(){didCollideThisFrame = true;};
+    int getDamage(){return damage;}
 protected:
 	float speed;
     int damage,value;
     Targeting targeting;
 private:
+    bool didCollideThisFrame;
     std::stack<VECTOR2> path;
 	Entity* target;
 };
