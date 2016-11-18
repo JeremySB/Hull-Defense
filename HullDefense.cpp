@@ -65,7 +65,7 @@ void HullDefense::update()
         enemyManager.findPaths();
     }
     waves->update(frameTime);
-    if(input->isKeyDown('W'))
+    if(input->isKeyDown(' '))
         waves->startWave();
 	// exit on esc
 	if(input->isKeyDown(VK_ESCAPE)){

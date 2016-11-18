@@ -21,6 +21,7 @@ public:
     Targeting getTargeting(){ return targeting;}
     void collidedThisFrame(){didCollideThisFrame = true;};
     int getDamage(){return damage;}
+    int getValue(){return value;}
 protected:
 	float speed;
     int damage,value;

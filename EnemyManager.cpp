@@ -27,19 +27,7 @@ void EnemyManager::addChild(Enemy* toAdd) {
 		children[numChildren++] = toAdd;
 	}
 	updateStructures();
-	switch (toAdd->getTargeting()) {
-	case(strongestTarget):
-		toAdd->setTarget(strongest);
-		break;
-	case(weakestTarget):
-		toAdd->setTarget(weakest);
-		break;
-	case(baseTarget):
-		toAdd->setTarget(base);
-		break;
-	}
 	if (toAdd->getTarget()) {
-		pathFinder.updateMap();
 		toAdd->setPath(pathFinder.findPath(reinterpret_cast<Entity*>(toAdd), reinterpret_cast<Entity *>(toAdd->getTarget())));
 	}
 }
@@ -56,6 +44,7 @@ void EnemyManager::removeChild(Enemy* toRemove){
 	bool deleted = false;
 	for(int i = 0; i < numChildren || (deleted && i+1 < numChildren); i++){
 		if(children[i] == toRemove){
+            
 			delete children[i];
             numChildren--;
 			deleted = true;
@@ -76,7 +65,6 @@ EnemyManager::~EnemyManager(){
 void EnemyManager::updateChildren(float frameTime){
     std::list<Structure*> bob = grid->getStructures();
 
-    //tmp.pop_front();
     for( int i = 0; i < numChildren; i++){
         std::list<Structure*> tmp = bob;
         while(!tmp.empty()){
@@ -85,9 +73,6 @@ void EnemyManager::updateChildren(float frameTime){
                 children[i]->collidedThisFrame();
                 break;
             }
-            //else{
-		        //children[i]->update(frameTime);
-            //}
             tmp.pop_front();
         }
         children[i]->update(frameTime);
@@ -101,6 +86,7 @@ void EnemyManager::updateStructures(){
     std::list<Structure*> tmp = grid->getStructures();
     strongest = tmp.front();
     weakest = tmp.front();
+    base = tmp.front();
     while (!tmp.empty()) {
         if (tmp.front()->getHealth() > strongest->getHealth() && tmp.front()->getType() != baseTarget)
             strongest = tmp.front();
@@ -110,7 +96,19 @@ void EnemyManager::updateStructures(){
             base = tmp.front();
         tmp.pop_front();
     }
-
+    for(int i = 0; i < numChildren; i++){
+        switch (children[i]->getTargeting()) {
+        case(strongestTarget):
+            children[i]->setTarget(strongest);
+            break;
+        case(weakestTarget):
+            children[i]->setTarget(weakest);
+            break;
+        case(baseTarget):
+            children[i]->setTarget(base);
+            break;
+        }
+    }
 
 }
 
