@@ -6,6 +6,7 @@ Wall::Wall()
 {
 	Structure::Structure();
 	type = wall;
+	health = 50;
 }
 
 
