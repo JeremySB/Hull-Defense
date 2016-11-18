@@ -35,8 +35,9 @@ void HullDefense::initialize(HWND hwnd)
 {
     Game::initialize(hwnd); // throws GameError
 
-	structureManager.initialize(graphics, this, input);
+	structureManager.initialize(graphics, this, input, &gameState);
 	gameMenu.initialize(graphics, this, input, audio);
+	gameMenu.setGameState(&gameState);
     enemyManager.initialize(this,structureManager.getGrid());
     level1waves = new Waves(&enemyManager);
     level1waves->waves[0].spawnTime = 1;
@@ -134,27 +135,28 @@ void HullDefense::initialize(HWND hwnd)
 //=============================================================================
 void HullDefense::update()
 {
-	switch (gameState)
+	GameState::GamePhase phase = gameState.getGamePhase();
+	switch (phase)
 	{
-	case intro:
+	case GameState::intro:
 		break;
-	case instructions:
+	case GameState::instructions:
 		break;
-	case level1Init:
+	case GameState::level1Init:
 		break;
-	case level1Build:
+	case GameState::level1Build:
 		break;
-	case level1Play:
+	case GameState::level1Play:
 		break;
-	case level2Init:
+	case GameState::level2Init:
 		break;
-	case level2Build:
+	case GameState::level2Build:
 		break;
-	case level2Play:
+	case GameState::level2Play:
 		break;
-	case won:
+	case GameState::won:
 		break;
-	case lost:
+	case GameState::lost:
 		break;
 	default:
 		break;

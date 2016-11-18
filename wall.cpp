@@ -2,11 +2,11 @@
 
 
 
-Wall::Wall()
+Wall::Wall() 
 {
 	Structure::Structure();
 	type = wall;
-	health = 50;
+	health = wallNS::STARTING_HEALTH;
 }
 
 

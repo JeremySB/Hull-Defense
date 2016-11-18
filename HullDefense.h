@@ -17,6 +17,7 @@
 #include "gameMenu.h"
 #include "enemyManager.h"
 #include "Waves.h"
+#include "gameState.h"
 
 //=============================================================================
 // This class is the core of the game
@@ -37,20 +38,12 @@ private:
     TextDX  *dxFont;            // DirectX font
 
 	GameState gameState;
-	int currency;
 
 public:
     // Constructor
     HullDefense();
     // Destructor
     virtual ~HullDefense();
-
-	int getCurrency() { return currency; }
-	void setCurrency(int in) { currency = in; }
-	void addCurrency(int in) { currency += in; }
-
-	GameState getGameState() { return gameState; }
-	void setGameState(GameState in) { gameState = in; }
 
     // Initialize the game
     void initialize(HWND hwnd);

@@ -44,7 +44,6 @@ const float MIN_FRAME_TIME = 1.0f/FRAME_RATE;   // minimum desired time for 1 fr
 const float MAX_FRAME_TIME = 1.0f/MIN_FRAME_RATE; // maximum time used in calculations
 const double PI = 3.14159265;
 
-enum GameState { intro, instructions, level1Init, level1Build, level1Play, level2Init, level2Build, level2Play, won, lost };
 
 // graphic images
 const char MENU_IMAGE[] =     "pictures\\menu.png";      // menu texture

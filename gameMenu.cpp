@@ -88,19 +88,24 @@ void GameMenu::initialize(Graphics* graphics, Game* game, Input* input, Audio* a
 void GameMenu::update(float frameTime){
 	if(menuActive){
 		if(input->getMouseLButton()){
+			// build
 			if(input->getMouseX()>(0) && input->getMouseX()<(TABS_WIDTH) && input->getMouseY()>(GAME_HEIGHT-towerMenu.getHeight()) && input->getMouseY()<(GAME_HEIGHT-towerMenu.getHeight()+TABS_HEIGHT)){
 				towerMenu.setVisible(true);
 				wallMenu.setVisible(false);
 				turretMenu.setVisible(false);
 				defMenu.setVisible(false);
 				menuActive = true;
-			}else if(input->getMouseX()>(TABS_WIDTH) && input->getMouseX()<(2*TABS_WIDTH) &&  input->getMouseY()>(GAME_HEIGHT-towerMenu.getHeight()) && input->getMouseY()<(GAME_HEIGHT-towerMenu.getHeight()+TABS_HEIGHT)){
+			}
+			// sell
+			else if(input->getMouseX()>(TABS_WIDTH) && input->getMouseX()<(2*TABS_WIDTH) &&  input->getMouseY()>(GAME_HEIGHT-towerMenu.getHeight()) && input->getMouseY()<(GAME_HEIGHT-towerMenu.getHeight()+TABS_HEIGHT)){
 				towerMenu.setVisible(false);
 				wallMenu.setVisible(true);
 				turretMenu.setVisible(false);
 				defMenu.setVisible(false);
 				menuActive = false;
-			}else if(input->getMouseX()>(2*TABS_WIDTH) && input->getMouseX()<(3*TABS_WIDTH) && input->getMouseY()>(GAME_HEIGHT-towerMenu.getHeight()) && input->getMouseY()<(GAME_HEIGHT-towerMenu.getHeight()+TABS_HEIGHT)){
+			}
+			// repair
+			else if(input->getMouseX()>(2*TABS_WIDTH) && input->getMouseX()<(3*TABS_WIDTH) && input->getMouseY()>(GAME_HEIGHT-towerMenu.getHeight()) && input->getMouseY()<(GAME_HEIGHT-towerMenu.getHeight()+TABS_HEIGHT)){
 				towerMenu.setVisible(false);
 				wallMenu.setVisible(false);
 				turretMenu.setVisible(true);
@@ -110,19 +115,24 @@ void GameMenu::update(float frameTime){
 		}
 	}else{
 		if(input->getMouseLButton()){
+			// build
 			if(input->getMouseX() >(0) && input->getMouseX()<(TABS_WIDTH) && input->getMouseY()>(GAME_HEIGHT-TABS_HEIGHT) && input->getMouseY()<(GAME_HEIGHT)){
 				towerMenu.setVisible(true);
 				wallMenu.setVisible(false);
 				turretMenu.setVisible(false);
 				defMenu.setVisible(false);
 				menuActive = true;
-			}else if(input->getMouseX()>(TABS_WIDTH) && input->getMouseX()<(2*TABS_WIDTH) && input->getMouseY()>(GAME_HEIGHT-TABS_HEIGHT) && input->getMouseY()<(GAME_HEIGHT)){
+			}
+			// sell
+			else if(input->getMouseX()>(TABS_WIDTH) && input->getMouseX()<(2*TABS_WIDTH) && input->getMouseY()>(GAME_HEIGHT-TABS_HEIGHT) && input->getMouseY()<(GAME_HEIGHT)){
 				towerMenu.setVisible(false);
 				wallMenu.setVisible(true);
 				turretMenu.setVisible(false);
 				defMenu.setVisible(false);
 				menuActive = false;
-			}else if(input->getMouseX()>(2*TABS_WIDTH) && input->getMouseX()<(3*TABS_WIDTH) && input->getMouseY()>(GAME_HEIGHT-TABS_HEIGHT) && input->getMouseY()<(GAME_HEIGHT)){
+			}
+			// repair
+			else if(input->getMouseX()>(2*TABS_WIDTH) && input->getMouseX()<(3*TABS_WIDTH) && input->getMouseY()>(GAME_HEIGHT-TABS_HEIGHT) && input->getMouseY()<(GAME_HEIGHT)){
 				towerMenu.setVisible(false);
 				wallMenu.setVisible(false);
 				turretMenu.setVisible(true);
@@ -165,7 +175,7 @@ void GameMenu::onResetDevice(){
 
 void GameMenu::display(){
 	//setCur(+1);
-	currencyStr = "Energy: " + std::to_string(currency) + " - Base Health: " + std::to_string(baseHealth);
+	currencyStr = "Energy: " + std::to_string(gameState->getCurrency()) + " - Base Health: " + std::to_string(gameState->getHealth());
 	if(menuActive){
 		currencyFont->print(currencyStr,GAME_WIDTH-MENU_RIGHT_WIDTH,GAME_HEIGHT-towerMenu.getHeight());
 	}else{
