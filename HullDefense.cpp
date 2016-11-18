@@ -302,9 +302,9 @@ void HullDefense::render()
 		break;
 	case GameState::instructions:
 		instruction0.draw();
-		/*if(input->getMouseLButton() && !mouseWasDown){
+		//if(input->getMouseLButton() && !mouseWasDown){
 
-		}*/
+		//}
 		break;
 	case GameState::level1Init:
 		break;
