@@ -25,23 +25,15 @@ void GameMenu::initialize(Graphics* graphics, Game* game, Input* input){
 	currencyFont = new TextDX();
 	objDescriptionFont = new TextDX();
 
-	if(scoreFont->initialize(graphics, 15, true, false, "Calibri") == false)
+	if(scoreFont->initialize(graphics, 24, true, false, "Calibri") == false)
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing score font"));
-	if(currencyFont->initialize(graphics, 15, true, false, "Calibri") == false)
+	if(currencyFont->initialize(graphics, 24, true, false, "Calibri") == false)
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing currency font"));
-	if(objDescriptionFont->initialize(graphics, 15, true, false, "Calibri") == false)
+	if(objDescriptionFont->initialize(graphics, 24, true, false, "Calibri") == false)
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing objDescription font"));
 	scoreFont->setFontColor(normalColor);
 	currencyFont->setFontColor(normalColor);
 	objDescriptionFont->setFontColor(normalColor);
-
-	if(!ckfont.initialize(graphics,FONT_IMAGE))
-		throw(GameError(gameErrorNS::FATAL_ERROR, "Font intialization failure"));
-
-	ckfont.setProportional(false);
-    ckfont.setFontColor(graphicsNS::WHITE);
-    ckfont.setBackColor(graphicsNS::TRANSCOLOR);
-	ckfont.setFontHeight(62);
 
 	// tower menu
 	if (!towermenuTexture.initialize(graphics, TOWERMENU_IMAGE))
@@ -154,6 +146,7 @@ void GameMenu::draw(){
 	wallMenu.draw();
 	turretMenu.draw();
 	defMenu.draw();
+	display();
 }
 
 void GameMenu::onLostDevice(){
@@ -170,12 +163,6 @@ void GameMenu::onResetDevice(){
 	defmenuTexture.onResetDevice();
 }
 
-void GameMenu::render(){
-	graphics->spriteBegin();
-	display();
-	graphics->spriteEnd();
-}
-
 void GameMenu::setCur(int cur){
 	currency += cur;
 }
@@ -185,7 +172,7 @@ int GameMenu::getCur(){
 }
 
 void GameMenu::display(){
-	setCur(+1);
-	currencyStr = std::to_string(getCur());
-	ckfont.print(currencyStr,GAME_WIDTH/2,GAME_HEIGHT/2,textNS::RIGHT);
+	//setCur(+1);
+	currencyStr = "Energy: " + std::to_string(getCur());
+	currencyFont->print(currencyStr,GAME_WIDTH-MENU_RIGHT_WIDTH,GAME_HEIGHT-26);
 }

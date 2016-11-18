@@ -33,7 +33,7 @@ private:
 	TextDX *objDescriptionFont;
 	COLOR_ARGB normalColor;
 
-	Text ckfont;
+	//TextDX ckfont;
 
 	int currency;
 	std::string currencyStr;
