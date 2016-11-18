@@ -44,6 +44,7 @@ void Tower::draw()
 void Tower::update(float frameTime)
 {
 	Entity::update(frameTime);
+	gunImage.update(frameTime);
 	if (projectileDisplayTimer < towerNS::PROJECTILE_DURATION + towerNS::TIME_BETWEEN_SHOTS && target != nullptr) 
 	{
 		float distance = std::sqrt(std::pow(target->getCenterX() - getCenterX(), 2) + std::pow(target->getCenterY() - getCenterY(), 2));
@@ -60,8 +61,10 @@ void Tower::update(float frameTime)
 			projectileImage.setVisible(true);
 			projectileImage.setColorFilter(SETCOLOR_ARGB((int)(255 * (1 - min(1, projectileDisplayTimer / towerNS::PROJECTILE_DURATION))), 255, 255, 255));
 			
-			if(firstShot)
+			if (firstShot) {
 				target->setHealth(target->getHealth() - towerNS::DAMAGE);
+				gunImage.setCurrentFrame(0);
+			}
 
 			firstShot = false;
 			projectileDisplayTimer += frameTime;
@@ -109,9 +112,13 @@ void Tower::setProjectileTexture(TextureManager * tm)
 void Tower::setGunTexture(TextureManager * tm)
 {
 	gunTexture = tm;
-	if (!gunImage.initialize(graphics, 0, 0, 0, gunTexture)) {
+	if (!gunImage.initialize(graphics, 35, 79, 5, gunTexture)) {
 		throw GameError(gameErrorNS::FATAL_ERROR, "Error initializing tower gun image");
 	}
 	gunImage.setX(getCenterX() - gunImage.getWidth() / 2);
 	gunImage.setY(getCenterY() - gunImage.getHeight() / 2);
+	gunImage.setFrames(towerNS::GUN_FRAME_START, towerNS::GUN_FRAME_END);
+	gunImage.setFrameDelay(towerNS::GUN_FRAME_DELAY);
+	gunImage.setCurrentFrame(towerNS::GUN_FRAME_END);
+	gunImage.setLoop(false);
 }
