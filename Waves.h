@@ -7,8 +7,10 @@ public:
     void startWave();
     void update(float frameTime);
 
-private:
+//private:
     Wave waves[5];
     int currentWave;
     bool betweenWaves;
+    float timeBetweenWaves;
+    float timePassed;
 };

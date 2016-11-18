@@ -27,7 +27,8 @@ private:
     // game items
     TextureManager menuTexture, backgroundTexture, towermenuTexture, turretmenuTexture, wallmenuTexture, defmenuTexture; // textures
 	StructureManager structureManager;
-    Waves* waves;
+    Waves* level1waves;
+    Waves* level2waves;
     float waveTimeout;
     float timeIntoTimeout;
     EnemyManager enemyManager;

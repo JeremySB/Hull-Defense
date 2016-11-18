@@ -23,8 +23,6 @@ HullDefense::~HullDefense()
 {
     releaseAll();           // call onLostDevice() for every graphics item
     safeDelete(dxFont);
-    safeDelete(level1waves);
-    safeDelete(level2waves);
 }
 
 //=============================================================================
@@ -163,7 +161,6 @@ void HullDefense::update()
 	structureManager.update(frameTime);
 	gameMenu.update(frameTime);
     enemyManager.updateChildren(frameTime);
-
     if(structureManager.getPlacedThisFrame()){
 		enemyManager.updateStructures();
         enemyManager.findPaths();
