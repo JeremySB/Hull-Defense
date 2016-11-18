@@ -2,6 +2,7 @@
 
 #pragma once
 #include "entity.h"
+#include "text.h"
 
 class GameMenu : public Entity
 {
@@ -14,6 +15,10 @@ public:
 	void draw();
 	void onLostDevice();
 	void onResetDevice();
+	void setCur(int cur);
+	void render();
+	void display();
+	int getCur();
 
 private:
 	TextureManager towermenuTexture, turretmenuTexture, wallmenuTexture, defmenuTexture; // textures
@@ -27,6 +32,11 @@ private:
 	TextDX *currencyFont;
 	TextDX *objDescriptionFont;
 	COLOR_ARGB normalColor;
+
+	Text ckfont;
+
+	int currency;
+	std::string currencyStr;
 
 	Graphics* graphics;
 	Game* game;

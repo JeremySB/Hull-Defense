@@ -21,6 +21,8 @@ const char GAME_TITLE[] = "Hull Defense";
 const bool FULLSCREEN = false;              // windowed or fullscreen
 const UINT GAME_WIDTH =  1100;               // width of game in pixels
 const UINT GAME_HEIGHT = 600;               // height of game in pixels
+const int  MENU_RIGHT_HEIGHT = 8;
+const int  MENU_RIGHT_WIDTH = 250;
 	
 // careful about changing these, the grid might not line up well
 const UINT CELL_WIDTH = 25;               // width of grid cell in pixels
@@ -58,12 +60,13 @@ const char TOWERMENU_IMAGE[] = "pictures\\buildmenuDANIEL.png";
 const char TURRETMENU_IMAGE[] = "pictures\\repairmenuDANIEL.png";
 const char WALLMENU_IMAGE[] = "pictures\\sellmenuDANIEL.png";
 const char DEFMENU_IMAGE[] = "pictures\\menuDefaultDANIEL.png";
-
+const char FONT_IMAGE[]	= "pictures\\CKfont.png";
 
 // menu
 const int TABS_WIDTH = 140;
 const int TABS_HEIGHT = 27;
 
+//#define TRANSCOLOR  SETCOLOR_ARGB(0,255,0,255)
 
 // audio files required by audio.cpp
 // WAVE_BANK must be location of .xwb file.

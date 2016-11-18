@@ -1,5 +1,6 @@
 #include "gameMenu.h"
-
+#include "graphics.h"
+#include <string>
 
 GameMenu::GameMenu(void)
 {
@@ -26,13 +27,21 @@ void GameMenu::initialize(Graphics* graphics, Game* game, Input* input){
 
 	if(scoreFont->initialize(graphics, 15, true, false, "Calibri") == false)
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing score font"));
-	if(currencyFont->initialize(graphics, 18, true, false, "Calibri") == false)
+	if(currencyFont->initialize(graphics, 15, true, false, "Calibri") == false)
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing currency font"));
-	if(objDescriptionFont->initialize(graphics, 25, true, false, "Calibri") == false)
+	if(objDescriptionFont->initialize(graphics, 15, true, false, "Calibri") == false)
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing objDescription font"));
 	scoreFont->setFontColor(normalColor);
 	currencyFont->setFontColor(normalColor);
 	objDescriptionFont->setFontColor(normalColor);
+
+	if(!ckfont.initialize(graphics,FONT_IMAGE))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Font intialization failure"));
+
+	ckfont.setProportional(false);
+    ckfont.setFontColor(graphicsNS::WHITE);
+    ckfont.setBackColor(graphicsNS::TRANSCOLOR);
+	ckfont.setFontHeight(62);
 
 	// tower menu
 	if (!towermenuTexture.initialize(graphics, TOWERMENU_IMAGE))
@@ -76,6 +85,7 @@ void GameMenu::initialize(Graphics* graphics, Game* game, Input* input){
 	defMenu.setY(GAME_HEIGHT-TABS_HEIGHT);
 
 	menuActive = false;
+	currency = 250;
 
 	towerMenu.setVisible(false);
 	wallMenu.setVisible(false);
@@ -137,7 +147,6 @@ void GameMenu::update(float frameTime){
 		turretMenu.setVisible(false);
 		menuActive = false;
 	}
-	
 }
 
 void GameMenu::draw(){
@@ -159,4 +168,24 @@ void GameMenu::onResetDevice(){
 	turretmenuTexture.onResetDevice();
 	wallmenuTexture.onResetDevice();
 	defmenuTexture.onResetDevice();
+}
+
+void GameMenu::render(){
+	graphics->spriteBegin();
+	display();
+	graphics->spriteEnd();
+}
+
+void GameMenu::setCur(int cur){
+	currency += cur;
+}
+
+int GameMenu::getCur(){
+	return currency;
+}
+
+void GameMenu::display(){
+	setCur(+1);
+	currencyStr = std::to_string(getCur());
+	ckfont.print(currencyStr,GAME_WIDTH/2,GAME_HEIGHT/2,textNS::RIGHT);
 }
