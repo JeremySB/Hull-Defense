@@ -126,7 +126,9 @@
     <ClInclude Include="game.h" />
     <ClInclude Include="gameMenu.h" />
     <ClInclude Include="graphics.h" />
+    <ClInclude Include="HeavyEnemy.h" />
     <ClInclude Include="inputDialog.h" />
+    <ClInclude Include="LightEnemy.h" />
     <ClInclude Include="messageDialog.h" />
     <ClInclude Include="net.h" />
     <ClInclude Include="pathFinding.h" />
@@ -142,6 +144,7 @@
     <ClInclude Include="tower.h" />
     <ClInclude Include="turret.h" />
     <ClInclude Include="wall.h" />
+    <ClInclude Include="Wave Generators.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Change log.txt" />

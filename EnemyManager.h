@@ -3,12 +3,15 @@
 #pragma once
 
 #include "Enemy.h"
+#include "HeavyEnemy.h"
+#include "LightEnemy.h"
 #include "PathFinding.h"
 
 class EnemyManager{
 public:
 	EnemyManager();
 	~EnemyManager();
+    void initialize(Game* game, StructureGrid* grid);
 	Enemy** getChildren();
 	void addChild(Enemy *toAdd);
 	void removeChild(Enemy *toRemove);
@@ -17,9 +20,13 @@ public:
     void draw();
     void onLostDevice();
     void onResetDevice();
-    void setGrid(StructureGrid* tmp){pathFinder.loadMap(tmp);}
+    void setGrid(StructureGrid* tmp){grid = tmp; pathFinder.loadMap(tmp);}
 private:
+    Game* game;
+    StructureGrid* grid;
+    TextureManager enemyTexture;
 	Enemy* children[MAX_ENEMIES];
+    Structure *strongest, *weakest, *base;
 	unsigned int numChildren;
 	PathFinding pathFinder;
     VECTOR2 spawn;

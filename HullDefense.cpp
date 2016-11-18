@@ -33,7 +33,7 @@ void HullDefense::initialize(HWND hwnd)
 
 	structureManager.initialize(graphics, this, input);
 	gameMenu.initialize(graphics, this, input);
-
+    enemyManager.initialize(this,structureManager.getGrid());
     // background texture
     if (!backgroundTexture.initialize(graphics, BACKGROUND_IMAGE))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background texture"));
@@ -48,13 +48,12 @@ void HullDefense::initialize(HWND hwnd)
     if(dxFont->initialize(graphics, 18, true, false, "Arial") == false)
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing DirectX font"));
 
-    if (!enemyTexture.initialize(graphics, ENEMY_IMAGE))
-        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing enemy"));
-    Enemy * tmp = new Enemy();
-    if(!tmp->initialize(this, 0, 0, 0, &enemyTexture))
-        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing enemy"));
-	tmp->setX(0);
-    tmp->setY(GAME_HEIGHT/2);
+
+    //Enemy * tmp = new Enemy();
+    //if(!tmp->initialize(this, 0, 0, 0, &enemyTexture))
+    //    throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing enemy"));
+	//tmp->setX(0);
+    //tmp->setY(GAME_HEIGHT/2);
     
     //if (!bob->initialize(this, 0, 0, 0, &enemyTexture))
     //    throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing enemy"));
@@ -63,12 +62,12 @@ void HullDefense::initialize(HWND hwnd)
     //bob->setY(GAME_HEIGHT/2);
 
     //tmp->setTarget(bob);
-    enemyManager.setGrid(structureManager.getGrid());
+    //enemyManager.setGrid(structureManager.getGrid());
     
 
-	tmp->setTarget(structureManager.getStructures().front());//t1);
-    enemyManager.addChild(tmp);
-    enemyManager.findPaths();
+	//tmp->setTarget(structureManager.getStructures().front());//t1);
+
+    //enemyManager.findPaths();
     return;
 }
 
@@ -133,6 +132,7 @@ void HullDefense::releaseAll()
     menuTexture.onLostDevice();
 	structureManager.onLostDevice();
 	gameMenu.onLostDevice();
+    enemyManager.onLostDevice();
     Game::releaseAll();
     return;
 }
@@ -147,6 +147,7 @@ void HullDefense::resetAll()
     dxFont->onResetDevice();
 	structureManager.onResetDevice();
 	gameMenu.onResetDevice();
+    enemyManager.onResetDevice();
     Game::resetAll();
     return;
 }

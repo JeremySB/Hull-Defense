@@ -179,6 +179,15 @@
     <ClInclude Include="HullDefense.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Wave Generators.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HeavyEnemy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LightEnemy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Change log.txt">
