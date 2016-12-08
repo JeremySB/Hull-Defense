@@ -26,8 +26,12 @@ class HullDefense : public Game
 {
 private:
     // game items
-    TextureManager menuTexture, backgroundTexture, towermenuTexture, turretmenuTexture, wallmenuTexture, defmenuTexture,mainmenuTexture,instruction0Texture,
-		instruction1Texture,instruction2Texture,winscreenTexture,losescreenTexture,wavecompleteTexture; // textures
+	// menu textures
+    TextureManager menuTexture, towermenuTexture, turretmenuTexture, wallmenuTexture, defmenuTexture, mainmenuTexture;
+	// instruction textures
+	TextureManager instruction0Texture, instruction1Texture, instruction2Texture;
+	// other screen textures
+	TextureManager winscreenTexture,losescreenTexture,wavecompleteTexture, backgroundTexture, loadingscreenTexture; // textures
 	StructureManager structureManager;
     Waves* level1waves;
     Waves* level2waves;
@@ -43,6 +47,7 @@ private:
 	Image   winscreen;
 	Image   losescreen;
 	Image   wavecomplete;
+	Image	loadingscreen;
 
     TextDX  *dxFont;            // DirectX font
 

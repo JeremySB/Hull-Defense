@@ -93,8 +93,15 @@ void PathFinding::discoverAdjacent(Tile parent,Entity* to){
 	VECTOR2 coor = parent.coordinates;
 	for(int x = (coor.x-1 < 0 ? 0 : coor.x-1); x <= coor.x + 1 && x < GRID_WIDTH; x++){
 		for(int y = (coor.y-1 < 0 ? 0 : coor.y-1); y <= coor.y + 1 && y < GRID_HEIGHT; y++){
-			if(  map[x][y] > 0){
-				this->discovered.push(generateTile(VECTOR2(x,y),to,parent.weight));
+			if(map[x][y] > 0){
+				int ydiff = coor.y - y;
+				int xdiff = coor.x - x;
+				if((x == coor.x && y != coor.y) || (y == coor.y && x != coor.x)){
+					this->discovered.push(generateTile(VECTOR2(x, y), to, parent.weight));
+				}
+				else if (abs(map[x + xdiff][y]) == 1 && abs(map[x][y + ydiff]) == 1){
+					this->discovered.push(generateTile(VECTOR2(x, y), to, parent.weight));
+				}
 			}
 		}
 	} 

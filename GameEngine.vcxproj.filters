@@ -16,6 +16,9 @@
     <Filter Include="Documentation">
       <UniqueIdentifier>{75060048-bb16-4652-8bff-c0474d85d184}</UniqueIdentifier>
     </Filter>
+    <Filter Include="WaveFiles">
+      <UniqueIdentifier>{b2e8d9e5-63ab-4641-aead-1a276916664f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="game.cpp">
@@ -223,5 +226,105 @@
     <None Include="Change log.txt">
       <Filter>Documentation</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="pictures\background.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="pictures\background1DAN.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="pictures\baseDANIEL.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="pictures\buildmenuDANIEL.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="pictures\CKfont.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="pictures\Enemy(1).png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="pictures\Enemy.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="pictures\EnemyTemp.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="pictures\goodSelectionJEREMY.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="pictures\healthBarDANIEL.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="pictures\instruction1DANIEL.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="pictures\instruction2DANIEL.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="pictures\instructionDANIEL.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="pictures\loseScreenDANIEL.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="pictures\mainScreenDANIEL.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="pictures\menu.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="pictures\menuDefaultDANIEL.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="pictures\repairmenuDANIEL.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="pictures\sellmenuDANIEL.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="pictures\towerBaseJEREMY.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="pictures\towerGunJEREMY.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="pictures\towerMenuDANIEL.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="pictures\turretBaseDANIEL.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="pictures\turretGunDANIEL.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="pictures\turretProjectileJEREMY.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="pictures\turretProjectileJEREMY2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="pictures\turretsMenuDANIEL.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="pictures\wallJEREMY.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="pictures\wallMenuDANIEL.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="pictures\waveComplete.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="pictures\winScreenDANIEL.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="level1.txt">
+      <Filter>WaveFiles</Filter>
+    </Text>
   </ItemGroup>
 </Project>
