@@ -115,7 +115,7 @@
     <ClCompile Include="turret.cpp" />
     <ClCompile Include="wall.cpp" />
     <ClCompile Include="wave.cpp" />
-    <ClCompile Include="Waves.cpp" />
+    <ClCompile Include="waves.cpp" />
     <ClCompile Include="winmain.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -132,10 +132,10 @@
     <ClInclude Include="gameMenu.h" />
     <ClInclude Include="gameState.h" />
     <ClInclude Include="graphics.h" />
-    <ClInclude Include="HeavyEnemy.h" />
+    <ClInclude Include="heavyEnemy.h" />
     <ClInclude Include="inputDialog.h" />
-    <ClInclude Include="LightEnemy.h" />
-    <ClInclude Include="MediumEnemy.h" />
+    <ClInclude Include="lightEnemy.h" />
+    <ClInclude Include="mediumEnemy.h" />
     <ClInclude Include="messageDialog.h" />
     <ClInclude Include="net.h" />
     <ClInclude Include="pathFinding.h" />
@@ -152,7 +152,7 @@
     <ClInclude Include="turret.h" />
     <ClInclude Include="wall.h" />
     <ClInclude Include="wave.h" />
-    <ClInclude Include="Waves.h" />
+    <ClInclude Include="waves.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Change log.txt" />

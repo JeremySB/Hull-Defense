@@ -102,10 +102,10 @@
     <ClCompile Include="wave.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Waves.cpp">
+    <ClCompile Include="gameState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="gameState.cpp">
+    <ClCompile Include="waves.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -191,25 +191,25 @@
     <ClInclude Include="HullDefense.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="HeavyEnemy.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="LightEnemy.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="base.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MediumEnemy.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="wave.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Waves.h">
+    <ClInclude Include="gameState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="gameState.h">
+    <ClInclude Include="heavyEnemy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="lightEnemy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="mediumEnemy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="waves.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
