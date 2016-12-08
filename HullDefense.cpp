@@ -313,17 +313,10 @@ void HullDefense::update()
 	}*/
 	//level1waves->update(frameTime);
 	if(input->isKeyDown('R')){
-		auto tmp = structureManager.getStructures();
-		while(!tmp.empty()){
-			if(tmp.front()->getType() == base){
-				tmp.front()->setHealth(1000000000);
-				break;
-			}
-			tmp.pop_front();
-		}
+		structureManager.setBaseHealth(structureManager.getBaseHealth() + 1000);
 	}
 	if(input->isKeyDown('C')){
-		gameState.addCurrency(100000);
+		gameState.addCurrency(1000);
 	}
 	// exit on esc
 	if(input->isKeyDown(VK_ESCAPE)){

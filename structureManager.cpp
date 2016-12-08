@@ -336,6 +336,17 @@ int StructureManager::getBaseHealth()
 	return 0;
 }
 
+void StructureManager::setBaseHealth(float health)
+{
+	std::list<Structure*> structureList = grid.getStructures();
+	for (auto iter = structureList.begin(); iter != structureList.end(); iter++) {
+		if ((*iter)->getType() == StructureTypes::base) {
+			(*iter)->setHealth(health);
+			return;
+		}
+	}
+}
+
 void StructureManager::reset()
 {
 	grid = StructureGrid();

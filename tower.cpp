@@ -16,6 +16,7 @@ Tower::Tower()
 
 	setHealth(towerNS::STARTING_HEALTH);
 	price = towerNS::PRICE;
+	colorFilter = graphicsNS::RED;
 }
 
 
@@ -33,12 +34,13 @@ bool Tower::initialize(Game * gamePtr, int widthInGrid, int heightInGrid, int nc
 void Tower::drawProjectiles()
 {
 	projectileImage.draw(projectileImage.getColorFilter());
-	gunImage.draw();
+	//gunImage.draw();
 }
 
 void Tower::draw()
 {
 	Structure::draw();
+	gunImage.draw();
 	//gunImage.draw();
 }
 

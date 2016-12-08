@@ -68,6 +68,8 @@ public:
 	
 	int getBaseHealth();
 
+	void setBaseHealth(float health);
+
 	void reset();
 
 	void onLostDevice();

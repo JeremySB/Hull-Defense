@@ -13,7 +13,7 @@ public:
 
 	virtual bool initialize(Game *gamePtr, int widthInGrid, int heightInGrid, int ncols, TextureManager *textureM);
 
-	virtual void draw() { Entity::draw(); }
+	virtual void draw() { Entity::draw(getColorFilter()); }
 
 	virtual void drawProjectiles() {}
 

@@ -1,10 +1,10 @@
 // Created by Jeremy Bost
 
 #pragma once
-#include "structure.h"
+#include "tower.h"
 
-namespace towerNS {
-	const int PRICE = 400;
+namespace photonCannonNS {
+	const int PRICE = 500;
 	const float RANGE = 300.0f;
 	const float PROJECTILE_DURATION = 0.12f; // in seconds
 	const float TIME_BETWEEN_SHOTS = 1;//0.3f; // in seconds
@@ -16,19 +16,12 @@ namespace towerNS {
 	const int GUN_FRAME_END = 4;
 }
 
-class Tower : public Structure
+class PhotonCannon : public Tower
 {
 public:
-	Tower();
-	~Tower();
+	PhotonCannon();
+	~PhotonCannon();
 
-	bool initialize(Game *gamePtr, int widthInGrid, int heightInGrid, int ncols, TextureManager *textureM);
-
-	void drawProjectiles();
-	void draw();
-	void update(float frameTime);
-
-	// call this repeatedly to keep attacks going
 	virtual void attackTarget(Entity* target);
 
 	virtual float getRange() { return towerNS::RANGE; }
@@ -37,13 +30,5 @@ public:
 	virtual void setGunTexture(TextureManager* tm);
 
 	virtual void repair() { health = towerNS::STARTING_HEALTH; }
-
-private:
-	TextureManager* projectileTexture, *gunTexture;
-	Entity* target;
-	Image projectileImage, gunImage;
-
-	float projectileDisplayTimer;
-	bool firstShot;
 };
 
