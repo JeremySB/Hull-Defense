@@ -78,8 +78,9 @@ public:
 	void setGameState(GameState* in) { gameState = in; }
 
 private:
-	TextureManager wallTexture, turretTexture, turretProjectileTexture, goodSelectionTexture,turretBaseTexture,turretGunTexture,towerBaseTexture;
-	TextureManager towerProjectileTexture, towerGunTexture, baseTexture;
+	TextureManager wallTexture;
+	TextureManager turretProjectileTexture, turretBaseTexture, turretGunTexture;
+	TextureManager towerProjectileTexture, towerGunTexture, towerBaseTexture, baseTexture, goodSelectionTexture;
 	Image goodSelectionImage;
 	Graphics* graphics;
 	Game* game;

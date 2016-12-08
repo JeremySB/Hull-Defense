@@ -16,3 +16,15 @@ PhotonCannon::PhotonCannon()
 PhotonCannon::~PhotonCannon()
 {
 }
+
+void PhotonCannon::attackTarget(Entity * target)
+{
+}
+
+void PhotonCannon::setProjectileTexture(TextureManager * tm)
+{
+}
+
+void PhotonCannon::setGunTexture(TextureManager * tm)
+{
+}
