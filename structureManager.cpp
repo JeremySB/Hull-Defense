@@ -109,7 +109,7 @@ bool StructureManager::addBase(int x, int y)
 
 	Base* base = new Base();
 	base->initialize(game, 4, 4, 0, &baseTexture);
-	grid.addAtGridCoords(base, xGrid, yGrid);
+	if (!grid.addAtGridCoords(base, xGrid, yGrid)) return false;
 
 	return true;
 }
@@ -122,11 +122,28 @@ bool StructureManager::addTower(int x, int y)
 
 	Tower* tower = new Tower();
 	tower->initialize(game, 3, 3, 0, &towerBaseTexture);
-	grid.addAtGridCoords(tower, xGrid, yGrid);
+	if (!grid.addAtGridCoords(tower, xGrid, yGrid)) return false;
 	tower->setProjectileTexture(&towerProjectileTexture);
 	tower->setGunTexture(&towerGunTexture);
 
 	gameState->addCurrency(-towerNS::PRICE);
+
+	return true;
+}
+
+bool StructureManager::addPhotonCannon(int x, int y)
+{
+	int xGrid = grid.gridXLoc(x) - 1;
+	int yGrid = grid.gridYLoc(y) - 1;
+	if (isOccupiedAtGrid(xGrid, yGrid, 3, 3) || gameState->getCurrency() < photonCannonNS::PRICE) return false;
+
+	PhotonCannon* cannon = new PhotonCannon();
+	cannon->initialize(game, 3, 3, 0, &towerBaseTexture);
+	if (!grid.addAtGridCoords(cannon, xGrid, yGrid)) return false;
+	cannon->setProjectileTexture(&towerProjectileTexture);
+	cannon->setGunTexture(&towerGunTexture);
+
+	gameState->addCurrency(-photonCannonNS::PRICE);
 
 	return true;
 }
@@ -137,7 +154,7 @@ bool StructureManager::addTurret(int x, int y)
 
 	Turret* turret = new Turret();
 	turret->initialize(game, 1, 1, 0, &turretBaseTexture);
-	grid.addAtPixelCoords(turret, x, y);
+	if(!grid.addAtPixelCoords(turret, x, y)) return false;
 	turret->setProjectileTexture(&turretProjectileTexture);
 	turret->setGunTexture(&turretGunTexture);
 
@@ -152,7 +169,7 @@ bool StructureManager::addWall(int x, int y)
 
 	Wall* wall = new Wall();
 	wall->initialize(game, 1, 1, 0, &wallTexture);
-	grid.addAtPixelCoords(wall, x, y);
+	if (!grid.addAtPixelCoords(wall, x, y)) return false;
 	gameState->addCurrency(-wallNS::PRICE);
 
 	return true;
@@ -172,7 +189,7 @@ void StructureManager::repair(int x, int y)
 {
 	if (!isOccupied(x, y)) return;
 	Structure* toRepair = grid.atPixelCoords(x, y);
-	if (toRepair->getType() == StructureTypes::base) return;
+	if (toRepair->getType() == StructureTypes::base || toRepair->getPrice() / 2 > gameState->getCurrency()) return;
 	gameState->addCurrency(- (toRepair->getPrice() / 2));
 	toRepair->repair();
 	gameState->setSelectionMode(GameState::normal);
@@ -214,6 +231,8 @@ void StructureManager::onLostDevice()
 	towerBaseTexture.onLostDevice();
 	towerGunTexture.onLostDevice();
 	towerProjectileTexture.onLostDevice();
+	photonCannonGunTexture.onLostDevice();
+	photonCannonProjectileTexture.onLostDevice();
 	goodSelectionTexture.onLostDevice();
 }
 
@@ -227,6 +246,8 @@ void StructureManager::onResetDevice()
 	towerBaseTexture.onResetDevice();
 	towerGunTexture.onResetDevice();
 	towerProjectileTexture.onResetDevice();
+	photonCannonGunTexture.onResetDevice();
+	photonCannonProjectileTexture.onResetDevice();
 	goodSelectionTexture.onResetDevice();
 }
 
@@ -252,6 +273,9 @@ void StructureManager::selection()
 	else if (mode == GameState::towerSelection && !input->getMouseLButton() && lastLMBState) {
 		addTower(x, y);
 	}
+	else if (mode == GameState::photonCannonSelection && !input->getMouseLButton() && lastLMBState) {
+		addPhotonCannon(x, y);
+	}
 	else if (mode == GameState::sell && !input->getMouseLButton() && lastLMBState) {
 		sell(x, y);
 	}
@@ -269,7 +293,7 @@ void StructureManager::selection()
 		goodSelectionImage.setY(grid.pixelYLoc(grid.gridYLoc(y)));
 		goodSelectionImage.setVisible(true);
 	}
-	else if ((mode == GameState::towerSelection)
+	else if ((mode == GameState::towerSelection || mode == GameState::photonCannonSelection)
 			&& !isOccupiedAtGrid(grid.gridXLoc(x) - 1, grid.gridYLoc(y) - 1, 3, 3) && x > CELL_HEIGHT && y > CELL_HEIGHT && x < GAME_WIDTH - 1 * CELL_WIDTH && y < GAME_HEIGHT - 2 * CELL_HEIGHT) {
 		goodSelectionImage.setHeight(3 * CELL_HEIGHT);
 		goodSelectionImage.setWidth(3 * CELL_WIDTH);

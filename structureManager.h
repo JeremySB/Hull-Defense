@@ -10,6 +10,7 @@
 #include "wall.h"
 #include "turret.h"
 #include "tower.h"
+#include "photonCannon.h"
 #include "Enemy.h"
 #include "base.h"
 #include "gameState.h"
@@ -33,9 +34,11 @@ public:
 
 
 	bool addBase(int x, int y);
-	// add wall at location in pixels. Returns false if object there
+	// add tower at location in pixels. Returns false if object there
 	bool addTower(int x, int y);
-	// add wall at location in pixels. Returns false if object there
+	// add photon cannon at location in pixels. Returns false if object there
+	bool addPhotonCannon(int x, int y);
+	// add turret at location in pixels. Returns false if object there
 	bool addTurret(int x, int y);
 	// add wall at location in pixels. Returns false if object there
 	bool addWall(int x, int y);
@@ -78,9 +81,10 @@ public:
 	void setGameState(GameState* in) { gameState = in; }
 
 private:
-	TextureManager wallTexture;
+	TextureManager wallTexture, baseTexture, goodSelectionTexture;
 	TextureManager turretProjectileTexture, turretBaseTexture, turretGunTexture;
-	TextureManager towerProjectileTexture, towerGunTexture, towerBaseTexture, baseTexture, goodSelectionTexture;
+	TextureManager towerProjectileTexture, towerGunTexture, towerBaseTexture;
+	TextureManager photonCannonProjectileTexture, photonCannonGunTexture;
 	Image goodSelectionImage;
 	Graphics* graphics;
 	Game* game;

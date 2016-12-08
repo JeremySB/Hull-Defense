@@ -33,14 +33,14 @@ bool Tower::initialize(Game * gamePtr, int widthInGrid, int heightInGrid, int nc
 
 void Tower::drawProjectiles()
 {
-	projectileImage.draw(projectileImage.getColorFilter());
+	projectileImage.draw(graphicsNS::FILTER);
 	//gunImage.draw();
 }
 
 void Tower::draw()
 {
 	Structure::draw();
-	gunImage.draw();
+	gunImage.draw(graphicsNS::FILTER);
 	//gunImage.draw();
 }
 
@@ -62,7 +62,8 @@ void Tower::update(float frameTime)
 			gunImage.setRadians(radians + PI / 2);
 			
 			projectileImage.setVisible(true);
-			projectileImage.setColorFilter(SETCOLOR_ARGB((int)(255 * (1 - min(1, projectileDisplayTimer / towerNS::PROJECTILE_DURATION))), 255, 255, 255));
+			D3DCOLOR color = (projectileImage.getColorFilter() | (0xff << 24)) & SETCOLOR_ARGB((int)(255 * (1 - min(1, projectileDisplayTimer / towerNS::PROJECTILE_DURATION))), 255, 255, 255);
+			projectileImage.setColorFilter(color);
 			
 			if (firstShot) {
 				target->setHealth(target->getHealth() - towerNS::DAMAGE);

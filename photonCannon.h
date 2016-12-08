@@ -24,11 +24,11 @@ public:
 
 	virtual void attackTarget(Entity* target);
 
-	virtual float getRange() { return towerNS::RANGE; }
+	virtual float getRange() { return photonCannonNS::RANGE; }
 
 	virtual void setProjectileTexture(TextureManager* tm);
 	virtual void setGunTexture(TextureManager* tm);
 
-	virtual void repair() { health = towerNS::STARTING_HEALTH; }
+	virtual void repair() { health = photonCannonNS::STARTING_HEALTH; }
 };
 
