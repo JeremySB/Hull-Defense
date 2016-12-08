@@ -106,6 +106,13 @@ void HullDefense::initialize(HWND hwnd)
 	// background image
 	if (!wavecomplete.initialize(graphics, 0, 0, 0, &wavecompleteTexture))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background"));
+	
+	if (!loadingscreenTexture.initialize(graphics, LOADING_SCREEN))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing loading screen texture"));
+
+	// main menu image
+	if (!loadingscreen.initialize(graphics, 0, 0, 0, &loadingscreenTexture))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing loading screen"));
 
 	audio->playCue(BACKGROUND);
 	// initialize DirectX font
@@ -368,6 +375,7 @@ void HullDefense::render()
 		instruction2.draw();
 		break;
 	case GameState::level1Init:
+		loadingscreen.draw();
 		break;
 	case GameState::level1Build:
 		break;
@@ -378,6 +386,7 @@ void HullDefense::render()
 		gameMenu.draw();
 		break;
 	case GameState::level2Init:
+		loadingscreen.draw();
 		break;
 	case GameState::level2Build:
 		break;
@@ -414,6 +423,7 @@ void HullDefense::releaseAll()
 	structureManager.onLostDevice();
 	gameMenu.onLostDevice();
 	enemyManager.onLostDevice();
+	loadingscreenTexture.onLostDevice();
 	Game::releaseAll();
 	return;
 }
@@ -429,6 +439,7 @@ void HullDefense::resetAll()
 	structureManager.onResetDevice();
 	gameMenu.onResetDevice();
 	enemyManager.onResetDevice();
+	loadingscreenTexture.onResetDevice();
 	Game::resetAll();
 	return;
 }

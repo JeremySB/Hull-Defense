@@ -7,7 +7,7 @@
 
 namespace wallNS {
 	const int PRICE = 20;
-	const int STARTING_HEALTH = 50;
+	const int STARTING_HEALTH = 500;
 }
 
 class Wall : public Structure

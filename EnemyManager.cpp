@@ -105,9 +105,9 @@ void EnemyManager::updateStructures(){
         weakest = tmp.front();
         base = tmp.front();
         while (!tmp.empty()) {
-            if (tmp.front()->getHealth() > strongest->getHealth() && tmp.front()->getType() != baseTarget)
+			if ((tmp.front()->getHealth() > strongest->getHealth() && tmp.front()->getType() != baseTarget)||strongest->getType() == baseTarget)
                 strongest = tmp.front();
-            if (tmp.front()->getHealth() < weakest->getHealth() && tmp.front()->getType() != baseTarget)
+			if ((tmp.front()->getHealth() < weakest->getHealth() && tmp.front()->getType() != baseTarget) || weakest->getType() == baseTarget)
                 weakest = tmp.front();
             if(tmp.front()->getType() == baseTarget)
                 base = tmp.front();

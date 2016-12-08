@@ -159,6 +159,42 @@
   <ItemGroup>
     <None Include="Change log.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="pictures\background.png" />
+    <Image Include="pictures\background1DAN.png" />
+    <Image Include="pictures\baseDANIEL.png" />
+    <Image Include="pictures\buildmenuDANIEL.png" />
+    <Image Include="pictures\CKfont.png" />
+    <Image Include="pictures\Enemy(1).png" />
+    <Image Include="pictures\Enemy.png" />
+    <Image Include="pictures\EnemyTemp.png" />
+    <Image Include="pictures\goodSelectionJEREMY.png" />
+    <Image Include="pictures\healthBarDANIEL.png" />
+    <Image Include="pictures\instruction1DANIEL.png" />
+    <Image Include="pictures\instruction2DANIEL.png" />
+    <Image Include="pictures\instructionDANIEL.png" />
+    <Image Include="pictures\loseScreenDANIEL.png" />
+    <Image Include="pictures\mainScreenDANIEL.png" />
+    <Image Include="pictures\menu.png" />
+    <Image Include="pictures\menuDefaultDANIEL.png" />
+    <Image Include="pictures\repairmenuDANIEL.png" />
+    <Image Include="pictures\sellmenuDANIEL.png" />
+    <Image Include="pictures\towerBaseJEREMY.png" />
+    <Image Include="pictures\towerGunJEREMY.png" />
+    <Image Include="pictures\towerMenuDANIEL.png" />
+    <Image Include="pictures\turretBaseDANIEL.png" />
+    <Image Include="pictures\turretGunDANIEL.png" />
+    <Image Include="pictures\turretProjectileJEREMY.png" />
+    <Image Include="pictures\turretProjectileJEREMY2.png" />
+    <Image Include="pictures\turretsMenuDANIEL.png" />
+    <Image Include="pictures\wallJEREMY.png" />
+    <Image Include="pictures\wallMenuDANIEL.png" />
+    <Image Include="pictures\waveComplete.png" />
+    <Image Include="pictures\winScreenDANIEL.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="level1.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
