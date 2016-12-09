@@ -34,7 +34,7 @@ const UINT MAX_ENEMIES = 30;
 enum StructureTypes {base = 1, wall = 2, turret = 3, tower = 4, photonCannon = 5};
 enum Targeting {weakestTarget, strongestTarget, baseTarget};
 
-const UINT PATHFINDING_MODIFIER = 5;
+const UINT PATHFINDING_MODIFIER = 10;
 
 // game
 const bool VSYNC = false;                   // true locks display to vertical sync rate
@@ -74,6 +74,7 @@ const char TURRETMENU_IMAGE[] = "pictures\\repairmenuDANIEL.png";
 const char WALLMENU_IMAGE[] = "pictures\\sellmenuDANIEL.png";
 const char DEFMENU_IMAGE[] = "pictures\\menuDefaultDANIEL.png";
 const char FONT_IMAGE[]	= "pictures\\CKfont.png";
+const char LOADING_SCREEN[] = "pictures\\loadingScreen.png";
 
 // menu
 const int TABS_WIDTH = 140;
@@ -99,6 +100,8 @@ const UCHAR CONSOLE_KEY  = '`';         // ` key
 const UCHAR ESC_KEY      = VK_ESCAPE;   // escape key
 const UCHAR ALT_KEY      = VK_MENU;     // Alt key
 const UCHAR ENTER_KEY    = VK_RETURN;   // Enter key
+
+const char LEVEL1WAVEFILE[] = "level1.txt";
 
 //=============================================================================
 // Function templates for safely dealing with pointer referenced items.

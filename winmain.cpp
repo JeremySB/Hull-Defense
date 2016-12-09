@@ -5,7 +5,7 @@
 
 #define _CRTDBG_MAP_ALLOC       // for detecting memory leaks
 #define WIN32_LEAN_AND_MEAN
-
+//#include <vld.h> 
 #include <Windows.h>
 #include <stdlib.h>             // for detecting memory leaks
 #include <crtdbg.h>             // for detecting memory leaks
@@ -29,6 +29,11 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance,
     // Check for memory leak if debug build
     #if defined(DEBUG) | defined(_DEBUG)
         _CrtSetDbgFlag( _CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF );
+		_CrtSetReportMode( _CRT_ERROR, _CRTDBG_MODE_DEBUG );
+		#ifndef DBG_NEW
+			#define DBG_NEW new ( _NORMAL_BLOCK , __FILE__ , __LINE__ )
+			#define new DBG_NEW
+		#endif 
     #endif
 
     MSG msg;
@@ -76,6 +81,7 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance,
     }
 
     safeDelete(game);       // free memory before exit
+	_CrtDumpMemoryLeaks();
     return 0;
 }
 

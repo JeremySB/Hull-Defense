@@ -9,7 +9,6 @@ HullDefense::HullDefense() : Game()
 	waveTimeout = 2;
 	timeIntoTimeout = 0;
 	dxFont = new TextDX();  // DirectX font
-
 	lastClickState = false;
 }
 
@@ -20,8 +19,6 @@ HullDefense::~HullDefense()
 {
 	releaseAll();           // call onLostDevice() for every graphics item
 	safeDelete(dxFont);
-	safeDelete(level1waves);
-	safeDelete(level2waves);
 }
 
 //=============================================================================
@@ -40,8 +37,9 @@ void HullDefense::initialize(HWND hwnd)
 
 	gameState.setGamePhase(GameState::intro);
 
-
-	//enemyManager.addChild(new HeavyEnemy());
+	waves.initialize(&enemyManager);
+	
+	audio->playCue(BACKGROUND);
 	// background texture
 	if (!backgroundTexture.initialize(graphics, BACKGROUND_IMAGE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background texture"));
@@ -106,14 +104,19 @@ void HullDefense::initialize(HWND hwnd)
 	// background image
 	if (!wavecomplete.initialize(graphics, 0, 0, 0, &wavecompleteTexture))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background"));
+	
+	if (!loadingscreenTexture.initialize(graphics, LOADING_SCREEN))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing loading screen texture"));
 
-	audio->playCue(BACKGROUND);
+	// main menu image
+	if (!loadingscreen.initialize(graphics, 0, 0, 0, &loadingscreenTexture))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing loading screen"));
+
 	// initialize DirectX font
 	// 18 pixel high Arial
 	if(dxFont->initialize(graphics, 18, true, false, "Arial") == false)
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing DirectX font"));
-	level1waves = new Waves(&enemyManager);
-	level2waves = new Waves(&enemyManager);
+
 	return;
 }
 
@@ -123,7 +126,9 @@ void HullDefense::initialize(HWND hwnd)
 void HullDefense::update()
 {
 	std::list<Enemy*> enemies;
+
 	gameState.setHealth(structureManager.getBaseHealth());
+
 	switch (gameState.getGamePhase())
 	{
 	case GameState::intro:
@@ -135,196 +140,122 @@ void HullDefense::update()
 			}
 		}
 		break;
+
 	case GameState::instructions:
 		if(!input->getMouseLButton() && lastClickState){
 			gameState.setGamePhase(GameState::instructions1);
 		}
 		break;
+
 	case GameState::instructions1:
 		if (!input->getMouseLButton() && lastClickState) {
 			gameState.setGamePhase(GameState::instructions2);
 		}
 		break;
+
 	case GameState::instructions2:
 		if (!input->getMouseLButton() && lastClickState) {
 			gameState.setGamePhase(GameState::intro);
 		}
 		break;
+
 	case GameState::level1Init:
 		gameState.setSelectionMode(GameState::photonCannonSelection);
 		enemies = enemyManager.getChildren();
-
-		
-		level1waves->waves[0].spawnTime = 1;
-		level1waves->waves[1].spawnTime = 1;
-		level1waves->waves[2].spawnTime = 1;
-		level1waves->waves[3].spawnTime = .7;
-		level1waves->waves[4].spawnTime = .5;
-		level1waves->waves[0].spawnTime = 1;
-		level1waves->waves[1].spawnTime = 1;
-		level1waves->waves[2].spawnTime = 1;
-		level1waves->waves[3].spawnTime = .7;
-
-		for( int i = 0; i < 5; i++){
-			level1waves->waves[0].toSpawn.push_back(new MediumEnemy());
-			level1waves->waves[1].toSpawn.push_back(new HeavyEnemy());
-			level1waves->waves[2].toSpawn.push_back(new LightEnemy());
-		}
-		for(int i = 0; i < 10; i ++){
-			switch(rand()%3){
-			case(0):
-				level1waves->waves[3].toSpawn.push_back(new LightEnemy());
-				level1waves->waves[4].toSpawn.push_back(new MediumEnemy());
-				break;
-			case(1):
-				level1waves->waves[3].toSpawn.push_back(new MediumEnemy());
-				level1waves->waves[4].toSpawn.push_back(new HeavyEnemy());
-				break;
-			case(2):
-				level1waves->waves[3].toSpawn.push_back(new HeavyEnemy());
-				level1waves->waves[3].toSpawn.push_back(new LightEnemy());
-				break;
-			}
-		}
-
+		waves.loadWaves(LEVEL1WAVEFILE);
 		enemyManager.setSpawn(VECTOR2(0,GAME_HEIGHT/2));
-
-		for (auto i = enemies.begin(); i != enemies.end(); i++)
+		enemyManager.reset();
+		/*for (auto i = enemies.begin(); i != enemies.end(); i++)
 		{
 			(*i)->setHealth(-1);
-		}
-		enemyManager.updateChildren(frameTime);
-		level1waves->currentWave = 0;
+		}*/
+		//enemyManager.updateChildren(frameTime);
 		structureManager.reset();
 		structureManager.addBase(950, 10);
 		gameState.setCurrency(1500);
 		gameState.setGamePhase(GameState::level1Play);
 		break;
+
 	case GameState::level1Play:
 		structureManager.update(frameTime);
 		gameMenu.update(frameTime);
-		level1waves->update(frameTime);
+		
+		waves.update(frameTime);
+
 		enemyManager.updateChildren(frameTime);
 		enemies = enemyManager.getChildren();
 		if (structureManager.getPlacedThisFrame()) {
 			enemyManager.updateStructures();
 			enemyManager.findPaths();
 		} 
-		if (level1waves->currentWave == 5 && enemyManager.getNumChildren() == 0)
+		if (waves.complete() && enemyManager.getNumChildren() == 0)
 			gameState.setGamePhase(GameState::level2Init);
 		if (structureManager.getBaseHealth() <= 0)
 			gameState.setGamePhase(GameState::lost);
 		break;
+
 	case GameState::level2Init:
 		enemies = enemyManager.getChildren();
-
-		
-		level2waves->waves[0].spawnTime = 1;
-		level2waves->waves[1].spawnTime = .7;
-		level2waves->waves[2].spawnTime = .7;
-		level2waves->waves[3].spawnTime = .5;
-		level2waves->waves[4].spawnTime = .6;
-		for(int i=0; i < 5; i ++)
-			level2waves->waves[0].toSpawn.push_back(new LightEnemy());
-		for(int i = 0; i < 10; i ++){
-			switch(rand() % 2) {
-			case(0):
-				level2waves->waves[1].toSpawn.push_back(new LightEnemy());
-				break;
-			case(1):
-				level2waves->waves[1].toSpawn.push_back(new MediumEnemy());
-				break;
-			}
-		}
-		for(int i = 0; i < 15; i++)
-			level2waves->waves[2].toSpawn.push_back(new LightEnemy());
-
-		for(int i=0; i < 5; i++)
-			level2waves->waves[3].toSpawn.push_back(new HeavyEnemy());
-		for (int i = 0; i < 5; i++)
-			level2waves->waves[3].toSpawn.push_back(new LightEnemy());
-		for (int i = 0; i < 5; i++)
-			level2waves->waves[3].toSpawn.push_back(new MediumEnemy());
-
-		for (int i = 0; i < 30; i++) {
-			switch (rand() % 3) {
-			case(0):
-				level2waves->waves[4].toSpawn.push_back(new LightEnemy());
-				break;
-			case(1):
-				level2waves->waves[4].toSpawn.push_back(new MediumEnemy());
-				break;
-			case(2):
-				level2waves->waves[4].toSpawn.push_back(new HeavyEnemy());
-				break;
-			}
-		}
+		waves.loadWaves(LEVEL1WAVEFILE);
 
 		enemyManager.setSpawn(VECTOR2( (enemyManager.getSpawn().x ? 0 : GAME_WIDTH - CELL_WIDTH), GAME_HEIGHT/2));
-
-		for (auto i = enemies.begin(); i != enemies.end(); i++)
-		{
-			(*i)->setHealth(-1);
-		}
-		enemyManager.updateChildren(frameTime);
-		level2waves->currentWave = 0;
+		enemyManager.reset();
 		structureManager.reset();
 		gameState.setCurrency(1500);
 		structureManager.addBase(400, 200);
 		gameState.setGamePhase(GameState::level2Play);
 		break;
+
 	case GameState::level2Build:
 		break;
+
 	case GameState::level2Play:
 		structureManager.update(frameTime);
 		gameMenu.update(frameTime);
-		level2waves->update(frameTime);
+		waves.update(frameTime);
 
 		enemyManager.updateChildren(frameTime);
 		if (structureManager.getPlacedThisFrame()) {
 			enemyManager.updateStructures();
 			enemyManager.findPaths();
 		}
-		if (level2waves->currentWave == 5 && enemyManager.getNumChildren() == 0)
+		if (waves.complete() && enemyManager.getNumChildren() == 0)
 			gameState.setGamePhase(GameState::won);
 		if (structureManager.getBaseHealth() <= 0)
 			gameState.setGamePhase(GameState::lost);
 		break;
+
 	case GameState::won:
 		if (!input->getMouseLButton() && lastClickState) {
 			gameState.setGamePhase(GameState::intro);
 		}
 		break;
+
 	case GameState::lost:
 		if (!input->getMouseLButton() && lastClickState) {
 			gameState.setGamePhase(GameState::intro);
 		}
 		break;
+
 	default:
 		break;
 	}
 
-	//structureManager.update(frameTime);
-	//gameMenu.update(frameTime);
-	//enemyManager.updateChildren(frameTime);
-
-	/* if(structureManager.getPlacedThisFrame()){
-	enemyManager.updateStructures();
-	enemyManager.findPaths();
-	}*/
-	//level1waves->update(frameTime);
 	if(input->isKeyDown('R')){
 		structureManager.setBaseHealth(structureManager.getBaseHealth() + 1000);
 	}
+	
 	if(input->isKeyDown('C')){
 		gameState.addCurrency(1000);
 	}
+
 	// exit on esc
 	if(input->isKeyDown(VK_ESCAPE)){
-		//exit(1);
 		exitGame();
 	}
+	
 	if (input->getMouseLButton()) lastClickState = true;
+	
 	else lastClickState = false;
 }
 
@@ -353,51 +284,62 @@ void HullDefense::render()
 	dxFont->setFontColor(graphicsNS::ORANGE);
 
 	GameState::GamePhase phase = gameState.getGamePhase();
-	switch (phase)
-	{
+	switch (phase){
 	case GameState::intro:
 		mainmenu.draw();
 		break;
+
 	case GameState::instructions:
 		instruction0.draw();
 		break;
+
 	case GameState::instructions1:
 		instruction1.draw();
 		break;
+
 	case GameState::instructions2:
 		instruction2.draw();
 		break;
+
 	case GameState::level1Init:
+		loadingscreen.draw();
 		break;
+
 	case GameState::level1Build:
 		break;
+
 	case GameState::level1Play:
-		level1waves->update(frameTime);
+		waves.update(frameTime);
 		structureManager.draw();
 		enemyManager.draw();
 		gameMenu.draw();
 		break;
+
 	case GameState::level2Init:
+		loadingscreen.draw();
 		break;
+
 	case GameState::level2Build:
 		break;
+
 	case GameState::level2Play:
-		level2waves->update(frameTime);
+		waves.update(frameTime);
 		structureManager.draw();
 		enemyManager.draw();
 		gameMenu.draw();
 		break;
+
 	case GameState::won:
 		winscreen.draw();
 		break;
+
 	case GameState::lost:
 		losescreen.draw();
 		break;
+
 	default:
 		break;
 	}
-
-
 
 	graphics->spriteEnd();                  // end drawing sprites
 
@@ -414,6 +356,22 @@ void HullDefense::releaseAll()
 	structureManager.onLostDevice();
 	gameMenu.onLostDevice();
 	enemyManager.onLostDevice();
+	loadingscreenTexture.onLostDevice();
+	
+	towermenuTexture.onLostDevice();
+	turretmenuTexture.onLostDevice(); 
+	wallmenuTexture.onLostDevice();
+	defmenuTexture.onLostDevice();
+	mainmenuTexture.onLostDevice();
+	instruction0Texture.onLostDevice();
+	instruction1Texture.onLostDevice();
+	instruction2Texture.onLostDevice();
+	
+	winscreenTexture.onLostDevice();
+	losescreenTexture.onLostDevice();
+	wavecompleteTexture.onLostDevice();
+	backgroundTexture.onLostDevice();
+
 	Game::releaseAll();
 	return;
 }
@@ -429,6 +387,22 @@ void HullDefense::resetAll()
 	structureManager.onResetDevice();
 	gameMenu.onResetDevice();
 	enemyManager.onResetDevice();
+	loadingscreenTexture.onResetDevice();
+
+	towermenuTexture.onResetDevice();
+	turretmenuTexture.onResetDevice(); 
+	wallmenuTexture.onResetDevice();
+	defmenuTexture.onResetDevice();
+	mainmenuTexture.onResetDevice();
+	instruction0Texture.onResetDevice();
+	instruction1Texture.onResetDevice();
+	instruction2Texture.onResetDevice();
+	
+	winscreenTexture.onResetDevice();
+	losescreenTexture.onResetDevice();
+	wavecompleteTexture.onResetDevice();
+	backgroundTexture.onResetDevice();
+
 	Game::resetAll();
 	return;
 }

@@ -80,7 +80,7 @@ bool PathFinding::nextStep(Entity* to){
 	discovered.pop();
 	// we push it onto the path list that we have
     this->path.push(prev);
-	// if the weight is 0 we have reached our to
+	// if the weight is 0 we have reached our target
     if(prev.weight==0){
         return true;
     }
@@ -93,8 +93,18 @@ void PathFinding::discoverAdjacent(Tile parent,Entity* to){
 	VECTOR2 coor = parent.coordinates;
 	for(int x = (coor.x-1 < 0 ? 0 : coor.x-1); x <= coor.x + 1 && x < GRID_WIDTH; x++){
 		for(int y = (coor.y-1 < 0 ? 0 : coor.y-1); y <= coor.y + 1 && y < GRID_HEIGHT; y++){
-			if(  map[x][y] > 0){
-				this->discovered.push(generateTile(VECTOR2(x,y),to,parent.weight));
+			// if the tile has been discovered in the past it is negated and so is skipped here
+			if(map[x][y] > 0){
+				int ydiff = coor.y - y;
+				int xdiff = coor.x - x;
+				// if we are on one of the cardinal directions we just add them to the path
+				if((x == coor.x && y != coor.y) || (y == coor.y && x != coor.x)){
+					this->discovered.push(generateTile(VECTOR2(x, y), to, parent.weight));
+				}
+				// this handles diagnals so that we will not collide with objects to the sides
+				else if (abs(map[x + xdiff][y]) == 1 && abs(map[x][y + ydiff]) == 1){
+					this->discovered.push(generateTile(VECTOR2(x, y), to, parent.weight));
+				}
 			}
 		}
 	} 

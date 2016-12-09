@@ -1,16 +1,44 @@
 // Created by Samuel Casteel
 #include "Waves.h"
-Waves::~Waves(){
-}
-Waves::Waves(EnemyManager* manager):betweenWaves(true),currentWave(0),timeBetweenWaves(10),timePassed(0){
-    this->manager = manager;
+
+Waves::Waves():betweenWaves(true),currentWave(0),timeBetweenWaves(10),timePassed(0){}
+
+Waves::~Waves(){}
+
+void Waves::initialize(EnemyManager* manager){
+	this->manager = manager;
     for(int j = 0; j < 5; j++){
-        waves[j].manager=manager;
+		waves[j].initialize(manager);
     }
 }
-void Waves::startWave(){
-    //this->betweenWaves =  currentWave == 5;
+
+void Waves::loadWaves(std::string filename){
+	std::ifstream fin;
+	
+	fin.open(filename);
+
+	if(fin.fail())
+		return;
+
+	std::string currentLine;
+	
+	for(int waveNum = 0; waveNum < 5 && !fin.eof(); waveNum++){
+		float spawnTime;
+		fin >> spawnTime;
+		waves[waveNum].reset();
+		waves[waveNum].setSpawnTime(spawnTime);
+		getline(fin,currentLine);
+		for(int i = 0; i < currentLine.size(); i++){
+			currentLine[i] = toupper(currentLine[i]);
+			if(currentLine[i] == 'H' || currentLine[i] == 'L' || currentLine[i] == 'M')
+				waves[waveNum].addEnemy(currentLine[i]);
+		}
+	}
+	currentWave = 0;
+	timePassed = 0;
+	betweenWaves = false;
 }
+
 void Waves::update(float frameTime){
     timePassed += frameTime;
     if(!betweenWaves && this->timeBetweenWaves <= timePassed && currentWave < 5 && !this->waves[currentWave].update(frameTime)){
@@ -21,4 +49,8 @@ void Waves::update(float frameTime){
         this->betweenWaves = false;
         timePassed = 0;
     }
+}
+
+bool Waves::complete(){
+	return currentWave == 5;
 }
