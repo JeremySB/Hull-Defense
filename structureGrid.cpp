@@ -16,20 +16,26 @@ StructureGrid::StructureGrid(void) : structures((int)(GAME_WIDTH / CELL_WIDTH) +
 
 StructureGrid::~StructureGrid(void)
 {
-	for (int i = 0; i < structures.size(); i++) {
+    while(!structureList.empty()){
+        delete structureList.front();
+        structureList.pop_front();
+    }
+/*	for (int i = 0; i < structures.size(); i++) {
 		for (int j = 0; j < structures[i].size(); j++)
 		{
 			if (structures[i][j])
 				removeAtGridCoords(i, j);
 		}
-	}
+	}*/
 }
 
 
 bool StructureGrid::addAtGridCoords(Structure* in, int x, int y)
 {
-	if (!(x >= 0 && y >= 0 && x + in->getWidthInGrid() <= maxX && y + in->getHeightInGrid() <= maxY))
+	if (!(x >= 0 && y >= 0 && x + in->getWidthInGrid() <= maxX && y + in->getHeightInGrid() <= maxY)){
+        delete in;
 		return false;
+    }
 	
 	structureList.push_back(in);
 
