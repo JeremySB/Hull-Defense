@@ -21,6 +21,7 @@ bool Structure::initialize(Game * gamePtr, int widthInGrid, int heightInGrid, in
 {
 	this->widthInGrid = widthInGrid;
 	this->heightInGrid = heightInGrid;
+	this->gamePtr = gamePtr;
 	int width = widthInGrid * CELL_WIDTH;
 	int height = heightInGrid * CELL_HEIGHT;
 	return Entity::initialize(gamePtr, width, height, ncols, textureM);

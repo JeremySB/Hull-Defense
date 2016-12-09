@@ -177,6 +177,8 @@
     <Image Include="pictures\mainScreenDANIEL.png" />
     <Image Include="pictures\menu.png" />
     <Image Include="pictures\menuDefaultDANIEL.png" />
+    <Image Include="pictures\photonCannonGunJEREMY.png" />
+    <Image Include="pictures\photonCannonProjectileJEREMY.png" />
     <Image Include="pictures\repairmenuDANIEL.png" />
     <Image Include="pictures\sellmenuDANIEL.png" />
     <Image Include="pictures\towerBaseJEREMY.png" />

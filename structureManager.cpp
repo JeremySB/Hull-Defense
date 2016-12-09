@@ -53,7 +53,7 @@ void StructureManager::initialize(Graphics* graphics, Game* game, Input* input, 
 	if (!photonCannonGunTexture.initialize(graphics, PHOTON_CANNON_GUN_IMAGE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing photon cannon gun texture"));
 
-	if (!photonCannonProjectileTexture.initialize(graphics, TOWER_PROJECTILE_IMAGE))
+	if (!photonCannonProjectileTexture.initialize(graphics, PHOTON_CANNON_PROJECTILE_IMAGE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing photon cannon projectile texture"));
 
 
@@ -95,8 +95,6 @@ void StructureManager::collisions(std::list<Enemy*> entities)
 					closest = *entity;
 					dist = newDist;
 				}
-				
-				(*structure)->attackTarget(*entity);
 			}
 		}
 		(*structure)->attackTarget(closest);

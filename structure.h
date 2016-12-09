@@ -39,6 +39,7 @@ public:
 	
 protected:
 	StructureTypes type;
+	Game* gamePtr;
 	int widthInGrid, heightInGrid;
 	int price;
 };

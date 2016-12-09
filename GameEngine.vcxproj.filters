@@ -321,6 +321,12 @@
     <Image Include="pictures\winScreenDANIEL.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="pictures\photonCannonGunJEREMY.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="pictures\photonCannonProjectileJEREMY.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Text Include="level1.txt">

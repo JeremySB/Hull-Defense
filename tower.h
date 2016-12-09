@@ -24,21 +24,21 @@ public:
 
 	bool initialize(Game *gamePtr, int widthInGrid, int heightInGrid, int ncols, TextureManager *textureM);
 
-	virtual void drawProjectiles();
-	virtual void draw();
-	virtual void update(float frameTime);
+	void drawProjectiles();
+	void draw();
+	void update(float frameTime);
 
 	// call this repeatedly to keep attacks going
-	virtual void attackTarget(Entity* target);
+	void attackTarget(Entity* target);
 
-	virtual float getRange() { return towerNS::RANGE; }
+	float getRange() { return towerNS::RANGE; }
 
-	virtual void setProjectileTexture(TextureManager* tm);
-	virtual void setGunTexture(TextureManager* tm);
+	void setProjectileTexture(TextureManager* tm);
+	void setGunTexture(TextureManager* tm);
 
-	virtual void repair() { health = towerNS::STARTING_HEALTH; }
+	void repair() { health = towerNS::STARTING_HEALTH; }
 
-protected:
+private:
 	TextureManager* projectileTexture, *gunTexture;
 	Entity* target;
 	Image projectileImage, gunImage;
