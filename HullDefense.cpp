@@ -164,12 +164,12 @@ void HullDefense::update()
 		enemies = enemyManager.getChildren();
 		waves.loadWaves(LEVEL1WAVEFILE);
 		enemyManager.setSpawn(VECTOR2(0,GAME_HEIGHT/2));
-
-		for (auto i = enemies.begin(); i != enemies.end(); i++)
+		enemyManager.reset();
+		/*for (auto i = enemies.begin(); i != enemies.end(); i++)
 		{
 			(*i)->setHealth(-1);
-		}
-		enemyManager.updateChildren(frameTime);
+		}*/
+		//enemyManager.updateChildren(frameTime);
 		structureManager.reset();
 		structureManager.addBase(950, 10);
 		gameState.setCurrency(1500);
@@ -199,12 +199,7 @@ void HullDefense::update()
 		waves.loadWaves(LEVEL1WAVEFILE);
 
 		enemyManager.setSpawn(VECTOR2( (enemyManager.getSpawn().x ? 0 : GAME_WIDTH - CELL_WIDTH), GAME_HEIGHT/2));
-
-		for (auto i = enemies.begin(); i != enemies.end(); i++)
-		{
-			(*i)->setHealth(-1);
-		}
-		enemyManager.updateChildren(frameTime);
+		enemyManager.reset();
 		structureManager.reset();
 		gameState.setCurrency(1500);
 		structureManager.addBase(400, 200);
@@ -289,53 +284,62 @@ void HullDefense::render()
 	dxFont->setFontColor(graphicsNS::ORANGE);
 
 	GameState::GamePhase phase = gameState.getGamePhase();
-	switch (phase)
-	{
+	switch (phase){
 	case GameState::intro:
 		mainmenu.draw();
 		break;
+
 	case GameState::instructions:
 		instruction0.draw();
 		break;
+
 	case GameState::instructions1:
 		instruction1.draw();
 		break;
+
 	case GameState::instructions2:
 		instruction2.draw();
 		break;
+
 	case GameState::level1Init:
 		loadingscreen.draw();
 		break;
+
 	case GameState::level1Build:
 		break;
+
 	case GameState::level1Play:
 		waves.update(frameTime);
 		structureManager.draw();
 		enemyManager.draw();
 		gameMenu.draw();
 		break;
+
 	case GameState::level2Init:
 		loadingscreen.draw();
 		break;
+
 	case GameState::level2Build:
 		break;
+
 	case GameState::level2Play:
 		waves.update(frameTime);
 		structureManager.draw();
 		enemyManager.draw();
 		gameMenu.draw();
 		break;
+
 	case GameState::won:
 		winscreen.draw();
 		break;
+
 	case GameState::lost:
 		losescreen.draw();
 		break;
+
 	default:
 		break;
 	}
-
-
 
 	graphics->spriteEnd();                  // end drawing sprites
 
@@ -353,6 +357,21 @@ void HullDefense::releaseAll()
 	gameMenu.onLostDevice();
 	enemyManager.onLostDevice();
 	loadingscreenTexture.onLostDevice();
+	
+	towermenuTexture.onLostDevice();
+	turretmenuTexture.onLostDevice(); 
+	wallmenuTexture.onLostDevice();
+	defmenuTexture.onLostDevice();
+	mainmenuTexture.onLostDevice();
+	instruction0Texture.onLostDevice();
+	instruction1Texture.onLostDevice();
+	instruction2Texture.onLostDevice();
+	
+	winscreenTexture.onLostDevice();
+	losescreenTexture.onLostDevice();
+	wavecompleteTexture.onLostDevice();
+	backgroundTexture.onLostDevice();
+
 	Game::releaseAll();
 	return;
 }
@@ -369,6 +388,21 @@ void HullDefense::resetAll()
 	gameMenu.onResetDevice();
 	enemyManager.onResetDevice();
 	loadingscreenTexture.onResetDevice();
+
+	towermenuTexture.onResetDevice();
+	turretmenuTexture.onResetDevice(); 
+	wallmenuTexture.onResetDevice();
+	defmenuTexture.onResetDevice();
+	mainmenuTexture.onResetDevice();
+	instruction0Texture.onResetDevice();
+	instruction1Texture.onResetDevice();
+	instruction2Texture.onResetDevice();
+	
+	winscreenTexture.onResetDevice();
+	losescreenTexture.onResetDevice();
+	wavecompleteTexture.onResetDevice();
+	backgroundTexture.onResetDevice();
+
 	Game::resetAll();
 	return;
 }
