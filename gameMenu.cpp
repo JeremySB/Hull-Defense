@@ -13,6 +13,9 @@ GameMenu::GameMenu(void)
 
 GameMenu::~GameMenu(void)
 {
+    delete scoreFont;
+    delete currencyFont;
+    delete objDescriptionFont;
 }
 
 void GameMenu::initialize(Graphics* graphics, Game* game, Input* input, Audio* audio){
@@ -23,9 +26,6 @@ void GameMenu::initialize(Graphics* graphics, Game* game, Input* input, Audio* a
 	this->audio = audio;
 
 	normalColor = graphicsNS::WHITE;
-	scoreFont = new TextDX();
-	currencyFont = new TextDX();
-	objDescriptionFont = new TextDX();
 
 	if(scoreFont->initialize(graphics, 20, true, false, "Calibri") == false)
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing score font"));

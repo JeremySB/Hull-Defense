@@ -1,6 +1,8 @@
 // Created by Samuel Casteel
 
 #pragma once
+
+
 #include "Enemy.h"
 #include "HeavyEnemy.h"
 #include "MediumEnemy.h"

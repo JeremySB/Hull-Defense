@@ -5,7 +5,7 @@
 
 #define _CRTDBG_MAP_ALLOC       // for detecting memory leaks
 #define WIN32_LEAN_AND_MEAN
-
+//#include <vld.h> 
 #include <Windows.h>
 #include <stdlib.h>             // for detecting memory leaks
 #include <crtdbg.h>             // for detecting memory leaks
