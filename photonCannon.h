@@ -11,9 +11,10 @@ namespace photonCannonNS {
 	const float ROTATE_SPEED = 0.5f; // radians per second
 	const int STARTING_HEALTH = 600;
 	const int DAMAGE = 50;
+	const float GUN_IMAGE_SCALE = 0.24f;
 	const float GUN_FRAME_DELAY = 0.08f;
 	const int GUN_FRAME_START = 0;
-	const int GUN_FRAME_END = 4;
+	const int GUN_FRAME_END = 7;
 }
 
 class PhotonCannon : public Tower
@@ -21,6 +22,8 @@ class PhotonCannon : public Tower
 public:
 	PhotonCannon();
 	~PhotonCannon();
+
+	virtual void update(float frameTime);
 
 	virtual void attackTarget(Entity* target);
 

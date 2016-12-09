@@ -49,6 +49,13 @@ void StructureManager::initialize(Graphics* graphics, Game* game, Input* input, 
 	if (!towerProjectileTexture.initialize(graphics, TOWER_PROJECTILE_IMAGE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing tower projectile texture"));
 
+	// photon cannon textures
+	if (!photonCannonGunTexture.initialize(graphics, PHOTON_CANNON_GUN_IMAGE))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing photon cannon gun texture"));
+
+	if (!photonCannonProjectileTexture.initialize(graphics, TOWER_PROJECTILE_IMAGE))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing photon cannon projectile texture"));
+
 
 	if (!goodSelectionTexture.initialize(graphics, GOOD_SELECTION_IMAGE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing selection texture"));
@@ -63,7 +70,7 @@ void StructureManager::initialize(Graphics* graphics, Game* game, Input* input, 
 void StructureManager::draw()
 {
 	grid.draw();
-	goodSelectionImage.draw();
+	goodSelectionImage.draw(graphicsNS::FILTER);
 }
 
 void StructureManager::collisions(std::list<Enemy*> entities)
@@ -91,7 +98,7 @@ void StructureManager::collisions(std::list<Enemy*> entities)
 void StructureManager::update(float frameTime)
 {
     placedThisFrame = !input->getMouseLButton() && lastLMBState;
-	if (grid.update(frameTime)) {
+	if (grid.update(frameTime)) { // grid's update returns true if something was deleted because low health
 		placedThisFrame = true;
 	}
 	selection();
@@ -140,8 +147,8 @@ bool StructureManager::addPhotonCannon(int x, int y)
 	PhotonCannon* cannon = new PhotonCannon();
 	cannon->initialize(game, 3, 3, 0, &towerBaseTexture);
 	if (!grid.addAtGridCoords(cannon, xGrid, yGrid)) return false;
-	cannon->setProjectileTexture(&towerProjectileTexture);
-	cannon->setGunTexture(&towerGunTexture);
+	cannon->setProjectileTexture(&photonCannonProjectileTexture);
+	cannon->setGunTexture(&photonCannonGunTexture);
 
 	gameState->addCurrency(-photonCannonNS::PRICE);
 

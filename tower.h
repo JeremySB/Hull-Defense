@@ -24,9 +24,9 @@ public:
 
 	bool initialize(Game *gamePtr, int widthInGrid, int heightInGrid, int ncols, TextureManager *textureM);
 
-	void drawProjectiles();
-	void draw();
-	void update(float frameTime);
+	virtual void drawProjectiles();
+	virtual void draw();
+	virtual void update(float frameTime);
 
 	// call this repeatedly to keep attacks going
 	virtual void attackTarget(Entity* target);
@@ -38,7 +38,7 @@ public:
 
 	virtual void repair() { health = towerNS::STARTING_HEALTH; }
 
-private:
+protected:
 	TextureManager* projectileTexture, *gunTexture;
 	Entity* target;
 	Image projectileImage, gunImage;

@@ -151,6 +151,7 @@ void HullDefense::update()
 		}
 		break;
 	case GameState::level1Init:
+		gameState.setSelectionMode(GameState::photonCannonSelection);
 		enemies = enemyManager.getChildren();
 
 		
