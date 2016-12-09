@@ -9,7 +9,6 @@ HullDefense::HullDefense() : Game()
 	waveTimeout = 2;
 	timeIntoTimeout = 0;
 	dxFont = new TextDX();  // DirectX font
-
 	lastClickState = false;
 }
 
@@ -20,8 +19,6 @@ HullDefense::~HullDefense()
 {
 	releaseAll();           // call onLostDevice() for every graphics item
 	safeDelete(dxFont);
-	safeDelete(level1waves);
-	safeDelete(level2waves);
 }
 
 //=============================================================================
@@ -119,8 +116,7 @@ void HullDefense::initialize(HWND hwnd)
 	// 18 pixel high Arial
 	if(dxFont->initialize(graphics, 18, true, false, "Arial") == false)
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing DirectX font"));
-	level1waves = new Waves(&enemyManager);
-	level2waves = new Waves(&enemyManager);
+	waves.initialize(&enemyManager);
 	return;
 }
 
@@ -160,40 +156,7 @@ void HullDefense::update()
 	case GameState::level1Init:
 		gameState.setSelectionMode(GameState::photonCannonSelection);
 		enemies = enemyManager.getChildren();
-
-		
-		level1waves->waves[0].spawnTime = 1;
-		level1waves->waves[1].spawnTime = 1;
-		level1waves->waves[2].spawnTime = 1;
-		level1waves->waves[3].spawnTime = .7;
-		level1waves->waves[4].spawnTime = .5;
-		level1waves->waves[0].spawnTime = 1;
-		level1waves->waves[1].spawnTime = 1;
-		level1waves->waves[2].spawnTime = 1;
-		level1waves->waves[3].spawnTime = .7;
-
-		for( int i = 0; i < 5; i++){
-			level1waves->waves[0].toSpawn.push_back(new MediumEnemy());
-			level1waves->waves[1].toSpawn.push_back(new HeavyEnemy());
-			level1waves->waves[2].toSpawn.push_back(new LightEnemy());
-		}
-		for(int i = 0; i < 10; i ++){
-			switch(rand()%3){
-			case(0):
-				level1waves->waves[3].toSpawn.push_back(new LightEnemy());
-				level1waves->waves[4].toSpawn.push_back(new MediumEnemy());
-				break;
-			case(1):
-				level1waves->waves[3].toSpawn.push_back(new MediumEnemy());
-				level1waves->waves[4].toSpawn.push_back(new HeavyEnemy());
-				break;
-			case(2):
-				level1waves->waves[3].toSpawn.push_back(new HeavyEnemy());
-				level1waves->waves[3].toSpawn.push_back(new LightEnemy());
-				break;
-			}
-		}
-
+		waves.loadWaves(LEVEL1WAVEFILE);
 		enemyManager.setSpawn(VECTOR2(0,GAME_HEIGHT/2));
 
 		for (auto i = enemies.begin(); i != enemies.end(); i++)
@@ -201,7 +164,6 @@ void HullDefense::update()
 			(*i)->setHealth(-1);
 		}
 		enemyManager.updateChildren(frameTime);
-		level1waves->currentWave = 0;
 		structureManager.reset();
 		structureManager.addBase(950, 10);
 		gameState.setCurrency(1500);
@@ -210,62 +172,24 @@ void HullDefense::update()
 	case GameState::level1Play:
 		structureManager.update(frameTime);
 		gameMenu.update(frameTime);
-		level1waves->update(frameTime);
+		
+		waves.update(frameTime);
+
 		enemyManager.updateChildren(frameTime);
 		enemies = enemyManager.getChildren();
 		if (structureManager.getPlacedThisFrame()) {
 			enemyManager.updateStructures();
 			enemyManager.findPaths();
 		} 
-		if (level1waves->currentWave == 5 && enemyManager.getNumChildren() == 0)
+		// TODO: fix this here
+		if (waves.complete() && enemyManager.getNumChildren() == 0)
 			gameState.setGamePhase(GameState::level2Init);
 		if (structureManager.getBaseHealth() <= 0)
 			gameState.setGamePhase(GameState::lost);
 		break;
 	case GameState::level2Init:
 		enemies = enemyManager.getChildren();
-
-		
-		level2waves->waves[0].spawnTime = 1;
-		level2waves->waves[1].spawnTime = .7;
-		level2waves->waves[2].spawnTime = .7;
-		level2waves->waves[3].spawnTime = .5;
-		level2waves->waves[4].spawnTime = .6;
-		for(int i=0; i < 5; i ++)
-			level2waves->waves[0].toSpawn.push_back(new LightEnemy());
-		for(int i = 0; i < 10; i ++){
-			switch(rand() % 2) {
-			case(0):
-				level2waves->waves[1].toSpawn.push_back(new LightEnemy());
-				break;
-			case(1):
-				level2waves->waves[1].toSpawn.push_back(new MediumEnemy());
-				break;
-			}
-		}
-		for(int i = 0; i < 15; i++)
-			level2waves->waves[2].toSpawn.push_back(new LightEnemy());
-
-		for(int i=0; i < 5; i++)
-			level2waves->waves[3].toSpawn.push_back(new HeavyEnemy());
-		for (int i = 0; i < 5; i++)
-			level2waves->waves[3].toSpawn.push_back(new LightEnemy());
-		for (int i = 0; i < 5; i++)
-			level2waves->waves[3].toSpawn.push_back(new MediumEnemy());
-
-		for (int i = 0; i < 30; i++) {
-			switch (rand() % 3) {
-			case(0):
-				level2waves->waves[4].toSpawn.push_back(new LightEnemy());
-				break;
-			case(1):
-				level2waves->waves[4].toSpawn.push_back(new MediumEnemy());
-				break;
-			case(2):
-				level2waves->waves[4].toSpawn.push_back(new HeavyEnemy());
-				break;
-			}
-		}
+		waves.loadWaves(LEVEL1WAVEFILE);
 
 		enemyManager.setSpawn(VECTOR2( (enemyManager.getSpawn().x ? 0 : GAME_WIDTH - CELL_WIDTH), GAME_HEIGHT/2));
 
@@ -274,7 +198,6 @@ void HullDefense::update()
 			(*i)->setHealth(-1);
 		}
 		enemyManager.updateChildren(frameTime);
-		level2waves->currentWave = 0;
 		structureManager.reset();
 		gameState.setCurrency(1500);
 		structureManager.addBase(400, 200);
@@ -285,14 +208,15 @@ void HullDefense::update()
 	case GameState::level2Play:
 		structureManager.update(frameTime);
 		gameMenu.update(frameTime);
-		level2waves->update(frameTime);
+		waves.update(frameTime);
 
 		enemyManager.updateChildren(frameTime);
 		if (structureManager.getPlacedThisFrame()) {
 			enemyManager.updateStructures();
 			enemyManager.findPaths();
 		}
-		if (level2waves->currentWave == 5 && enemyManager.getNumChildren() == 0)
+		//TODO: FIX THIS TOO
+		if (waves.complete() && enemyManager.getNumChildren() == 0)
 			gameState.setGamePhase(GameState::won);
 		if (structureManager.getBaseHealth() <= 0)
 			gameState.setGamePhase(GameState::lost);
@@ -380,7 +304,8 @@ void HullDefense::render()
 	case GameState::level1Build:
 		break;
 	case GameState::level1Play:
-		level1waves->update(frameTime);
+		//level1waves->update(frameTime);
+		waves.update(frameTime);
 		structureManager.draw();
 		enemyManager.draw();
 		gameMenu.draw();
@@ -391,7 +316,8 @@ void HullDefense::render()
 	case GameState::level2Build:
 		break;
 	case GameState::level2Play:
-		level2waves->update(frameTime);
+		//level2waves->update(frameTime);
+		waves.update(frameTime);
 		structureManager.draw();
 		enemyManager.draw();
 		gameMenu.draw();

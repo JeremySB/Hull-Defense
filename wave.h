@@ -6,10 +6,15 @@ class Wave {
 public:
     Wave();
     ~Wave();
+	void initialize(EnemyManager* manager);
+	void reset();
+	void setSpawnTime(float spawnTime);
     bool update(float frameTime);
-//private:
+	void addEnemy(char toAdd);
+
+private:
     EnemyManager* manager;
-    std::list<Enemy*> toSpawn;
-    float spawnTime;
+	std::string toSpawn;
+	float spawnTime;
     float timeSinceLastSpawn;
 };

@@ -33,8 +33,7 @@ private:
 	// other screen textures
 	TextureManager winscreenTexture,losescreenTexture,wavecompleteTexture, backgroundTexture, loadingscreenTexture; // textures
 	StructureManager structureManager;
-    Waves* level1waves;
-    Waves* level2waves;
+    Waves waves;
     float waveTimeout;
     float timeIntoTimeout;
     EnemyManager enemyManager;

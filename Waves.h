@@ -4,12 +4,14 @@
 #include "enemyManager.h"
 class Waves {
 public:
-    Waves(EnemyManager* manager);
+    Waves();//EnemyManager* manager);
     ~Waves();
-    void startWave();
+	void initialize(EnemyManager* manager);
+	void loadWaves(std::string filename);
     void update(float frameTime);
+	bool complete();
 
-//private:
+private:
     Wave waves[5];
     int currentWave;
     bool betweenWaves;
