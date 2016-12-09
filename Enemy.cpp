@@ -11,12 +11,18 @@ void Enemy::update(float frameTime){
     if(this->path.empty())
         return;
 	if(didCollideThisFrame){
-        setRadians(getRadians() + PI / 16 * (right ? -1 : 1) );
-        right = !right;	
+        //setRadians(getRadians() + PI / 16 * (right ? -1 : 1) );
+        //right = !right;	
 		didCollideThisFrame = false;
+
+        setFrames(1, 6);
+        setFrameDelay(.1);
+        setCurrentFrame(6);
+        setLoop(true);
 		return;
 	}
-
+    setFrames(0,0);
+    setCurrentFrame(0);
 	VECTOR2 distance = *this->getCenter() - this->path.top();
 	if ( pow(distance.x,2)+pow(distance.y,2) < 10){
         path.pop();

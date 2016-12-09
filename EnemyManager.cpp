@@ -7,10 +7,15 @@ EnemyManager::EnemyManager():numChildren(0),spawn(0, GAME_HEIGHT / 2),strongest(
     }
 }
 void EnemyManager::reset(){
-    auto tmp = getChildren();
+    for( int i = 0; i < numChildren; i++){
+        delete children[i];
+        children[i] = nullptr;
+    }
+    numChildren = 0;
+    /*auto tmp = getChildren();
     while(!tmp.empty()){
         removeChild(tmp.front());
-    }
+    }*/
 }
 
 void EnemyManager::initialize(Game* game,StructureGrid* grid, GameState* state,Audio* audio){
@@ -26,7 +31,7 @@ void EnemyManager::initialize(Game* game,StructureGrid* grid, GameState* state,A
 
 
 void EnemyManager::addChild(Enemy* toAdd) {
-	if (!toAdd->initialize(game, 0, 0, 0, &enemyTexture))
+	if (!toAdd->initialize(game, 555, 508, 7, &enemyTexture))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing enemy"));
 	toAdd->setX(spawn.x);
 	toAdd->setY(spawn.y);
