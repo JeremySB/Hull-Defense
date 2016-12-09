@@ -4,6 +4,8 @@
 
 #pragma once
 #include "entity.h"
+#include "enemy.h"
+#include <list>
 
 class Structure : public Entity
 {
@@ -19,7 +21,11 @@ public:
 
 	void damage(int weapon);
 
+	// give structure one target to attack. Not all implement this
 	virtual void attackTarget(Entity* target) {}
+
+	// give structure multiple targets to attack. Mostly for AOE structures
+	virtual void attackTargets(std::list<Enemy*> targets) {}
 
 	// Get structure's range. Default is 0
 	virtual float getRange() { return 0.0f; }

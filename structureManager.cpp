@@ -79,6 +79,13 @@ void StructureManager::collisions(std::list<Enemy*> entities)
 	structures.remove(NULL);
 	//entities.remove(NULL);
 	for (auto structure = structures.begin(); structure != structures.end(); structure++) {
+		// check if structure takes multiple enemies
+		if ((*structure)->getType() == photonCannon)
+		{
+			(*structure)->attackTargets(entities);
+			continue;
+		}
+
 		float dist = 2000.0f;
 		Entity* closest = nullptr;
 		for (auto entity = entities.begin(); entity != entities.end(); entity++) {
@@ -88,6 +95,7 @@ void StructureManager::collisions(std::list<Enemy*> entities)
 					closest = *entity;
 					dist = newDist;
 				}
+				
 				(*structure)->attackTarget(*entity);
 			}
 		}

@@ -2,6 +2,7 @@
 
 #pragma once
 #include "tower.h"
+#include "enemy.h"
 
 namespace photonCannonNS {
 	const int PRICE = 500;
@@ -23,15 +24,22 @@ public:
 	PhotonCannon();
 	~PhotonCannon();
 
-	virtual void update(float frameTime);
+	void update(float frameTime);
 
-	virtual void attackTarget(Entity* target);
+	// Not supported. Don't use.
+	void attackTarget(Entity* target);
 
-	virtual float getRange() { return photonCannonNS::RANGE; }
+	void attackTargets(std::list<Enemy*> targets);
 
-	virtual void setProjectileTexture(TextureManager* tm);
-	virtual void setGunTexture(TextureManager* tm);
+	float getRange() { return photonCannonNS::RANGE; }
 
-	virtual void repair() { health = photonCannonNS::STARTING_HEALTH; }
+	void setProjectileTexture(TextureManager* tm);
+	void setGunTexture(TextureManager* tm);
+
+	void repair() { health = photonCannonNS::STARTING_HEALTH; }
+
+private:
+	Entity projectile;
+	std::list<Enemy*> targets;
 };
 

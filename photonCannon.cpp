@@ -31,12 +31,12 @@ void PhotonCannon::update(float frameTime)
 
 void PhotonCannon::attackTarget(Entity * target)
 {
-	if (projectileDisplayTimer >= photonCannonNS::PROJECTILE_DURATION + photonCannonNS::TIME_BETWEEN_SHOTS) {
-		projectileDisplayTimer = 0;
-		firstShot = true;
-		audio->playCue(LASER);
-	}
-	this->target = target;
+	throw(GameError(gameErrorNS::FATAL_ERROR, "Error: PhotonCannon::attackTarget() not supported"));
+}
+
+void PhotonCannon::attackTargets(std::list<Enemy*> targets)
+{
+	this->targets = targets;
 }
 
 void PhotonCannon::setProjectileTexture(TextureManager * tm)
@@ -47,7 +47,7 @@ void PhotonCannon::setGunTexture(TextureManager * tm)
 {
 	gunTexture = tm;
 	if (!gunImage.initialize(graphics, 126, 345, 8, gunTexture)) {
-		throw GameError(gameErrorNS::FATAL_ERROR, "Error initializing tower gun image");
+		throw GameError(gameErrorNS::FATAL_ERROR, "Error initializing photon cannon gun image");
 	}
 	gunImage.setScale(photonCannonNS::GUN_IMAGE_SCALE);
 	gunImage.setX(getCenterX() - gunImage.getWidth() * gunImage.getScale() / 2);

@@ -117,8 +117,8 @@ void Tower::setGunTexture(TextureManager * tm)
 	if (!gunImage.initialize(graphics, 35, 79, 5, gunTexture)) {
 		throw GameError(gameErrorNS::FATAL_ERROR, "Error initializing tower gun image");
 	}
-	gunImage.setX(getCenterX() - gunImage.getWidth() / 2);
-	gunImage.setY(getCenterY() - gunImage.getHeight() / 2);
+	gunImage.setX(getCenterX() - gunImage.getWidth() * gunImage.getScale() / 2);
+	gunImage.setY(getCenterY() - gunImage.getHeight() * gunImage.getScale() / 2);
 	gunImage.setFrames(towerNS::GUN_FRAME_START, towerNS::GUN_FRAME_END);
 	gunImage.setFrameDelay(towerNS::GUN_FRAME_DELAY);
 	gunImage.setCurrentFrame(towerNS::GUN_FRAME_END);
