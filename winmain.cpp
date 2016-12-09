@@ -76,6 +76,7 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance,
     }
 
     safeDelete(game);       // free memory before exit
+	_CrtDumpMemoryLeaks();
     return 0;
 }
 

@@ -3,9 +3,7 @@
 Wave::~Wave(){
 }
 
-Wave::Wave():timeSinceLastSpawn(0),spawnTime(0){
-
-}
+Wave::Wave():timeSinceLastSpawn(0),spawnTime(0){}
 
 void Wave::initialize(EnemyManager* manager){
 	this->manager = manager;

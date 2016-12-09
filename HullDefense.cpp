@@ -37,8 +37,9 @@ void HullDefense::initialize(HWND hwnd)
 
 	gameState.setGamePhase(GameState::intro);
 
-
-	//enemyManager.addChild(new HeavyEnemy());
+	waves.initialize(&enemyManager);
+	
+	audio->playCue(BACKGROUND);
 	// background texture
 	if (!backgroundTexture.initialize(graphics, BACKGROUND_IMAGE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background texture"));
@@ -111,12 +112,11 @@ void HullDefense::initialize(HWND hwnd)
 	if (!loadingscreen.initialize(graphics, 0, 0, 0, &loadingscreenTexture))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing loading screen"));
 
-	audio->playCue(BACKGROUND);
 	// initialize DirectX font
 	// 18 pixel high Arial
 	if(dxFont->initialize(graphics, 18, true, false, "Arial") == false)
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing DirectX font"));
-	waves.initialize(&enemyManager);
+
 	return;
 }
 
@@ -126,7 +126,9 @@ void HullDefense::initialize(HWND hwnd)
 void HullDefense::update()
 {
 	std::list<Enemy*> enemies;
+
 	gameState.setHealth(structureManager.getBaseHealth());
+
 	switch (gameState.getGamePhase())
 	{
 	case GameState::intro:
@@ -138,21 +140,25 @@ void HullDefense::update()
 			}
 		}
 		break;
+
 	case GameState::instructions:
 		if(!input->getMouseLButton() && lastClickState){
 			gameState.setGamePhase(GameState::instructions1);
 		}
 		break;
+
 	case GameState::instructions1:
 		if (!input->getMouseLButton() && lastClickState) {
 			gameState.setGamePhase(GameState::instructions2);
 		}
 		break;
+
 	case GameState::instructions2:
 		if (!input->getMouseLButton() && lastClickState) {
 			gameState.setGamePhase(GameState::intro);
 		}
 		break;
+
 	case GameState::level1Init:
 		gameState.setSelectionMode(GameState::photonCannonSelection);
 		enemies = enemyManager.getChildren();
@@ -169,6 +175,7 @@ void HullDefense::update()
 		gameState.setCurrency(1500);
 		gameState.setGamePhase(GameState::level1Play);
 		break;
+
 	case GameState::level1Play:
 		structureManager.update(frameTime);
 		gameMenu.update(frameTime);
@@ -181,12 +188,12 @@ void HullDefense::update()
 			enemyManager.updateStructures();
 			enemyManager.findPaths();
 		} 
-		// TODO: fix this here
 		if (waves.complete() && enemyManager.getNumChildren() == 0)
 			gameState.setGamePhase(GameState::level2Init);
 		if (structureManager.getBaseHealth() <= 0)
 			gameState.setGamePhase(GameState::lost);
 		break;
+
 	case GameState::level2Init:
 		enemies = enemyManager.getChildren();
 		waves.loadWaves(LEVEL1WAVEFILE);
@@ -203,8 +210,10 @@ void HullDefense::update()
 		structureManager.addBase(400, 200);
 		gameState.setGamePhase(GameState::level2Play);
 		break;
+
 	case GameState::level2Build:
 		break;
+
 	case GameState::level2Play:
 		structureManager.update(frameTime);
 		gameMenu.update(frameTime);
@@ -215,47 +224,43 @@ void HullDefense::update()
 			enemyManager.updateStructures();
 			enemyManager.findPaths();
 		}
-		//TODO: FIX THIS TOO
 		if (waves.complete() && enemyManager.getNumChildren() == 0)
 			gameState.setGamePhase(GameState::won);
 		if (structureManager.getBaseHealth() <= 0)
 			gameState.setGamePhase(GameState::lost);
 		break;
+
 	case GameState::won:
 		if (!input->getMouseLButton() && lastClickState) {
 			gameState.setGamePhase(GameState::intro);
 		}
 		break;
+
 	case GameState::lost:
 		if (!input->getMouseLButton() && lastClickState) {
 			gameState.setGamePhase(GameState::intro);
 		}
 		break;
+
 	default:
 		break;
 	}
 
-	//structureManager.update(frameTime);
-	//gameMenu.update(frameTime);
-	//enemyManager.updateChildren(frameTime);
-
-	/* if(structureManager.getPlacedThisFrame()){
-	enemyManager.updateStructures();
-	enemyManager.findPaths();
-	}*/
-	//level1waves->update(frameTime);
 	if(input->isKeyDown('R')){
 		structureManager.setBaseHealth(structureManager.getBaseHealth() + 1000);
 	}
+	
 	if(input->isKeyDown('C')){
 		gameState.addCurrency(1000);
 	}
+
 	// exit on esc
 	if(input->isKeyDown(VK_ESCAPE)){
-		//exit(1);
 		exitGame();
 	}
+	
 	if (input->getMouseLButton()) lastClickState = true;
+	
 	else lastClickState = false;
 }
 
@@ -304,7 +309,6 @@ void HullDefense::render()
 	case GameState::level1Build:
 		break;
 	case GameState::level1Play:
-		//level1waves->update(frameTime);
 		waves.update(frameTime);
 		structureManager.draw();
 		enemyManager.draw();
@@ -316,7 +320,6 @@ void HullDefense::render()
 	case GameState::level2Build:
 		break;
 	case GameState::level2Play:
-		//level2waves->update(frameTime);
 		waves.update(frameTime);
 		structureManager.draw();
 		enemyManager.draw();
