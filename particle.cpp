@@ -5,6 +5,7 @@
 Particle::Particle() : Image()
 {
 	active = false;
+	visible = false;
 }
 
 

@@ -57,8 +57,10 @@ const char TURRET_PROJECTILE_IMAGE[] = "pictures\\turretProjectileJEREMY2.png";
 const char TOWER_BASE_IMAGE[] = "pictures\\towerBaseJEREMY.png";
 const char TOWER_GUN_IMAGE[] = "pictures\\towerGunJEREMY.png";
 const char TOWER_PROJECTILE_IMAGE[] = "pictures\\turretProjectileJEREMY2.png";
+const char PHOTON_CANNON_BASE_IMAGE[] = "pictures\\photonCannonBaseJEREMY.png";
 const char PHOTON_CANNON_GUN_IMAGE[] = "pictures\\photonCannonGunJEREMY.png";
 const char PHOTON_CANNON_PROJECTILE_IMAGE[] = "pictures\\photonCannonProjectileJEREMY.png";
+const char PHOTON_CANNON_PROJECTILE_EXPLOSION[] = "pictures\\photonCannonExplosionJEREMY.png";
 const char GOOD_SELECTION_IMAGE[] = "pictures\\goodSelectionJEREMY.png";
 const char ENEMY_IMAGE[] = "pictures\\EnemyAttack.png";//"pictures\\EnemyTemp.png";
 

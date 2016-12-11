@@ -29,7 +29,8 @@ void HullDefense::initialize(HWND hwnd)
 {
 	Game::initialize(hwnd); // throws GameError
 
-	structureManager.initialize(graphics, this, input, &gameState);
+	structureManager.initialize(graphics, this, input, &gameState, &particleManager);
+	particleManager.initialize(graphics, this);
 	gameMenu.initialize(graphics, this, input, audio);
 	gameMenu.setGameState(&gameState);
 
@@ -178,6 +179,7 @@ void HullDefense::update()
 
 	case GameState::level1Play:
 		structureManager.update(frameTime);
+		particleManager.update(frameTime);
 		gameMenu.update(frameTime);
 		
 		waves.update(frameTime);
@@ -211,6 +213,7 @@ void HullDefense::update()
 
 	case GameState::level2Play:
 		structureManager.update(frameTime);
+		particleManager.update(frameTime);
 		gameMenu.update(frameTime);
 		waves.update(frameTime);
 
@@ -311,6 +314,7 @@ void HullDefense::render()
 	case GameState::level1Play:
 		waves.update(frameTime);
 		structureManager.draw();
+		particleManager.draw();
 		enemyManager.draw();
 		gameMenu.draw();
 		break;
@@ -325,6 +329,7 @@ void HullDefense::render()
 	case GameState::level2Play:
 		waves.update(frameTime);
 		structureManager.draw();
+		particleManager.draw();
 		enemyManager.draw();
 		gameMenu.draw();
 		break;
@@ -354,6 +359,7 @@ void HullDefense::releaseAll()
 	dxFont->onLostDevice();
 	menuTexture.onLostDevice();
 	structureManager.onLostDevice();
+	particleManager.onLostDevice();
 	gameMenu.onLostDevice();
 	enemyManager.onLostDevice();
 	loadingscreenTexture.onLostDevice();
@@ -385,6 +391,7 @@ void HullDefense::resetAll()
 	menuTexture.onResetDevice();
 	dxFont->onResetDevice();
 	structureManager.onResetDevice();
+	particleManager.onResetDevice();
 	gameMenu.onResetDevice();
 	enemyManager.onResetDevice();
 	loadingscreenTexture.onResetDevice();

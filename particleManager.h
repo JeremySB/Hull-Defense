@@ -4,6 +4,7 @@
 
 #include "textureManager.h"
 #include "particle.h"
+#include "game.h"
 #include <time.h>
 
 #pragma once
@@ -13,8 +14,11 @@ public:
 	ParticleManager();
 	~ParticleManager();
 
+	void initialize(Graphics* graphics, Game* game);
 	void update(float frameTime);
 	void draw();
+
+	void addPhotonExplosion(int centerX, int centerY, float scale, float timeToLive);
 
 	float getVariance();
 
@@ -24,5 +28,6 @@ public:
 private:
 	TextureManager photonExplosionTM;
 	Particle** particles;
+	Graphics* graphics;
 };
 

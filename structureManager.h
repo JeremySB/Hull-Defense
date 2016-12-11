@@ -14,6 +14,7 @@
 #include "Enemy.h"
 #include "base.h"
 #include "gameState.h"
+#include "particleManager.h"
 #include <list>
 
 class StructureManager
@@ -22,7 +23,7 @@ public:
 	StructureManager();
 	~StructureManager();
 
-	void initialize(Graphics* graphics, Game* game, Input* input, GameState* gameState);
+	void initialize(Graphics* graphics, Game* game, Input* input, GameState* gameState, ParticleManager* particleManager);
 
 	void draw();
 
@@ -82,7 +83,8 @@ private:
 	TextureManager wallTexture, baseTexture, goodSelectionTexture;
 	TextureManager turretProjectileTexture, turretBaseTexture, turretGunTexture;
 	TextureManager towerProjectileTexture, towerGunTexture, towerBaseTexture;
-	TextureManager photonCannonProjectileTexture, photonCannonGunTexture;
+	TextureManager photonCannonProjectileTexture, photonCannonGunTexture, photonCannonBaseTexture;
+	ParticleManager* particleManager;
 	Image goodSelectionImage;
 	Graphics* graphics;
 	Game* game;

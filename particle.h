@@ -10,7 +10,13 @@ public:
 	void update(float frameTime);
 
 	bool getActive() { return active; }
-	void setActive(bool active) { this->active = active; }
+
+	// set particle active or inactive
+	// false hides it and particleManager won't use it
+	void setActive(bool active) { 
+		this->active = active;
+		visible = active;
+	}
 
 	float getTimeToLive() {
 		return timeToLive;

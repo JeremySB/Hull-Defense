@@ -4,6 +4,7 @@
 #include "structure.h"
 #include "enemy.h"
 #include "graphics.h"
+#include "particleManager.h"
 
 namespace photonCannonNS {
 	const int	PRICE = 600;
@@ -11,7 +12,7 @@ namespace photonCannonNS {
 	const float TIME_BETWEEN_SHOTS = 1.8f;
 	const float ROTATE_SPEED = 0.5f; // radians per second
 	const int	STARTING_HEALTH = 600;
-	const int	DAMAGE = 100;
+	const int	DAMAGE = 60;
 
 	const float GUN_IMAGE_SCALE = 0.24f;
 	const float GUN_FRAME_DELAY = 0.12f;
@@ -23,7 +24,10 @@ namespace photonCannonNS {
 	const int	PROJECTILE_FRAME_START = 0;
 	const int	PROJECTILE_FRAME_END = 3;
 	const float PROJECTILE_SPEED = 350.0f;
-	const float	PROJECTILE_EXPLOSION_RADIUS = 400.0f;
+
+	const float	PROJECTILE_EXPLOSION_RADIUS = 25.0f;
+	const float PROJECTILE_EXPLOSION_IMAGE_SCALE = 0.5f;
+	const float PROJECTILE_EXPLOSION_DURATION = 0.6f;
 }
 
 class PhotonCannon : public Structure
@@ -32,7 +36,7 @@ public:
 	PhotonCannon();
 	~PhotonCannon();
 
-	bool initialize(Game *gamePtr, int widthInGrid, int heightInGrid, int ncols, TextureManager *textureM);
+	bool initialize(Game *gamePtr, int widthInGrid, int heightInGrid, int ncols, TextureManager *textureM, ParticleManager* particleManager);
 
 	void draw();
 
@@ -54,6 +58,8 @@ public:
 	void repair() { health = photonCannonNS::STARTING_HEALTH; }
 
 private:
+	ParticleManager* particleManager;
+	
 	Entity projectile;
 	Entity gunImage;
 	Enemy* target;
@@ -61,5 +67,6 @@ private:
 	float cooldown;
 
 	int targetX, targetY;
+	bool canRotate;
 };
 

@@ -16,12 +16,13 @@ StructureManager::~StructureManager()
 
 }
 
-void StructureManager::initialize(Graphics* graphics, Game* game, Input* input, GameState* gameState)
+void StructureManager::initialize(Graphics* graphics, Game* game, Input* input, GameState* gameState, ParticleManager* particleManager)
 {
 	this->input = input;
 	this->game = game;
 	this->graphics = graphics;
 	this->gameState = gameState;
+	this->particleManager = particleManager;
 
 	if (!wallTexture.initialize(graphics, WALL_IMAGE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing wall texture"));
@@ -50,6 +51,9 @@ void StructureManager::initialize(Graphics* graphics, Game* game, Input* input, 
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing tower projectile texture"));
 
 	// photon cannon textures
+	if (!photonCannonBaseTexture.initialize(graphics, PHOTON_CANNON_BASE_IMAGE))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing photon cannon base texture"));
+	
 	if (!photonCannonGunTexture.initialize(graphics, PHOTON_CANNON_GUN_IMAGE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing photon cannon gun texture"));
 
@@ -151,7 +155,7 @@ bool StructureManager::addPhotonCannon(int x, int y)
 	if (isOccupiedAtGrid(xGrid, yGrid, 3, 3) || gameState->getCurrency() < photonCannonNS::PRICE) return false;
 
 	PhotonCannon* cannon = new PhotonCannon();
-	cannon->initialize(game, 3, 3, 0, &towerBaseTexture);
+	cannon->initialize(game, 3, 3, 0, &photonCannonBaseTexture, particleManager);
 	if (!grid.addAtGridCoords(cannon, xGrid, yGrid)) return false;
 	cannon->setProjectileTexture(&photonCannonProjectileTexture);
 	cannon->setGunTexture(&photonCannonGunTexture);

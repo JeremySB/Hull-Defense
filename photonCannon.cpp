@@ -15,7 +15,7 @@ PhotonCannon::PhotonCannon()
 	type = photonCannon;
 	price = photonCannonNS::PRICE;
 	health = photonCannonNS::STARTING_HEALTH;
-	colorFilter = graphicsNS::CYAN;
+	colorFilter = graphicsNS::WHITE;
 	cooldown = photonCannonNS::TIME_BETWEEN_SHOTS;
 }
 
@@ -24,10 +24,11 @@ PhotonCannon::~PhotonCannon()
 {
 }
 
-bool PhotonCannon::initialize(Game * gamePtr, int widthInGrid, int heightInGrid, int ncols, TextureManager * textureM)
+bool PhotonCannon::initialize(Game * gamePtr, int widthInGrid, int heightInGrid, int ncols, TextureManager * textureM, ParticleManager* particleManager)
 {
 	bool result = Structure::initialize(gamePtr, widthInGrid, heightInGrid, ncols, textureM);
 	setCollisionRadius(getWidth() / 2.0);
+	this->particleManager = particleManager;
 	return result;
 }
 
@@ -41,7 +42,7 @@ void PhotonCannon::update(float frameTime)
 {
 	Entity::update(frameTime);
 	if(cooldown <= photonCannonNS::TIME_BETWEEN_SHOTS) cooldown += frameTime;
-	if (target == nullptr) {
+	if (canRotate) {
 		gunImage.rotate(frameTime, photonCannonNS::ROTATE_SPEED);
 	}
 	gunImage.update(frameTime);
@@ -68,6 +69,7 @@ void PhotonCannon::attackTargets(std::list<Enemy*> targets)
 	this->targets = targets;
 	float dist = 9999999.0f; // using dist squared
 	Enemy* closest = nullptr;
+	bool targetAlive = false;
 	for (auto enemy = targets.begin(); enemy != targets.end(); enemy++) {
 		float newDist = std::pow((*enemy)->getCenterX() - getCenterX(), 2) + std::pow((*enemy)->getCenterY() - getCenterY(), 2);
 		if (std::pow(getRange(), 2) >= newDist) {
@@ -76,14 +78,33 @@ void PhotonCannon::attackTargets(std::list<Enemy*> targets)
 				dist = newDist;
 			}
 		}
+		if (*enemy == target) {
+			targetAlive = true;
+		}
+	}
+
+	if (!targetAlive)
+	{
+		target = nullptr;
 	}
 	
-	target = closest;
+	// rotate gun image towards closest
+	if (closest != nullptr)
+	{
+		gunImage.setRadians(gunImage.getRadians() + gunImage.angleToTarget(*closest->getCenter()) + PI / 2);
+		canRotate = false;
+	}
+	else
+	{
+		canRotate = true;
+	}
+	
 
 	// fire new photon if cooldown is up and there is no projectile out
 	if (closest != nullptr && cooldown >= photonCannonNS::TIME_BETWEEN_SHOTS 
 		&& !projectile.getActive())
 	{
+		target = closest;
 		cooldown = 0;
 		projectile.setX(getCenterX() - projectile.getWidth() * projectile.getScale() / 2);
 		projectile.setY(getCenterY() - projectile.getHeight() * projectile.getScale() / 2);
@@ -101,8 +122,6 @@ void PhotonCannon::attackTargets(std::list<Enemy*> targets)
 	{
 		targetX = target->getCenterX();
 		targetY = target->getCenterY();
-
-		gunImage.setRadians(gunImage.getRadians() + gunImage.angleToTarget(targetX, targetY) + PI/2);
 	}
 	else
 	{
@@ -129,7 +148,17 @@ void PhotonCannon::attackTargets(std::list<Enemy*> targets)
 			// increase collision radius to explosion range and apply damage to all collisions
 			projectile.setCollisionRadius(photonCannonNS::PROJECTILE_EXPLOSION_RADIUS);
 			for (auto enemy = targets.begin(); enemy != targets.end(); enemy++) {
-				if ((*enemy)->collidesWith(projectile, VECTOR2()))
+				// difference between centers
+				distSquared = *projectile.getCenter() - *(*enemy)->getCenter();
+				distSquared.x = distSquared.x * distSquared.x;      // difference squared
+				distSquared.y = distSquared.y * distSquared.y;
+
+				// Calculate the sum of the radii (adjusted for scale)
+				sumRadiiSquared = (projectile.getRadius()) + ((*enemy)->getRadius()*(*enemy)->getScale());
+				sumRadiiSquared *= sumRadiiSquared;                 // square it
+
+				// if entities are colliding
+				if ((distSquared.x + distSquared.y) < sumRadiiSquared)
 				{
 					(*enemy)->setHealth((*enemy)->getHealth() - photonCannonNS::DAMAGE);
 				}
@@ -139,6 +168,8 @@ void PhotonCannon::attackTargets(std::list<Enemy*> targets)
 			projectile.setActive(false);
 			projectile.setVisible(false);
 			this->target = nullptr;
+			particleManager->addPhotonExplosion(projectile.getCenterX(), projectile.getCenterY(), 
+				photonCannonNS::PROJECTILE_EXPLOSION_IMAGE_SCALE, photonCannonNS::PROJECTILE_EXPLOSION_DURATION);
 		}
 	}
 
