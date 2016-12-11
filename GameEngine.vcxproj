@@ -101,6 +101,8 @@
     <ClCompile Include="inputDialog.cpp" />
     <ClCompile Include="messageDialog.cpp" />
     <ClCompile Include="net.cpp" />
+    <ClCompile Include="particle.cpp" />
+    <ClCompile Include="particleManager.cpp" />
     <ClCompile Include="pathFinding.cpp" />
     <ClCompile Include="photonCannon.cpp" />
     <ClCompile Include="structure.cpp" />
@@ -139,6 +141,8 @@
     <ClInclude Include="mediumEnemy.h" />
     <ClInclude Include="messageDialog.h" />
     <ClInclude Include="net.h" />
+    <ClInclude Include="particle.h" />
+    <ClInclude Include="particleManager.h" />
     <ClInclude Include="pathFinding.h" />
     <ClInclude Include="photonCannon.h" />
     <ClInclude Include="structure.h" />

@@ -78,8 +78,6 @@ public:
 	void onLostDevice();
 	void onResetDevice();
 
-	void setGameState(GameState* in) { gameState = in; }
-
 private:
 	TextureManager wallTexture, baseTexture, goodSelectionTexture;
 	TextureManager turretProjectileTexture, turretBaseTexture, turretGunTexture;

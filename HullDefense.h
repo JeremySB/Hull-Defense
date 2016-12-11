@@ -18,6 +18,7 @@
 #include "enemyManager.h"
 #include "Waves.h"
 #include "gameState.h"
+#include "particleManager.h"
 
 //=============================================================================
 // This class is the core of the game
@@ -33,6 +34,7 @@ private:
 	// other screen textures
 	TextureManager winscreenTexture,losescreenTexture,wavecompleteTexture, backgroundTexture, loadingscreenTexture; // textures
 	StructureManager structureManager;
+	ParticleManager particleManager;
     Waves waves;
     float waveTimeout;
     float timeIntoTimeout;
