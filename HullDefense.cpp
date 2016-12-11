@@ -314,8 +314,8 @@ void HullDefense::render()
 	case GameState::level1Play:
 		waves.update(frameTime);
 		structureManager.draw();
-		particleManager.draw();
 		enemyManager.draw();
+		particleManager.draw();
 		gameMenu.draw();
 		break;
 
@@ -329,8 +329,8 @@ void HullDefense::render()
 	case GameState::level2Play:
 		waves.update(frameTime);
 		structureManager.draw();
-		particleManager.draw();
 		enemyManager.draw();
+		particleManager.draw();
 		gameMenu.draw();
 		break;
 

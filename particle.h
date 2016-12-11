@@ -11,6 +11,10 @@ public:
 
 	bool getActive() { return active; }
 
+	const VECTOR2 getVelocity() const { return velocity; }
+
+	float getTimeToLive() { return timeToLive; }
+
 	// set particle active or inactive
 	// false hides it and particleManager won't use it
 	void setActive(bool active) { 
@@ -18,9 +22,7 @@ public:
 		visible = active;
 	}
 
-	float getTimeToLive() {
-		return timeToLive;
-	}
+	void setVelocity(VECTOR2 v) { velocity = v; }
 
 	void setTimeToLive(float timeToLive) {
 		this->timeToLive = timeToLive;
@@ -29,5 +31,6 @@ public:
 protected:
 	float timeToLive;
 	bool active;
+	VECTOR2 velocity;
 };
 
