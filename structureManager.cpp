@@ -117,11 +117,17 @@ void StructureManager::update(float frameTime)
 	else lastLMBState = false;
 }
 
-bool StructureManager::addBase(int x, int y)
+bool StructureManager::addBase(int x, int y, bool gridCoords)
 {
-		
 	int xGrid = grid.gridXLoc(x);
 	int yGrid = grid.gridYLoc(y);
+
+	if (gridCoords)
+	{
+		xGrid = x;
+		yGrid = y;
+	}
+
 	if (isOccupiedAtGrid(xGrid, yGrid, 4, 4)) return false;
 
 	Base* base = new Base();
@@ -192,6 +198,26 @@ bool StructureManager::addWall(int x, int y)
 	return true;
 }
 
+bool StructureManager::addPermWall(int x, int y, bool gridCoords)
+{
+	int xGrid = grid.gridXLoc(x);
+	int yGrid = grid.gridYLoc(y);
+
+	if (gridCoords)
+	{
+		xGrid = x;
+		yGrid = y;
+	}
+	
+	if (isOccupiedAtGrid(xGrid, yGrid, 1, 1)) return false;
+
+	PermWall* wall = new PermWall();
+	wall->initialize(game, 1, 1, 0, &wallTexture);
+	if (!grid.addAtGridCoords(wall, xGrid, yGrid)) return false;
+
+	return true;
+}
+
 void StructureManager::sell(int x, int y)
 {
 	if (!isOccupied(x, y)) return;
@@ -206,7 +232,7 @@ void StructureManager::repair(int x, int y)
 {
 	if (!isOccupied(x, y)) return;
 	Structure* toRepair = grid.atPixelCoords(x, y);
-	if (toRepair->getType() == StructureTypes::base || toRepair->getPrice() / 2 > gameState->getCurrency()) return;
+	if (toRepair->getType() == StructureTypes::base || toRepair->getType() == StructureTypes::permWall || toRepair->getPrice() / 2 > gameState->getCurrency()) return;
 	gameState->addCurrency(- (toRepair->getPrice() / 2));
 	toRepair->repair();
 	gameState->setSelectionMode(GameState::normal);
@@ -214,6 +240,20 @@ void StructureManager::repair(int x, int y)
 
 void StructureManager::loadLevel(int x)
 {
+	reset();
+	switch (x)
+	{
+		case 1:
+			addBase(40, 9);
+			addPermWall(43, 15); addPermWall(42, 15); addPermWall(41, 15); addPermWall(43, 6); addPermWall(42, 6); addPermWall(41, 6); addPermWall(38, 15); addPermWall(37, 15); addPermWall(38, 6); addPermWall(37, 6); addPermWall(36, 15); addPermWall(36, 6); addPermWall(36, 9); addPermWall(36, 10); addPermWall(36, 11); addPermWall(36, 12); addPermWall(34, 15); addPermWall(34, 14); addPermWall(34, 13); addPermWall(34, 12); addPermWall(34, 6); addPermWall(34, 7); addPermWall(34, 8); addPermWall(34, 9);
+			break;
+		case 2:
+			addBase(40, 0); 
+			addPermWall(28, 9); addPermWall(28, 8); addPermWall(28, 3); addPermWall(28, 2); addPermWall(28, 0); addPermWall(28, 1); addPermWall(8, 23); addPermWall(28, 6); addPermWall(28, 7); addPermWall(7, 23); addPermWall(28, 12); addPermWall(29, 12); addPermWall(30, 12); addPermWall(31, 12); addPermWall(34, 12); addPermWall(35, 12); addPermWall(36, 12); addPermWall(37, 12); addPermWall(40, 12); addPermWall(41, 12); addPermWall(42, 12); addPermWall(43, 12); addPermWall(8, 23); addPermWall(31, 2); addPermWall(31, 3); addPermWall(31, 5); addPermWall(31, 6); addPermWall(31, 4); addPermWall(7, 23); addPermWall(31, 8); addPermWall(31, 9); addPermWall(31, 10); addPermWall(32, 10); addPermWall(33, 10); addPermWall(34, 10); addPermWall(37, 10); addPermWall(38, 10); addPermWall(39, 10); addPermWall(40, 10);
+			break;
+		case 3:
+			break;
+	}
 }
 
 void StructureManager::addTowerSelection()

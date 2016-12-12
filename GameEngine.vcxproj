@@ -104,6 +104,7 @@
     <ClCompile Include="particle.cpp" />
     <ClCompile Include="particleManager.cpp" />
     <ClCompile Include="pathFinding.cpp" />
+    <ClCompile Include="permWall.cpp" />
     <ClCompile Include="photonCannon.cpp" />
     <ClCompile Include="structure.cpp" />
     <ClCompile Include="structureGrid.cpp" />
@@ -145,6 +146,7 @@
     <ClInclude Include="particle.h" />
     <ClInclude Include="particleManager.h" />
     <ClInclude Include="pathFinding.h" />
+    <ClInclude Include="permWall.h" />
     <ClInclude Include="photonCannon.h" />
     <ClInclude Include="pregnantEnemy.h" />
     <ClInclude Include="structure.h" />

@@ -171,8 +171,7 @@ void HullDefense::update()
 			(*i)->setHealth(-1);
 		}*/
 		//enemyManager.updateChildren(frameTime);
-		structureManager.reset();
-		structureManager.addBase(950, 10);
+		structureManager.loadLevel(1);
 		gameState.setCurrency(1500);
 		gameState.setGamePhase(GameState::level1Play);
 		break;
@@ -202,9 +201,8 @@ void HullDefense::update()
 
 		enemyManager.setSpawn(VECTOR2( (enemyManager.getSpawn().x ? 0 : GAME_WIDTH - CELL_WIDTH), GAME_HEIGHT/2));
 		enemyManager.reset();
-		structureManager.reset();
+		structureManager.loadLevel(2);
 		gameState.setCurrency(1500);
-		structureManager.addBase(400, 200);
 		gameState.setGamePhase(GameState::level2Play);
 		break;
 

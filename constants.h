@@ -31,7 +31,7 @@ const UINT GRID_WIDTH = GAME_WIDTH/CELL_WIDTH;
 const UINT GRID_HEIGHT = GAME_HEIGHT/CELL_HEIGHT;
 const UINT MAX_ENEMIES = 30;
 
-enum StructureTypes {base = 1, wall = 2, turret = 3, tower = 4, photonCannon = 5};
+enum StructureTypes {base = 1, wall = 2, turret = 3, tower = 4, photonCannon = 5, permWall = 6};
 enum Targeting {weakestTarget, strongestTarget, baseTarget};
 
 const UINT PATHFINDING_MODIFIER = 10;
@@ -47,7 +47,6 @@ const int MAX_PARTICLES = 1000;
 
 
 // graphic images
-const char MENU_IMAGE[] =     "pictures\\menu.png";      // menu texture
 const char BACKGROUND_IMAGE[] = "pictures\\background1DAN.png";  // background
 const char BASE_IMAGE[] = "pictures\\baseDANIEL.png";
 const char WALL_IMAGE[] = "pictures\\wallJEREMY.png";
