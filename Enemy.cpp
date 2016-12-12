@@ -8,8 +8,7 @@ Enemy::~Enemy(){
 
 }
 void Enemy::update(float frameTime){
-    if(this->path.empty())
-        return;
+
 	if(didCollideThisFrame){
         //setRadians(getRadians() + PI / 16 * (right ? -1 : 1) );
         //right = !right;	
@@ -21,6 +20,8 @@ void Enemy::update(float frameTime){
         setLoop(true);
 		return;
 	}
+	if(this->path.empty())
+       return;
     setFrames(0,0);
     setCurrentFrame(0);
 	VECTOR2 distance = *this->getCenter() - this->path.top();

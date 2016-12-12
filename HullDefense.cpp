@@ -166,9 +166,9 @@ void HullDefense::update()
 		waves.loadWaves(LEVEL1WAVEFILE);
 		structureManager.loadLevel(1);
 		gameState.setCurrency(1500);
-        enemyManager.reset();
-        enemyManager.updateStructures();
 		gameState.setGamePhase(GameState::level1Play);
+		enemyManager.reset();
+        enemyManager.updateStructures();
 		break;
 
 	case GameState::level1Play:
@@ -194,9 +194,9 @@ void HullDefense::update()
 		waves.loadWaves(LEVEL2WAVEFILE);
 		structureManager.loadLevel(2);
 		gameState.setCurrency(1500);
-        enemyManager.reset();
-        enemyManager.updateStructures();
 		gameState.setGamePhase(GameState::level2Play);
+		enemyManager.reset();
+        enemyManager.updateStructures();
 		break;
 
 	case GameState::level2Play:

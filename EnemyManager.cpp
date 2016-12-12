@@ -134,12 +134,12 @@ void EnemyManager::updateStructures(){
             if(front->getType() != permWall){
 			    if (front->getType() != permWall &&
                     (strongest == nullptr || strongest->getType() == StructureTypes::base ||
-                    (front->getType() != StructureTypes::base && (front->getHealth() / (float)front->getMaxHealth() > strongest->getHealth() / (float)strongest->getMaxHealth()))))
+                    (front->getType() != StructureTypes::base && front->getHealth() / front->getMaxHealth() > strongest->getHealth() / strongest->getMaxHealth())))
                     strongest = front;
 
 			    if (front -> getType() != permWall && 
-                    (weakest == nullptr || weakest->getType() == StructureTypes::base  ||
-                    (front->getType() != StructureTypes::base && (front->getHealth() / (float)front->getMaxHealth() < weakest->getHealth() / (float)weakest->getMaxHealth()) ) ) )
+                    (!weakest || weakest->getType() == StructureTypes::base  ||
+                    (front->getType() != StructureTypes::base && front->getHealth() / front->getMaxHealth() < weakest->getHealth() / weakest->getMaxHealth())))
                     weakest = front;
 
                 if(front->getType() == StructureTypes::base)

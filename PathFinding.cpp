@@ -19,23 +19,24 @@ std::stack<VECTOR2>  PathFinding::backstep() {
     // goes through the path we found earlier
 	while (!path.empty()) {
 		// makes sure the tiles are only one away from eachother
-        tmp = VECTOR2((int)(path.top().coordinates.x * CELL_WIDTH) + CELL_WIDTH / 2,
-                (int)(path.top().coordinates.y * CELL_HEIGHT) + CELL_HEIGHT / 2);
+		Tile top = path.top();
+        tmp = VECTOR2((int)(top.coordinates.x * CELL_WIDTH) + CELL_WIDTH / 2,
+                (int)(top.coordinates.y * CELL_HEIGHT) + CELL_HEIGHT / 2);
 		if (ret.empty() || 
 			( abs((int)tmp.x - (int)ret.top().x) <= CELL_WIDTH) &&
 			( abs((int)tmp.y - (int)ret.top().y) <= CELL_HEIGHT)) {
 
             ret.push(tmp);
         }
-        
-        this->map[(int)path.top().coordinates.x][(int)path.top().coordinates.y] *= -1;
+		this->map[(int) top.coordinates.x][(int) top.coordinates.y] = abs(this->map[(int) top.coordinates.x][(int) top.coordinates.y]);
         this->path.pop();
     }
 	
 	while(!discovered.empty()){
-		Tile loc = discovered.top();
-		this->map[(int)discovered.top().coordinates.x][(int)discovered.top().coordinates.y] *= -1;
+		Tile top = discovered.top();
 		discovered.pop();
+		this->map[(int)top.coordinates.x][(int)top.coordinates.y] = abs(this->map[(int)top.coordinates.x][(int)top.coordinates.y]);
+
 	}
     ret.pop();
     return ret;
@@ -50,7 +51,6 @@ Tile PathFinding::generateTile(VECTOR2 coor, Entity* to,float parentWeight){
     tmp.weight = pow(((int)coor.y) - (int)(to->getCenterY()/CELL_HEIGHT ), 2);
 	tmp.weight += pow(((int)coor.x ) - (int)(to->getCenterX() / CELL_WIDTH), 2);
     tmp.weight *= this->map[(int) coor.x][(int) coor.y] * PATHFINDING_MODIFIER;
-	
 	this->map[(int)coor.x][(int)coor.y] *= -1;
     
 	return tmp;
@@ -60,8 +60,9 @@ Tile PathFinding::generateTile(VECTOR2 coor, Entity* to,float parentWeight){
 std::stack<VECTOR2> PathFinding::findPath(Entity* from, Entity* to) {
 	while(!discovered.empty())
 		discovered.pop();
-	
-	this->discovered.push(generateTile( VECTOR2( (int)(from->getCenterX() / CELL_WIDTH), (int)(from->getCenterY() / CELL_HEIGHT)), to,0 ));
+	int x =(int)(from->getCenterX() / CELL_WIDTH);
+	int y = (int)(from->getCenterY() / CELL_HEIGHT);
+	this->discovered.push(generateTile( VECTOR2(x, y), to,0 ));
 
     int counter = 0;
 	while(!nextStep(to))
@@ -72,7 +73,7 @@ std::stack<VECTOR2> PathFinding::findPath(Entity* from, Entity* to) {
 bool PathFinding::nextStep(Entity* to){
 	// if the list of discovered values is empty you cannot reach your to
 	if(discovered.empty()){
-		throw GameError::exception("Could not find path");
+		//throw GameError::exception("Could not find path");
 		return true;
 	}
 	// we get the lowest cost tile off of the queue
@@ -94,7 +95,7 @@ void PathFinding::discoverAdjacent(Tile parent,Entity* to){
 	for(int x = (coor.x-1 < 0 ? 0 : coor.x-1); x <= coor.x + 1 && x < GRID_WIDTH; x++){
 		for(int y = (coor.y-1 < 0 ? 0 : coor.y-1); y <= coor.y + 1 && y < GRID_HEIGHT; y++){
 			// if the tile has been discovered in the past it is negated and so is skipped here
-			if(map[x][y] > 0){
+			if(map[x][y] > 0 && map[x][y] != permWall){
 				int ydiff = coor.y - y;
 				int xdiff = coor.x - x;
 				// if we are on one of the cardinal directions we just add them to the path
