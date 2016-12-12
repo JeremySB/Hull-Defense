@@ -35,8 +35,12 @@ public:
 	int getWidthInGrid() { return widthInGrid; }
 	int getHeightInGrid() { return heightInGrid; }
 	int getPrice() { return price; }
+
+	virtual float getMaxHealth() = 0;
+
 	StructureTypes getType(){ return type;}
-	
+
+
 protected:
 	StructureTypes type;
 	Game* gamePtr;

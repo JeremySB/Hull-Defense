@@ -5,7 +5,6 @@
 
 Tower::Tower()
 {
-	Structure::Structure();
 	type = tower;
 	projectileDisplayTimer = towerNS::PROJECTILE_DURATION + towerNS::TIME_BETWEEN_SHOTS;
 	target = nullptr;

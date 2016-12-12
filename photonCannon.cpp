@@ -6,8 +6,6 @@
 
 PhotonCannon::PhotonCannon()
 {
-	Structure::Structure();
-
 	widthInGrid = 3;
 	heightInGrid = 3;
 	target = nullptr;

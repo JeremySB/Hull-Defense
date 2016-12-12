@@ -33,6 +33,8 @@ public:
 
 	float getRange() { return towerNS::RANGE; }
 
+	float getMaxHealth() { return towerNS::STARTING_HEALTH; }
+
 	void setProjectileTexture(TextureManager* tm);
 	void setGunTexture(TextureManager* tm);
 

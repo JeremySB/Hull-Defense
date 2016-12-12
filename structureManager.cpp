@@ -212,6 +212,10 @@ void StructureManager::repair(int x, int y)
 	gameState->setSelectionMode(GameState::normal);
 }
 
+void StructureManager::loadLevel(int x)
+{
+}
+
 void StructureManager::addTowerSelection()
 {
 	gameState->setSelectionMode(GameState::towerSelection);

@@ -52,6 +52,8 @@ public:
 
 	float getRange() { return photonCannonNS::RANGE; }
 
+	float getMaxHealth() { return photonCannonNS::STARTING_HEALTH; }
+
 	void setProjectileTexture(TextureManager* tm);
 	void setGunTexture(TextureManager* tm);
 

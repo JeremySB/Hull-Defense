@@ -47,6 +47,9 @@ public:
 	void sell(int x, int y);
 	void repair(int x, int y);
 
+	// from 1 to 3
+	void loadLevel(int x); 
+
 	// opens selection process for placing a turret
 	void addTowerSelection();
 	// opens selection process for placing a turret

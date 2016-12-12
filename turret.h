@@ -32,6 +32,8 @@ public:
 	
 	float getRange() { return turretNS::RANGE; }
 
+	float getMaxHealth() { return turretNS::STARTING_HEALTH; }
+
 	void repair() { health = turretNS::STARTING_HEALTH; }
 
 	void setProjectileTexture(TextureManager* tm);

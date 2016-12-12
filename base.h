@@ -14,6 +14,8 @@ public:
 
 	void repair() {}
 
+	float getMaxHealth() { return baseNS::STARTING_HEALTH; }
+
 	bool initialize(Game * gamePtr, int widthInGrid, int heightInGrid, int ncols, TextureManager * textureM);
 };
 
