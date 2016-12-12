@@ -11,6 +11,7 @@
 #include <vector>
 #include <list>
 #include <set>
+#include <utility>
 
 class StructureGrid
 {
@@ -55,6 +56,6 @@ private:
 	std::list<Structure*> structureList; // used for draw(), update(), etc. Points to things also in the structures vector
 
 	int maxX, maxY;
-
+	std::list<std::pair<int, int>> temp;
 };
 

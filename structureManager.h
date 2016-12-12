@@ -8,6 +8,7 @@
 #include "structureGrid.h"
 #include "textureManager.h"
 #include "wall.h"
+#include "permWall.h"
 #include "turret.h"
 #include "tower.h"
 #include "photonCannon.h"
@@ -34,7 +35,7 @@ public:
 	void update(float frameTime);
 
 
-	bool addBase(int x, int y);
+	bool addBase(int x, int y, bool gridCoords = true);
 	// add tower at location in pixels. Returns false if object there
 	bool addTower(int x, int y);
 	// add photon cannon at location in pixels. Returns false if object there
@@ -44,10 +45,13 @@ public:
 	// add wall at location in pixels. Returns false if object there
 	bool addWall(int x, int y);
 
+
+	bool addPermWall(int x, int y, bool gridCoords = true);
+
 	void sell(int x, int y);
 	void repair(int x, int y);
 
-	// from 1 to 3
+	// resets and loads structures for levels 1 to 3
 	void loadLevel(int x); 
 
 	// opens selection process for placing a turret

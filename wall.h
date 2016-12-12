@@ -18,7 +18,7 @@ public:
 
 	void repair() { health = wallNS::STARTING_HEALTH; }
 
-	float getMaxHealth() { return wallNS::STARTING_HEALTH; }
+	virtual float getMaxHealth() { return wallNS::STARTING_HEALTH; }
 
 	bool initialize(Game * gamePtr, int widthInGrid, int heightInGrid, int ncols, TextureManager * textureM);
 
