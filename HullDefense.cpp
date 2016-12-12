@@ -164,14 +164,10 @@ void HullDefense::update()
 		gameState.setSelectionMode(GameState::photonCannonSelection);
 		enemies = enemyManager.getChildren();
 		waves.loadWaves(LEVEL1WAVEFILE);
-		enemyManager.reset();
-		/*for (auto i = enemies.begin(); i != enemies.end(); i++)
-		{
-			(*i)->setHealth(-1);
-		}*/
-		//enemyManager.updateChildren(frameTime);
 		structureManager.loadLevel(1);
 		gameState.setCurrency(1500);
+        enemyManager.reset();
+        enemyManager.updateStructures();
 		gameState.setGamePhase(GameState::level1Play);
 		break;
 
@@ -185,7 +181,6 @@ void HullDefense::update()
 		enemyManager.updateChildren(frameTime);
 		enemies = enemyManager.getChildren();
 		if (structureManager.getPlacedThisFrame()) {
-			enemyManager.updateStructures();
 			enemyManager.findPaths();
 		} 
 		if (waves.complete() && enemyManager.getNumChildren() == 0)
@@ -197,9 +192,10 @@ void HullDefense::update()
 	case GameState::level2Init:
 		enemies = enemyManager.getChildren();
 		waves.loadWaves(LEVEL2WAVEFILE);
-		enemyManager.reset();
 		structureManager.loadLevel(2);
 		gameState.setCurrency(1500);
+        enemyManager.reset();
+        enemyManager.updateStructures();
 		gameState.setGamePhase(GameState::level2Play);
 		break;
 
@@ -211,7 +207,6 @@ void HullDefense::update()
 
 		enemyManager.updateChildren(frameTime);
 		if (structureManager.getPlacedThisFrame()) {
-			enemyManager.updateStructures();
 			enemyManager.findPaths();
 		}
 		if (waves.complete() && enemyManager.getNumChildren() == 0)
@@ -227,6 +222,7 @@ void HullDefense::update()
 		structureManager.reset();
 		gameState.setCurrency(1500);
 		structureManager.addBase(400, 200);
+        enemyManager.updateStructures();
 		gameState.setGamePhase(GameState::level2Play);
 		break;
 
@@ -238,7 +234,6 @@ void HullDefense::update()
 
 		enemyManager.updateChildren(frameTime);
 		if (structureManager.getPlacedThisFrame()) {
-			enemyManager.updateStructures();
 			enemyManager.findPaths();
 		}
 		if (waves.complete() && enemyManager.getNumChildren() == 0)

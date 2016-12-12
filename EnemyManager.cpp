@@ -42,8 +42,18 @@ void EnemyManager::addChild(Enemy* toAdd) {
 	toAdd->setScale(toAdd->getScale() * 0.06);
 	toAdd->setCollisionRadius(CELL_WIDTH / 2);
 	toAdd->activate();
-
-	updateStructures();
+    switch(toAdd->getTargeting()){
+    case(strongestTarget):
+        toAdd->setTarget(strongest);
+        break;
+    case(weakestTarget):
+        toAdd->setTarget(weakest);
+        break;
+    case(baseTarget):
+        toAdd->setTarget(base);
+        break;
+    }
+	//updateStructures();
 	if (toAdd->getTarget()) {
 		toAdd->setPath(pathFinder.findPath(reinterpret_cast<Entity*>(toAdd), reinterpret_cast<Entity *>(toAdd->getTarget())));
 	}
@@ -121,15 +131,20 @@ void EnemyManager::updateStructures(){
         while (!tmp.empty()) {
             Structure *front = tmp.front();
             tmp.pop_front();
-			if ((strongest == nullptr && front->getType() == baseTarget) || 
-                ( strongest && front->getHealth() > strongest->getHealth() && front->getType() != baseTarget && front->getType() != permWall) )
-                strongest = tmp.front();
-			if ((weakest == nullptr && front->getType() == baseTarget) || 
-                (weakest && front->getHealth() < weakest->getHealth() && front->getType() != baseTarget && front->getType() != permWall) )
-                weakest = front;
-            if(tmp.front()->getType() == baseTarget)
-                base = front;
+            if(front->getType() != permWall){
+			    if (front->getType() != permWall &&
+                    (strongest == nullptr || strongest->getType() == StructureTypes::base ||
+                    (front->getType() != StructureTypes::base && (front->getHealth() / (float)front->getMaxHealth() > strongest->getHealth() / (float)strongest->getMaxHealth()))))
+                    strongest = front;
 
+			    if (front -> getType() != permWall && 
+                    (weakest == nullptr || weakest->getType() == StructureTypes::base  ||
+                    (front->getType() != StructureTypes::base && (front->getHealth() / (float)front->getMaxHealth() < weakest->getHealth() / (float)weakest->getMaxHealth()) ) ) )
+                    weakest = front;
+
+                if(front->getType() == baseTarget)
+                    base = front;
+                }
         }
     }
     for(int i = 0; i < numChildren; i++){
