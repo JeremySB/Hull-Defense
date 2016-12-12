@@ -115,17 +115,21 @@ void EnemyManager::updateStructures(){
         base = nullptr;
     }
     else{
-        strongest = tmp.front();
-        weakest = tmp.front();
-        base = tmp.front();
+        strongest = nullptr;
+        weakest = nullptr;
+        base = nullptr;
         while (!tmp.empty()) {
-			if ((tmp.front()->getHealth() > strongest->getHealth() && tmp.front()->getType() != baseTarget)||strongest->getType() == baseTarget)
-                strongest = tmp.front();
-			if ((tmp.front()->getHealth() < weakest->getHealth() && tmp.front()->getType() != baseTarget) || weakest->getType() == baseTarget)
-                weakest = tmp.front();
-            if(tmp.front()->getType() == baseTarget)
-                base = tmp.front();
+            Structure *front = tmp.front();
             tmp.pop_front();
+			if ((strongest == nullptr && front->getType() == baseTarget) || 
+                ( strongest && front->getHealth() > strongest->getHealth() && front->getType() != baseTarget && front->getType() != permWall) )
+                strongest = tmp.front();
+			if ((weakest == nullptr && front->getType() == baseTarget) || 
+                (weakest && front->getHealth() < weakest->getHealth() && front->getType() != baseTarget && front->getType() != permWall) )
+                weakest = front;
+            if(tmp.front()->getType() == baseTarget)
+                base = front;
+
         }
     }
     for(int i = 0; i < numChildren; i++){
@@ -148,7 +152,7 @@ void EnemyManager::findPaths(){
     updateStructures();
     pathFinder.updateMap();
 	for( int i = 0; i < numChildren; i++){
-        if(children[i]->getTarget() !=nullptr)
+        if(children[i]->getTarget() != nullptr)
 		    children[i]->setPath(pathFinder.findPath(reinterpret_cast<Entity*>(children[i]),reinterpret_cast<Entity *>(children[i]->getTarget()))); 
 	}
 }
