@@ -21,6 +21,8 @@ public:
     void setX(float newX);
     void setY(float newY);
 	void damage(float weapon);
+
+	void setHealth(float health);
     
     void setupHealthbar(TextureManager * healthbarTexture);
     void drawHealthbar();

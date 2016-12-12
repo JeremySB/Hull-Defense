@@ -80,7 +80,7 @@ void Turret::update(float frameTime)
 
 void Turret::attackTarget(Entity* target)
 {
-	if (projectileDisplayTimer >= turretNS::PROJECTILE_DURATION + turretNS::TIME_BETWEEN_SHOTS) {
+	if (target && projectileDisplayTimer >= turretNS::PROJECTILE_DURATION + turretNS::TIME_BETWEEN_SHOTS) {
 		projectileDisplayTimer = 0;
 		firstShot = true;
 		audio->playCue(LASER);

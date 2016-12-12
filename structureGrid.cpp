@@ -94,9 +94,10 @@ Structure * StructureGrid::atGridCoords(int x, int y)
 void StructureGrid::draw()
 {
 	for (auto iter = structureList.begin(); iter != structureList.end(); iter++) {
-		if (*iter)
+		if (*iter) {
 			(*iter)->draw();
-            (*iter)->drawHealthbar();
+			(*iter)->drawHealthbar();
+		}
 	}
 
 	for (auto iter = structureList.begin(); iter != structureList.end(); iter++) {

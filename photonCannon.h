@@ -12,7 +12,7 @@ namespace photonCannonNS {
 	const float TIME_BETWEEN_SHOTS = 1.8f;
 	const float ROTATE_SPEED = 0.5f; // radians per second
 	const int	STARTING_HEALTH = 600;
-	const int	DAMAGE = 60;
+	const int	DAMAGE = 30;
 
 	const float GUN_IMAGE_SCALE = 0.24f;
 	const float GUN_FRAME_DELAY = 0.12f;
@@ -57,7 +57,7 @@ public:
 	void setProjectileTexture(TextureManager* tm);
 	void setGunTexture(TextureManager* tm);
 
-	void repair() { health = photonCannonNS::STARTING_HEALTH; }
+	void repair() { setHealth(photonCannonNS::STARTING_HEALTH); }
 
 private:
 	ParticleManager* particleManager;

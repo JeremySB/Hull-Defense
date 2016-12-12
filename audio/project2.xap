@@ -16,8 +16,8 @@ Global Settings
     Header File = ..\project2.h;
     Exclude Category Names = 0;
     Exclude Variable Names = 0;
-    Last Modified Low = 3618389480;
-    Last Modified High = 30556555;
+    Last Modified Low = 3107122589;
+    Last Modified High = 30561361;
 
     Category
     {
@@ -227,10 +227,10 @@ Wave Bank
     Compression Preset Name = <none>;
     Xbox Bank Last Modified Low = 0;
     Xbox Bank Last Modified High = 0;
-    PC Bank Last Modified Low = 161562169;
-    PC Bank Last Modified High = 30556556;
-    Bank Last Revised Low = 2098845819;
-    Bank Last Revised High = 30556546;
+    PC Bank Last Modified Low = 3107217325;
+    PC Bank Last Modified High = 30561361;
+    Bank Last Revised Low = 3107167354;
+    Bank Last Revised High = 30561361;
 
     Wave
     {
@@ -250,7 +250,7 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 1369247541;
+            Last Modified Low = 3867624642;
             Last Modified High = 30556533;
         }
     }
@@ -273,7 +273,7 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 1369417663;
+            Last Modified Low = 3867754641;
             Last Modified High = 30556533;
         }
     }
@@ -296,8 +296,54 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 1345145214;
-            Last Modified High = 30556546;
+            Last Modified Low = 2022925032;
+            Last Modified High = 30556557;
+        }
+    }
+
+    Wave
+    {
+        Name = placement;
+        File = placement.wav;
+        Build Settings Last Modified Low = 371632022;
+        Build Settings Last Modified High = 30561352;
+
+        Cache
+        {
+            Format Tag = 0;
+            Channels = 2;
+            Sampling Rate = 44100;
+            Bits Per Sample = 1;
+            Play Region Offset = 44;
+            Play Region Length = 325660;
+            Loop Region Offset = 0;
+            Loop Region Length = 0;
+            File Type = 1;
+            Last Modified Low = 2062834141;
+            Last Modified High = 30561361;
+        }
+    }
+
+    Wave
+    {
+        Name = energy;
+        File = energy.wav;
+        Build Settings Last Modified Low = 548396760;
+        Build Settings Last Modified High = 30561356;
+
+        Cache
+        {
+            Format Tag = 0;
+            Channels = 2;
+            Sampling Rate = 44100;
+            Bits Per Sample = 1;
+            Play Region Offset = 44;
+            Play Region Length = 651324;
+            Loop Region Offset = 0;
+            Loop Region Length = 0;
+            File Type = 1;
+            Last Modified Low = 2062769134;
+            Last Modified High = 30561361;
         }
     }
 }
@@ -309,13 +355,15 @@ Sound Bank
     Windows File = Win\project2.xsb;
     Xbox Bank Path Edited = 0;
     Windows Bank Path Edited = 0;
+    Bank Last Modified Low = 3111387327;
+    Bank Last Modified High = 30561361;
     Header Last Modified High = 0;
     Header Last Modified Low = 0;
 
     Sound
     {
         Name = backgroundmusic;
-        Volume = -1200;
+        Volume = -2620;
         Pitch = 0;
         Priority = 0;
 
@@ -363,7 +411,7 @@ Sound Bank
     Sound
     {
         Name = laser;
-        Volume = -2680;
+        Volume = -3800;
         Pitch = 0;
         Priority = 0;
 
@@ -454,6 +502,140 @@ Sound Bank
         }
     }
 
+    Sound
+    {
+        Name = placement;
+        Volume = -1200;
+        Pitch = 0;
+        Priority = 0;
+
+        Category Entry
+        {
+            Name = Default;
+        }
+
+        Track
+        {
+            Volume = 0;
+            Use Filter = 0;
+
+            Play Wave Event
+            {
+                Break Loop = 0;
+                Use Speaker Position = 0;
+                Use Center Speaker = 1;
+                New Speaker Position On Loop = 1;
+                Speaker Position Angle = 0.000000;
+                Speaker Position Arc = 0.000000;
+
+                Event Header
+                {
+                    Timestamp = 0;
+                    Relative = 0;
+                    Random Recurrence = 0;
+                    Random Offset = 0;
+                }
+
+                Wave Entry
+                {
+                    Bank Name = project2;
+                    Bank Index = 0;
+                    Entry Name = placement;
+                    Entry Index = 3;
+                    Weight = 255;
+                    Weight Min = 0;
+                }
+            }
+        }
+    }
+
+    Sound
+    {
+        Name = energy;
+        Volume = -1200;
+        Pitch = 0;
+        Priority = 0;
+
+        Category Entry
+        {
+            Name = Default;
+        }
+
+        Track
+        {
+            Volume = 0;
+            Use Filter = 0;
+
+            Play Wave Event
+            {
+                Break Loop = 0;
+                Use Speaker Position = 0;
+                Use Center Speaker = 1;
+                New Speaker Position On Loop = 1;
+                Speaker Position Angle = 0.000000;
+                Speaker Position Arc = 0.000000;
+
+                Event Header
+                {
+                    Timestamp = 0;
+                    Relative = 0;
+                    Random Recurrence = 0;
+                    Random Offset = 0;
+                }
+
+                Wave Entry
+                {
+                    Bank Name = project2;
+                    Bank Index = 0;
+                    Entry Name = energy;
+                    Entry Index = 4;
+                    Weight = 255;
+                    Weight Min = 0;
+                }
+            }
+
+            Set Volume Event
+            {
+                Event Header
+                {
+                    Timestamp = 200;
+                    Relative = 0;
+                    Random Recurrence = 0;
+                    Random Offset = 0;
+                }
+
+                Recurrence
+                {
+                    Count = 60;
+                    Frequency = 170;
+                    Beats Per Minute = 0;
+                    Beats Per Minute Frequency = 0.000000;
+                }
+
+                Equation
+                {
+                    Operator = 1;
+
+                    Operand
+                    {
+                        Constant = -300;
+                    }
+                }
+            }
+
+            Stop Event
+            {
+                Event Header
+                {
+                    Timestamp = 1500;
+                    Relative = 0;
+                    Random Recurrence = 0;
+                    Random Offset = 0;
+                }
+            }
+        }
+    }
+
     Cue
     {
         Name = backgroundmusic;
@@ -509,6 +691,46 @@ Sound Bank
         {
             Name = Squish;
             Index = 2;
+            Weight Min = 0;
+            Weight Max = 255;
+        }
+    }
+
+    Cue
+    {
+        Name = placement;
+
+        Variation
+        {
+            Variation Type = 3;
+            Variation Table Type = 1;
+            New Variation on Loop = 0;
+        }
+
+        Sound Entry
+        {
+            Name = placement;
+            Index = 3;
+            Weight Min = 0;
+            Weight Max = 255;
+        }
+    }
+
+    Cue
+    {
+        Name = energy;
+
+        Variation
+        {
+            Variation Type = 3;
+            Variation Table Type = 1;
+            New Variation on Loop = 0;
+        }
+
+        Sound Entry
+        {
+            Name = energy;
+            Index = 4;
             Weight Min = 0;
             Weight Max = 255;
         }

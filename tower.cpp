@@ -88,7 +88,7 @@ void Tower::update(float frameTime)
 
 void Tower::attackTarget(Entity* target)
 {
-	if (projectileDisplayTimer >= towerNS::PROJECTILE_DURATION + towerNS::TIME_BETWEEN_SHOTS) {
+	if (target && projectileDisplayTimer >= towerNS::PROJECTILE_DURATION + towerNS::TIME_BETWEEN_SHOTS) {
 		projectileDisplayTimer = 0;
 		firstShot = true;
 		audio->playCue(LASER);

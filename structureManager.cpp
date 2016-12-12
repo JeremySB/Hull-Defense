@@ -229,8 +229,10 @@ void StructureManager::sell(int x, int y)
 {
 	if (!isOccupied(x, y)) return;
 	Structure* toSell = grid.atPixelCoords(x, y);
-	if (toSell->getType() == StructureTypes::base) return;
-	gameState->addCurrency(toSell->getPrice()/2);
+	if (toSell->getType() == StructureTypes::base && toSell->getType() == StructureTypes::permWall) return;
+	gameState->addCurrency(toSell->getPrice()*2/3);
+	Audio* audio = game->getAudio();
+	audio->playCue(ENERGY);
 	grid.removeAtPixelCoords(x, y);
 	gameState->setSelectionMode(GameState::normal);
 }
@@ -241,6 +243,8 @@ void StructureManager::repair(int x, int y)
 	Structure* toRepair = grid.atPixelCoords(x, y);
 	if (toRepair->getType() == StructureTypes::base || toRepair->getType() == StructureTypes::permWall || toRepair->getPrice() / 2 > gameState->getCurrency()) return;
 	gameState->addCurrency(- (toRepair->getPrice() / 2));
+	Audio* audio = game->getAudio();
+	audio->playCue(PLACEMENT);
 	toRepair->repair();
 	gameState->setSelectionMode(GameState::normal);
 }
@@ -333,18 +337,24 @@ void StructureManager::selection()
 		mode = GameState::normal;
 	}*/
 
+	Audio* audio = game->getAudio();
+
 	// only trigger on LMB up
 	if (mode == GameState::wallSelection && !input->getMouseLButton() && lastLMBState) {
-		addWall(x, y); // function checks for existing structures
+		if(addWall(x, y)) // function checks for existing structures
+			audio->playCue(PLACEMENT);
 	}
 	else if (mode == GameState::turretSelection && !input->getMouseLButton() && lastLMBState) {
-		addTurret(x, y);
+		if(addTurret(x, y))
+			audio->playCue(PLACEMENT);
 	}
 	else if (mode == GameState::towerSelection && !input->getMouseLButton() && lastLMBState) {
-		addTower(x, y);
+		if(addTower(x, y))
+			audio->playCue(PLACEMENT);
 	}
 	else if (mode == GameState::photonCannonSelection && !input->getMouseLButton() && lastLMBState) {
-		addPhotonCannon(x, y);
+		if (addPhotonCannon(x, y))
+			audio->playCue(PLACEMENT);
 	}
 	else if (mode == GameState::sell && !input->getMouseLButton() && lastLMBState) {
 		sell(x, y);

@@ -16,6 +16,7 @@
 #include "base.h"
 #include "gameState.h"
 #include "particleManager.h"
+#include "audio.h"
 #include <list>
 
 class StructureManager

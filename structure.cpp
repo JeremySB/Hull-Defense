@@ -30,12 +30,25 @@ bool Structure::initialize(Game * gamePtr, int widthInGrid, int heightInGrid, in
 void Structure::damage(float weapon)
 {
 	setHealth(getHealth() - weapon);
-    healthbar.setCurrentFrame((1 - (health / getMaxHealth())) * 37);
+}
+
+void Structure::setHealth(float health)
+{
+	Entity::setHealth(health);
+	healthbar.setCurrentFrame((1 - (health / getMaxHealth())) * 37);
+	if (getHealth() <= getMaxHealth() - 1)
+	{
+		healthbar.setVisible(true);
+	}
+	else {
+		healthbar.setVisible(false);
+	}
 }
 
 void Structure::setupHealthbar(TextureManager* healthbarTexture){
     healthbar.initialize(graphics, 200, 20, 39, healthbarTexture);
-    healthbar.setScale(.25);
+    healthbar.setScale(.15);
+	healthbar.setVisible(false);
 }
 
 void Structure::drawHealthbar(){
@@ -45,11 +58,11 @@ void Structure::drawHealthbar(){
 void Structure::setX(float newX){
     Entity::setX(newX);
     healthbar.setX(getCenterX() - (healthbar.getWidth() / 2) * healthbar.getScale());
-    healthbar.setY(Entity::getCenterY() + 15);
+    healthbar.setY(Entity::getCenterY() + 10);
 }
 
 void Structure::setY(float newY) {
     Entity::setY(newY);
     healthbar.setX(getCenterX() - (healthbar.getWidth() / 2) * healthbar.getScale());
-    healthbar.setY(Entity::getCenterY() + 15);
+    healthbar.setY(Entity::getCenterY() + 10);
 }

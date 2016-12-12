@@ -96,6 +96,8 @@ const char SOUND_BANK[] = "audio\\Win\\project2.xsb";
 // audio cues
 const char BACKGROUND[] = "backgroundmusic";
 const char LASER[] = "laser";
+const char ENERGY[] = "energy";
+const char PLACEMENT[] = "placement";
 const char SQUISH[] = "Squish";
 
 // key mappings

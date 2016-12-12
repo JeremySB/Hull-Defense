@@ -142,7 +142,7 @@ void EnemyManager::updateStructures(){
                     (front->getType() != StructureTypes::base && (front->getHealth() / (float)front->getMaxHealth() < weakest->getHealth() / (float)weakest->getMaxHealth()) ) ) )
                     weakest = front;
 
-                if(front->getType() == baseTarget)
+                if(front->getType() == StructureTypes::base)
                     base = front;
                 }
         }

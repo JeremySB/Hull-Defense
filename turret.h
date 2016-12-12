@@ -9,10 +9,10 @@ namespace turretNS {
 	const int PRICE = 100;
 	const float RANGE = 150.0f;
 	const float PROJECTILE_DURATION = 0.12f; // in seconds
-	const float TIME_BETWEEN_SHOTS = 0.7f; // in seconds
+	const float TIME_BETWEEN_SHOTS = 0.2f; // in seconds
 	const float ROTATE_SPEED = 0.0f; // radians per second
 	const int STARTING_HEALTH = 200;
-	const int DAMAGE = 7;
+	const int DAMAGE = 10;
 }
 
 class Turret : public Structure
@@ -34,7 +34,7 @@ public:
 
 	float getMaxHealth() { return turretNS::STARTING_HEALTH; }
 
-	void repair() { health = turretNS::STARTING_HEALTH; }
+	void repair() { setHealth(health = turretNS::STARTING_HEALTH); }
 
 	void setProjectileTexture(TextureManager* tm);
 	void setGunTexture(TextureManager* tm);

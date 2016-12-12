@@ -16,7 +16,7 @@ public:
 	Wall();
 	~Wall();
 
-	void repair() { health = wallNS::STARTING_HEALTH; }
+	void repair() { setHealth(wallNS::STARTING_HEALTH); }
 
 	virtual float getMaxHealth() { return wallNS::STARTING_HEALTH; }
 
