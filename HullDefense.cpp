@@ -208,9 +208,6 @@ void HullDefense::update()
 		gameState.setGamePhase(GameState::level2Play);
 		break;
 
-	case GameState::level2Build:
-		break;
-
 	case GameState::level2Play:
 		structureManager.update(frameTime);
 		particleManager.update(frameTime);
@@ -226,6 +223,39 @@ void HullDefense::update()
 			gameState.setGamePhase(GameState::won);
 		if (structureManager.getBaseHealth() <= 0)
 			gameState.setGamePhase(GameState::lost);
+		break;
+
+	case GameState::level3Init:
+		enemies = enemyManager.getChildren();
+		waves.loadWaves(LEVEL1WAVEFILE);
+
+		enemyManager.setSpawn(VECTOR2((enemyManager.getSpawn().x ? 0 : GAME_WIDTH - CELL_WIDTH), GAME_HEIGHT / 2));
+		enemyManager.reset();
+		structureManager.reset();
+		gameState.setCurrency(1500);
+		structureManager.addBase(400, 200);
+		gameState.setGamePhase(GameState::level2Play);
+		break;
+
+	case GameState::level3Play:
+		structureManager.update(frameTime);
+		particleManager.update(frameTime);
+		gameMenu.update(frameTime);
+		waves.update(frameTime);
+
+		enemyManager.updateChildren(frameTime);
+		if (structureManager.getPlacedThisFrame()) {
+			enemyManager.updateStructures();
+			enemyManager.findPaths();
+		}
+		if (waves.complete() && enemyManager.getNumChildren() == 0)
+			gameState.setGamePhase(GameState::won);
+		if (structureManager.getBaseHealth() <= 0)
+			gameState.setGamePhase(GameState::lost);
+		break;
+
+	case GameState::transition:
+		
 		break;
 
 	case GameState::won:
@@ -308,9 +338,6 @@ void HullDefense::render()
 		loadingscreen.draw();
 		break;
 
-	case GameState::level1Build:
-		break;
-
 	case GameState::level1Play:
 		waves.update(frameTime);
 		structureManager.draw();
@@ -323,15 +350,25 @@ void HullDefense::render()
 		loadingscreen.draw();
 		break;
 
-	case GameState::level2Build:
-		break;
-
 	case GameState::level2Play:
-		waves.update(frameTime);
 		structureManager.draw();
 		enemyManager.draw();
 		particleManager.draw();
 		gameMenu.draw();
+		break;
+
+	case GameState::level3Init:
+		loadingscreen.draw();
+		break;
+
+	case GameState::level3Play:
+		structureManager.draw();
+		enemyManager.draw();
+		particleManager.draw();
+		gameMenu.draw();
+		break;
+
+	case GameState::transition:
 		break;
 
 	case GameState::won:
