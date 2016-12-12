@@ -107,6 +107,8 @@ const UCHAR ALT_KEY      = VK_MENU;     // Alt key
 const UCHAR ENTER_KEY    = VK_RETURN;   // Enter key
 
 const char LEVEL1WAVEFILE[] = "level1.txt";
+const char LEVEL2WAVEFILE[] = "level2.txt";
+const char LEVEL3WAVEFILE[] = "level3.txt";
 
 //=============================================================================
 // Function templates for safely dealing with pointer referenced items.

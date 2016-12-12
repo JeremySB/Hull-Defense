@@ -274,13 +274,13 @@ void Game::run(HWND hwnd)
     renderGame();                   // draw all game items
 
     //check for console key
-    if (input->getCharIn() == CONSOLE_KEY)
+    /*if (input->getCharIn() == CONSOLE_KEY)
     {
         input->clearCharIn();       // clear last char
         console->showHide();
         paused = console->getVisible(); // pause game when console is visible
     }
-    consoleCommand();               // process user entered console command
+    consoleCommand();               // process user entered console command*/
 
     input->readControllers();       // read state of controllers
 

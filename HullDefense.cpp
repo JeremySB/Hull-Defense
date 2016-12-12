@@ -164,13 +164,8 @@ void HullDefense::update()
 		gameState.setSelectionMode(GameState::photonCannonSelection);
 		enemies = enemyManager.getChildren();
 		waves.loadWaves(LEVEL1WAVEFILE);
-		enemyManager.setSpawn(VECTOR2(0,GAME_HEIGHT/2));
 		enemyManager.reset();
-		/*for (auto i = enemies.begin(); i != enemies.end(); i++)
-		{
-			(*i)->setHealth(-1);
-		}*/
-		//enemyManager.updateChildren(frameTime);
+
 		structureManager.reset();
 		structureManager.addBase(950, 10);
 		gameState.setCurrency(1500);
@@ -198,9 +193,7 @@ void HullDefense::update()
 
 	case GameState::level2Init:
 		enemies = enemyManager.getChildren();
-		waves.loadWaves(LEVEL1WAVEFILE);
-
-		enemyManager.setSpawn(VECTOR2( (enemyManager.getSpawn().x ? 0 : GAME_WIDTH - CELL_WIDTH), GAME_HEIGHT/2));
+		waves.loadWaves(LEVEL2WAVEFILE);
 		enemyManager.reset();
 		structureManager.reset();
 		gameState.setCurrency(1500);
@@ -227,9 +220,7 @@ void HullDefense::update()
 
 	case GameState::level3Init:
 		enemies = enemyManager.getChildren();
-		waves.loadWaves(LEVEL1WAVEFILE);
-
-		enemyManager.setSpawn(VECTOR2((enemyManager.getSpawn().x ? 0 : GAME_WIDTH - CELL_WIDTH), GAME_HEIGHT / 2));
+		waves.loadWaves(LEVEL3WAVEFILE);
 		enemyManager.reset();
 		structureManager.reset();
 		gameState.setCurrency(1500);
