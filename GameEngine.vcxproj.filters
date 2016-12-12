@@ -120,11 +120,10 @@
     <ClCompile Include="particleManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-<<<<<<< Updated upstream
     <ClCompile Include="permWall.cpp">
-=======
-    <ClCompile Include="Healthbar.cpp">
->>>>>>> Stashed changes
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="healthbar.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -246,11 +245,10 @@
     <ClInclude Include="babyEnemies.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-<<<<<<< Updated upstream
     <ClInclude Include="permWall.h">
-=======
-    <ClInclude Include="Healthbar.h">
->>>>>>> Stashed changes
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="healthbar.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

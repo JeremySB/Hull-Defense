@@ -6,7 +6,7 @@
 #include "structure.h"
 
 namespace wallNS {
-	const int PRICE = 20;
+	const int PRICE = 50;
 	const int STARTING_HEALTH = 500;
 }
 

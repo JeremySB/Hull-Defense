@@ -31,7 +31,7 @@ const UINT GRID_WIDTH = GAME_WIDTH/CELL_WIDTH;
 const UINT GRID_HEIGHT = GAME_HEIGHT/CELL_HEIGHT;
 const UINT MAX_ENEMIES = 30;
 
-enum StructureTypes {base = 1, wall = 2, turret = 3, tower = 4, photonCannon = 5, permWall = 6};
+enum StructureTypes {base = 1, wall = 50, turret = 3, tower = 4, photonCannon = 5, permWall = GRID_WIDTH * GRID_HEIGHT};
 enum Targeting {weakestTarget, strongestTarget, baseTarget};
 
 const UINT PATHFINDING_MODIFIER = 5;

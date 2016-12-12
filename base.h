@@ -2,7 +2,7 @@
 #include "structure.h"
 
 namespace baseNS {
-	const int STARTING_HEALTH = 1000;
+	const int STARTING_HEALTH = 1500;
 }
 
 class Base :
