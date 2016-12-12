@@ -89,13 +89,16 @@ void GameMenu::initialize(Graphics* graphics, Game* game, Input* input, Audio* a
 void GameMenu::update(float frameTime){
 	if(gameState->getSelectionMode() == GameState::build){
 		if(!input->getMouseLButton() && lastClickState){
-			if((input->getMouseX()>0 && input->getMouseX()<GAME_WIDTH/3)&&input->getMouseY()>GAME_HEIGHT-towerMenu.getHeight()){
+			if((input->getMouseX()>0 && input->getMouseX()<GAME_WIDTH/4)&&input->getMouseY()>GAME_HEIGHT-towerMenu.getHeight()){
+				// Photon Cannon
+				gameState->setSelectionMode(GameState::photonCannonSelection);
+			}else if((input->getMouseX()>GAME_WIDTH/4 && input->getMouseX()<2*(GAME_WIDTH/4))&&input->getMouseY()>GAME_HEIGHT-towerMenu.getHeight()){
 				// Tower
 				gameState->setSelectionMode(GameState::towerSelection);
-			}else if((input->getMouseX()>GAME_WIDTH/3 && input->getMouseX()<2*(GAME_WIDTH/3))&&input->getMouseY()>GAME_HEIGHT-towerMenu.getHeight()){
+			}else if((input->getMouseX()>2*(GAME_WIDTH/4) && input->getMouseX()<3*(GAME_WIDTH/4))&&input->getMouseY()>GAME_HEIGHT-towerMenu.getHeight()){
 				// Turret
 				gameState->setSelectionMode(GameState::turretSelection);
-			}else if((input->getMouseX()>2*(GAME_WIDTH/3) && input->getMouseX()<GAME_WIDTH)&&input->getMouseY()>GAME_HEIGHT-towerMenu.getHeight()){
+			}else if((input->getMouseX()>3*(GAME_WIDTH/4) && input->getMouseX()<GAME_WIDTH)&&input->getMouseY()>GAME_HEIGHT-towerMenu.getHeight()){
 				// Wall
 				gameState->setSelectionMode(GameState::wallSelection);
 			}
