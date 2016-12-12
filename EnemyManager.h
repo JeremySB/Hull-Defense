@@ -6,7 +6,9 @@
 #include "Enemy.h"
 #include "HeavyEnemy.h"
 #include "MediumEnemy.h"
-#include "LightEnemy.h"
+#include "lightEnemy.h"
+#include "pregnantEnemy.h"
+#include "babyEnemies.h"
 #include "PathFinding.h"
 #include "gameState.h"
 #include <list>

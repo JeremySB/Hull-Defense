@@ -12,10 +12,6 @@ void EnemyManager::reset(){
         children[i] = nullptr;
     }
     numChildren = 0;
-    /*auto tmp = getChildren();
-    while(!tmp.empty()){
-        removeChild(tmp.front());
-    }*/
 }
 
 void EnemyManager::initialize(Game* game,StructureGrid* grid, GameState* state,Audio* audio){
@@ -31,16 +27,22 @@ void EnemyManager::initialize(Game* game,StructureGrid* grid, GameState* state,A
 
 
 void EnemyManager::addChild(Enemy* toAdd) {
-	if (!toAdd->initialize(game, 555, 508, 7, &enemyTexture))
+    if (numChildren < MAX_ENEMIES) {
+        children[numChildren++] = toAdd;
+    }
+    else{
+        delete toAdd;
+        return;
+    }
+    if (!toAdd->initialize(game, 555, 508, 7, &enemyTexture))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing enemy"));
-	toAdd->setX(spawn.x);
+	
+    toAdd->setX(spawn.x);
 	toAdd->setY(spawn.y);
-	toAdd->setScale(0.06);
+	toAdd->setScale(toAdd->getScale() * 0.06);
 	toAdd->setCollisionRadius(CELL_WIDTH / 2);
 	toAdd->activate();
-	if (numChildren < MAX_ENEMIES) {
-		children[numChildren++] = toAdd;
-	}
+
 	updateStructures();
 	if (toAdd->getTarget()) {
 		toAdd->setPath(pathFinder.findPath(reinterpret_cast<Entity*>(toAdd), reinterpret_cast<Entity *>(toAdd->getTarget())));
@@ -93,6 +95,13 @@ void EnemyManager::updateChildren(float frameTime){
         }
         children[i]->update(frameTime);
         if (children[i]->getHealth() <= 0) {
+            if(typeid(*children[i]) == typeid(PregnantEnemy)){
+                for(int i = 0; i < 5; i++){
+                    float tmp = (rand() % 100)/100.0f ;
+                    this->spawn = VECTOR2(children[i]->getX(), children[i]->getY()) + VECTOR2( CELL_WIDTH * tmp, CELL_HEIGHT * (1-tmp));
+                    this->addChild(new BabyEnemy);
+                }
+            }
             removeChild(children[i]);
             i--;
         }

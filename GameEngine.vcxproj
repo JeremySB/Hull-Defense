@@ -123,6 +123,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="audio.h" />
+    <ClInclude Include="babyEnemies.h" />
     <ClInclude Include="base.h" />
     <ClInclude Include="console.h" />
     <ClInclude Include="constants.h" />
@@ -145,6 +146,7 @@
     <ClInclude Include="particleManager.h" />
     <ClInclude Include="pathFinding.h" />
     <ClInclude Include="photonCannon.h" />
+    <ClInclude Include="pregnantEnemy.h" />
     <ClInclude Include="structure.h" />
     <ClInclude Include="structureGrid.h" />
     <ClInclude Include="structureManager.h" />
@@ -200,6 +202,8 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="level1.txt" />
+    <Text Include="level2.txt" />
+    <Text Include="level3.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -9,7 +9,7 @@ public:
 	void initialize(EnemyManager* manager);
 	void reset();
 	void setSpawnTime(float spawnTime);
-    bool update(float frameTime);
+    bool update(float frameTime, VECTOR2 spawnLocation);
 	void addEnemy(char toAdd);
 
 private:

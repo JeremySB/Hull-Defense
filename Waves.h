@@ -2,6 +2,7 @@
 #pragma once
 #include "wave.h"
 #include "enemyManager.h"
+// location based spawns
 class Waves {
 public:
     Waves();//EnemyManager* manager);
@@ -17,5 +18,6 @@ private:
     bool betweenWaves;
     float timeBetweenWaves;
     float timePassed;
+    std::string spawnLocations;
     EnemyManager *manager;
 };

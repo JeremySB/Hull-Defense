@@ -9,9 +9,11 @@ void Wave::initialize(EnemyManager* manager){
 	this->manager = manager;
 }
 
-bool Wave::update(float frameTime){
+bool Wave::update(float frameTime, VECTOR2 spawnLocation){
     timeSinceLastSpawn += frameTime;
     if(timeSinceLastSpawn > spawnTime){
+        VECTOR2 tmp = manager->getSpawn();
+        manager->setSpawn(spawnLocation);
 		switch(toSpawn[0]){
 			case('H'):
 				manager->addChild(new HeavyEnemy);
@@ -22,9 +24,12 @@ bool Wave::update(float frameTime){
 			case('L'):
 				manager->addChild(new LightEnemy);
 				break;
+            case('P'):
+                manager->addChild(new PregnantEnemy);
 			default:
 				break;
 			}
+        manager->setSpawn(tmp);
 		toSpawn.erase(0,1);
 		timeSinceLastSpawn = 0;
     }

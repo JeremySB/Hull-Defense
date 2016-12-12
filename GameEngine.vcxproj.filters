@@ -233,6 +233,12 @@
     <ClInclude Include="particleManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="pregnantEnemy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="babyEnemies.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Change log.txt">
@@ -342,6 +348,12 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="level1.txt">
+      <Filter>WaveFiles</Filter>
+    </Text>
+    <Text Include="level2.txt">
+      <Filter>WaveFiles</Filter>
+    </Text>
+    <Text Include="level3.txt">
       <Filter>WaveFiles</Filter>
     </Text>
   </ItemGroup>
