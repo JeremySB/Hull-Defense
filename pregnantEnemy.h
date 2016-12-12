@@ -6,7 +6,7 @@ class PregnantEnemy: public Enemy {
 public:
     PregnantEnemy() {
         speed = 30;
-        value = 100;
+        value = 50;
         health = 200;
         damage = 30;
         targeting = baseTarget;

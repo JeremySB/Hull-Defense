@@ -91,6 +91,7 @@ private:
 	TextureManager turretProjectileTexture, turretBaseTexture, turretGunTexture;
 	TextureManager towerProjectileTexture, towerGunTexture, towerBaseTexture;
 	TextureManager photonCannonProjectileTexture, photonCannonGunTexture, photonCannonBaseTexture;
+    TextureManager healthbarTexture;
 	ParticleManager* particleManager;
 	Image goodSelectionImage;
 	Graphics* graphics;

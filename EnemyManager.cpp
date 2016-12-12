@@ -87,7 +87,7 @@ void EnemyManager::updateChildren(float frameTime){
         std::list<Structure*> tmp = bob;
         while(!tmp.empty()){
             if(children[i]->collidesWith(*tmp.front(),VECTOR2())){
-                tmp.front()->setHealth(tmp.front()->getHealth() - children[i]->getDamage() * frameTime);
+                tmp.front()->damage(children[i]->getDamage() * frameTime);
                 children[i]->collidedThisFrame();
                 break;
             }

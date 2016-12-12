@@ -5,7 +5,7 @@ class BabyEnemy : public Enemy {
 public:
     BabyEnemy() {
         speed = 125;
-        value = 10;
+        value = 5;
         health = 21;
         damage = 20;
         targeting = baseTarget;

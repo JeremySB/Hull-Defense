@@ -96,6 +96,7 @@ void StructureGrid::draw()
 	for (auto iter = structureList.begin(); iter != structureList.end(); iter++) {
 		if (*iter)
 			(*iter)->draw();
+            (*iter)->drawHealthbar();
 	}
 
 	for (auto iter = structureList.begin(); iter != structureList.end(); iter++) {

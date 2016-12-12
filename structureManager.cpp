@@ -66,9 +66,11 @@ void StructureManager::initialize(Graphics* graphics, Game* game, Input* input, 
 
 	if (!goodSelectionImage.initialize(graphics, CELL_WIDTH, CELL_HEIGHT, 0, &goodSelectionTexture))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing selection image")); 
-
+    
 	goodSelectionImage.setVisible(false);
 
+    if (!healthbarTexture.initialize(graphics, HEALTHBAR_IMAGE))
+        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing healthbar texture"));
 }
 
 void StructureManager::draw()
@@ -132,6 +134,7 @@ bool StructureManager::addBase(int x, int y, bool gridCoords)
 
 	Base* base = new Base();
 	base->initialize(game, 4, 4, 0, &baseTexture);
+    //base->setupHealthbar(&healthbarTexture);
 	if (!grid.addAtGridCoords(base, xGrid, yGrid)) return false;
 
 	return true;
@@ -145,7 +148,8 @@ bool StructureManager::addTower(int x, int y)
 
 	Tower* tower = new Tower();
 	tower->initialize(game, 3, 3, 0, &towerBaseTexture);
-	if (!grid.addAtGridCoords(tower, xGrid, yGrid)) return false;
+	tower->setupHealthbar(&healthbarTexture);
+    if (!grid.addAtGridCoords(tower, xGrid, yGrid)) return false;
 	tower->setProjectileTexture(&towerProjectileTexture);
 	tower->setGunTexture(&towerGunTexture);
 
@@ -162,6 +166,7 @@ bool StructureManager::addPhotonCannon(int x, int y)
 
 	PhotonCannon* cannon = new PhotonCannon();
 	cannon->initialize(game, 3, 3, 0, &photonCannonBaseTexture, particleManager);
+    cannon->setupHealthbar(&healthbarTexture);
 	if (!grid.addAtGridCoords(cannon, xGrid, yGrid)) return false;
 	cannon->setProjectileTexture(&photonCannonProjectileTexture);
 	cannon->setGunTexture(&photonCannonGunTexture);
@@ -177,6 +182,7 @@ bool StructureManager::addTurret(int x, int y)
 
 	Turret* turret = new Turret();
 	turret->initialize(game, 1, 1, 0, &turretBaseTexture);
+    turret->setupHealthbar(&healthbarTexture);
 	if(!grid.addAtPixelCoords(turret, x, y)) return false;
 	turret->setProjectileTexture(&turretProjectileTexture);
 	turret->setGunTexture(&turretGunTexture);
@@ -192,6 +198,7 @@ bool StructureManager::addWall(int x, int y)
 
 	Wall* wall = new Wall();
 	wall->initialize(game, 1, 1, 0, &wallTexture);
+    wall->setupHealthbar(&healthbarTexture);
 	if (!grid.addAtPixelCoords(wall, x, y)) return false;
 	gameState->addCurrency(-wallNS::PRICE);
 
@@ -295,6 +302,7 @@ void StructureManager::onLostDevice()
 	photonCannonGunTexture.onLostDevice();
 	photonCannonProjectileTexture.onLostDevice();
 	goodSelectionTexture.onLostDevice();
+    healthbarTexture.onLostDevice();
 }
 
 void StructureManager::onResetDevice()
@@ -310,6 +318,7 @@ void StructureManager::onResetDevice()
 	photonCannonGunTexture.onResetDevice();
 	photonCannonProjectileTexture.onResetDevice();
 	goodSelectionTexture.onResetDevice();
+    healthbarTexture.onResetDevice();
 }
 
 void StructureManager::selection()

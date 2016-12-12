@@ -18,9 +18,12 @@ public:
 	virtual void draw() { Entity::draw(getColorFilter()); }
 
 	virtual void drawProjectiles() {}
-
-	void damage(int weapon);
-
+    void setX(float newX);
+    void setY(float newY);
+	void damage(float weapon);
+    
+    void setupHealthbar(TextureManager * healthbarTexture);
+    void drawHealthbar();
 	// give structure one target to attack. Not all implement this
 	virtual void attackTarget(Entity* target) {}
 
@@ -44,6 +47,7 @@ public:
 protected:
 	StructureTypes type;
 	Game* gamePtr;
+    Image healthbar;
 	int widthInGrid, heightInGrid;
 	int price;
 };

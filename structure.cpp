@@ -27,7 +27,29 @@ bool Structure::initialize(Game * gamePtr, int widthInGrid, int heightInGrid, in
 	return Entity::initialize(gamePtr, width, height, ncols, textureM);
 }
 
-void Structure::damage(int weapon)
+void Structure::damage(float weapon)
 {
 	setHealth(getHealth() - weapon);
+    healthbar.setCurrentFrame((1 - (health / getMaxHealth())) * 37);
+}
+
+void Structure::setupHealthbar(TextureManager* healthbarTexture){
+    healthbar.initialize(graphics, 200, 20, 39, healthbarTexture);
+    healthbar.setScale(.25);
+}
+
+void Structure::drawHealthbar(){
+    this->healthbar.draw();
+}
+
+void Structure::setX(float newX){
+    Entity::setX(newX);
+    healthbar.setX(getCenterX() - (healthbar.getWidth() / 2) * healthbar.getScale());
+    healthbar.setY(Entity::getCenterY() + 15);
+}
+
+void Structure::setY(float newY) {
+    Entity::setY(newY);
+    healthbar.setX(getCenterX() - (healthbar.getWidth() / 2) * healthbar.getScale());
+    healthbar.setY(Entity::getCenterY() + 15);
 }

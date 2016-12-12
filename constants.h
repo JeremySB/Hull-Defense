@@ -34,7 +34,7 @@ const UINT MAX_ENEMIES = 30;
 enum StructureTypes {base = 1, wall = 2, turret = 3, tower = 4, photonCannon = 5, permWall = 6};
 enum Targeting {weakestTarget, strongestTarget, baseTarget};
 
-const UINT PATHFINDING_MODIFIER = 10;
+const UINT PATHFINDING_MODIFIER = 5;
 
 // game
 const bool VSYNC = false;                   // true locks display to vertical sync rate
@@ -62,6 +62,7 @@ const char PHOTON_CANNON_PROJECTILE_IMAGE[] = "pictures\\photonCannonProjectileJ
 const char PHOTON_CANNON_PROJECTILE_EXPLOSION[] = "pictures\\photonCannonExplosionJEREMY.png";
 const char GOOD_SELECTION_IMAGE[] = "pictures\\goodSelectionJEREMY.png";
 const char ENEMY_IMAGE[] = "pictures\\EnemyAttack.png";//"pictures\\EnemyTemp.png";
+const char HEALTHBAR_IMAGE[] = "pictures\\Healthbar.png";
 
 // intro images
 const char MAIN_MENU[] = "pictures\\mainScreenDANIEL.png";
