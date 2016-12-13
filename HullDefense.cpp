@@ -129,7 +129,7 @@ void HullDefense::update()
 	std::list<Enemy*> enemies;
 
 	gameState.setHealth(structureManager.getBaseHealth());
-
+    //float frameTime = this->frameTime * 2;
 	switch (gameState.getGamePhase())
 	{
 	case GameState::intro:
@@ -166,9 +166,8 @@ void HullDefense::update()
 		waves.loadWaves(LEVEL1WAVEFILE);
 		structureManager.loadLevel(1);
 		gameState.setCurrency(1500);
+        enemyManager.reset();
 		gameState.setGamePhase(GameState::level1Play);
-		enemyManager.reset();
-        enemyManager.updateStructures();
 		break;
 
 	case GameState::level1Play:
@@ -196,7 +195,6 @@ void HullDefense::update()
 		gameState.setCurrency(1500);
 		gameState.setGamePhase(GameState::level2Play);
 		enemyManager.reset();
-        enemyManager.updateStructures();
 		break;
 
 	case GameState::level2Play:
@@ -218,11 +216,10 @@ void HullDefense::update()
 	case GameState::level3Init:
 		enemies = enemyManager.getChildren();
 		waves.loadWaves(LEVEL3WAVEFILE);
-		enemyManager.reset();
 		structureManager.reset();
 		gameState.setCurrency(1500);
 		structureManager.addBase(400, 200);
-        enemyManager.updateStructures();
+        enemyManager.reset();
 		gameState.setGamePhase(GameState::level2Play);
 		break;
 

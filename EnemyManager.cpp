@@ -12,6 +12,8 @@ void EnemyManager::reset(){
         children[i] = nullptr;
     }
     numChildren = 0;
+    updateStructures();
+    pathFinder.updateMap();
 }
 
 void EnemyManager::initialize(Game* game,StructureGrid* grid, GameState* state,Audio* audio){
@@ -22,7 +24,7 @@ void EnemyManager::initialize(Game* game,StructureGrid* grid, GameState* state,A
     if (!enemyTexture.initialize(game->getGraphics(), ENEMY_IMAGE))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing enemy"));
     setGrid(grid);
-    updateStructures();
+
 }
 
 
@@ -96,7 +98,7 @@ void EnemyManager::updateChildren(float frameTime){
     for( int i = 0; i < numChildren; i++){
         std::list<Structure*> tmp = bob;
         while(!tmp.empty()){
-            if(children[i]->collidesWith(*tmp.front(),VECTOR2())){
+            if(tmp.front() -> getType() != permWall && children[i]->collidesWith(*tmp.front(),VECTOR2())){
                 tmp.front()->damage(children[i]->getDamage() * frameTime);
                 children[i]->collidedThisFrame();
                 break;
@@ -131,15 +133,13 @@ void EnemyManager::updateStructures(){
         while (!tmp.empty()) {
             Structure *front = tmp.front();
             tmp.pop_front();
-            if(front->getType() != permWall){
-			    if (front->getType() != permWall &&
-                    (strongest == nullptr || strongest->getType() == StructureTypes::base ||
-                    (front->getType() != StructureTypes::base && front->getHealth() / front->getMaxHealth() > strongest->getHealth() / strongest->getMaxHealth())))
+            if(front->getType() != permWall && front->getType() != wall){
+			    if (strongest == nullptr || strongest->getType() == StructureTypes::base ||
+                    (front->getType() != StructureTypes::base && front->getHealth() / front->getMaxHealth() > strongest->getHealth() / strongest->getMaxHealth()))
                     strongest = front;
 
-			    if (front -> getType() != permWall && 
-                    (!weakest || weakest->getType() == StructureTypes::base  ||
-                    (front->getType() != StructureTypes::base && front->getHealth() / front->getMaxHealth() < weakest->getHealth() / weakest->getMaxHealth())))
+			    if (!weakest || weakest->getType() == StructureTypes::base  ||
+                    (front->getType() != StructureTypes::base && front->getHealth() / front->getMaxHealth() < weakest->getHealth() / weakest->getMaxHealth()))
                     weakest = front;
 
                 if(front->getType() == StructureTypes::base)
