@@ -30,6 +30,7 @@ bool Structure::initialize(Game * gamePtr, int widthInGrid, int heightInGrid, in
 void Structure::damage(float weapon)
 {
 	setHealth(getHealth() - weapon);
+    healthbar.setCurrentFrame((1 - (health / getMaxHealth())) * 37);
 }
 
 void Structure::setHealth(float health)

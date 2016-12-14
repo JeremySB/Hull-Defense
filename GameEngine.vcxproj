@@ -98,6 +98,9 @@
     <ClCompile Include="gameMenu.cpp" />
     <ClCompile Include="gameState.cpp" />
     <ClCompile Include="graphics.cpp" />
+    <ClCompile Include="Healthbar.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="inputDialog.cpp" />
     <ClCompile Include="messageDialog.cpp" />
     <ClCompile Include="net.cpp" />
@@ -137,6 +140,9 @@
     <ClInclude Include="gameMenu.h" />
     <ClInclude Include="gameState.h" />
     <ClInclude Include="graphics.h" />
+    <ClInclude Include="Healthbar.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="heavyEnemy.h" />
     <ClInclude Include="inputDialog.h" />
     <ClInclude Include="lightEnemy.h" />
