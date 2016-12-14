@@ -19,6 +19,7 @@
 #include "Waves.h"
 #include "gameState.h"
 #include "particleManager.h"
+#include "mainMenu.h"
 
 //=============================================================================
 // This class is the core of the game
@@ -28,11 +29,9 @@ class HullDefense : public Game
 private:
     // game items
 	// menu textures
-    TextureManager menuTexture, towermenuTexture, turretmenuTexture, wallmenuTexture, defmenuTexture, mainmenuTexture;
-	// instruction textures
-	TextureManager instruction0Texture, instruction1Texture, instruction2Texture;
+    TextureManager towermenuTexture, turretmenuTexture, wallmenuTexture, defmenuTexture;
 	// other screen textures
-	TextureManager winscreenTexture,losescreenTexture,wavecompleteTexture, backgroundTexture, background2Texture, background3Texture, loadingscreenTexture, transitionTexture; // textures
+	TextureManager backgroundTexture, background2Texture, background3Texture; // textures
 	StructureManager structureManager;
 	ParticleManager particleManager;
     Waves waves;
@@ -40,16 +39,8 @@ private:
     float timeIntoTimeout;
     EnemyManager enemyManager;
 	GameMenu gameMenu;
+	MainMenu mainMenu;
     Image   background;         // background image
-	Image   mainmenu;
-	Image   instruction0;
-	Image   instruction1;
-	Image   instruction2;
-	Image   transitionImage;
-	Image   winscreen;
-	Image   losescreen;
-	Image   wavecomplete;
-	Image	loadingscreen;
 
     TextDX  *dxFont;            // DirectX font
 
