@@ -33,8 +33,6 @@ StructureGrid::~StructureGrid(void)
 
 bool StructureGrid::addAtGridCoords(Structure* in, int x, int y)
 {
-	temp.push_back(std::pair<int, int>(x,y));
-
 	if (!(x >= 0 && y >= 0 && x + in->getWidthInGrid() <= maxX && y + in->getHeightInGrid() <= maxY)){
         delete in;
 		return false;
@@ -62,7 +60,6 @@ bool StructureGrid::addAtPixelCoords(Structure* in, int x, int y)
 
 void StructureGrid::removeAtGridCoords(int x, int y)
 {
-	temp.remove(std::pair<int, int>(x, y));
 	if (!(x >= 0 && y >= 0 && x <= maxX && y <= maxY))
 		throw(GameError(gameErrorNS::WARNING, "Structure out of grid boundary"));
 	modifiedThisFrame = true;

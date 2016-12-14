@@ -315,6 +315,8 @@ void StructureManager::loadLevel(int x)
 			addPermWall(28, 9); addPermWall(28, 8); addPermWall(28, 3); addPermWall(28, 2); addPermWall(28, 0); addPermWall(28, 1); addPermWall(8, 23); addPermWall(28, 6); addPermWall(28, 7); addPermWall(7, 23); addPermWall(28, 12); addPermWall(29, 12); addPermWall(30, 12); addPermWall(31, 12); addPermWall(34, 12); addPermWall(35, 12); addPermWall(36, 12); addPermWall(37, 12); addPermWall(40, 12); addPermWall(41, 12); addPermWall(42, 12); addPermWall(43, 12); addPermWall(8, 23); addPermWall(31, 2); addPermWall(31, 3); addPermWall(31, 5); addPermWall(31, 6); addPermWall(31, 4); addPermWall(7, 23); addPermWall(31, 8); addPermWall(31, 9); addPermWall(31, 10); addPermWall(32, 10); addPermWall(33, 10); addPermWall(34, 10); addPermWall(37, 10); addPermWall(38, 10); addPermWall(39, 10); addPermWall(40, 10);
 			break;
 		case 3:
+			addBase(19, 9);
+			addPermWall(19, 7); addPermWall(20, 7); addPermWall(21, 7); addPermWall(22, 7); addPermWall(18, 7); addPermWall(23, 7); addPermWall(23, 14); addPermWall(22, 14); addPermWall(21, 14); addPermWall(20, 14); addPermWall(19, 14); addPermWall(18, 14); addPermWall(24, 7); addPermWall(17, 7); addPermWall(24, 14); addPermWall(17, 14); addPermWall(14, 7); addPermWall(14, 8); addPermWall(14, 9); addPermWall(14, 14); addPermWall(14, 13); addPermWall(14, 12); addPermWall(27, 14); addPermWall(27, 13); addPermWall(27, 12); addPermWall(27, 7); addPermWall(27, 8); addPermWall(27, 9);
 			break;
 	}
 }

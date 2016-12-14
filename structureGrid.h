@@ -62,6 +62,5 @@ private:
 	std::list<Structure*> structureList; // used for draw(), update(), etc. Points to things also in the structures vector
     bool modifiedThisFrame;
 	int maxX, maxY;
-	std::list<std::pair<int, int>> temp;
 };
 

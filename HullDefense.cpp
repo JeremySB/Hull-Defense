@@ -147,8 +147,6 @@ void HullDefense::initialize(HWND hwnd)
 //=============================================================================
 void HullDefense::update()
 {
-	std::list<Enemy*> enemies;
-
 	gameState.setHealth(structureManager.getBaseHealth());
     //float frameTime = this->frameTime * 2;
 	switch (gameState.getGamePhase())
@@ -193,7 +191,6 @@ void HullDefense::update()
 
 	case GameState::level1Init:
 		gameState.setSelectionMode(GameState::photonCannonSelection);
-		enemies = enemyManager.getChildren();
 		waves.loadWaves(LEVEL1WAVEFILE);
 		structureManager.loadLevel(1);
 		particleManager.reset();
@@ -207,7 +204,6 @@ void HullDefense::update()
 		break;
 
 	case GameState::level2Init:
-		enemies = enemyManager.getChildren();
 		waves.loadWaves(LEVEL2WAVEFILE);
 		structureManager.loadLevel(2);
 		particleManager.reset();
@@ -221,13 +217,10 @@ void HullDefense::update()
 		break;
 
 	case GameState::level3Init:
-		enemies = enemyManager.getChildren();
 		waves.loadWaves(LEVEL3WAVEFILE);
         structureManager.loadLevel(3);
         gameState.setCurrency(1500);
 		particleManager.reset();
-		gameState.setCurrency(1500);
-		structureManager.addBase(400, 200, false);
         enemyManager.reset();
 
 		if (!background.initialize(graphics, 0, 0, 0, &background3Texture))
