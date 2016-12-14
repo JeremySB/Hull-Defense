@@ -87,7 +87,7 @@ void StructureManager::collisions(std::list<Enemy*> entities)
 	//entities.remove(NULL);
 	for (auto structure = structures.begin(); structure != structures.end(); structure++) {
 		// check if structure takes multiple enemies
-		if ((*structure)->getType() == photonCannon)
+		if ((*structure)->getType() == photonCannon || (*structure)->getType() == tower)
 		{
 			(*structure)->attackTargets(entities);
 			continue;
