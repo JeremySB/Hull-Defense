@@ -53,7 +53,8 @@ void Tower::update(float frameTime)
 	if (projectile.getActive())
 	{
 		projectile.moveTo(frameTime, towerNS::PROJECTILE_SPEED, targetX, targetY);
-		projectile.setRadians(projectile.angleToTarget(targetX, targetY));
+		float temp = projectile.angleToTarget(targetX, targetY);
+		projectile.setRadians(projectile.getRadians() + projectile.angleToTarget(targetX, targetY));
 	}
 	projectile.update(frameTime);
 	//Entity::update(frameTime);
@@ -197,7 +198,7 @@ void Tower::attackTargets(std::list<Enemy*> targets)
 }
 
 
-void Tower::setProjectileTexture(TextureManager * tm)
+void Tower::setProjectileTexture(TextureManager * tm) 
 {
 	if (!projectile.initialize(gamePtr, 0, 0, 0, tm)) {
 		throw GameError(gameErrorNS::FATAL_ERROR, "Error initializing projectile image");
