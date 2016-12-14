@@ -229,7 +229,7 @@ void StructureManager::sell(int x, int y)
 {
 	if (!isOccupied(x, y)) return;
 	Structure* toSell = grid.atPixelCoords(x, y);
-	if (toSell->getType() == StructureTypes::base && toSell->getType() == StructureTypes::permWall) return;
+	if (toSell->getType() == StructureTypes::base || toSell->getType() == StructureTypes::permWall) return;
 	gameState->addCurrency(toSell->getPrice()*2/3);
 	Audio* audio = game->getAudio();
 	audio->playCue(ENERGY);
