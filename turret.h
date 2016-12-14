@@ -12,7 +12,7 @@ namespace turretNS {
 	const float TIME_BETWEEN_SHOTS = 0.2f; // in seconds
 	const float ROTATE_SPEED = 0.0f; // radians per second
 	const int STARTING_HEALTH = 175;
-	const int DAMAGE = 7;
+	const int DAMAGE = 3;
 }
 
 class Turret : public Structure

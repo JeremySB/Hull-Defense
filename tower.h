@@ -9,14 +9,14 @@ namespace towerNS {
 	const float RANGE = 300.0f;
 
 	const float PROJECTILE_DURATION = 0.12f; // in seconds
-	const float PROJECTILE_SPEED = 500.0f;
-	const float PROJECTILE_IMAGE_SCALE = 1;
-	const float PROJECTILE_COLLISION_RADIUS = 10;
+	const float PROJECTILE_SPEED = 700.0f;
+	const float PROJECTILE_IMAGE_SCALE = 0.7f;
+	const float PROJECTILE_COLLISION_RADIUS = 15;
 
-	const float TIME_BETWEEN_SHOTS = 1.0f;//0.3f; // in seconds
+	const float TIME_BETWEEN_SHOTS = 1.4f;//0.3f; // in seconds
 	const float ROTATE_SPEED = 0.5f; // radians per second
 	const int STARTING_HEALTH = 600;
-	const int DAMAGE = 50;
+	const int DAMAGE = 40;
 	const float GUN_FRAME_DELAY = 0.08f;
 	const int GUN_FRAME_START = 0;
 	const int GUN_FRAME_END = 4;
