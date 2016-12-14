@@ -41,13 +41,29 @@ void HullDefense::initialize(HWND hwnd)
 	waves.initialize(&enemyManager);
 	
 	audio->playCue(BACKGROUND);
-	// background texture
+	// background1 texture
 	if (!backgroundTexture.initialize(graphics, BACKGROUND_IMAGE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background texture"));
 
-	// background image
+	// background1 image
 	if (!background.initialize(graphics, 0, 0, 0, &backgroundTexture))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background"));
+	//
+	// background2 texture
+	if (!background2Texture.initialize(graphics, BACKGROUND_IMAGE2))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background2 texture"));
+
+	// background2 image
+	if (!background2.initialize(graphics, 0, 0, 0, &background2Texture))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background2"));
+	//
+	// background3 texture
+	if (!background3Texture.initialize(graphics, BACKGROUND_IMAGE3))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background3 texture"));
+
+	// background3 image
+	if (!background3.initialize(graphics, 0, 0, 0, &background3Texture))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background3"));
 	//
 	// main menu texture
 	if (!mainmenuTexture.initialize(graphics, MAIN_MENU))
@@ -64,6 +80,7 @@ void HullDefense::initialize(HWND hwnd)
 	// background image
 	if (!instruction0.initialize(graphics, 0, 0, 0, &instruction0Texture))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background"));
+
 	//
 	// INSTRUCTION1 texture
 	if (!instruction1Texture.initialize(graphics, INSTRUCTION1))
@@ -127,8 +144,6 @@ void HullDefense::initialize(HWND hwnd)
 	// 18 pixel high Arial
 	if(dxFont->initialize(graphics, 18, true, false, "Arial") == false)
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing DirectX font"));
-
-	//transitionImage.setVisible(false);
 
 	return;
 }
@@ -320,7 +335,6 @@ void HullDefense::render()
 {
 	graphics->spriteBegin();                // begin drawing sprites
 
-	background.draw();
 	dxFont->setFontColor(graphicsNS::ORANGE);
 
 	GameState::GamePhase phase = gameState.getGamePhase();
@@ -346,6 +360,7 @@ void HullDefense::render()
 		break;
 
 	case GameState::level1Play:
+		background.draw();
 		waves.update(frameTime);
 		structureManager.draw();
 		enemyManager.draw();
@@ -358,6 +373,7 @@ void HullDefense::render()
 		break;
 
 	case GameState::level2Play:
+		background2.draw();
 		structureManager.draw();
 		enemyManager.draw();
 		particleManager.draw();
@@ -369,6 +385,7 @@ void HullDefense::render()
 		break;
 
 	case GameState::level3Play:
+		background3.draw();
 		structureManager.draw();
 		enemyManager.draw();
 		particleManager.draw();
@@ -422,6 +439,8 @@ void HullDefense::releaseAll()
 	losescreenTexture.onLostDevice();
 	wavecompleteTexture.onLostDevice();
 	backgroundTexture.onLostDevice();
+	background2Texture.onLostDevice();
+	background3Texture.onLostDevice();
 
 	transitionTexture.onLostDevice();
 
@@ -456,6 +475,8 @@ void HullDefense::resetAll()
 	losescreenTexture.onResetDevice();
 	wavecompleteTexture.onResetDevice();
 	backgroundTexture.onResetDevice();
+	background2Texture.onResetDevice();
+	background3Texture.onResetDevice();
 
 	transitionTexture.onResetDevice();
 

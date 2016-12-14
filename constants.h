@@ -47,7 +47,9 @@ const int MAX_PARTICLES = 1000;
 
 
 // graphic images
-const char BACKGROUND_IMAGE[] = "pictures\\background1DAN.png";  // background
+const char BACKGROUND_IMAGE[] = "pictures\\background4DAN.png";  // background
+const char BACKGROUND_IMAGE2[] = "pictures\\background2DAN.png";  // background
+const char BACKGROUND_IMAGE3[] = "pictures\\background3DAN.png";  // background
 const char BASE_IMAGE[] = "pictures\\baseDANIEL.png";
 const char WALL_IMAGE[] = "pictures\\wallJEREMY.png";
 const char TURRET_BASE_IMAGE[] = "pictures\\turretBaseDANIEL.png";

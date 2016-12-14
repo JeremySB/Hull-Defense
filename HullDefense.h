@@ -32,7 +32,7 @@ private:
 	// instruction textures
 	TextureManager instruction0Texture, instruction1Texture, instruction2Texture;
 	// other screen textures
-	TextureManager winscreenTexture,losescreenTexture,wavecompleteTexture, backgroundTexture, loadingscreenTexture, transitionTexture; // textures
+	TextureManager winscreenTexture,losescreenTexture,wavecompleteTexture, backgroundTexture, background2Texture, background3Texture, loadingscreenTexture, transitionTexture; // textures
 	StructureManager structureManager;
 	ParticleManager particleManager;
     Waves waves;
@@ -41,6 +41,8 @@ private:
     EnemyManager enemyManager;
 	GameMenu gameMenu;
     Image   background;         // background image
+	Image   background2;         // background image
+	Image   background3;         // background image
 	Image   mainmenu;
 	Image   instruction0;
 	Image   instruction1;
