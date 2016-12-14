@@ -132,6 +132,7 @@ void ParticleManager::addSmoke(VECTOR2 center, VECTOR2 vel, float scale, float t
 	for (int i = 0; i < MAX_PARTICLES; i++) {
 		if (!particles[i]->getActive())
 		{
+			vel = VECTOR2(vel.x + 5*getVariance(), vel.y + 5 * getVariance());
 			particles[i]->initialize(graphics, 256, 256, 6, &smokeTM);
 			particles[i]->setFrames(0, 29);
 			particles[i]->setFrameDelay(timeToLive / 30.0);
