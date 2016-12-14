@@ -99,6 +99,7 @@
     <ClCompile Include="gameState.cpp" />
     <ClCompile Include="graphics.cpp" />
     <ClCompile Include="inputDialog.cpp" />
+    <ClCompile Include="mainMenu.cpp" />
     <ClCompile Include="messageDialog.cpp" />
     <ClCompile Include="net.cpp" />
     <ClCompile Include="particle.cpp" />
@@ -140,6 +141,7 @@
     <ClInclude Include="heavyEnemy.h" />
     <ClInclude Include="inputDialog.h" />
     <ClInclude Include="lightEnemy.h" />
+    <ClInclude Include="mainMenu.h" />
     <ClInclude Include="mediumEnemy.h" />
     <ClInclude Include="messageDialog.h" />
     <ClInclude Include="net.h" />

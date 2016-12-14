@@ -41,8 +41,6 @@ private:
 	TextDX *objDescriptionFont;
 	COLOR_ARGB normalColor;
 	Audio *audio;
-
-	//TextDX ckfont;
 	
 	std::string healthStr;
 	std::string energyStr;
