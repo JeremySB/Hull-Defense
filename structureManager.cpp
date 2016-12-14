@@ -147,7 +147,6 @@ void StructureManager::update(float frameTime)
 
 	if (input->getMouseLButton()) lastLMBState = true;
 	else lastLMBState = false;
-    placedThisFrame = grid.getChanged();
 }
 
 bool StructureManager::addBase(int x, int y, bool gridCoords)
