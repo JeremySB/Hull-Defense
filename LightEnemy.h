@@ -8,7 +8,7 @@ public:
     LightEnemy() {
         speed = 100;
         value = 30;
-        health = 100;
+        health = 70;
         damage = 30;
         targeting = baseTarget;
         colorFilter = SETCOLOR_ARGB(255,0,0,125);

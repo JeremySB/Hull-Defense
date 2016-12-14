@@ -67,6 +67,23 @@ void ParticleManager::addPhotonExplosion(int centerX, int centerY, float scale, 
 	}
 }
 
+void ParticleManager::addEnemyDeath(Entity *source){
+	int i;
+	for (i = 0; i < MAX_PARTICLES && particles[i]->getActive(); i++);
+	if(particles[i]->getActive())
+		return;
+	particles[i]->initialize(graphics, 256, 256, 8, &photonExplosionTM);
+	particles[i]->setFrames(0, 15);
+	//particles[i]->setFrameDelay();
+	particles[i]->setCurrentFrame(0);
+	particles[i]->setScale(.5);
+	particles[i]->setLoop(false);
+	particles[i]->setTimeToLive(1);
+	particles[i]->setX(source->getCenterX() - particles[i]->getWidth() * particles[i]->getScale() / 2);
+	particles[i]->setY(source->getCenterY() - particles[i]->getHeight() * particles[i]->getScale() / 2);
+	particles[i]->setActive(true);
+}
+
 float ParticleManager::getVariance()
 {
 	float foo = (rand());

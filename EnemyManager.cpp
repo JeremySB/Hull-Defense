@@ -106,7 +106,7 @@ void EnemyManager::updateChildren(float frameTime){
         children[i]->update(frameTime);
         if (children[i]->getHealth() <= 0) {
             if(typeid(*children[i]) == typeid(PregnantEnemy)){
-                for(int i = 0; i < 5; i++){
+                for(int i = 0; i < 7; i++){
                     float tmp = (rand() % 100)/100.0f ;
                     this->spawn = VECTOR2(children[i]->getX(), children[i]->getY()) + VECTOR2( CELL_WIDTH * tmp, CELL_HEIGHT * (1-tmp));
                     this->addChild(new BabyEnemy);
@@ -131,15 +131,13 @@ void EnemyManager::updateStructures(){
         while (!tmp.empty()) {
             Structure *front = tmp.front();
             tmp.pop_front();
-            if(front->getType() != permWall){
-			    if (front->getType() != permWall &&
-                    (strongest == nullptr || strongest->getType() == StructureTypes::base ||
-                    (front->getType() != StructureTypes::base && front->getHealth() / front->getMaxHealth() > strongest->getHealth() / strongest->getMaxHealth())))
+			if(front->getType() != permWall && front->getType() != wall){
+			    if (strongest == nullptr || strongest->getType() == StructureTypes::base ||
+                    (front->getType() != StructureTypes::base && front->getHealth() / front->getMaxHealth() > strongest->getHealth() / strongest->getMaxHealth()))
                     strongest = front;
 
-			    if (front -> getType() != permWall && 
-                    (!weakest || weakest->getType() == StructureTypes::base  ||
-                    (front->getType() != StructureTypes::base && front->getHealth() / front->getMaxHealth() < weakest->getHealth() / weakest->getMaxHealth())))
+			    if (!weakest || weakest->getType() == StructureTypes::base  ||
+                    (front->getType() != StructureTypes::base && front->getHealth() / front->getMaxHealth() < weakest->getHealth() / weakest->getMaxHealth()))
                     weakest = front;
 
                 if(front->getType() == StructureTypes::base)

@@ -7,7 +7,7 @@ class MediumEnemy : public Enemy {
 public:
     MediumEnemy() {
         speed = 75;
-        value = 50;
+        value = 45;
         health = 150;
         damage = 50;
         targeting = strongestTarget;

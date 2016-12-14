@@ -19,7 +19,8 @@ public:
 	void draw();
 
 	void addPhotonExplosion(int centerX, int centerY, float scale, float timeToLive);
-
+	void addEnemyDeath(Entity *source);
+	void addStructurePlacement(Entity *source);
 	float getVariance();
 
 	void onLostDevice();
@@ -27,6 +28,7 @@ public:
 
 private:
 	TextureManager photonExplosionTM;
+	TextureManager enemyDeathTexture;
 	Particle** particles;
 	Graphics* graphics;
 };

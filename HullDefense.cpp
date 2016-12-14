@@ -167,6 +167,7 @@ void HullDefense::update()
 		structureManager.loadLevel(1);
 		gameState.setCurrency(1500);
 		gameState.setGamePhase(GameState::level1Play);
+		gameState.setCurrency(700);
 		enemyManager.reset();
         enemyManager.updateStructures();
 		break;
@@ -195,6 +196,7 @@ void HullDefense::update()
 		structureManager.loadLevel(2);
 		gameState.setCurrency(1500);
 		gameState.setGamePhase(GameState::level2Play);
+		gameState.setCurrency(1000);
 		enemyManager.reset();
         enemyManager.updateStructures();
 		break;
