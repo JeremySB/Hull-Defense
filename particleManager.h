@@ -34,7 +34,7 @@ public:
 	void onResetDevice();
 
 private:
-	TextureManager enemyDeathTexture;
+	TextureManager enemyBloodTM;
 	TextureManager photonExplosionTM, smokeTM, genericExplosionTM;
 	Particle** particles;
 	Graphics* graphics;

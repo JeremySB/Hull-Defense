@@ -25,7 +25,7 @@ void Enemy::update(float frameTime){
     setFrames(0,0);
     setCurrentFrame(0);
 	VECTOR2 distance = *this->getCenter() - this->path.top();
-	if ( pow(distance.x,2)+pow(distance.y,2) < 10){
+	if ( pow(distance.x,2)+pow(distance.y,2) < 1000){
         path.pop();
         if(this->path.empty())
             return;

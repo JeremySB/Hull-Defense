@@ -17,7 +17,7 @@ public:
 	EnemyManager();
 	~EnemyManager();
 
-    void initialize(Game* game, StructureGrid* grid,GameState* state,Audio* audio);
+	void initialize(Game* game, StructureGrid* grid,GameState* state,Audio* audio, ParticleManager* particleMan);
 
 	std::list<Enemy*> getChildren();
 	void addChild(Enemy *toAdd);
@@ -45,6 +45,7 @@ private:
     Structure *strongest, *weakest, *base;
 	unsigned int numChildren;
 	PathFinding pathFinder;
+	ParticleManager* particleMan;
 	Audio* audio;
     VECTOR2 spawn;
 };

@@ -16,10 +16,11 @@ void EnemyManager::reset(){
     pathFinder.updateMap();
 }
 
-void EnemyManager::initialize(Game* game,StructureGrid* grid, GameState* state,Audio* audio){
+void EnemyManager::initialize(Game* game,StructureGrid* grid, GameState* state,Audio* audio, ParticleManager *particleMan){
     this->game = game;
 	this->audio = audio;
 	this->state = state;
+	this->particleMan = particleMan;
 
     if (!enemyTexture.initialize(game->getGraphics(), ENEMY_IMAGE))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing enemy"));
@@ -74,6 +75,7 @@ void EnemyManager::removeChild(Enemy* toRemove){
 	for(int i = 0; i < numChildren || (deleted && i+1 < numChildren); i++){
 		if(children[i] == toRemove){
             state->addCurrency(children[i]->getValue());
+			particleMan->addEnemyDeath(children[i]);
 			delete children[i];
 			audio->playCue(SQUISH);
             numChildren--;
@@ -107,7 +109,7 @@ void EnemyManager::updateChildren(float frameTime){
         children[i]->update(frameTime);
         if (children[i]->getHealth() <= 0) {
             if(typeid(*children[i]) == typeid(PregnantEnemy)){
-                for(int i = 0; i < 7; i++){
+                for(int j = 0; j < 7; j++){
                     float tmp = (rand() % 100)/100.0f ;
                     this->spawn = VECTOR2(children[i]->getX(), children[i]->getY()) + VECTOR2( CELL_WIDTH * tmp, CELL_HEIGHT * (1-tmp));
                     this->addChild(new BabyEnemy);
