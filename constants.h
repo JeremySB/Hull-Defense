@@ -66,6 +66,8 @@ const char GOOD_SELECTION_IMAGE[] = "pictures\\goodSelectionJEREMY.png";
 const char ENEMY_IMAGE[] = "pictures\\EnemyAttack.png";//"pictures\\EnemyTemp.png";
 const char HEALTHBAR_IMAGE[] = "pictures\\Healthbar.png";
 const char SMOKE_PARTICLE[] = "pictures\\smokeParticlesJEREMY.png";
+const char HEALTH_IMAGE[] = "pictures\\heart.png";
+const char ENERGY_IMAGE[] = "pictures\\energy.png";
 
 // intro images
 const char MAIN_MENU[] = "pictures\\mainScreenDANIEL.png";
