@@ -113,13 +113,15 @@ void HullDefense::initialize(HWND hwnd)
 	if (!loadingscreen.initialize(graphics, 0, 0, 0, &loadingscreenTexture))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing loading screen"));
 
+	// transition texture
+	if (!transitionTexture.initialize(graphics, TRANSITION_SCREEN))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background texture"));
+	
 	// transition menu image
 	if (!transitionImage.initialize(graphics, 0, 0, 0, &transitionTexture))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing loading screen"));
 
-	// transition texture
-	if (!transitionTexture.initialize(graphics, TRANSITION_SCREEN))
-		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background texture"));
+	
 
 	// initialize DirectX font
 	// 18 pixel high Arial
@@ -220,11 +222,7 @@ void HullDefense::update()
 			enemyManager.findPaths();
 		}
 		if (waves.complete() && enemyManager.getNumChildren() == 0)
-<<<<<<< Updated upstream
-			gameState.setGamePhase(GameState::level3Init);
-=======
 			gameState.setGamePhase(GameState::transition);
->>>>>>> Stashed changes
 		if (structureManager.getBaseHealth() <= 0)
 			gameState.setGamePhase(GameState::lost);
 		break;
