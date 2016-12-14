@@ -124,11 +124,17 @@ void StructureManager::update(float frameTime)
 			(*iter)->update(frameTime);
 			if ((*iter)->getHealth() <= 0)
 			{
+				// death effects
+				if ((*iter)->getType() == StructureTypes::photonCannon)
+				{
+					particleManager->addPhotonExplosion((*iter)->getCenterX(), (*iter)->getCenterY(), 0.84, 0.8);
+				}
 				grid.removeAtPixelCoords((*iter)->getX()+1, (*iter)->getY() + 1);
 				placedThisFrame = true;
 			}
 			else if (particleTimer >= PARTICLE_SPAWN_TIME)
 			{
+				// damage effects
 				if ((*iter)->getHealth() <= (*iter)->getMaxHealth() * 2 / 3 
 					&& (*iter)->getType() != StructureTypes::wall && (*iter)->getType() != StructureTypes::permWall)
 				{

@@ -11,6 +11,7 @@ StructureGrid::StructureGrid(void) : structures((int)(GAME_WIDTH / CELL_WIDTH) +
 
 	maxX = (int)(GAME_WIDTH / CELL_WIDTH);
 	maxY = (int)(GAME_HEIGHT / CELL_HEIGHT) - 1;
+	modifiedThisFrame = true;
 }
 
 

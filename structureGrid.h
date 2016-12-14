@@ -50,7 +50,11 @@ public:
 	int pixelXLoc(int gridLoc);
 	int pixelYLoc(int gridLoc);
 
-    bool getChanged(){return modifiedThisFrame;};
+    bool getChanged(){
+		bool temp = modifiedThisFrame;
+		modifiedThisFrame = false;
+		return temp;
+	};
 
 private:
 	float cellWidth, cellHeight;
