@@ -254,8 +254,11 @@ void HullDefense::update()
 		break;
 
 	case GameState::transition:
-		
-		if(!input->getMouseLButton() && lastClickState && (input->getMouseX()>0 && input->getMouseX()<GAME_WIDTH/3)){
+		if (!input->getMouseLButton() && lastClickState
+			&& (input->getMouseX()>0 && input->getMouseX() <= 55) && (input->getMouseY()>0 && input->getMouseY() <= 25)) {
+			gameState.setGamePhase(GameState::intro);
+		}
+		else if (!input->getMouseLButton() && lastClickState && (input->getMouseX() > 0 && input->getMouseX() < GAME_WIDTH / 3)) {
 			gameState.setGamePhase(GameState::level1Init);
 		}else if(!input->getMouseLButton() && lastClickState && (input->getMouseX()>(GAME_WIDTH/3) && input->getMouseX()<2*(GAME_WIDTH/3))){
 			gameState.setGamePhase(GameState::level2Init);
