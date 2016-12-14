@@ -2,14 +2,14 @@
 
 #pragma once
 #include "structure.h"
-#include "enemy.h"
+#include "enemy.h" 
 #include "graphics.h"
 #include "particleManager.h"
 
 namespace photonCannonNS {
 	const int	PRICE = 600;
 	const float RANGE = 300.0f;
-	const float TIME_BETWEEN_SHOTS = 1.8f;
+	const float TIME_BETWEEN_SHOTS = 1.2f;
 	const float ROTATE_SPEED = 0.5f; // radians per second
 	const int	STARTING_HEALTH = 600;
 	const int	DAMAGE = 30;

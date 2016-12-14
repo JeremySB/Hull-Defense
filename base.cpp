@@ -22,3 +22,9 @@ bool Base::initialize(Game * gamePtr, int widthInGrid, int heightInGrid, int nco
 	setCollisionRadius(getWidth() / 2.0);
 	return result;
 }
+
+void Base::setupHealthbar(TextureManager * healthbarTexture)
+{
+	Structure::setupHealthbar(healthbarTexture);
+	healthbar.setScale(.25);
+}

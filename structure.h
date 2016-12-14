@@ -24,7 +24,7 @@ public:
 
 	void setHealth(float health);
     
-    void setupHealthbar(TextureManager * healthbarTexture);
+    virtual void setupHealthbar(TextureManager * healthbarTexture);
     void drawHealthbar();
 	// give structure one target to attack. Not all implement this
 	virtual void attackTarget(Entity* target) {}

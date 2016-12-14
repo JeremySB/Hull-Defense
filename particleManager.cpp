@@ -23,6 +23,7 @@ ParticleManager::~ParticleManager()
 
 void ParticleManager::initialize(Graphics * graphics, Game * game)
 {
+	// Note: add all texture managers to the listTM list, and they'll auto resetOnLost and all that
 	this->graphics = graphics;
 	photonExplosionTM.initialize(graphics, PHOTON_CANNON_PROJECTILE_EXPLOSION);
 	listTM.push_back(&photonExplosionTM);
