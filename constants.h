@@ -48,7 +48,9 @@ const float PARTICLE_SPAWN_TIME = 0.05;
 
 
 // graphic images
-const char BACKGROUND_IMAGE[] = "pictures\\background1DAN.png";  // background
+const char BACKGROUND_IMAGE[] = "pictures\\background4DAN.png";  // background
+const char BACKGROUND_IMAGE2[] = "pictures\\background2DAN.png";  // background
+const char BACKGROUND_IMAGE3[] = "pictures\\background3DAN.png";  // background
 const char BASE_IMAGE[] = "pictures\\baseDANIEL.png";
 const char WALL_IMAGE[] = "pictures\\wallJEREMY.png";
 const char TURRET_BASE_IMAGE[] = "pictures\\turretBaseDANIEL.png";
@@ -65,6 +67,8 @@ const char GOOD_SELECTION_IMAGE[] = "pictures\\goodSelectionJEREMY.png";
 const char ENEMY_IMAGE[] = "pictures\\EnemyAttack.png";//"pictures\\EnemyTemp.png";
 const char HEALTHBAR_IMAGE[] = "pictures\\Healthbar.png";
 const char SMOKE_PARTICLE[] = "pictures\\smokeParticlesJEREMY.png";
+const char HEALTH_IMAGE[] = "pictures\\heart.png";
+const char ENERGY_IMAGE[] = "pictures\\energy.png";
 
 // intro images
 const char MAIN_MENU[] = "pictures\\mainScreenDANIEL.png";
@@ -82,6 +86,7 @@ const char WALLMENU_IMAGE[] = "pictures\\sellmenuDANIEL.png";
 const char DEFMENU_IMAGE[] = "pictures\\menuDefaultDANIEL.png";
 const char FONT_IMAGE[]	= "pictures\\CKfont.png";
 const char LOADING_SCREEN[] = "pictures\\loadingScreen.png";
+const char TRANSITION_SCREEN[] = "pictures\\transitionDANIEL.png";
 
 // menu
 const int TABS_WIDTH = 140;

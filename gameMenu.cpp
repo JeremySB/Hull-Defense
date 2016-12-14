@@ -53,6 +53,14 @@ void GameMenu::initialize(Graphics* graphics, Game* game, Input* input, Audio* a
     if (!defmenuTexture.initialize(graphics,DEFMENU_IMAGE))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing def menu texture"));
 
+	// def texture
+    if (!healthTexture.initialize(graphics,HEALTH_IMAGE))
+        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing health texture"));
+
+	// def texture
+    if (!energyTexture.initialize(graphics,ENERGY_IMAGE))
+        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing energy texture"));
+
 	// tower menu
 	if (!towerMenu.initialize(graphics, 0, 0, 0, &towermenuTexture))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing tower menu"));
@@ -68,6 +76,14 @@ void GameMenu::initialize(Graphics* graphics, Game* game, Input* input, Audio* a
 	// def menu
 	if (!defMenu.initialize(graphics, 0, 0, 0, &defmenuTexture))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing Default menu"));
+
+	// def menu
+	if (!energyImage.initialize(graphics, 0, 0, 0, &energyTexture))
+        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing Default energy"));
+
+	// def menu
+	if (!healthImage.initialize(graphics, 0, 0, 0, &healthTexture))
+        throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing Default health"));
 	
 	towerMenu.setX(0);
 	towerMenu.setY(GAME_HEIGHT-towerMenu.getHeight());
@@ -84,6 +100,9 @@ void GameMenu::initialize(Graphics* graphics, Game* game, Input* input, Audio* a
 	sellMenu.setVisible(false);
 	repairMenu.setVisible(false);
 	defMenu.setVisible(true);
+
+	energyImage.setScale(.11);
+	healthImage.setScale(.20);
 }
 
 void GameMenu::update(float frameTime){
@@ -184,6 +203,13 @@ void GameMenu::update(float frameTime){
 		sellMenu.setVisible(false);
 		defMenu.setVisible(false);
 		menuActive = false;
+	}else if (gameState->getSelectionMode() == GameState::transition) {
+		tranMenu.setVisible(true);
+		towerMenu.setVisible(false);
+		repairMenu.setVisible(false);
+		sellMenu.setVisible(false);
+		defMenu.setVisible(false);
+		menuActive = false;
 	}
 	else {
 		towerMenu.setVisible(false);
@@ -202,6 +228,8 @@ void GameMenu::draw(){
 	sellMenu.draw();
 	repairMenu.draw();
 	defMenu.draw();
+	healthImage.draw();
+	energyImage.draw();
 	display();
 }
 
@@ -210,6 +238,8 @@ void GameMenu::onLostDevice(){
 	turretmenuTexture.onLostDevice();
 	wallmenuTexture.onLostDevice();
 	defmenuTexture.onLostDevice();
+	healthTexture.onLostDevice();
+	energyTexture.onLostDevice();
 }
 
 void GameMenu::onResetDevice(){
@@ -217,14 +247,28 @@ void GameMenu::onResetDevice(){
 	turretmenuTexture.onResetDevice();
 	wallmenuTexture.onResetDevice();
 	defmenuTexture.onResetDevice();
+	healthTexture.onResetDevice();
+	energyTexture.onResetDevice();
 }
 
 void GameMenu::display(){
 	//setCur(+1);
-	currencyStr = "Energy: " + std::to_string(gameState->getCurrency()) + " - Base Health: " + std::to_string(gameState->getHealth());
+	energyStr = std::to_string(gameState->getCurrency());
+	healthStr = std::to_string(gameState->getHealth());
+
 	if(menuActive){
-		currencyFont->print(currencyStr,GAME_WIDTH-MENU_RIGHT_WIDTH,GAME_HEIGHT-towerMenu.getHeight());
+		healthImage.setX(GAME_WIDTH-MENU_RIGHT_WIDTH+10);
+		healthImage.setY(GAME_HEIGHT-towerMenu.getHeight()+4);
+		energyImage.setX(GAME_WIDTH-MENU_RIGHT_WIDTH + 125);
+		energyImage.setY(GAME_HEIGHT-towerMenu.getHeight()+3);
+		currencyFont->print(healthStr,GAME_WIDTH-MENU_RIGHT_WIDTH + 35,GAME_HEIGHT-towerMenu.getHeight()+4);
+		currencyFont->print(energyStr,GAME_WIDTH-MENU_RIGHT_WIDTH + 150,GAME_HEIGHT-towerMenu.getHeight()+4);
 	}else{
-		currencyFont->print(currencyStr,GAME_WIDTH-MENU_RIGHT_WIDTH,GAME_HEIGHT-22);
+		healthImage.setX(GAME_WIDTH-MENU_RIGHT_WIDTH + 10);
+		healthImage.setY(GAME_HEIGHT-22);
+		energyImage.setX(GAME_WIDTH-MENU_RIGHT_WIDTH + 125);
+		energyImage.setY(GAME_HEIGHT-23);
+		currencyFont->print(healthStr,GAME_WIDTH-MENU_RIGHT_WIDTH + 35,GAME_HEIGHT-23);
+		currencyFont->print(energyStr,GAME_WIDTH-MENU_RIGHT_WIDTH + 150,GAME_HEIGHT-23);
 	}
 }
