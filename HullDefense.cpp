@@ -137,9 +137,19 @@ void HullDefense::update()
 			if(input->getMouseX()>GAME_WIDTH/2){
 				gameState.setGamePhase(GameState::instructions);
 			}else{
-				gameState.setGamePhase(GameState::level1Init);
+				//gameState.setGamePhase(GameState::level1Init);
+                gameState.setGamePhase(GameState::level1Init);
 			}
 		}
+        if(input->isKeyDown('1')){
+            gameState.setGamePhase(GameState::level1Init);
+        }
+        if (input->isKeyDown('2')) {
+            gameState.setGamePhase(GameState::level2Init);
+        }
+        if (input->isKeyDown('3')) {
+            gameState.setGamePhase(GameState::level3Init);
+        }
 		break;
 
 	case GameState::instructions:
@@ -170,59 +180,25 @@ void HullDefense::update()
 		gameState.setGamePhase(GameState::level1Play);
 		break;
 
-	case GameState::level1Play:
-		structureManager.update(frameTime);
-		particleManager.update(frameTime);
-		gameMenu.update(frameTime);
-		
-		waves.update(frameTime);
-
-		enemyManager.updateChildren(frameTime);
-		enemies = enemyManager.getChildren();
-		if (structureManager.getPlacedThisFrame()) {
-			enemyManager.findPaths();
-		} 
-		if (waves.complete() && enemyManager.getNumChildren() == 0)
-			gameState.setGamePhase(GameState::level2Init);
-		if (structureManager.getBaseHealth() <= 0)
-			gameState.setGamePhase(GameState::lost);
-		break;
-
 	case GameState::level2Init:
 		enemies = enemyManager.getChildren();
 		waves.loadWaves(LEVEL2WAVEFILE);
 		structureManager.loadLevel(2);
 		gameState.setCurrency(1500);
+        enemyManager.reset();
 		gameState.setGamePhase(GameState::level2Play);
-		enemyManager.reset();
-		break;
-
-	case GameState::level2Play:
-		structureManager.update(frameTime);
-		particleManager.update(frameTime);
-		gameMenu.update(frameTime);
-		waves.update(frameTime);
-
-		enemyManager.updateChildren(frameTime);
-		if (structureManager.getPlacedThisFrame()) {
-			enemyManager.findPaths();
-		}
-		if (waves.complete() && enemyManager.getNumChildren() == 0)
-			gameState.setGamePhase(GameState::won);
-		if (structureManager.getBaseHealth() <= 0)
-			gameState.setGamePhase(GameState::lost);
 		break;
 
 	case GameState::level3Init:
 		enemies = enemyManager.getChildren();
 		waves.loadWaves(LEVEL3WAVEFILE);
-		structureManager.reset();
-		gameState.setCurrency(1500);
-		structureManager.addBase(400, 200);
+        structureManager.loadLevel(3);
+        gameState.setCurrency(1500);
         enemyManager.reset();
-		gameState.setGamePhase(GameState::level2Play);
+		gameState.setGamePhase(GameState::level3Play);
 		break;
-
+    case GameState::level1Play:
+    case GameState::level2Play:
 	case GameState::level3Play:
 		structureManager.update(frameTime);
 		particleManager.update(frameTime);
@@ -323,29 +299,16 @@ void HullDefense::render()
 		loadingscreen.draw();
 		break;
 
-	case GameState::level1Play:
-		waves.update(frameTime);
-		structureManager.draw();
-		enemyManager.draw();
-		particleManager.draw();
-		gameMenu.draw();
-		break;
-
 	case GameState::level2Init:
 		loadingscreen.draw();
-		break;
-
-	case GameState::level2Play:
-		structureManager.draw();
-		enemyManager.draw();
-		particleManager.draw();
-		gameMenu.draw();
 		break;
 
 	case GameState::level3Init:
 		loadingscreen.draw();
 		break;
 
+    case GameState::level1Play:
+    case GameState::level2Play:
 	case GameState::level3Play:
 		structureManager.draw();
 		enemyManager.draw();

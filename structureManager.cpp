@@ -109,14 +109,17 @@ void StructureManager::collisions(std::list<Enemy*> entities)
 
 void StructureManager::update(float frameTime)
 {
-    placedThisFrame = !input->getMouseLButton() && lastLMBState;
-	if (grid.update(frameTime)) { // grid's update returns true if something was deleted because low health
-		placedThisFrame = true;
-	}
+    placedThisFrame = false;
+    //placedThisFrame = !input->getMouseLButton() && lastLMBState;
+	//if (grid.update(frameTime)) { // grid's update returns true if something was deleted because low health
+	grid.update(frameTime);
+    //placedThisFrame = grid.getChanged();
+	//}
 	selection();
 
 	if (input->getMouseLButton()) lastLMBState = true;
 	else lastLMBState = false;
+    placedThisFrame = grid.getChanged();
 }
 
 bool StructureManager::addBase(int x, int y, bool gridCoords)

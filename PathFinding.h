@@ -5,35 +5,58 @@
 #define _PATH_FINDING_
 #include <stack>
 #include "structureGrid.h"
+#include "structureManager.h"
 #include <queue>
 
-struct Tile {
-    VECTOR2 coordinates;
-    float weight;
+
+enum TileState  {Empty, OpenSet, ClosedSet};
+struct INTVECTOR2{
+    INTVECTOR2(int x,int y):x(x),y(y){}
+    INTVECTOR2():x(0),y(0){}
+    int x,y;
 };
+
+struct Tile {
+    Tile():parent(nullptr),set(Empty),g(std::numeric_limits<float>::infinity()),h(0),f(0){}
+    INTVECTOR2 coordinates;
+    float g,h,f;
+    Tile* parent;
+    TileState set;
+    StructureTypes modifier;
+};
+
+struct Target {
+    INTVECTOR2 coordinates;
+    StructureTypes type;
+};
+
 class less {
 public:
-    bool operator()(const Tile left, const Tile right) {
-        return (left.weight > right.weight);
+    bool operator()(const Tile* left, const Tile* right) {
+        return (left->f > right->f);
     }
 
 };
 class PathFinding {
 public:
+    PathFinding();
 	~PathFinding();
     std::stack<VECTOR2> backstep();
 	std::stack<VECTOR2> findPath(Entity* from, Entity* to);
-    bool nextStep(Entity* target);
-    void discoverAdjacent(Tile parent, Entity* to);
+    bool nextStep();
+    void discoverAdjacent(Tile* parent);
 	void loadMap(StructureGrid *map);
     void updateMap();
-	Tile generateTile(VECTOR2 coor, Entity* to,float parentWeight);
+	Tile* updateTile(INTVECTOR2 coor, float g,Tile* parent);
+    void PathFinding::resetValues();
 
 private:
-	std::priority_queue<Tile,std::vector<Tile>,less> discovered;
+    Tile* getBestOpen();
+    Tile* last;
+	//std::priority_queue<Tile*,std::vector<Tile *>,less> openSet;
     StructureGrid* grid;
-	int **map;
-    std::stack<Tile> path;
-
+    //Entity *to;
+    Target tar;
+    Tile map[GRID_WIDTH][GRID_HEIGHT];
 };
 #endif
