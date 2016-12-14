@@ -43,7 +43,7 @@ const float MIN_FRAME_RATE = 10.0f;             // the minimum frame rate
 const float MIN_FRAME_TIME = 1.0f/FRAME_RATE;   // minimum desired time for 1 frame
 const float MAX_FRAME_TIME = 1.0f/MIN_FRAME_RATE; // maximum time used in calculations
 const double PI = 3.14159265;
-const int MAX_PARTICLES = 1000;
+const int MAX_PARTICLES = 10000;
 const float PARTICLE_SPAWN_TIME = 0.05;
 
 
@@ -67,6 +67,7 @@ const char GOOD_SELECTION_IMAGE[] = "pictures\\goodSelectionJEREMY.png";
 const char ENEMY_IMAGE[] = "pictures\\EnemyAttack.png";//"pictures\\EnemyTemp.png";
 const char HEALTHBAR_IMAGE[] = "pictures\\Healthbar.png";
 const char SMOKE_PARTICLE[] = "pictures\\smokeParticlesJEREMY.png";
+const char GENERIC_EXPLOSION[] = "pictures\\genericExplosionJEREMY.png";
 const char HEALTH_IMAGE[] = "pictures\\heart.png";
 const char ENERGY_IMAGE[] = "pictures\\energy.png";
 

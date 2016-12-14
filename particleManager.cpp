@@ -29,6 +29,9 @@ void ParticleManager::initialize(Graphics * graphics, Game * game)
 
 	smokeTM.initialize(graphics, SMOKE_PARTICLE);
 	listTM.push_back(&smokeTM);
+
+	genericExplosionTM.initialize(graphics, GENERIC_EXPLOSION);
+	listTM.push_back(&genericExplosionTM);
 }
 
 void ParticleManager::update(float frameTime)
@@ -57,6 +60,28 @@ void ParticleManager::reset()
 		if (particles[i]->getActive())
 		{
 			particles[i]->setActive(false);
+		}
+	}
+}
+
+void ParticleManager::addGenericExplosion(VECTOR2 center, float scale, float timeToLive)
+{
+	for (int i = 0; i < MAX_PARTICLES; i++) {
+		if (!particles[i]->getActive())
+		{
+			particles[i]->initialize(graphics, 64, 64, 4, &genericExplosionTM);
+			particles[i]->setFrames(0, 15);
+			particles[i]->setFrameDelay(timeToLive / 16.0);
+			particles[i]->setColorFilter(D3DCOLOR_ARGB(128, 255, 255, 255));
+			particles[i]->setCurrentFrame(0);
+			particles[i]->setScale(scale);
+			particles[i]->setVelocity(VECTOR2(0, 0));
+			particles[i]->setLoop(false);
+			particles[i]->setTimeToLive(timeToLive);
+			particles[i]->setX(center.x - particles[i]->getWidth() * particles[i]->getScale() / 2);
+			particles[i]->setY(center.y - particles[i]->getHeight() * particles[i]->getScale() / 2);
+			particles[i]->setActive(true);
+			break;
 		}
 	}
 }
