@@ -69,17 +69,18 @@ void ParticleManager::addGenericExplosion(VECTOR2 center, float scale, float tim
 	for (int i = 0; i < MAX_PARTICLES; i++) {
 		if (!particles[i]->getActive())
 		{
-			particles[i]->initialize(graphics, 64, 64, 4, &genericExplosionTM);
-			particles[i]->setFrames(0, 15);
-			particles[i]->setFrameDelay(timeToLive / 16.0);
-			particles[i]->setColorFilter(D3DCOLOR_ARGB(128, 255, 255, 255));
+			float offset = 30;
+			particles[i]->initialize(graphics, 128, 128, 8, &genericExplosionTM);
+			particles[i]->setFrames(0, 63);
+			particles[i]->setFrameDelay(timeToLive / 64.0);
+			particles[i]->setColorFilter(D3DCOLOR_ARGB(255, 255, 255, 255));
 			particles[i]->setCurrentFrame(0);
 			particles[i]->setScale(scale);
 			particles[i]->setVelocity(VECTOR2(0, 0));
 			particles[i]->setLoop(false);
 			particles[i]->setTimeToLive(timeToLive);
-			particles[i]->setX(center.x - particles[i]->getWidth() * particles[i]->getScale() / 2);
-			particles[i]->setY(center.y - particles[i]->getHeight() * particles[i]->getScale() / 2);
+			particles[i]->setX(center.x - (particles[i]->getWidth()) * particles[i]->getScale() / 2);
+			particles[i]->setY(center.y - (particles[i]->getHeight() + offset) * particles[i]->getScale() / 2);
 			particles[i]->setActive(true);
 			break;
 		}

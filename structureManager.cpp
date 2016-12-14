@@ -129,6 +129,14 @@ void StructureManager::update(float frameTime)
 				{
 					particleManager->addPhotonExplosion((*iter)->getCenterX(), (*iter)->getCenterY(), 0.84, 0.8);
 				}
+				else if ((*iter)->getType() == StructureTypes::tower)
+				{
+					particleManager->addGenericExplosion(*(*iter)->getCenter(), 1.2, 1);
+				}
+				else if ((*iter)->getType() == StructureTypes::turret)
+				{
+					particleManager->addGenericExplosion(*(*iter)->getCenter(), 0.7, 1);
+				}
 				grid.removeAtPixelCoords((*iter)->getX()+1, (*iter)->getY() + 1);
 				placedThisFrame = true;
 			}
