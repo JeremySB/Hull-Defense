@@ -32,7 +32,7 @@ private:
 	// instruction textures
 	TextureManager instruction0Texture, instruction1Texture, instruction2Texture;
 	// other screen textures
-	TextureManager winscreenTexture,losescreenTexture,wavecompleteTexture, backgroundTexture, loadingscreenTexture; // textures
+	TextureManager winscreenTexture,losescreenTexture,wavecompleteTexture, backgroundTexture, background2Texture, background3Texture, loadingscreenTexture, transitionTexture; // textures
 	StructureManager structureManager;
 	ParticleManager particleManager;
     Waves waves;
@@ -45,6 +45,7 @@ private:
 	Image   instruction0;
 	Image   instruction1;
 	Image   instruction2;
+	Image   transitionImage;
 	Image   winscreen;
 	Image   losescreen;
 	Image   wavecomplete;

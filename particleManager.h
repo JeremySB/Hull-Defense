@@ -22,7 +22,10 @@ public:
 	// set all particles to inactive
 	void reset();
 
+	void addGenericExplosion(VECTOR2 center, float scale, float timeToLive);
 	void addPhotonExplosion(int centerX, int centerY, float scale, float timeToLive);
+	void addEnemyDeath(Entity *source);
+	void addStructurePlacement(Entity *source);
 	void addSmoke(VECTOR2 center, VECTOR2 vel, float scale, float timeToLive);
 
 	float getVariance();
@@ -31,7 +34,8 @@ public:
 	void onResetDevice();
 
 private:
-	TextureManager photonExplosionTM, smokeTM;
+	TextureManager enemyDeathTexture;
+	TextureManager photonExplosionTM, smokeTM, genericExplosionTM;
 	Particle** particles;
 	Graphics* graphics;
 	std::list<TextureManager*> listTM; // add pointers to all texture managers to this for easy onLostDevice, etc

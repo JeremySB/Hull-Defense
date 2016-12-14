@@ -6,7 +6,7 @@ class HeavyEnemy : public Enemy {
 public:
     HeavyEnemy(){
         speed = 50;
-        value = 100;
+        value = 75;
         health = 200;
         damage = 20;
         targeting = weakestTarget;

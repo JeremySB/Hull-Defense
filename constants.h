@@ -43,12 +43,14 @@ const float MIN_FRAME_RATE = 10.0f;             // the minimum frame rate
 const float MIN_FRAME_TIME = 1.0f/FRAME_RATE;   // minimum desired time for 1 frame
 const float MAX_FRAME_TIME = 1.0f/MIN_FRAME_RATE; // maximum time used in calculations
 const double PI = 3.14159265;
-const int MAX_PARTICLES = 1000;
+const int MAX_PARTICLES = 10000;
 const float PARTICLE_SPAWN_TIME = 0.05;
 
 
 // graphic images
-const char BACKGROUND_IMAGE[] = "pictures\\background1DAN.png";  // background
+const char BACKGROUND_IMAGE[] = "pictures\\background4DAN.png";  // background
+const char BACKGROUND_IMAGE2[] = "pictures\\background2DAN.png";  // background
+const char BACKGROUND_IMAGE3[] = "pictures\\background3DAN.png";  // background
 const char BASE_IMAGE[] = "pictures\\baseDANIEL.png";
 const char WALL_IMAGE[] = "pictures\\wallJEREMY.png";
 const char TURRET_BASE_IMAGE[] = "pictures\\turretBaseDANIEL.png";
@@ -56,7 +58,7 @@ const char TURRET_GUN_IMAGE[] = "pictures\\turretGunDANIEL.png";
 const char TURRET_PROJECTILE_IMAGE[] = "pictures\\turretProjectileJEREMY2.png";
 const char TOWER_BASE_IMAGE[] = "pictures\\towerBaseJEREMY.png";
 const char TOWER_GUN_IMAGE[] = "pictures\\towerGunJEREMY.png";
-const char TOWER_PROJECTILE_IMAGE[] = "pictures\\turretProjectileJEREMY2.png";
+const char TOWER_PROJECTILE_IMAGE[] = "pictures\\towerProjectileJEREMY.png";
 const char PHOTON_CANNON_BASE_IMAGE[] = "pictures\\photonCannonBaseJEREMY.png";
 const char PHOTON_CANNON_GUN_IMAGE[] = "pictures\\photonCannonGunJEREMY.png";
 const char PHOTON_CANNON_PROJECTILE_IMAGE[] = "pictures\\photonCannonProjectileJEREMY.png";
@@ -65,6 +67,9 @@ const char GOOD_SELECTION_IMAGE[] = "pictures\\goodSelectionJEREMY.png";
 const char ENEMY_IMAGE[] = "pictures\\EnemyAttack.png";//"pictures\\EnemyTemp.png";
 const char HEALTHBAR_IMAGE[] = "pictures\\Healthbar.png";
 const char SMOKE_PARTICLE[] = "pictures\\smokeParticlesJEREMY.png";
+const char GENERIC_EXPLOSION[] = "pictures\\genericExplosionJEREMY.png";
+const char HEALTH_IMAGE[] = "pictures\\heart.png";
+const char ENERGY_IMAGE[] = "pictures\\energy.png";
 
 // intro images
 const char MAIN_MENU[] = "pictures\\mainScreenDANIEL.png";
@@ -82,6 +87,7 @@ const char WALLMENU_IMAGE[] = "pictures\\sellmenuDANIEL.png";
 const char DEFMENU_IMAGE[] = "pictures\\menuDefaultDANIEL.png";
 const char FONT_IMAGE[]	= "pictures\\CKfont.png";
 const char LOADING_SCREEN[] = "pictures\\loadingScreen.png";
+const char TRANSITION_SCREEN[] = "pictures\\transitionDANIEL.png";
 
 // menu
 const int TABS_WIDTH = 140;

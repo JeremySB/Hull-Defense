@@ -87,7 +87,7 @@ void StructureManager::collisions(std::list<Enemy*> entities)
 	//entities.remove(NULL);
 	for (auto structure = structures.begin(); structure != structures.end(); structure++) {
 		// check if structure takes multiple enemies
-		if ((*structure)->getType() == photonCannon)
+		if ((*structure)->getType() == photonCannon || (*structure)->getType() == tower)
 		{
 			(*structure)->attackTargets(entities);
 			continue;
@@ -128,6 +128,14 @@ void StructureManager::update(float frameTime)
 				if ((*iter)->getType() == StructureTypes::photonCannon)
 				{
 					particleManager->addPhotonExplosion((*iter)->getCenterX(), (*iter)->getCenterY(), 0.84, 0.8);
+				}
+				else if ((*iter)->getType() == StructureTypes::tower)
+				{
+					particleManager->addGenericExplosion(*(*iter)->getCenter(), 1.2, 1);
+				}
+				else if ((*iter)->getType() == StructureTypes::turret)
+				{
+					particleManager->addGenericExplosion(*(*iter)->getCenter(), 0.7, 1);
 				}
 				grid.removeAtPixelCoords((*iter)->getX()+1, (*iter)->getY() + 1);
 				placedThisFrame = true;
@@ -170,7 +178,7 @@ bool StructureManager::addBase(int x, int y, bool gridCoords)
 
 	Base* base = new Base();
 	base->initialize(game, 4, 4, 0, &baseTexture);
-    //base->setupHealthbar(&healthbarTexture);
+    base->setupHealthbar(&healthbarTexture);
 	if (!grid.addAtGridCoords(base, xGrid, yGrid)) return false;
 
 	return true;
@@ -285,6 +293,14 @@ void StructureManager::repair(int x, int y)
 	gameState->setSelectionMode(GameState::normal);
 }
 
+bool StructureManager::canRepair(int x, int y)
+{
+	if (!isOccupied(x, y)) return false;
+	Structure* toRepair = grid.atPixelCoords(x, y);
+	if (toRepair->getType() == StructureTypes::base || toRepair->getType() == StructureTypes::permWall || toRepair->getPrice() / 2 > gameState->getCurrency()) return false;
+	return true;
+}
+
 void StructureManager::loadLevel(int x)
 {
 	reset();
@@ -299,6 +315,8 @@ void StructureManager::loadLevel(int x)
 			addPermWall(28, 9); addPermWall(28, 8); addPermWall(28, 3); addPermWall(28, 2); addPermWall(28, 0); addPermWall(28, 1); addPermWall(8, 23); addPermWall(28, 6); addPermWall(28, 7); addPermWall(7, 23); addPermWall(28, 12); addPermWall(29, 12); addPermWall(30, 12); addPermWall(31, 12); addPermWall(34, 12); addPermWall(35, 12); addPermWall(36, 12); addPermWall(37, 12); addPermWall(40, 12); addPermWall(41, 12); addPermWall(42, 12); addPermWall(43, 12); addPermWall(8, 23); addPermWall(31, 2); addPermWall(31, 3); addPermWall(31, 5); addPermWall(31, 6); addPermWall(31, 4); addPermWall(7, 23); addPermWall(31, 8); addPermWall(31, 9); addPermWall(31, 10); addPermWall(32, 10); addPermWall(33, 10); addPermWall(34, 10); addPermWall(37, 10); addPermWall(38, 10); addPermWall(39, 10); addPermWall(40, 10);
 			break;
 		case 3:
+			addBase(19, 9);
+			addPermWall(19, 7); addPermWall(20, 7); addPermWall(21, 7); addPermWall(22, 7); addPermWall(18, 7); addPermWall(23, 7); addPermWall(23, 14); addPermWall(22, 14); addPermWall(21, 14); addPermWall(20, 14); addPermWall(19, 14); addPermWall(18, 14); addPermWall(24, 7); addPermWall(17, 7); addPermWall(24, 14); addPermWall(17, 14); addPermWall(14, 7); addPermWall(14, 8); addPermWall(14, 9); addPermWall(14, 14); addPermWall(14, 13); addPermWall(14, 12); addPermWall(27, 14); addPermWall(27, 13); addPermWall(27, 12); addPermWall(27, 7); addPermWall(27, 8); addPermWall(27, 9);
 			break;
 	}
 }
@@ -397,6 +415,43 @@ void StructureManager::selection()
 	}
 	else if (mode == GameState::repair && !input->getMouseLButton() && lastLMBState) {
 		repair(x, y);
+	}
+
+	// default to green
+	goodSelectionImage.setColorFilter(graphicsNS::WHITE);
+
+	switch (mode)
+	{
+	case GameState::wallSelection:
+		if (gameState->getCurrency() < wallNS::PRICE)
+		{
+			goodSelectionImage.setColorFilter(graphicsNS::RED);
+		}
+		break;
+	case GameState::towerSelection:
+		if (gameState->getCurrency() < towerNS::PRICE)
+		{
+			goodSelectionImage.setColorFilter(graphicsNS::RED);
+		}
+		break;
+	case GameState::photonCannonSelection:
+		if (gameState->getCurrency() < photonCannonNS::PRICE)
+		{
+			goodSelectionImage.setColorFilter(graphicsNS::RED);
+		}
+		break;
+	case GameState::turretSelection:
+		if (gameState->getCurrency() < turretNS::PRICE)
+		{
+			goodSelectionImage.setColorFilter(graphicsNS::RED);
+		}
+		break;
+	case GameState::repair:
+		if (!canRepair(x, y))
+		{
+			goodSelectionImage.setColorFilter(graphicsNS::RED);
+		}
+		break;
 	}
 
 	// add green highlight if good selection

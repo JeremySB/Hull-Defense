@@ -53,6 +53,7 @@ public:
 
 	void sell(int x, int y);
 	void repair(int x, int y);
+	bool canRepair(int x, int y);
 
 	// resets and loads structures for levels 1 to 3
 	void loadLevel(int x); 
