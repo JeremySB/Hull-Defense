@@ -1,7 +1,7 @@
 // Created by Samuel Casteel
 #include "Waves.h"
 
-Waves::Waves():betweenWaves(true),currentWave(0),timeBetweenWaves(10),timePassed(0){}
+Waves::Waves():betweenWaves(true),currentWave(0),timeBetweenWaves(1),timePassed(0){}
 
 Waves::~Waves(){}
 

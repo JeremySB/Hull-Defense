@@ -8,6 +8,7 @@ StructureManager::StructureManager()
 {
 	lastLMBState = false;
     placedThisFrame = false;
+	particleTimer = 0;
 }
 
 
@@ -109,11 +110,46 @@ void StructureManager::collisions(std::list<Enemy*> entities)
 
 void StructureManager::update(float frameTime)
 {
-    placedThisFrame = !input->getMouseLButton() && lastLMBState;
+	particleTimer += frameTime;
+	
+	placedThisFrame = !input->getMouseLButton() && lastLMBState;
+	/*
 	if (grid.update(frameTime)) { // grid's update returns true if something was deleted because low health
 		placedThisFrame = true;
 	}
+	*/
+	std::list<Structure*> structureList = grid.getStructures();
+	for (auto iter = structureList.begin(); iter != structureList.end(); iter++) {
+		if (*iter) {
+			(*iter)->update(frameTime);
+			if ((*iter)->getHealth() <= 0)
+			{
+				// death effects
+				if ((*iter)->getType() == StructureTypes::photonCannon)
+				{
+					particleManager->addPhotonExplosion((*iter)->getCenterX(), (*iter)->getCenterY(), 0.84, 0.8);
+				}
+				grid.removeAtPixelCoords((*iter)->getX()+1, (*iter)->getY() + 1);
+				placedThisFrame = true;
+			}
+			else if (particleTimer >= PARTICLE_SPAWN_TIME)
+			{
+				// damage effects
+				if ((*iter)->getHealth() <= (*iter)->getMaxHealth() * 2 / 3 
+					&& (*iter)->getType() != StructureTypes::wall && (*iter)->getType() != StructureTypes::permWall)
+				{
+					particleManager->addSmoke(*(*iter)->getCenter(), VECTOR2(10, -20), 0.25, 2);
+				}
+			}
+		}
+	}
+
+	if (particleTimer >= PARTICLE_SPAWN_TIME) // if reached 1 second, reset
+	{
+		particleTimer = 0;
+	}
 	selection();
+	
 
 	if (input->getMouseLButton()) lastLMBState = true;
 	else lastLMBState = false;
@@ -229,7 +265,7 @@ void StructureManager::sell(int x, int y)
 {
 	if (!isOccupied(x, y)) return;
 	Structure* toSell = grid.atPixelCoords(x, y);
-	if (toSell->getType() == StructureTypes::base && toSell->getType() == StructureTypes::permWall) return;
+	if (toSell->getType() == StructureTypes::base || toSell->getType() == StructureTypes::permWall) return;
 	gameState->addCurrency(toSell->getPrice()*2/3);
 	Audio* audio = game->getAudio();
 	audio->playCue(ENERGY);
@@ -247,6 +283,14 @@ void StructureManager::repair(int x, int y)
 	audio->playCue(PLACEMENT);
 	toRepair->repair();
 	gameState->setSelectionMode(GameState::normal);
+}
+
+bool StructureManager::canRepair(int x, int y)
+{
+	if (!isOccupied(x, y)) return false;
+	Structure* toRepair = grid.atPixelCoords(x, y);
+	if (toRepair->getType() == StructureTypes::base || toRepair->getType() == StructureTypes::permWall || toRepair->getPrice() / 2 > gameState->getCurrency()) return false;
+	return true;
 }
 
 void StructureManager::loadLevel(int x)
@@ -361,6 +405,43 @@ void StructureManager::selection()
 	}
 	else if (mode == GameState::repair && !input->getMouseLButton() && lastLMBState) {
 		repair(x, y);
+	}
+
+	// default to green
+	goodSelectionImage.setColorFilter(graphicsNS::WHITE);
+
+	switch (mode)
+	{
+	case GameState::wallSelection:
+		if (gameState->getCurrency() < wallNS::PRICE)
+		{
+			goodSelectionImage.setColorFilter(graphicsNS::RED);
+		}
+		break;
+	case GameState::towerSelection:
+		if (gameState->getCurrency() < towerNS::PRICE)
+		{
+			goodSelectionImage.setColorFilter(graphicsNS::RED);
+		}
+		break;
+	case GameState::photonCannonSelection:
+		if (gameState->getCurrency() < photonCannonNS::PRICE)
+		{
+			goodSelectionImage.setColorFilter(graphicsNS::RED);
+		}
+		break;
+	case GameState::turretSelection:
+		if (gameState->getCurrency() < turretNS::PRICE)
+		{
+			goodSelectionImage.setColorFilter(graphicsNS::RED);
+		}
+		break;
+	case GameState::repair:
+		if (!canRepair(x, y))
+		{
+			goodSelectionImage.setColorFilter(graphicsNS::RED);
+		}
+		break;
 	}
 
 	// add green highlight if good selection

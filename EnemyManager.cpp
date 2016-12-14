@@ -12,6 +12,8 @@ void EnemyManager::reset(){
         children[i] = nullptr;
     }
     numChildren = 0;
+    updateStructures();
+    pathFinder.updateMap();
 }
 
 void EnemyManager::initialize(Game* game,StructureGrid* grid, GameState* state,Audio* audio){
@@ -22,7 +24,7 @@ void EnemyManager::initialize(Game* game,StructureGrid* grid, GameState* state,A
     if (!enemyTexture.initialize(game->getGraphics(), ENEMY_IMAGE))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing enemy"));
     setGrid(grid);
-    updateStructures();
+
 }
 
 
@@ -96,7 +98,7 @@ void EnemyManager::updateChildren(float frameTime){
     for( int i = 0; i < numChildren; i++){
         std::list<Structure*> tmp = bob;
         while(!tmp.empty()){
-            if(children[i]->collidesWith(*tmp.front(),VECTOR2())){
+            if(tmp.front() -> getType() != permWall && children[i]->collidesWith(*tmp.front(),VECTOR2())){
                 tmp.front()->damage(children[i]->getDamage() * frameTime);
                 children[i]->collidedThisFrame();
                 break;

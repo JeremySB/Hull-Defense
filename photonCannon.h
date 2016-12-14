@@ -27,7 +27,7 @@ namespace photonCannonNS {
 
 	const float	PROJECTILE_EXPLOSION_RADIUS = 25.0f;
 	const float PROJECTILE_EXPLOSION_IMAGE_SCALE = 0.5f;
-	const float PROJECTILE_EXPLOSION_DURATION = 0.6f;
+	const float PROJECTILE_EXPLOSION_DURATION = 0.3f;
 }
 
 class PhotonCannon : public Structure

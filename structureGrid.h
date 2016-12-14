@@ -39,7 +39,7 @@ public:
 
 	void draw();
 
-	// call update on structures in frame
+	// deprecated
 	bool update(float frameTime);
 
 	std::list<Structure*> getStructures();
@@ -50,11 +50,17 @@ public:
 	int pixelXLoc(int gridLoc);
 	int pixelYLoc(int gridLoc);
 
+    bool getChanged(){
+		bool temp = modifiedThisFrame;
+		modifiedThisFrame = false;
+		return temp;
+	};
+
 private:
 	float cellWidth, cellHeight;
 	std::vector< std::vector<Structure*> > structures;
 	std::list<Structure*> structureList; // used for draw(), update(), etc. Points to things also in the structures vector
-
+    bool modifiedThisFrame;
 	int maxX, maxY;
 	std::list<std::pair<int, int>> temp;
 };

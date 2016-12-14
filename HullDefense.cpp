@@ -41,13 +41,23 @@ void HullDefense::initialize(HWND hwnd)
 	waves.initialize(&enemyManager);
 	
 	audio->playCue(BACKGROUND);
-	// background texture
+	// background1 texture
 	if (!backgroundTexture.initialize(graphics, BACKGROUND_IMAGE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background texture"));
 
 	// background image
 	if (!background.initialize(graphics, 0, 0, 0, &backgroundTexture))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background"));
+	//
+	// background2 texture
+	if (!background2Texture.initialize(graphics, BACKGROUND_IMAGE2))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background2 texture"));
+	
+	//
+	// background3 texture
+	if (!background3Texture.initialize(graphics, BACKGROUND_IMAGE3))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background3 texture"));
+
 	//
 	// main menu texture
 	if (!mainmenuTexture.initialize(graphics, MAIN_MENU))
@@ -64,6 +74,7 @@ void HullDefense::initialize(HWND hwnd)
 	// background image
 	if (!instruction0.initialize(graphics, 0, 0, 0, &instruction0Texture))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background"));
+
 	//
 	// INSTRUCTION1 texture
 	if (!instruction1Texture.initialize(graphics, INSTRUCTION1))
@@ -113,6 +124,16 @@ void HullDefense::initialize(HWND hwnd)
 	if (!loadingscreen.initialize(graphics, 0, 0, 0, &loadingscreenTexture))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing loading screen"));
 
+	// transition texture
+	if (!transitionTexture.initialize(graphics, TRANSITION_SCREEN))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background texture"));
+	
+	// transition menu image
+	if (!transitionImage.initialize(graphics, 0, 0, 0, &transitionTexture))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing loading screen"));
+
+	
+
 	// initialize DirectX font
 	// 18 pixel high Arial
 	if(dxFont->initialize(graphics, 18, true, false, "Arial") == false)
@@ -129,7 +150,7 @@ void HullDefense::update()
 	std::list<Enemy*> enemies;
 
 	gameState.setHealth(structureManager.getBaseHealth());
-
+    //float frameTime = this->frameTime * 2;
 	switch (gameState.getGamePhase())
 	{
 	case GameState::intro:
@@ -137,9 +158,19 @@ void HullDefense::update()
 			if(input->getMouseX()>GAME_WIDTH/2){
 				gameState.setGamePhase(GameState::instructions);
 			}else{
-				gameState.setGamePhase(GameState::level1Init);
+				//gameState.setGamePhase(GameState::level1Init);
+                gameState.setGamePhase(GameState::transition);
 			}
 		}
+        if(input->isKeyDown('1')){
+            gameState.setGamePhase(GameState::level1Init);
+        }
+        if (input->isKeyDown('2')) {
+            gameState.setGamePhase(GameState::level2Init);
+        }
+        if (input->isKeyDown('3')) {
+            gameState.setGamePhase(GameState::level3Init);
+        }
 		break;
 
 	case GameState::instructions:
@@ -165,69 +196,47 @@ void HullDefense::update()
 		enemies = enemyManager.getChildren();
 		waves.loadWaves(LEVEL1WAVEFILE);
 		structureManager.loadLevel(1);
+		particleManager.reset();
 		gameState.setCurrency(1500);
+        enemyManager.reset();
+
+		if (!background.initialize(graphics, 0, 0, 0, &backgroundTexture))
+			throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background"));
+
 		gameState.setGamePhase(GameState::level1Play);
-		gameState.setCurrency(700);
-		enemyManager.reset();
-        enemyManager.updateStructures();
-		break;
-
-	case GameState::level1Play:
-		structureManager.update(frameTime);
-		particleManager.update(frameTime);
-		gameMenu.update(frameTime);
-		
-		waves.update(frameTime);
-
-		enemyManager.updateChildren(frameTime);
-		enemies = enemyManager.getChildren();
-		if (structureManager.getPlacedThisFrame()) {
-			enemyManager.findPaths();
-		} 
-		if (waves.complete() && enemyManager.getNumChildren() == 0)
-			gameState.setGamePhase(GameState::level2Init);
-		if (structureManager.getBaseHealth() <= 0)
-			gameState.setGamePhase(GameState::lost);
 		break;
 
 	case GameState::level2Init:
 		enemies = enemyManager.getChildren();
 		waves.loadWaves(LEVEL2WAVEFILE);
 		structureManager.loadLevel(2);
+		particleManager.reset();
 		gameState.setCurrency(1500);
+        enemyManager.reset();
+
+		if (!background.initialize(graphics, 0, 0, 0, &background2Texture))
+			throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background"));
+
 		gameState.setGamePhase(GameState::level2Play);
-		gameState.setCurrency(1000);
-		enemyManager.reset();
-        enemyManager.updateStructures();
-		break;
-
-	case GameState::level2Play:
-		structureManager.update(frameTime);
-		particleManager.update(frameTime);
-		gameMenu.update(frameTime);
-		waves.update(frameTime);
-
-		enemyManager.updateChildren(frameTime);
-		if (structureManager.getPlacedThisFrame()) {
-			enemyManager.findPaths();
-		}
-		if (waves.complete() && enemyManager.getNumChildren() == 0)
-			gameState.setGamePhase(GameState::won);
-		if (structureManager.getBaseHealth() <= 0)
-			gameState.setGamePhase(GameState::lost);
 		break;
 
 	case GameState::level3Init:
 		enemies = enemyManager.getChildren();
 		waves.loadWaves(LEVEL3WAVEFILE);
-		enemyManager.reset();
-		structureManager.reset();
+        structureManager.loadLevel(3);
+        gameState.setCurrency(1500);
+		particleManager.reset();
 		gameState.setCurrency(1500);
-		structureManager.addBase(400, 200);
-        enemyManager.updateStructures();
-		gameState.setGamePhase(GameState::level2Play);
-		break;
+		structureManager.addBase(400, 200, false);
+        enemyManager.reset();
 
+		if (!background.initialize(graphics, 0, 0, 0, &background3Texture))
+			throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background"));
+
+		gameState.setGamePhase(GameState::level3Play);
+		break;
+    case GameState::level1Play:
+    case GameState::level2Play:
 	case GameState::level3Play:
 		structureManager.update(frameTime);
 		particleManager.update(frameTime);
@@ -246,17 +255,24 @@ void HullDefense::update()
 
 	case GameState::transition:
 		
+		if(!input->getMouseLButton() && lastClickState && (input->getMouseX()>0 && input->getMouseX()<GAME_WIDTH/3)){
+			gameState.setGamePhase(GameState::level1Init);
+		}else if(!input->getMouseLButton() && lastClickState && (input->getMouseX()>(GAME_WIDTH/3) && input->getMouseX()<2*(GAME_WIDTH/3))){
+			gameState.setGamePhase(GameState::level2Init);
+		}else if(!input->getMouseLButton() && lastClickState && (input->getMouseX()>2*(GAME_WIDTH/3) && input->getMouseX()<GAME_WIDTH)){
+			gameState.setGamePhase(GameState::level3Init);
+		}
 		break;
 
 	case GameState::won:
 		if (!input->getMouseLButton() && lastClickState) {
-			gameState.setGamePhase(GameState::intro);
+			gameState.setGamePhase(GameState::transition);
 		}
 		break;
 
 	case GameState::lost:
 		if (!input->getMouseLButton() && lastClickState) {
-			gameState.setGamePhase(GameState::intro);
+			gameState.setGamePhase(GameState::transition);
 		}
 		break;
 
@@ -303,7 +319,6 @@ void HullDefense::render()
 {
 	graphics->spriteBegin();                // begin drawing sprites
 
-	background.draw();
 	dxFont->setFontColor(graphicsNS::ORANGE);
 
 	GameState::GamePhase phase = gameState.getGamePhase();
@@ -328,30 +343,18 @@ void HullDefense::render()
 		loadingscreen.draw();
 		break;
 
-	case GameState::level1Play:
-		waves.update(frameTime);
-		structureManager.draw();
-		enemyManager.draw();
-		particleManager.draw();
-		gameMenu.draw();
-		break;
-
 	case GameState::level2Init:
 		loadingscreen.draw();
-		break;
-
-	case GameState::level2Play:
-		structureManager.draw();
-		enemyManager.draw();
-		particleManager.draw();
-		gameMenu.draw();
 		break;
 
 	case GameState::level3Init:
 		loadingscreen.draw();
 		break;
 
+    case GameState::level1Play:
+    case GameState::level2Play:
 	case GameState::level3Play:
+		background.draw();
 		structureManager.draw();
 		enemyManager.draw();
 		particleManager.draw();
@@ -359,6 +362,7 @@ void HullDefense::render()
 		break;
 
 	case GameState::transition:
+		transitionImage.draw();
 		break;
 
 	case GameState::won:
@@ -404,6 +408,10 @@ void HullDefense::releaseAll()
 	losescreenTexture.onLostDevice();
 	wavecompleteTexture.onLostDevice();
 	backgroundTexture.onLostDevice();
+	background2Texture.onLostDevice();
+	background3Texture.onLostDevice();
+
+	transitionTexture.onLostDevice();
 
 	Game::releaseAll();
 	return;
@@ -436,6 +444,10 @@ void HullDefense::resetAll()
 	losescreenTexture.onResetDevice();
 	wavecompleteTexture.onResetDevice();
 	backgroundTexture.onResetDevice();
+	background2Texture.onResetDevice();
+	background3Texture.onResetDevice();
+
+	transitionTexture.onResetDevice();
 
 	Game::resetAll();
 	return;

@@ -3,139 +3,156 @@
 #include <iostream>
 
 //#include "Display.h"
-PathFinding::~PathFinding(){
-	for( int x = 0; x < GRID_WIDTH; x++){
-		delete[] map[x];
-	}
-	delete[] map;
+
+PathFinding::PathFinding(){
+    for (int x = 0; x < GRID_WIDTH; x++) {
+        for (int y = 0; y < GRID_HEIGHT; y++) {
+            map[x][y] = Tile();
+            map[x][y].coordinates = INTVECTOR2(x, y);
+            map[x][y].modifier = StructureTypes::none;
+        }
+    }
 }
+PathFinding::~PathFinding(){
+}
+
+void PathFinding::resetValues(){
+    last = nullptr;
+    for(int x = 0; x < GRID_WIDTH; x++){
+        for(int y = 0; y < GRID_HEIGHT; y++){
+            map[x][y].set = Empty;
+            map[x][y].g = std::numeric_limits<float>::infinity();
+        }
+    }
+}
+
 std::stack<VECTOR2>  PathFinding::backstep() {
 	// the stack to return
     std::stack<VECTOR2> ret;
     // the starting point of our list
 	VECTOR2 tmp;
-	//path.pop();
-
-    // goes through the path we found earlier
-	while (!path.empty()) {
-		// makes sure the tiles are only one away from eachother
-		Tile top = path.top();
-        tmp = VECTOR2((int)(top.coordinates.x * CELL_WIDTH) + CELL_WIDTH / 2,
-                (int)(top.coordinates.y * CELL_HEIGHT) + CELL_HEIGHT / 2);
-		if (ret.empty() || 
-			( abs((int)tmp.x - (int)ret.top().x) <= CELL_WIDTH) &&
-			( abs((int)tmp.y - (int)ret.top().y) <= CELL_HEIGHT)) {
-
-            ret.push(tmp);
-        }
-		this->map[(int) top.coordinates.x][(int) top.coordinates.y] = abs(this->map[(int) top.coordinates.x][(int) top.coordinates.y]);
-        this->path.pop();
+    Tile* top = getBestOpen();
+    while(top){
+        VECTOR2 tmp = VECTOR2((top->coordinates.x * CELL_WIDTH) + CELL_WIDTH / 2,
+            (top->coordinates.y * CELL_HEIGHT) + CELL_HEIGHT / 2);
+        ret.push(tmp);
+        top = top->parent;
     }
-	
-	while(!discovered.empty()){
-		Tile top = discovered.top();
-		discovered.pop();
-		this->map[(int)top.coordinates.x][(int)top.coordinates.y] = abs(this->map[(int)top.coordinates.x][(int)top.coordinates.y]);
-
-	}
-    ret.pop();
+    // goes through the path we found earlier
+    if(!ret.empty())
+        ret.pop();
     return ret;
-}
-
-Tile PathFinding::generateTile(VECTOR2 coor, Entity* to,float parentWeight){
-    Tile tmp;
-
-	tmp.coordinates.y=coor.y;
-    tmp.coordinates.x=coor.x;
-
-    tmp.weight = pow(((int)coor.y) - (int)(to->getCenterY()/CELL_HEIGHT ), 2);
-	tmp.weight += pow(((int)coor.x ) - (int)(to->getCenterX() / CELL_WIDTH), 2);
-    tmp.weight *= this->map[(int) coor.x][(int) coor.y] * PATHFINDING_MODIFIER;
-	this->map[(int)coor.x][(int)coor.y] *= -1;
-    
-	return tmp;
 }
 
 
 std::stack<VECTOR2> PathFinding::findPath(Entity* from, Entity* to) {
-	while(!discovered.empty())
-		discovered.pop();
+    tar.coordinates.x = (to->getCenterX() / CELL_WIDTH);
+    tar.coordinates.y = (to->getCenterY() / CELL_HEIGHT);
+    resetValues();
 	int x =(int)(from->getCenterX() / CELL_WIDTH);
 	int y = (int)(from->getCenterY() / CELL_HEIGHT);
-	this->discovered.push(generateTile( VECTOR2(x, y), to,0 ));
 
-    int counter = 0;
-	while(!nextStep(to))
-        counter++;
+	Tile* start = updateTile(INTVECTOR2(x, y), 0, nullptr);
+
+    start->g = 0;
+
+	while(!nextStep());
 	return backstep();
 }
 
-bool PathFinding::nextStep(Entity* to){
+bool PathFinding::nextStep(){
 	// if the list of discovered values is empty you cannot reach your to
-	if(discovered.empty()){
-		//throw GameError::exception("Could not find path");
-		return true;
-	}
 	// we get the lowest cost tile off of the queue
-    Tile prev=discovered.top();
-	discovered.pop();
-	// we push it onto the path list that we have
-    this->path.push(prev);
-	// if the weight is 0 we have reached our target
-    if(prev.weight==0){
+    Tile* current = getBestOpen();
+    if(!current)
         return true;
-    }
-    discoverAdjacent(prev,to);
+    else if(current->h == 0)
+        return true;
+
+    current->set = ClosedSet;
+
+    //this->map[(int)current->coordinates.x][(int)current->coordinates.x].set = Empty;
+	// we push it onto the path list that we have
+	// if the weight is 0 we have reached our target
+
+    discoverAdjacent(current);
     return false;
 }
 
-void PathFinding::discoverAdjacent(Tile parent,Entity* to){
+Tile* PathFinding::updateTile(INTVECTOR2 coor, float g, Tile* parent) {//float parentWeight){
+    Tile* tmp = &map[coor.x][coor.y];
+    tmp->set = OpenSet;
+    tmp->parent = parent;
+    tmp->g = 0;
+    tmp->h = 0;
+    tmp->f = 0;
+    tmp->g = g;
+    tmp->h = sqrt( pow(coor.y - tar.coordinates.y, 2) + pow(coor.x  - tar.coordinates.x, 2));
+    tmp->f = tmp->h + tmp->g;
+
+    return tmp;
+}
+
+void PathFinding::discoverAdjacent(Tile* parent){
 	// discover all adjacent tiles
-	VECTOR2 coor = parent.coordinates;
+	INTVECTOR2 coor = parent->coordinates;
 	for(int x = (coor.x-1 < 0 ? 0 : coor.x-1); x <= coor.x + 1 && x < GRID_WIDTH; x++){
 		for(int y = (coor.y-1 < 0 ? 0 : coor.y-1); y <= coor.y + 1 && y < GRID_HEIGHT; y++){
 			// if the tile has been discovered in the past it is negated and so is skipped here
-			if(map[x][y] > 0 && map[x][y] != permWall){
+			if(map[x][y].set != ClosedSet  && map[x][y].modifier != permWall){
 				int ydiff = coor.y - y;
 				int xdiff = coor.x - x;
-				// if we are on one of the cardinal directions we just add them to the path
-				if((x == coor.x && y != coor.y) || (y == coor.y && x != coor.x)){
-					this->discovered.push(generateTile(VECTOR2(x, y), to, parent.weight));
-				}
-				// this handles diagnals so that we will not collide with objects to the sides
-				else if (abs(map[x + xdiff][y]) == 1 && abs(map[x][y + ydiff]) == 1){
-					this->discovered.push(generateTile(VECTOR2(x, y), to, parent.weight));
+
+                float tmpg = (abs(ydiff)+abs(xdiff) == 2 ? 1.25 : 1) * map[x][y].modifier + parent->g;
+
+                // if we are on one of the cardinal directions we just add them to the path
+				if( 
+                    (x == coor.x && y != coor.y) || 
+                    (y == coor.y && x != coor.x) || 
+                    ( map[x + xdiff][y].modifier == none && map[x][y + ydiff].modifier == none)){
+                    if (map[x][y].modifier != OpenSet || tmpg < map[x][y].g){
+					    updateTile(INTVECTOR2(x,y), tmpg, parent);
+                    }
 				}
 			}
 		}
 	} 
 }
+
+
+
 void PathFinding::updateMap(){
     for (int x = 0; x < GRID_WIDTH; x++) {
         for (int y = 0; y < GRID_HEIGHT; y++) {
             Structure* tmp = grid->atGridCoords(x, y);
-            if (tmp == nullptr)
-                map[x][y] = 1;
-            else {
-                map[x][y] = tmp->getType();
-            }
+            if(tmp)
+                map[x][y].modifier = tmp->getType();
+            else
+                map[x][y].modifier = StructureTypes::none;
         }
     }
-
+    resetValues();
 }
 void PathFinding::loadMap(StructureGrid* grid){
-	// load up the map from a structure grid and get values for the array
 	this->grid = grid;
-	this->map = new int*[GRID_WIDTH];
-    for (int x = 0; x < GRID_WIDTH; x++)
-        map[x] = new int[GRID_HEIGHT];
     updateMap();
 }
 
 bool operator<(Tile first,Tile second){
-    return first.weight<second.weight;
+    return first.f < second.f;
 }
 
 bool operator>(Tile first, Tile second) {
-    return first.weight>second.weight;
+    return first.f > second.f;
+}
+
+inline Tile* PathFinding::getBestOpen(){
+    Tile* ret = nullptr;
+    for(int x = 0; x < GRID_WIDTH; x++){
+        for(int y = 0; y < GRID_HEIGHT; y++){
+            if(map[x][y].set == OpenSet && (!ret || ret->f > map[x][y].f || (ret->f == map[x][y].f && map[x][y].g < ret->g) ))
+                ret = &map[x][y];
+        }
+    }
+    return ret;
 }
