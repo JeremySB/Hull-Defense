@@ -39,7 +39,7 @@ public:
 
 	void draw();
 
-	// call update on structures in frame
+	// deprecated
 	bool update(float frameTime);
 
 	std::list<Structure*> getStructures();

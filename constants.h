@@ -44,6 +44,7 @@ const float MIN_FRAME_TIME = 1.0f/FRAME_RATE;   // minimum desired time for 1 fr
 const float MAX_FRAME_TIME = 1.0f/MIN_FRAME_RATE; // maximum time used in calculations
 const double PI = 3.14159265;
 const int MAX_PARTICLES = 1000;
+const float PARTICLE_SPAWN_TIME = 0.05;
 
 
 // graphic images

@@ -46,7 +46,7 @@ void ParticleManager::draw()
 	for (int i = 0; i < MAX_PARTICLES; i++) {
 		if (particles[i]->getActive())
 		{
-			particles[i]->draw();
+			particles[i]->draw(graphicsNS::FILTER);
 		}
 	}
 }
@@ -69,8 +69,10 @@ void ParticleManager::addPhotonExplosion(int centerX, int centerY, float scale, 
 			particles[i]->initialize(graphics, 256, 256, 8, &photonExplosionTM);
 			particles[i]->setFrames(0, 15);
 			particles[i]->setFrameDelay(timeToLive/16.0);
+			particles[i]->setColorFilter(graphicsNS::WHITE);
 			particles[i]->setCurrentFrame(0);
 			particles[i]->setScale(scale);
+			particles[i]->setVelocity(VECTOR2(0,0));
 			particles[i]->setLoop(false);
 			particles[i]->setTimeToLive(timeToLive);
 			particles[i]->setX(centerX - particles[i]->getWidth() * particles[i]->getScale() / 2);
@@ -81,20 +83,22 @@ void ParticleManager::addPhotonExplosion(int centerX, int centerY, float scale, 
 	}
 }
 
-void ParticleManager::addSmoke(int centerX, int centerY, float scale, float timeToLive)
+void ParticleManager::addSmoke(VECTOR2 center, VECTOR2 vel, float scale, float timeToLive)
 {
 	for (int i = 0; i < MAX_PARTICLES; i++) {
 		if (!particles[i]->getActive())
 		{
-			particles[i]->initialize(graphics, 256, 256, 8, &smokeTM);
-			particles[i]->setFrames(0, 15);
-			particles[i]->setFrameDelay(timeToLive / 16.0);
+			particles[i]->initialize(graphics, 256, 256, 6, &smokeTM);
+			particles[i]->setFrames(0, 29);
+			particles[i]->setFrameDelay(timeToLive / 30.0);
+			particles[i]->setColorFilter(D3DCOLOR_ARGB(35, 255, 255, 255));
 			particles[i]->setCurrentFrame(0);
 			particles[i]->setScale(scale);
+			particles[i]->setVelocity(vel);
 			particles[i]->setLoop(false);
 			particles[i]->setTimeToLive(timeToLive);
-			particles[i]->setX(centerX - particles[i]->getWidth() * particles[i]->getScale() / 2);
-			particles[i]->setY(centerY - particles[i]->getHeight() * particles[i]->getScale() / 2);
+			particles[i]->setX(center.x - particles[i]->getWidth() * particles[i]->getScale() / 2);
+			particles[i]->setY(center.y - particles[i]->getHeight() * particles[i]->getScale() / 2);
 			particles[i]->setActive(true);
 			break;
 		}

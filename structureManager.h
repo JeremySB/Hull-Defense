@@ -19,9 +19,12 @@
 #include "audio.h"
 #include <list>
 
+
+
 class StructureManager
 {
 public:
+	
 	StructureManager();
 	~StructureManager();
 
@@ -45,7 +48,6 @@ public:
 	bool addTurret(int x, int y);
 	// add wall at location in pixels. Returns false if object there
 	bool addWall(int x, int y);
-
 
 	bool addPermWall(int x, int y, bool gridCoords = true);
 
@@ -88,6 +90,10 @@ public:
 	void onResetDevice();
 
 private:
+	// runs every update and controls hovering and structure selection
+	void selection();
+
+
 	TextureManager wallTexture, baseTexture, goodSelectionTexture;
 	TextureManager turretProjectileTexture, turretBaseTexture, turretGunTexture;
 	TextureManager towerProjectileTexture, towerGunTexture, towerBaseTexture;
@@ -102,7 +108,6 @@ private:
 	bool lastLMBState;
     bool placedThisFrame;
     StructureGrid grid;
-	// runs every update and controls hovering and structure selection
-	void selection();
+	float particleTimer; // timer for particle effects
 };
 

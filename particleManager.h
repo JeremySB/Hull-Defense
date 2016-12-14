@@ -23,7 +23,7 @@ public:
 	void reset();
 
 	void addPhotonExplosion(int centerX, int centerY, float scale, float timeToLive);
-	void addSmoke(int centerX, int centerY, float scale, float timeToLive);
+	void addSmoke(VECTOR2 center, VECTOR2 vel, float scale, float timeToLive);
 
 	float getVariance();
 
