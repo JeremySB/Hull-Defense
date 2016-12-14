@@ -146,7 +146,7 @@ bool operator>(Tile first, Tile second) {
     return first.f > second.f;
 }
 
-Tile* PathFinding::getBestOpen(){
+inline Tile* PathFinding::getBestOpen(){
     Tile* ret = nullptr;
     for(int x = 0; x < GRID_WIDTH; x++){
         for(int y = 0; y < GRID_HEIGHT; y++){
