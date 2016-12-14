@@ -38,7 +38,7 @@ bool StructureGrid::addAtGridCoords(Structure* in, int x, int y)
         delete in;
 		return false;
     }
-	
+	modifiedThisFrame = true;
 	structureList.push_back(in);
 
 	in->setX(pixelXLoc(x));
@@ -64,7 +64,7 @@ void StructureGrid::removeAtGridCoords(int x, int y)
 	temp.remove(std::pair<int, int>(x, y));
 	if (!(x >= 0 && y >= 0 && x <= maxX && y <= maxY))
 		throw(GameError(gameErrorNS::WARNING, "Structure out of grid boundary"));
-	
+	modifiedThisFrame = true;
 	// have to loop through to delete multi-cell structures
 	Structure* toDelete = atGridCoords(x, y);
 	
@@ -110,6 +110,7 @@ bool StructureGrid::update(float frameTime)
 {
 	
 	bool deleted = false;
+    modifiedThisFrame = false;
 	for (int i = 0; i < structures.size(); i++) {
 		for (int j = 0; j < structures[i].size(); j++)
 		{
@@ -125,7 +126,7 @@ bool StructureGrid::update(float frameTime)
 			(*iter)->update(frameTime);
 		}
 	}
-
+    modifiedThisFrame |= deleted;
 	return deleted;
 }
 
