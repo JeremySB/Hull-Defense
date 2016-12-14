@@ -129,7 +129,7 @@ void StructureManager::update(float frameTime)
 				{
 					particleManager->addPhotonExplosion((*iter)->getCenterX(), (*iter)->getCenterY(), 0.84, 0.8);
 				}
-				else if ((*iter)->getType() == StructureTypes::tower)
+				else if ((*iter)->getType() == StructureTypes::tower || (*iter)->getType() == StructureTypes::base)
 				{
 					particleManager->addGenericExplosion(*(*iter)->getCenter(), 1.2, 1);
 				}
