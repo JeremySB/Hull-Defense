@@ -189,40 +189,19 @@ void HullDefense::update()
 		gameState.setCurrency(1500);
         enemyManager.reset();
 		gameState.setGamePhase(GameState::level2Play);
-<<<<<<< HEAD
-=======
+
 		enemyManager.reset();
-		break;
-
-	case GameState::level2Play:
-		structureManager.update(frameTime);
-		particleManager.update(frameTime);
-		gameMenu.update(frameTime);
-		waves.update(frameTime);
-
-		enemyManager.updateChildren(frameTime);
-		if (structureManager.getPlacedThisFrame()) {
-			enemyManager.findPaths();
-		}
-		if (waves.complete() && enemyManager.getNumChildren() == 0)
-			gameState.setGamePhase(GameState::level3Init);
-		if (structureManager.getBaseHealth() <= 0)
-			gameState.setGamePhase(GameState::lost);
->>>>>>> master
 		break;
 
 	case GameState::level3Init:
 		enemies = enemyManager.getChildren();
 		waves.loadWaves(LEVEL3WAVEFILE);
-<<<<<<< HEAD
         structureManager.loadLevel(3);
         gameState.setCurrency(1500);
-=======
 		structureManager.reset();
 		particleManager.reset();
 		gameState.setCurrency(1500);
 		structureManager.addBase(400, 200);
->>>>>>> master
         enemyManager.reset();
 		gameState.setGamePhase(GameState::level3Play);
 		break;

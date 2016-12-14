@@ -123,9 +123,6 @@
     <ClCompile Include="permWall.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Healthbar.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="constants.h">
@@ -246,9 +243,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="permWall.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Healthbar.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
