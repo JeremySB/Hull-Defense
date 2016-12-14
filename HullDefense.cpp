@@ -148,7 +148,7 @@ void HullDefense::initialize(HWND hwnd)
 void HullDefense::update()
 {
 	gameState.setHealth(structureManager.getBaseHealth());
-    //float frameTime = this->frameTime * 2;
+	//float frameTime = this->frameTime * 2;
 	switch (gameState.getGamePhase())
 	{
 	case GameState::intro:
@@ -157,18 +157,18 @@ void HullDefense::update()
 				gameState.setGamePhase(GameState::instructions);
 			}else{
 				//gameState.setGamePhase(GameState::level1Init);
-                gameState.setGamePhase(GameState::transition);
+				gameState.setGamePhase(GameState::transition);
 			}
 		}
-        if(input->isKeyDown('1')){
-            gameState.setGamePhase(GameState::level1Init);
-        }
-        if (input->isKeyDown('2')) {
-            gameState.setGamePhase(GameState::level2Init);
-        }
-        if (input->isKeyDown('3')) {
-            gameState.setGamePhase(GameState::level3Init);
-        }
+		if(input->isKeyDown('1')){
+			gameState.setGamePhase(GameState::level1Init);
+		}
+		if (input->isKeyDown('2')) {
+			gameState.setGamePhase(GameState::level2Init);
+		}
+		if (input->isKeyDown('3')) {
+			gameState.setGamePhase(GameState::level3Init);
+		}
 		break;
 
 	case GameState::instructions:
@@ -195,7 +195,7 @@ void HullDefense::update()
 		structureManager.loadLevel(1);
 		particleManager.reset();
 		gameState.setCurrency(1500);
-        enemyManager.reset();
+		enemyManager.reset();
 
 		if (!background.initialize(graphics, 0, 0, 0, &backgroundTexture))
 			throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background"));
@@ -208,7 +208,7 @@ void HullDefense::update()
 		structureManager.loadLevel(2);
 		particleManager.reset();
 		gameState.setCurrency(1500);
-        enemyManager.reset();
+		enemyManager.reset();
 
 		if (!background.initialize(graphics, 0, 0, 0, &background2Texture))
 			throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background"));
@@ -218,18 +218,18 @@ void HullDefense::update()
 
 	case GameState::level3Init:
 		waves.loadWaves(LEVEL3WAVEFILE);
-        structureManager.loadLevel(3);
-        gameState.setCurrency(1500);
+		structureManager.loadLevel(3);
+		gameState.setCurrency(1500);
 		particleManager.reset();
-        enemyManager.reset();
+		enemyManager.reset();
 
 		if (!background.initialize(graphics, 0, 0, 0, &background3Texture))
 			throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background"));
 
 		gameState.setGamePhase(GameState::level3Play);
 		break;
-    case GameState::level1Play:
-    case GameState::level2Play:
+	case GameState::level1Play:
+	case GameState::level2Play:
 	case GameState::level3Play:
 		structureManager.update(frameTime);
 		particleManager.update(frameTime);
@@ -347,8 +347,8 @@ void HullDefense::render()
 		loadingscreen.draw();
 		break;
 
-    case GameState::level1Play:
-    case GameState::level2Play:
+	case GameState::level1Play:
+	case GameState::level2Play:
 	case GameState::level3Play:
 		background.draw();
 		structureManager.draw();
