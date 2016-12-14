@@ -6,6 +6,7 @@
 #include "particle.h"
 #include "game.h"
 #include <time.h>
+#include <list>
 
 #pragma once
 class ParticleManager
@@ -18,7 +19,11 @@ public:
 	void update(float frameTime);
 	void draw();
 
+	// set all particles to inactive
+	void reset();
+
 	void addPhotonExplosion(int centerX, int centerY, float scale, float timeToLive);
+	void addSmoke(int centerX, int centerY, float scale, float timeToLive);
 
 	float getVariance();
 
@@ -26,8 +31,9 @@ public:
 	void onResetDevice();
 
 private:
-	TextureManager photonExplosionTM;
+	TextureManager photonExplosionTM, smokeTM;
 	Particle** particles;
 	Graphics* graphics;
+	std::list<TextureManager*> listTM; // add pointers to all texture managers to this for easy onLostDevice, etc
 };
 

@@ -63,6 +63,7 @@ const char PHOTON_CANNON_PROJECTILE_EXPLOSION[] = "pictures\\photonCannonExplosi
 const char GOOD_SELECTION_IMAGE[] = "pictures\\goodSelectionJEREMY.png";
 const char ENEMY_IMAGE[] = "pictures\\EnemyAttack.png";//"pictures\\EnemyTemp.png";
 const char HEALTHBAR_IMAGE[] = "pictures\\Healthbar.png";
+const char SMOKE_PARTICLE[] = "pictures\\smokeParticlesJEREMY.png";
 
 // intro images
 const char MAIN_MENU[] = "pictures\\mainScreenDANIEL.png";
