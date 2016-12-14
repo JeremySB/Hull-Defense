@@ -25,14 +25,24 @@ void ParticleManager::initialize(Graphics * graphics, Game * game)
 {
 	// Note: add all texture managers to the listTM list, and they'll auto resetOnLost and all that
 	this->graphics = graphics;
-	photonExplosionTM.initialize(graphics, PHOTON_CANNON_PROJECTILE_EXPLOSION);
+	
+	if (!photonExplosionTM.initialize(graphics, PHOTON_CANNON_PROJECTILE_EXPLOSION))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing particle"));
+	
 	listTM.push_back(&photonExplosionTM);
+	if (!smokeTM.initialize(graphics, SMOKE_PARTICLE))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing particle"));
 
-	smokeTM.initialize(graphics, SMOKE_PARTICLE);
 	listTM.push_back(&smokeTM);
 
-	genericExplosionTM.initialize(graphics, GENERIC_EXPLOSION);
+	if (!genericExplosionTM.initialize(graphics, GENERIC_EXPLOSION))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing particle"));
 	listTM.push_back(&genericExplosionTM);
+	
+	if (!enemyBloodTM.initialize(graphics, ENEMY_BLOOD))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing particle"));
+	
+	listTM.push_back(&enemyBloodTM);
 }
 
 void ParticleManager::update(float frameTime)
@@ -47,10 +57,12 @@ void ParticleManager::update(float frameTime)
 
 void ParticleManager::draw()
 {
+	
 	for (int i = 0; i < MAX_PARTICLES; i++) {
 		if (particles[i]->getActive())
 		{
 			particles[i]->draw(graphicsNS::FILTER);
+
 		}
 	}
 }
@@ -115,15 +127,17 @@ void ParticleManager::addEnemyDeath(Entity *source){
 	for (i = 0; i < MAX_PARTICLES && particles[i]->getActive(); i++);
 	if(particles[i]->getActive())
 		return;
-	particles[i]->initialize(graphics, 256, 256, 8, &photonExplosionTM);
-	particles[i]->setFrames(0, 15);
-	//particles[i]->setFrameDelay();
+	particles[i]->initialize(graphics, 128, 128, 4, &enemyBloodTM);
+	particles[i]->setFrames(0, 3);
+	particles[i]->setFrameDelay(.1);
 	particles[i]->setCurrentFrame(0);
-	particles[i]->setScale(.5);
+	particles[i]->setScale(.25);
 	particles[i]->setLoop(false);
-	particles[i]->setTimeToLive(1);
+	particles[i]->setTimeToLive(.4 * (rand()%21)/20.0);
 	particles[i]->setX(source->getCenterX() - particles[i]->getWidth() * particles[i]->getScale() / 2);
 	particles[i]->setY(source->getCenterY() - particles[i]->getHeight() * particles[i]->getScale() / 2);
+	particles[i]->setRadians((rand()%11) / 10);
+	particles[i]->setVelocity(VECTOR2(10 * (rand()%101) / 100.0,10 * (rand()%101) / 100.0));
 	particles[i]->setActive(true);
 }
 

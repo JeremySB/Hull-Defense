@@ -34,7 +34,7 @@ void HullDefense::initialize(HWND hwnd)
 	gameMenu.initialize(graphics, this, input, audio);
 	gameMenu.setGameState(&gameState);
 
-	enemyManager.initialize(this,structureManager.getGrid(),&gameState,audio);
+	enemyManager.initialize(this, structureManager.getGrid(), &gameState, audio, &particleManager);
 
 	gameState.setGamePhase(GameState::intro);
 
@@ -247,17 +247,19 @@ void HullDefense::update()
 		break;
 
 	case GameState::transition:
-		if (!input->getMouseLButton() && lastClickState
-			&& (input->getMouseX()>0 && input->getMouseX() <= 55) && (input->getMouseY()>0 && input->getMouseY() <= 25)) {
-			gameState.setGamePhase(GameState::intro);
-		}
-		else if (!input->getMouseLButton() && lastClickState && (input->getMouseX() > 0 && input->getMouseX() < GAME_WIDTH / 3)) {
-			gameState.setGamePhase(GameState::level1Init);
-		}else if(!input->getMouseLButton() && lastClickState && (input->getMouseX()>(GAME_WIDTH/3) && input->getMouseX()<2*(GAME_WIDTH/3))){
-			gameState.setGamePhase(GameState::level2Init);
-		}else if(!input->getMouseLButton() && lastClickState && (input->getMouseX()>2*(GAME_WIDTH/3) && input->getMouseX()<GAME_WIDTH)){
-			gameState.setGamePhase(GameState::level3Init);
-		}
+		if(!input->getMouseLButton() && lastClickState){
+			float mouseX = input->getMouseX();
+			float mouseY = input->getMouseY();
+			if(mouseX > 0 && mouseX < CELL_WIDTH && mouseY > 0 && mouseY < CELL_HEIGHT)
+				gameState.setGamePhase(GameState::intro);
+			else if(mouseX > 0 && mouseX < GAME_WIDTH/3)
+				gameState.setGamePhase(GameState::level1Init);
+			else if(mouseX > (GAME_WIDTH/3) && mouseX < 2*(GAME_WIDTH/3))
+				gameState.setGamePhase(GameState::level2Init);
+			else if(input->getMouseX() > 2*(GAME_WIDTH/3) && input->getMouseX() < GAME_WIDTH)
+				gameState.setGamePhase(GameState::level3Init);
+			
+			}
 		break;
 
 	case GameState::won:
