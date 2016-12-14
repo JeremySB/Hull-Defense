@@ -41,8 +41,6 @@ private:
     EnemyManager enemyManager;
 	GameMenu gameMenu;
     Image   background;         // background image
-	Image   background2;         // background image
-	Image   background3;         // background image
 	Image   mainmenu;
 	Image   instruction0;
 	Image   instruction1;
