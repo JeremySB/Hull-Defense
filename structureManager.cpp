@@ -285,6 +285,14 @@ void StructureManager::repair(int x, int y)
 	gameState->setSelectionMode(GameState::normal);
 }
 
+bool StructureManager::canRepair(int x, int y)
+{
+	if (!isOccupied(x, y)) return false;
+	Structure* toRepair = grid.atPixelCoords(x, y);
+	if (toRepair->getType() == StructureTypes::base || toRepair->getType() == StructureTypes::permWall || toRepair->getPrice() / 2 > gameState->getCurrency()) return false;
+	return true;
+}
+
 void StructureManager::loadLevel(int x)
 {
 	reset();
@@ -397,6 +405,43 @@ void StructureManager::selection()
 	}
 	else if (mode == GameState::repair && !input->getMouseLButton() && lastLMBState) {
 		repair(x, y);
+	}
+
+	// default to green
+	goodSelectionImage.setColorFilter(graphicsNS::WHITE);
+
+	switch (mode)
+	{
+	case GameState::wallSelection:
+		if (gameState->getCurrency() < wallNS::PRICE)
+		{
+			goodSelectionImage.setColorFilter(graphicsNS::RED);
+		}
+		break;
+	case GameState::towerSelection:
+		if (gameState->getCurrency() < towerNS::PRICE)
+		{
+			goodSelectionImage.setColorFilter(graphicsNS::RED);
+		}
+		break;
+	case GameState::photonCannonSelection:
+		if (gameState->getCurrency() < photonCannonNS::PRICE)
+		{
+			goodSelectionImage.setColorFilter(graphicsNS::RED);
+		}
+		break;
+	case GameState::turretSelection:
+		if (gameState->getCurrency() < turretNS::PRICE)
+		{
+			goodSelectionImage.setColorFilter(graphicsNS::RED);
+		}
+		break;
+	case GameState::repair:
+		if (!canRepair(x, y))
+		{
+			goodSelectionImage.setColorFilter(graphicsNS::RED);
+		}
+		break;
 	}
 
 	// add green highlight if good selection
