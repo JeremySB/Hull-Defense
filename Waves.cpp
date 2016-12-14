@@ -46,18 +46,18 @@ void Waves::update(float frameTime){
     switch(toupper(loc)){
     case('R'):
         spawnLocation.x = GAME_WIDTH - CELL_WIDTH;
-        spawnLocation.y = rand() % (GAME_HEIGHT - CELL_HEIGHT);
+		spawnLocation.y = rand() % (CELL_HEIGHT * GRID_HEIGHT - CELL_HEIGHT);
         break;
     case('T'):
         spawnLocation.x = rand() % (GAME_WIDTH - CELL_WIDTH);
         break;
     case('B'):
         spawnLocation.x = rand() % (GAME_WIDTH- CELL_WIDTH);
-        spawnLocation.y = GAME_HEIGHT - CELL_HEIGHT;
+		spawnLocation.y = CELL_HEIGHT * GRID_HEIGHT - CELL_HEIGHT;
         break;
     case('L'):
     default:
-        spawnLocation.y = rand() % (GAME_HEIGHT - CELL_HEIGHT);
+		spawnLocation.y = rand() % (CELL_HEIGHT * GRID_HEIGHT - CELL_HEIGHT);
         break;
     }
 

@@ -170,7 +170,7 @@ bool StructureManager::addBase(int x, int y, bool gridCoords)
 
 	Base* base = new Base();
 	base->initialize(game, 4, 4, 0, &baseTexture);
-    //base->setupHealthbar(&healthbarTexture);
+    base->setupHealthbar(&healthbarTexture);
 	if (!grid.addAtGridCoords(base, xGrid, yGrid)) return false;
 
 	return true;
