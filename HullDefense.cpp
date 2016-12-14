@@ -175,6 +175,7 @@ void HullDefense::update()
 		enemies = enemyManager.getChildren();
 		waves.loadWaves(LEVEL1WAVEFILE);
 		structureManager.loadLevel(1);
+		particleManager.reset();
 		gameState.setCurrency(1500);
         enemyManager.reset();
 		gameState.setGamePhase(GameState::level1Play);
@@ -184,6 +185,7 @@ void HullDefense::update()
 		enemies = enemyManager.getChildren();
 		waves.loadWaves(LEVEL2WAVEFILE);
 		structureManager.loadLevel(2);
+		particleManager.reset();
 		gameState.setCurrency(1500);
         enemyManager.reset();
 		gameState.setGamePhase(GameState::level2Play);

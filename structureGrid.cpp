@@ -110,7 +110,7 @@ bool StructureGrid::update(float frameTime)
 {
 	
 	bool deleted = false;
-    modifiedThisFrame = false;
+	/*
 	for (int i = 0; i < structures.size(); i++) {
 		for (int j = 0; j < structures[i].size(); j++)
 		{
@@ -126,7 +126,8 @@ bool StructureGrid::update(float frameTime)
 			(*iter)->update(frameTime);
 		}
 	}
-    modifiedThisFrame |= deleted;
+	*/
+
 	return deleted;
 }
 

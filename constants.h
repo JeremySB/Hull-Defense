@@ -44,6 +44,7 @@ const float MIN_FRAME_TIME = 1.0f/FRAME_RATE;   // minimum desired time for 1 fr
 const float MAX_FRAME_TIME = 1.0f/MIN_FRAME_RATE; // maximum time used in calculations
 const double PI = 3.14159265;
 const int MAX_PARTICLES = 1000;
+const float PARTICLE_SPAWN_TIME = 0.05;
 
 
 // graphic images
@@ -63,6 +64,7 @@ const char PHOTON_CANNON_PROJECTILE_EXPLOSION[] = "pictures\\photonCannonExplosi
 const char GOOD_SELECTION_IMAGE[] = "pictures\\goodSelectionJEREMY.png";
 const char ENEMY_IMAGE[] = "pictures\\EnemyAttack.png";//"pictures\\EnemyTemp.png";
 const char HEALTHBAR_IMAGE[] = "pictures\\Healthbar.png";
+const char SMOKE_PARTICLE[] = "pictures\\smokeParticlesJEREMY.png";
 
 // intro images
 const char MAIN_MENU[] = "pictures\\mainScreenDANIEL.png";
