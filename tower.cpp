@@ -147,12 +147,13 @@ void Tower::attackTargets(std::list<Enemy*> targets)
 	}
 
 
-	// fire new photon if cooldown is up and there is no projectile out
+	// fire if cooldown is up and there is no projectile out
 	if (closest != nullptr && cooldown >= towerNS::TIME_BETWEEN_SHOTS
 		&& !projectile.getActive())
 	{
 		target = closest;
 		cooldown = 0;
+		
 		projectile.setX(getCenterX() - projectile.getWidth() * projectile.getScale() / 2);
 		projectile.setY(getCenterY() - projectile.getHeight() * projectile.getScale() / 2);
 
