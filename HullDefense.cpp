@@ -194,43 +194,44 @@ void HullDefense::update()
 		waves.loadWaves(LEVEL1WAVEFILE);
 		structureManager.loadLevel(1);
 		particleManager.reset();
-		gameState.setCurrency(1500);
+		gameState.setCurrency(750);
 		enemyManager.reset();
 
 		if (!background.initialize(graphics, 0, 0, 0, &backgroundTexture))
 			throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background"));
 
-		gameState.setGamePhase(GameState::level1Play);
+		gameState.setGamePhase(GameState::Play);//GameState::level1Play);
 		break;
 
 	case GameState::level2Init:
 		waves.loadWaves(LEVEL2WAVEFILE);
 		structureManager.loadLevel(2);
 		particleManager.reset();
-		gameState.setCurrency(1500);
+		gameState.setCurrency(1000);
 		enemyManager.reset();
 
 		if (!background.initialize(graphics, 0, 0, 0, &background2Texture))
 			throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background"));
 
-		gameState.setGamePhase(GameState::level2Play);
+		gameState.setGamePhase(GameState::Play);//GameState::level2Play);
 		break;
 
 	case GameState::level3Init:
 		waves.loadWaves(LEVEL3WAVEFILE);
 		structureManager.loadLevel(3);
-		gameState.setCurrency(1500);
+		gameState.setCurrency(1200);
 		particleManager.reset();
 		enemyManager.reset();
 
 		if (!background.initialize(graphics, 0, 0, 0, &background3Texture))
 			throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background"));
 
-		gameState.setGamePhase(GameState::level3Play);
+		gameState.setGamePhase(GameState::Play);//GameState::level3Play);
 		break;
-	case GameState::level1Play:
+	case GameState::Play:
+	/*case GameState::level1Play:
 	case GameState::level2Play:
-	case GameState::level3Play:
+	case GameState::level3Play:*/
 		structureManager.update(frameTime);
 		particleManager.update(frameTime);
 		gameMenu.update(frameTime);
@@ -349,9 +350,10 @@ void HullDefense::render()
 		loadingscreen.draw();
 		break;
 
-	case GameState::level1Play:
-	case GameState::level2Play:
-	case GameState::level3Play:
+	//case GameState::level1Play:
+	//case GameState::level2Play:
+	//case GameState::level3Play:
+	case GameState::Play:
 		background.draw();
 		structureManager.draw();
 		enemyManager.draw();

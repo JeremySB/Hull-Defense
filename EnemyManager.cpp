@@ -110,7 +110,7 @@ void EnemyManager::updateChildren(float frameTime){
         children[i]->update(frameTime);
         if (children[i]->getHealth() <= 0) {
             if(typeid(*children[i]) == typeid(PregnantEnemy)){
-                for(int i = 0; i < 7; i++){
+                for(int j = 0; j < 7; j++){
                     float tmp = (rand() % 100)/100.0f ;
                     this->spawn = VECTOR2(children[i]->getX(), children[i]->getY()) + VECTOR2( CELL_WIDTH * tmp, CELL_HEIGHT * (1-tmp));
                     this->addChild(new BabyEnemy);
