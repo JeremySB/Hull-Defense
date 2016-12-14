@@ -22,8 +22,9 @@ public:
 	void setGameState(GameState* in) { gameState = in; }
 
 private:
-	TextureManager towermenuTexture, turretmenuTexture, wallmenuTexture, defmenuTexture; // textures
+	TextureManager towermenuTexture, turretmenuTexture, wallmenuTexture, defmenuTexture, tranmenuTexture; // textures
 	Image	towerMenu;
+	Image	tranMenu;
 	Image	repairMenu;
 	Image	sellMenu;
 	Image	defMenu;

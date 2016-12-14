@@ -68,7 +68,8 @@ void GameMenu::initialize(Graphics* graphics, Game* game, Input* input, Audio* a
 	// def menu
 	if (!defMenu.initialize(graphics, 0, 0, 0, &defmenuTexture))
         throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing Default menu"));
-	
+
+
 	towerMenu.setX(0);
 	towerMenu.setY(GAME_HEIGHT-towerMenu.getHeight());
 	repairMenu.setX(0);
@@ -181,6 +182,13 @@ void GameMenu::update(float frameTime){
 	else if (gameState->getSelectionMode() == GameState::repair) {
 		towerMenu.setVisible(false);
 		repairMenu.setVisible(true);
+		sellMenu.setVisible(false);
+		defMenu.setVisible(false);
+		menuActive = false;
+	}else if (gameState->getSelectionMode() == GameState::transition) {
+		tranMenu.setVisible(true);
+		towerMenu.setVisible(false);
+		repairMenu.setVisible(false);
 		sellMenu.setVisible(false);
 		defMenu.setVisible(false);
 		menuActive = false;

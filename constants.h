@@ -81,6 +81,7 @@ const char WALLMENU_IMAGE[] = "pictures\\sellmenuDANIEL.png";
 const char DEFMENU_IMAGE[] = "pictures\\menuDefaultDANIEL.png";
 const char FONT_IMAGE[]	= "pictures\\CKfont.png";
 const char LOADING_SCREEN[] = "pictures\\loadingScreen.png";
+const char TRANSITION_SCREEN[] = "pictures\\transitionDANIEL.png";
 
 // menu
 const int TABS_WIDTH = 140;

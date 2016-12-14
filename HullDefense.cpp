@@ -113,10 +113,20 @@ void HullDefense::initialize(HWND hwnd)
 	if (!loadingscreen.initialize(graphics, 0, 0, 0, &loadingscreenTexture))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing loading screen"));
 
+	// transition menu image
+	if (!transitionImage.initialize(graphics, 0, 0, 0, &transitionTexture))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing loading screen"));
+
+	// transition texture
+	if (!transitionTexture.initialize(graphics, TRANSITION_SCREEN))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background texture"));
+
 	// initialize DirectX font
 	// 18 pixel high Arial
 	if(dxFont->initialize(graphics, 18, true, false, "Arial") == false)
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing DirectX font"));
+
+	//transitionImage.setVisible(false);
 
 	return;
 }
@@ -184,7 +194,7 @@ void HullDefense::update()
 			enemyManager.findPaths();
 		} 
 		if (waves.complete() && enemyManager.getNumChildren() == 0)
-			gameState.setGamePhase(GameState::level2Init);
+			gameState.setGamePhase(GameState::transition);
 		if (structureManager.getBaseHealth() <= 0)
 			gameState.setGamePhase(GameState::lost);
 		break;
@@ -210,7 +220,11 @@ void HullDefense::update()
 			enemyManager.findPaths();
 		}
 		if (waves.complete() && enemyManager.getNumChildren() == 0)
+<<<<<<< Updated upstream
 			gameState.setGamePhase(GameState::level3Init);
+=======
+			gameState.setGamePhase(GameState::transition);
+>>>>>>> Stashed changes
 		if (structureManager.getBaseHealth() <= 0)
 			gameState.setGamePhase(GameState::lost);
 		break;
@@ -244,6 +258,13 @@ void HullDefense::update()
 
 	case GameState::transition:
 		
+		if(!input->getMouseLButton() && lastClickState && (input->getMouseX()>0 && input->getMouseX()<GAME_WIDTH/3)){
+			gameState.setGamePhase(GameState::level1Init);
+		}else if(!input->getMouseLButton() && lastClickState && (input->getMouseX()>(GAME_WIDTH/3) && input->getMouseX()<2*(GAME_WIDTH/3))){
+			gameState.setGamePhase(GameState::level2Init);
+		}else if(!input->getMouseLButton() && lastClickState && (input->getMouseX()>2*(GAME_WIDTH/3) && input->getMouseX()<GAME_WIDTH)){
+			gameState.setGamePhase(GameState::level3Init);
+		}
 		break;
 
 	case GameState::won:
@@ -357,6 +378,7 @@ void HullDefense::render()
 		break;
 
 	case GameState::transition:
+		transitionImage.draw();
 		break;
 
 	case GameState::won:
@@ -403,6 +425,8 @@ void HullDefense::releaseAll()
 	wavecompleteTexture.onLostDevice();
 	backgroundTexture.onLostDevice();
 
+	transitionTexture.onLostDevice();
+
 	Game::releaseAll();
 	return;
 }
@@ -434,6 +458,8 @@ void HullDefense::resetAll()
 	losescreenTexture.onResetDevice();
 	wavecompleteTexture.onResetDevice();
 	backgroundTexture.onResetDevice();
+
+	transitionTexture.onResetDevice();
 
 	Game::resetAll();
 	return;
