@@ -26,6 +26,17 @@ void Particle::update(float frameTime)
 		timeToLive = 0;
 		return;
 	}
+	// fade a bit
+	else if (timeToLive <= 0.1)
+	{
+		D3DCOLOR color = (getColorFilter() | (0xff << 24)) & SETCOLOR_ARGB(10, 255, 255, 255);
+		setColorFilter(color);
+	}
+	else if (timeToLive <= 0.2)
+	{
+		D3DCOLOR color = (getColorFilter() | (0xff << 24)) & SETCOLOR_ARGB(30, 255, 255, 255);
+		setColorFilter(color);
+	}
 	
 	Image::update(frameTime);
     ;
