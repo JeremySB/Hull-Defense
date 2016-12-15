@@ -110,16 +110,16 @@ void GameMenu::update(float frameTime){
 		if(!input->getMouseLButton() && lastClickState){
 			if((input->getMouseX()>0 && input->getMouseX()<GAME_WIDTH/4)&&input->getMouseY()>GAME_HEIGHT-towerMenu.getHeight()){
 				// Photon Cannon
-				gameState->setSelectionMode(GameState::photonCannonSelection);
+				gameState->setSelectionMode(GameState::wallSelection);
 			}else if((input->getMouseX()>GAME_WIDTH/4 && input->getMouseX()<2*(GAME_WIDTH/4))&&input->getMouseY()>GAME_HEIGHT-towerMenu.getHeight()){
 				// Tower
-				gameState->setSelectionMode(GameState::towerSelection);
+				gameState->setSelectionMode(GameState::turretSelection);
 			}else if((input->getMouseX()>2*(GAME_WIDTH/4) && input->getMouseX()<3*(GAME_WIDTH/4))&&input->getMouseY()>GAME_HEIGHT-towerMenu.getHeight()){
 				// Turret
-				gameState->setSelectionMode(GameState::turretSelection);
+				gameState->setSelectionMode(GameState::photonCannonSelection);
 			}else if((input->getMouseX()>3*(GAME_WIDTH/4) && input->getMouseX()<GAME_WIDTH)&&input->getMouseY()>GAME_HEIGHT-towerMenu.getHeight()){
 				// Wall
-				gameState->setSelectionMode(GameState::wallSelection);
+				gameState->setSelectionMode(GameState::towerSelection);
 			}
 			// build tab
 			else if(input->getMouseX()>(0) && input->getMouseX()<(TABS_WIDTH) && input->getMouseY()>(GAME_HEIGHT-towerMenu.getHeight()) && input->getMouseY()<(GAME_HEIGHT-towerMenu.getHeight()+TABS_HEIGHT)){
