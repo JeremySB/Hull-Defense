@@ -192,12 +192,12 @@ void MainMenu::update(float frameTime){
 			resetMenu();
 			resetMenuPos();
 			break;
-		case GameState::Load:
+		case GameState::load:
 			resetMenu();
 
 			transition(&loadingscreen, "rightS");
 
-		case GameState::Play:
+		case GameState::play:
 			break;
 		default:
 			break;
