@@ -35,7 +35,7 @@ private:
 	StructureManager structureManager;
 	ParticleManager particleManager;
     Waves waves;
-    float waveTimeout;
+    float loseTimeout;
     float timeIntoTimeout;
     EnemyManager enemyManager;
 	GameMenu gameMenu;

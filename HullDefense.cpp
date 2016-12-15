@@ -6,7 +6,7 @@
 //=============================================================================
 HullDefense::HullDefense() : Game()
 {
-	waveTimeout = 2;
+	loseTimeout = -1;
 	timeIntoTimeout = 0;
 	dxFont = new TextDX();  // DirectX font
 	lastClickState = false;
@@ -73,6 +73,8 @@ void HullDefense::initialize(HWND hwnd)
 //=============================================================================
 void HullDefense::update()
 {
+	
+
 	gameState.setHealth(structureManager.getBaseHealth());
 	//float frameTime = this->frameTime * 2;
 	switch (gameState.getGamePhase())
@@ -168,8 +170,20 @@ void HullDefense::update()
 		}
 		if (waves.complete() && enemyManager.getNumChildren() == 0)
 			gameState.setGamePhase(GameState::won);
-		if (structureManager.getBaseHealth() <= 0)
-			gameState.setGamePhase(GameState::lost);
+		if (structureManager.getBaseHealth() <= 0 && loseTimeout <= 0)
+			loseTimeout = 0.7;
+
+		// pause on base death
+		if (loseTimeout > 0)
+		{
+			loseTimeout -= frameTime;
+			if (loseTimeout <= 0)
+			{
+				gameState.setGamePhase(GameState::lost);
+				loseTimeout = -1;
+			}
+		}
+
 		break;
 
 	case GameState::transition:
