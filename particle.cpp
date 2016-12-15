@@ -29,7 +29,7 @@ void Particle::update(float frameTime)
 	
 	Image::update(frameTime);
     ;
-    //this->setColorFilter(SETCOLOR_ARGB(255 * (int) ((timeToLive / maxTimeToLive)), 128, 128, 128));
+    //this->setColorFilter(SETCOLOR_ARGB((int)(255 * ((timeToLive / maxTimeToLive))), 128, 128, 128));
 	setX(getX() + velocity.x * frameTime);
 	setY(getY() + velocity.y * frameTime);
 }

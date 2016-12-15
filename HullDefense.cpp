@@ -155,7 +155,7 @@ void HullDefense::update()
 
 		gameState.setGamePhase(GameState::play);//GameState::level3Play);
 		break;
-	case GameState::Play:
+	case GameState::play:
 		structureManager.update(frameTime);
 		particleManager.update(frameTime);
 		gameMenu.update(frameTime);
@@ -288,7 +288,7 @@ void HullDefense::render()
 		//loadingscreen.draw();
 		break;
 
-	case GameState::Play:
+	case GameState::play:
 		background.draw();
 		structureManager.draw();
 		enemyManager.draw();

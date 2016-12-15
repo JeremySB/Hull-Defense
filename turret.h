@@ -6,13 +6,14 @@
 #include "structure.h"
 
 namespace turretNS {
-	const int PRICE = 100;
+	const int PRICE = 200;
 	const float RANGE = 150.0f;
 	const float PROJECTILE_DURATION = 0.12f; // in seconds
 	const float TIME_BETWEEN_SHOTS = 0.2f; // in seconds
 	const float ROTATE_SPEED = 0.0f; // radians per second
-	const int STARTING_HEALTH = 175;
-	const int DAMAGE = 3;
+	const int STARTING_HEALTH = 200;
+	const int DAMAGE = 5;
+    // 25 DPS
 }
 
 class Turret : public Structure

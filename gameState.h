@@ -5,7 +5,7 @@ public:
 	GameState();
 	~GameState();
 
-	enum GamePhase { intro, instructions, instructions1, instructions2, level1Init, level2Init, level3Init, Play, transition, won, lost };
+	enum GamePhase { intro, instructions, instructions1, instructions2, level1Init, level2Init, level3Init, play, load, transition, won, lost };
 	enum SelectionMode { normal, build, wallSelection, towerSelection, photonCannonSelection, turretSelection, sell, repair };
 
 	GamePhase getGamePhase() { return gamePhase; }

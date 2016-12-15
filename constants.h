@@ -31,10 +31,10 @@ const UINT GRID_WIDTH = GAME_WIDTH/CELL_WIDTH;
 const UINT GRID_HEIGHT = (GAME_HEIGHT/CELL_HEIGHT) - 1;
 const UINT MAX_ENEMIES = 30;
 
-enum StructureTypes {none = 1, base = 0, wall = 20, turret = 30, tower = 40, photonCannon = 50, permWall = -1};
+enum StructureTypes {none = 1, base = 0, wall = 15, turret = 20,  photonCannon = 25, tower = 30, permWall = -1};
 enum Targeting {weakestTarget, strongestTarget, baseTarget};
 
-const UINT PATHFINDING_MODIFIER = 5;
+//const UINT PATHFINDING_MODIFIER = 5;
 
 // game
 const bool VSYNC = false;                   // true locks display to vertical sync rate

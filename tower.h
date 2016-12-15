@@ -5,7 +5,7 @@
 #include "particleManager.h"
 
 namespace towerNS {
-	const int PRICE = 400;
+	const int PRICE = 750;
 	const float RANGE = 300.0f;
 
 	const float PROJECTILE_DURATION = 0.12f; // in seconds
@@ -13,10 +13,11 @@ namespace towerNS {
 	const float PROJECTILE_IMAGE_SCALE = 0.7f;
 	const float PROJECTILE_COLLISION_RADIUS = 15;
 
-	const float TIME_BETWEEN_SHOTS = 1.4f;//0.3f; // in seconds
+	const float TIME_BETWEEN_SHOTS = .75f;//0.3f; // in seconds
 	const float ROTATE_SPEED = 0.5f; // radians per second
-	const int STARTING_HEALTH = 600;
-	const int DAMAGE = 40;
+	const int STARTING_HEALTH = 500;
+	const int DAMAGE = 75;
+    // 100 dps
 	const float GUN_FRAME_DELAY = 0.08f;
 	const int GUN_FRAME_START = 0;
 	const int GUN_FRAME_END = 4;
