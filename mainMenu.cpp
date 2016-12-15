@@ -108,11 +108,11 @@ void MainMenu::initialize(Graphics* graphics, Game* game, Input* input, Audio* a
 	winscreen.setX(0);
 	winscreen.setY(GAME_HEIGHT);
 	// Off left	
-	wavecomplete.setX(-GAME_WIDTH);
+	wavecomplete.setX(-1100);
 	wavecomplete.setY(0);
-	loadingscreen.setX(-GAME_WIDTH);
+	loadingscreen.setX(-1100);
 	loadingscreen.setY(0);
-	transitionImage.setX(-GAME_WIDTH);
+	transitionImage.setX(-1100);
 	transitionImage.setY(0);
 
 }
@@ -146,7 +146,7 @@ void MainMenu::update(float frameTime){
 			mainmenu.setVisible(true);
 
 			if(instruction0.getX() > 1)
-				transition(&instruction0, "right");
+				transition(&instruction0, "rightC");
 
 			break;
 		case GameState::instructions1:
@@ -161,7 +161,7 @@ void MainMenu::update(float frameTime){
 			mainmenu.setVisible(false);
 
 			if(instruction1.getX() > 1)
-				transition(&instruction1, "right");
+				transition(&instruction1, "rightS");
 			
 			break;
 		case GameState::instructions2:
@@ -176,7 +176,7 @@ void MainMenu::update(float frameTime){
 			mainmenu.setVisible(false);
 
 			if(instruction2.getX() > 1)
-				transition(&instruction2, "right");
+				transition(&instruction2, "rightS");
 
 			break;
 		case GameState::transition:
@@ -188,10 +188,11 @@ void MainMenu::update(float frameTime){
 			instruction2.setVisible(false);
 			instruction1.setVisible(false);
 			instruction0.setVisible(false);
-			mainmenu.setVisible(false);
+			mainmenu.setVisible(true);
 
-			transitionImage.setX(0);
-			transitionImage.setY(0);
+			if(transitionImage.getX() < GAME_WIDTH-1)
+				transition(&transitionImage, "left");
+
 			break;
 		case GameState::won:
 			transitionImage.setVisible(false);
@@ -216,6 +217,18 @@ void MainMenu::update(float frameTime){
 			instruction0.setVisible(false);
 			mainmenu.setVisible(false);
 
+			break;
+
+		case GameState::level1Init:
+			
+			break;
+
+		case GameState::level2Init:
+			
+			break;
+
+		case GameState::level3Init:
+			
 			break;
 		default:
 			break;
@@ -259,7 +272,7 @@ void MainMenu::onResetDevice(){
 }
 
 void MainMenu::transition(Image *image, std::string side){
-	if(side == "right"){
+	if(side == "rightC"){
 		image->setScale(0);
 		image->setY(0);
 		if(image->getX() > 1){
@@ -268,13 +281,18 @@ void MainMenu::transition(Image *image, std::string side){
 			image->setScale(1 - newX/GAME_WIDTH);
 		}
 		return;
+	}else if(side == "rightS"){
+		image->setY(0);
+		if(image->getX() > 1){
+			float newX = image->getX()-(image->getX()/10);
+			image->setX(newX);
+		}
+		return;
 	}else if(side == "left"){
-		image->setScale(0);
 		image->setY(0);
 		if(image->getX() < GAME_WIDTH-1){
-			float newX = image->getX()+(image->getX()/10);
+			float newX = image->getX()-(image->getX()/10);
 			image->setX(newX);
-			image->setScale(1 - newX/GAME_WIDTH);
 		}
 		return;
 	}else if(side == "top"){
@@ -320,6 +338,6 @@ void MainMenu::resetMenu(){
 	wavecomplete.setY(0);
 	loadingscreen.setX(-GAME_WIDTH);
 	loadingscreen.setY(0);
-	transitionImage.setX(-GAME_WIDTH);
+	transitionImage.setX(-1100);
 	transitionImage.setY(0);
 }

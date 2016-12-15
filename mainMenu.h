@@ -45,5 +45,7 @@ private:
 	Game* game;
 	Input* input;
 	GameState* gameState;
+
+	float timer;
 };
 
