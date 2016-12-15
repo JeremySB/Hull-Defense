@@ -160,7 +160,7 @@ void Tower::attackTargets(std::list<Enemy*> targets)
 		projectile.setActive(true);
 		projectile.setVisible(true);
 		gunImage.setCurrentFrame(towerNS::GUN_FRAME_START);
-		audio->playCue(LASER);
+		audio->playCue(LASER_CUE);
 	}
 
 

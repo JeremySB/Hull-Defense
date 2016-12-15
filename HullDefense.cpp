@@ -42,7 +42,7 @@ void HullDefense::initialize(HWND hwnd)
 
 	waves.initialize(&enemyManager);
 	
-	audio->playCue(BACKGROUND);
+	audio->playCue(BACKGROUND_CUE);
 	// background1 texture
 	if (!backgroundTexture.initialize(graphics, BACKGROUND_IMAGE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background texture"));
@@ -116,11 +116,10 @@ void HullDefense::update()
 		break;
 
 	case GameState::level1Init:
-		gameState.setSelectionMode(GameState::photonCannonSelection);
 		waves.loadWaves(LEVEL1WAVEFILE);
 		structureManager.loadLevel(1);
 		particleManager.reset();
-		gameState.setCurrency(750);
+		gameState.setCurrency(1000);
 		enemyManager.reset();
 
 		if (!background.initialize(graphics, 0, 0, 0, &backgroundTexture))

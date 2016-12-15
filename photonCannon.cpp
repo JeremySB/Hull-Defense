@@ -110,7 +110,7 @@ void PhotonCannon::attackTargets(std::list<Enemy*> targets)
 		projectile.setActive(true);
 		projectile.setVisible(true);
 		gunImage.setCurrentFrame(photonCannonNS::PROJECTILE_FRAME_START);
-		audio->playCue(LASER);
+		audio->playCue(PHOTON_CUE);
 	}
 
 	

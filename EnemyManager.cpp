@@ -77,7 +77,7 @@ void EnemyManager::removeChild(Enemy* toRemove){
             state->addCurrency(children[i]->getValue());
 			particleMan->addEnemyDeath(children[i]);
 			delete children[i];
-			audio->playCue(SQUISH);
+			audio->playCue(SQUISH_CUE);
             numChildren--;
 			deleted = true;
 		}
