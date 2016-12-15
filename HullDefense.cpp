@@ -176,7 +176,7 @@ void HullDefense::update()
 		if(!input->getMouseLButton() && lastClickState){
 			float mouseX = input->getMouseX();
 			float mouseY = input->getMouseY();
-			if(mouseX > 0 && mouseX < CELL_WIDTH && mouseY > 0 && mouseY < CELL_HEIGHT)
+			if(mouseX > 0 && mouseX < 55 && mouseY > 0 && mouseY < 25)
 				gameState.setGamePhase(GameState::intro);
 			else if(mouseX > 0 && mouseX < GAME_WIDTH/3)
 				gameState.setGamePhase(GameState::level1Init);

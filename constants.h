@@ -71,6 +71,7 @@ const char GENERIC_EXPLOSION[] = "pictures\\genericExplosionJEREMY.png";
 const char HEALTH_IMAGE[] = "pictures\\heart.png";
 const char ENERGY_IMAGE[] = "pictures\\energy.png";
 const char ENEMY_BLOOD[] = "pictures\\enemyBlood.png";
+const char SPARKS_PARTICLE[] = "pictures\\sparksJEREMY.png";
 
 // intro images
 const char MAIN_MENU[] = "pictures\\mainScreenDANIEL.png";

@@ -22,9 +22,10 @@ Tower::~Tower()
 {
 }
 
-bool Tower::initialize(Game * gamePtr, int widthInGrid, int heightInGrid, int ncols, TextureManager * textureM)
+bool Tower::initialize(Game * gamePtr, int widthInGrid, int heightInGrid, int ncols, TextureManager * textureM, ParticleManager* particleM)
 {
 	bool result = Structure::initialize(gamePtr, widthInGrid, heightInGrid, ncols, textureM);
+	particleManager = particleM;
 	setCollisionRadius(getWidth() / 2.0);
 	return result;
 }
@@ -188,8 +189,7 @@ void Tower::attackTargets(std::list<Enemy*> targets)
 				projectile.setActive(false);
 				projectile.setVisible(false);
 				this->target = nullptr;
-				/*particleManager->addPhotonExplosion(projectile.getCenterX(), projectile.getCenterY(),
-				towerNS::PROJECTILE_EXPLOSION_IMAGE_SCALE, towerNS::PROJECTILE_EXPLOSION_DURATION);*/
+				particleManager->addLaserSparks(*projectile.getCenter(), VECTOR2(0, 0), 0.8, 0.3);
 				break;
 			}
 		}

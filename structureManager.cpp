@@ -191,7 +191,7 @@ bool StructureManager::addTower(int x, int y)
 	if (isOccupiedAtGrid(xGrid, yGrid, 3, 3) || gameState->getCurrency() < towerNS::PRICE) return false;
 
 	Tower* tower = new Tower();
-	tower->initialize(game, 3, 3, 0, &towerBaseTexture);
+	tower->initialize(game, 3, 3, 0, &towerBaseTexture, particleManager);
 	tower->setupHealthbar(&healthbarTexture);
     if (!grid.addAtGridCoords(tower, xGrid, yGrid)) return false;
 	tower->setProjectileTexture(&towerProjectileTexture);

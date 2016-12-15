@@ -28,7 +28,7 @@ public:
 	Tower();
 	~Tower();
 
-	bool initialize(Game *gamePtr, int widthInGrid, int heightInGrid, int ncols, TextureManager *textureM);
+	bool initialize(Game *gamePtr, int widthInGrid, int heightInGrid, int ncols, TextureManager *textureM, ParticleManager* particleM);
 
 	void drawProjectiles();
 	void draw();

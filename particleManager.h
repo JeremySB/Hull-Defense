@@ -27,6 +27,7 @@ public:
 	void addEnemyDeath(Entity *source);
 	void addStructurePlacement(Entity *source);
 	void addSmoke(VECTOR2 center, VECTOR2 vel, float scale, float timeToLive);
+	void addLaserSparks(VECTOR2 center, VECTOR2 vel, float scale, float timeToLive);
 
 	float getVariance();
 
@@ -35,7 +36,7 @@ public:
 
 private:
 	TextureManager enemyBloodTM;
-	TextureManager photonExplosionTM, smokeTM, genericExplosionTM;
+	TextureManager photonExplosionTM, smokeTM, genericExplosionTM, laserSparksTM;
 	Particle** particles;
 	Graphics* graphics;
 	std::list<TextureManager*> listTM; // add pointers to all texture managers to this for easy onLostDevice, etc
