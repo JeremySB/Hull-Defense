@@ -144,7 +144,7 @@ void ParticleManager::addEnemyDeath(Entity *source){
 	particles[i]->setActive(true);
 }
 
-void ParticleManager::addSmoke(VECTOR2 center, VECTOR2 vel, float scale, float timeToLive)
+void ParticleManager::addSmoke(VECTOR2 center, VECTOR2 vel, float scale, float timeToLive, int alpha)
 {
 	for (int i = 0; i < MAX_PARTICLES; i++) {
 		if (!particles[i]->getActive())
@@ -153,7 +153,7 @@ void ParticleManager::addSmoke(VECTOR2 center, VECTOR2 vel, float scale, float t
 			particles[i]->initialize(graphics, 256, 256, 6, &smokeTM);
 			particles[i]->setFrames(0, 29);
 			particles[i]->setFrameDelay(timeToLive / 30.0);
-			particles[i]->setColorFilter(D3DCOLOR_ARGB(35, 255, 255, 255));
+			particles[i]->setColorFilter(D3DCOLOR_ARGB(alpha, 255, 255, 255));
 			particles[i]->setCurrentFrame(0);
 			particles[i]->setScale(scale);
 			particles[i]->setVelocity(vel);
