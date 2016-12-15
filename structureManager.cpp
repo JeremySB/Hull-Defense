@@ -404,20 +404,32 @@ void StructureManager::selection()
 
 	// only trigger on LMB up
 	if (mode == GameState::wallSelection && !input->getMouseLButton() && lastLMBState) {
-		if(addWall(x, y)) // function checks for existing structures
+		if (addWall(x, y)) // function checks for existing structures
+		{
 			audio->playCue(PLACEMENT_CUE);
+			particleManager->addSmoke(VECTOR2(x, y), VECTOR2(5, -10), 0.3, .4, 128);
+		}
 	}
 	else if (mode == GameState::turretSelection && !input->getMouseLButton() && lastLMBState) {
 		if(addTurret(x, y))
+		{
 			audio->playCue(PLACEMENT_CUE);
+			particleManager->addSmoke(VECTOR2(x, y), VECTOR2(5, -10), 0.3, .4, 128);
+		}
 	}
 	else if (mode == GameState::towerSelection && !input->getMouseLButton() && lastLMBState) {
 		if(addTower(x, y))
+		{
 			audio->playCue(PLACEMENT_CUE);
+			particleManager->addSmoke(VECTOR2(x, y), VECTOR2(5, -10), 0.3, .6, 128);
+		}
 	}
 	else if (mode == GameState::photonCannonSelection && !input->getMouseLButton() && lastLMBState) {
 		if (addPhotonCannon(x, y))
+		{
 			audio->playCue(PLACEMENT_CUE);
+			particleManager->addSmoke(VECTOR2(x, y), VECTOR2(5, -10), 0.3, .6, 128);
+		}
 	}
 	else if (mode == GameState::sell && !input->getMouseLButton() && lastLMBState) {
 		sell(x, y);

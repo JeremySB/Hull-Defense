@@ -190,6 +190,8 @@ void Tower::attackTargets(std::list<Enemy*> targets)
 				projectile.setVisible(false);
 				this->target = nullptr;
 				particleManager->addLaserSparks(*projectile.getCenter(), VECTOR2(0, 0), 0.8, 0.3);
+                particleManager->addLaserSparks(*projectile.getCenter(), VECTOR2(0, 0), 0.8, 0.3);
+
 				break;
 			}
 		}

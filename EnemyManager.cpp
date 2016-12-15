@@ -75,7 +75,9 @@ void EnemyManager::removeChild(Enemy* toRemove){
 	for(int i = 0; i < numChildren || (deleted && i+1 < numChildren); i++){
 		if(children[i] == toRemove){
             state->addCurrency(children[i]->getValue());
-			particleMan->addEnemyDeath(children[i]);
+            for (int j = 0; j < 5; j++){
+			    particleMan->addEnemyDeath(children[i]);
+            }
 			delete children[i];
 			audio->playCue(SQUISH_CUE);
             numChildren--;
@@ -96,16 +98,15 @@ EnemyManager::~EnemyManager(){
 
 void EnemyManager::updateChildren(float frameTime){
     std::list<Structure*> bob = grid->getStructures();
-
     for( int i = 0; i < numChildren; i++){
-        std::list<Structure*> tmp = bob;
-        while(!tmp.empty()){
-            if(tmp.front() -> getType() != permWall && children[i]->collidesWith(*tmp.front(),VECTOR2())){
-                tmp.front()->damage(children[i]->getDamage() * frameTime);
+        std::list<Structure *>::iterator tmp = bob.begin();
+        while(tmp != bob.end()){
+            if((*tmp)->getType() != permWall && children[i]->collidesWith(*(*tmp),VECTOR2())){
+                (*tmp)->damage(children[i]->getDamage() * frameTime);
                 children[i]->collidedThisFrame();
                 break;
             }
-            tmp.pop_front();
+            ++tmp;
         }
         children[i]->update(frameTime);
         if (children[i]->getHealth() <= 0) {

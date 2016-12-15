@@ -1,8 +1,6 @@
 L
-.1 p
-1 h h h h h h h h h h h h h h h h h h h h h 
-.5 m m m m m
-.5 h h h h h
 .5 l l l l l
+.5 m m m m m
+1 h h h h h h
 1 m m h h l l m h l h
 .2 h m h h m m l l h h h

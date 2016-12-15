@@ -131,16 +131,16 @@ void ParticleManager::addEnemyDeath(Entity *source){
 	if(particles[i]->getActive())
 		return;
 	particles[i]->initialize(graphics, 128, 128, 4, &enemyBloodTM);
-	particles[i]->setFrames(0, 3);
-	particles[i]->setFrameDelay(.1);
+	particles[i]->setFrames(0,15);
 	particles[i]->setCurrentFrame(0);
 	particles[i]->setScale(.25);
 	particles[i]->setLoop(false);
-	particles[i]->setTimeToLive(.4 * (rand()%21)/20.0);
+	particles[i]->setTimeToLive(.6 * (rand()%21)/20.0);
+    particles[i]->setFrameDelay(particles[i]->getTimeToLive() / 15);
 	particles[i]->setX(source->getCenterX() - particles[i]->getWidth() * particles[i]->getScale() / 2);
 	particles[i]->setY(source->getCenterY() - particles[i]->getHeight() * particles[i]->getScale() / 2);
 	particles[i]->setRadians((rand()%11) / 10);
-	particles[i]->setVelocity(VECTOR2(10 * (rand()%101) / 100.0,10 * (rand()%101) / 100.0));
+	particles[i]->setVelocity(VECTOR2(30 * (rand()%101) / 100.0,30 * (rand()%101) / 100.0));
 	particles[i]->setActive(true);
 }
 
@@ -182,6 +182,7 @@ void ParticleManager::addLaserSparks(VECTOR2 center, VECTOR2 vel, float scale, f
 			particles[i]->setVelocity(vel);
 			particles[i]->setLoop(false);
 			particles[i]->setTimeToLive(timeToLive);
+            particles[i]->setRadians(rand());
 			particles[i]->setX(center.x - particles[i]->getWidth() * particles[i]->getScale() / 2);
 			particles[i]->setY(center.y - particles[i]->getHeight() * particles[i]->getScale() / 2);
 			particles[i]->setActive(true);
