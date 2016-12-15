@@ -124,10 +124,11 @@ void MainMenu::update(float frameTime){
 			resetMenu();
 			resetMenuPos();
 			mainmenu.setVisible(true);
-
+			resetMenu(true);
 			break;
 		case GameState::instructions:
 			resetMenu();
+			mainmenu.setVisible(true);
 			instruction0.setVisible(true);
 
 			if(instruction0.getX() > 1){
@@ -137,6 +138,7 @@ void MainMenu::update(float frameTime){
 			break;
 		case GameState::instructions1:
 			resetMenu();
+			instruction0.setVisible(true);
 			instruction1.setVisible(true);
 
 			if(instruction1.getX() > 1){
@@ -146,6 +148,7 @@ void MainMenu::update(float frameTime){
 			break;
 		case GameState::instructions2:
 			resetMenu();
+			instruction1.setVisible(true);
 			instruction2.setVisible(true);
 
 			if(instruction2.getX() > 1){
@@ -154,7 +157,7 @@ void MainMenu::update(float frameTime){
 
 			break;
 		case GameState::transition:
-			resetMenu();
+			//resetMenu();
 			transitionImage.setVisible(true);
 
 			if(transitionImage.getX() < -1){
@@ -168,6 +171,8 @@ void MainMenu::update(float frameTime){
 
 			if(winscreen.getY() > 1){
 				transition(&winscreen, "bottom");
+			}else{
+				winscreen.setY(0);
 			}
 
 			break;
@@ -177,6 +182,8 @@ void MainMenu::update(float frameTime){
 
 			if(losescreen.getY() < -1){
 				transition(&losescreen, "top");
+			}else{
+				losescreen.setY(0);
 			}
 
 			break;
@@ -281,7 +288,7 @@ void MainMenu::transition(Image *image, std::string side){
 	}
 }
 
-void MainMenu::resetMenu(){
+void MainMenu::resetMenu(bool t){
 	transitionImage.setVisible(false);
 	loadingscreen.setVisible(false);
 	wavecomplete.setVisible(false);
@@ -290,7 +297,10 @@ void MainMenu::resetMenu(){
 	instruction2.setVisible(false);
 	instruction1.setVisible(false);
 	instruction0.setVisible(false);
-	mainmenu.setVisible(false);
+	if(t)
+		mainmenu.setVisible(true);
+	else
+		mainmenu.setVisible(false);
 }
 void MainMenu::resetMenuPos()
 {
