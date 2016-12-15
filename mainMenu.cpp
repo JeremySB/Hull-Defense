@@ -103,7 +103,7 @@ void MainMenu::initialize(Graphics* graphics, Game* game, Input* input, Audio* a
 	instruction2.setY(0);
 	// Off top
 	losescreen.setX(0);
-	losescreen.setY(-GAME_HEIGHT);
+	losescreen.setY(-600);
 	// Off bottom
 	winscreen.setX(0);
 	winscreen.setY(GAME_HEIGHT);
@@ -159,9 +159,6 @@ void MainMenu::update(float frameTime){
 
 			if(transitionImage.getX() < -1){
 				transition(&transitionImage, "left");
-			}else{
-				int i = 0;
-				i++;
 			}
 
 			break;
@@ -169,13 +166,18 @@ void MainMenu::update(float frameTime){
 			resetMenu();
 			winscreen.setVisible(true);
 
-			if(winscreen.getY() < GAME_HEIGHT-1){
+			if(winscreen.getY() > 1){
 				transition(&winscreen, "bottom");
 			}
 
 			break;
 		case GameState::lost:
 			resetMenu();
+			losescreen.setVisible(true); 
+
+			if(losescreen.getY() < -1){
+				transition(&losescreen, "top");
+			}
 
 			break;
 		case GameState::level1Init:
@@ -243,7 +245,7 @@ void MainMenu::transition(Image *image, std::string side){
 		image->setScale(0);
 		image->setY(0);
 		if(image->getX() > 1){
-			float newX = image->getX()-(image->getX()/10);
+			float newX = image->getX()-(image->getX()/20);
 			image->setX(newX);
 			image->setScale(1 - newX/GAME_WIDTH);
 		}
@@ -251,30 +253,28 @@ void MainMenu::transition(Image *image, std::string side){
 	}else if(side == "rightS"){
 		image->setY(0);
 		if(image->getX() > 1){
-			float newX = image->getX()-(image->getX()/10);
+			float newX = image->getX()-(image->getX()/20);
 			image->setX(newX);
 		}
 		return;
 	}else if(side == "left"){
 		image->setY(0);
 		if(image->getX() < GAME_WIDTH-1){
-			float newX = image->getX()-(image->getX()/10);
+			float newX = image->getX()-(image->getX()/20);
 			image->setX(newX);
 		}
 		return;
 	}else if(side == "top"){
-		image->setScale(0);
 		image->setX(0);
-		if(image->getY() < GAME_HEIGHT-1){
-			float newY = image->getY()-(image->getY()/75);
+		if(image->getY() < -1){
+			float newY = image->getY()-(image->getY()/20);
 			image->setY(newY);
-			image->setScale(1 - newY/GAME_HEIGHT);
 		}
 		return;
-	}else{
+	}else if(side == "bottom"){
 		image->setX(0);
 		if(image->getY() > 1){
-			float newY = image->getY()-(image->getY()/75);
+			float newY = image->getY()-(image->getY()/20);
 			image->setY(newY);
 		}
 		return;
@@ -306,14 +306,14 @@ void MainMenu::resetMenuPos()
 	instruction2.setY(0);
 	// Off top
 	losescreen.setX(0);
-	losescreen.setY(-GAME_HEIGHT);
+	losescreen.setY(-600);
 	// Off bottom
 	winscreen.setX(0);
 	winscreen.setY(GAME_HEIGHT);
 	// Off left	
-	wavecomplete.setX(-GAME_WIDTH);
+	wavecomplete.setX(-1100);
 	wavecomplete.setY(0);
-	loadingscreen.setX(-GAME_WIDTH);
+	loadingscreen.setX(-1100);
 	loadingscreen.setY(0);
 	transitionImage.setX(-1100);
 	transitionImage.setY(0);

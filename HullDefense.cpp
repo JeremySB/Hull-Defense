@@ -291,15 +291,23 @@ void HullDefense::render()
 		break;
 
 	case GameState::transition:
-		//transitionImage.draw();
+		
 		break;
 
 	case GameState::won:
-		//winscreen.draw();
+		background.draw();
+		structureManager.draw();
+		enemyManager.draw();
+		particleManager.draw();
+		gameMenu.draw();
 		break;
 
 	case GameState::lost:
-		//losescreen.draw();
+		background.draw();
+		structureManager.draw();
+		enemyManager.draw();
+		particleManager.draw();
+		gameMenu.draw();
 		break;
 
 	default:
