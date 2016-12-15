@@ -5,7 +5,7 @@ public:
 	GameState();
 	~GameState();
 
-	enum GamePhase { intro, instructions, instructions1, instructions2, level1Init, level1Play, level2Init, level2Play, level3Init, level3Play,Play, transition, won, lost };
+	enum GamePhase { intro, instructions, instructions1, instructions2, level1Init, level1Play, Load, level2Init, level2Play, level3Init, level3Play,Play, transition, won, lost };
 	enum SelectionMode { normal, build, wallSelection, towerSelection, photonCannonSelection, turretSelection, sell, repair };
 
 	GamePhase getGamePhase() { return gamePhase; }
@@ -19,6 +19,7 @@ public:
 	void addCurrency(int in) { currency += in; }
 
 	int getHealth() { return health; }
+	float getTimer() {return timer; }
 	void setHealth(int in) { health = in; }
 	
 private:
@@ -26,5 +27,6 @@ private:
 	SelectionMode selectionMode;
 	int currency; 
 	int health;
+	float timer;
 };
 
