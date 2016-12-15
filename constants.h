@@ -103,11 +103,13 @@ const char WAVE_BANK[]  = "audio\\Win\\project2.xwb";
 const char SOUND_BANK[] = "audio\\Win\\project2.xsb";
 
 // audio cues
-const char BACKGROUND[] = "backgroundmusic";
-const char LASER[] = "laser";
-const char ENERGY[] = "energy";
-const char PLACEMENT[] = "placement";
-const char SQUISH[] = "Squish";
+const char BACKGROUND_CUE[] = "backgroundmusic";
+const char LASER_CUE[] = "laser";
+const char PHOTON_CUE[] = "photon";
+const char ENERGY_CUE[] = "energy";
+const char PLACEMENT_CUE[] = "placement";
+const char SQUISH_CUE[] = "Squish";
+const char REPAIR_CUE[] = "repair";
 
 // key mappings
 // In this game simple constants are used for key mappings. If variables were used
