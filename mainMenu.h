@@ -21,6 +21,7 @@ public:
 	void setGameState(GameState* in) { gameState = in; }
 	void transition(Image *image, std::string side);
 	void resetMenu();
+	void resetMenuPos();
 
 private:
 	// instruction textures
@@ -45,7 +46,5 @@ private:
 	Game* game;
 	Input* input;
 	GameState* gameState;
-
-	float timer;
 };
 

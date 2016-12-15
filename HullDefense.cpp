@@ -125,7 +125,7 @@ void HullDefense::update()
 		if (!background.initialize(graphics, 0, 0, 0, &backgroundTexture))
 			throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background"));
 
-		gameState.setGamePhase(GameState::Play);//GameState::level1Play);
+		gameState.setGamePhase(GameState::play);//GameState::level1Play);
 		break;
 
 	case GameState::level2Init:
@@ -138,7 +138,7 @@ void HullDefense::update()
 		if (!background.initialize(graphics, 0, 0, 0, &background2Texture))
 			throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background"));
 
-		gameState.setGamePhase(GameState::Play);//GameState::level2Play);
+		gameState.setGamePhase(GameState::play);//GameState::level2Play);
 		break;
 
 	case GameState::level3Init:
@@ -151,9 +151,9 @@ void HullDefense::update()
 		if (!background.initialize(graphics, 0, 0, 0, &background3Texture))
 			throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing background"));
 
-		gameState.setGamePhase(GameState::Play);//GameState::level3Play);
+		gameState.setGamePhase(GameState::play);//GameState::level3Play);
 		break;
-	case GameState::Play:
+	case GameState::play:
 	/*case GameState::level1Play:
 	case GameState::level2Play:
 	case GameState::level3Play:*/
@@ -247,8 +247,6 @@ void HullDefense::render()
 
 	dxFont->setFontColor(graphicsNS::ORANGE);
 
-	mainMenu.draw();
-
 	GameState::GamePhase phase = gameState.getGamePhase();
 	switch (phase){
 	case GameState::intro:
@@ -282,7 +280,7 @@ void HullDefense::render()
 	//case GameState::level1Play:
 	//case GameState::level2Play:
 	//case GameState::level3Play:
-	case GameState::Play:
+	case GameState::play:
 		background.draw();
 		structureManager.draw();
 		enemyManager.draw();
@@ -291,20 +289,30 @@ void HullDefense::render()
 		break;
 
 	case GameState::transition:
-		//transitionImage.draw();
+		
 		break;
 
 	case GameState::won:
-		//winscreen.draw();
+		background.draw();
+		structureManager.draw();
+		enemyManager.draw();
+		particleManager.draw();
+		gameMenu.draw();
 		break;
 
 	case GameState::lost:
-		//losescreen.draw();
+		background.draw();
+		structureManager.draw();
+		enemyManager.draw();
+		particleManager.draw();
+		gameMenu.draw();
 		break;
 
 	default:
 		break;
 	}
+
+	mainMenu.draw();
 
 	graphics->spriteEnd();                  // end drawing sprites
 
