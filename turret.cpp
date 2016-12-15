@@ -83,7 +83,7 @@ void Turret::attackTarget(Entity* target)
 	if (target && projectileDisplayTimer >= turretNS::PROJECTILE_DURATION + turretNS::TIME_BETWEEN_SHOTS) {
 		projectileDisplayTimer = 0;
 		firstShot = true;
-		audio->playCue(LASER);
+		audio->playCue(LASER_CUE);
 	}
 	this->target = target;
 }

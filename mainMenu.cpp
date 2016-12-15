@@ -103,16 +103,16 @@ void MainMenu::initialize(Graphics* graphics, Game* game, Input* input, Audio* a
 	instruction2.setY(0);
 	// Off top
 	losescreen.setX(0);
-	losescreen.setY(-GAME_HEIGHT);
+	losescreen.setY(-600);
 	// Off bottom
 	winscreen.setX(0);
 	winscreen.setY(GAME_HEIGHT);
 	// Off left	
-	wavecomplete.setX(-GAME_WIDTH);
+	wavecomplete.setX(-1100);
 	wavecomplete.setY(0);
-	loadingscreen.setX(-GAME_WIDTH);
+	loadingscreen.setX(-1100);
 	loadingscreen.setY(0);
-	transitionImage.setX(-GAME_WIDTH);
+	transitionImage.setX(-1100);
 	transitionImage.setY(0);
 
 }
@@ -121,101 +121,90 @@ void MainMenu::update(float frameTime){
 	switch (gameState->getGamePhase())
 	{
 		case GameState::intro:
-			transitionImage.setVisible(false);
-			loadingscreen.setVisible(false);
-			wavecomplete.setVisible(false);
-			losescreen.setVisible(false);
-			winscreen.setVisible(false);
-			instruction2.setVisible(false);
-			instruction1.setVisible(false);
-			instruction0.setVisible(false);
-			mainmenu.setVisible(true);
-
 			resetMenu();
-
+			resetMenuPos();
+			mainmenu.setVisible(true);
+			resetMenu(true);
 			break;
 		case GameState::instructions:
-			transitionImage.setVisible(false);
-			loadingscreen.setVisible(false);
-			wavecomplete.setVisible(false);
-			losescreen.setVisible(false);
-			winscreen.setVisible(false);
-			instruction2.setVisible(false);
-			instruction1.setVisible(false);
-			instruction0.setVisible(true);
+			resetMenu();
 			mainmenu.setVisible(true);
+			instruction0.setVisible(true);
 
-			if(instruction0.getX() > 1)
-				transition(&instruction0, "right");
+			if(instruction0.getX() > 1){
+				transition(&instruction0, "rightC");
+			}
 
 			break;
 		case GameState::instructions1:
-			transitionImage.setVisible(false);
-			loadingscreen.setVisible(false);
-			wavecomplete.setVisible(false);
-			losescreen.setVisible(false);
-			winscreen.setVisible(false);
-			instruction2.setVisible(false);
-			instruction1.setVisible(true);
+			resetMenu();
 			instruction0.setVisible(true);
-			mainmenu.setVisible(false);
+			instruction1.setVisible(true);
 
-			if(instruction1.getX() > 1)
-				transition(&instruction1, "right");
+			if(instruction1.getX() > 1){
+				transition(&instruction1, "rightS");
+			}
 			
 			break;
 		case GameState::instructions2:
-			transitionImage.setVisible(false);
-			loadingscreen.setVisible(false);
-			wavecomplete.setVisible(false);
-			losescreen.setVisible(false);
-			winscreen.setVisible(false);
-			instruction2.setVisible(true);
+			resetMenu();
 			instruction1.setVisible(true);
-			instruction0.setVisible(false);
-			mainmenu.setVisible(false);
+			instruction2.setVisible(true);
 
-			if(instruction2.getX() > 1)
-				transition(&instruction2, "right");
+			if(instruction2.getX() > 1){
+				transition(&instruction2, "rightS");
+			}
 
 			break;
 		case GameState::transition:
+			//resetMenu();
 			transitionImage.setVisible(true);
-			loadingscreen.setVisible(false);
-			wavecomplete.setVisible(false);
-			losescreen.setVisible(false);
-			winscreen.setVisible(false);
-			instruction2.setVisible(false);
-			instruction1.setVisible(false);
-			instruction0.setVisible(false);
-			mainmenu.setVisible(false);
 
-			transitionImage.setX(0);
-			transitionImage.setY(0);
+			if(transitionImage.getX() < -1){
+				transition(&transitionImage, "left");
+			}
+
 			break;
 		case GameState::won:
-			transitionImage.setVisible(false);
-			loadingscreen.setVisible(false);
-			wavecomplete.setVisible(false);
-			losescreen.setVisible(false);
+			resetMenu();
 			winscreen.setVisible(true);
-			instruction2.setVisible(false);
-			instruction1.setVisible(false);
-			instruction0.setVisible(false);
-			mainmenu.setVisible(false);
+
+			if(winscreen.getY() > 1){
+				transition(&winscreen, "bottom");
+			}else{
+				winscreen.setY(0);
+			}
 
 			break;
 		case GameState::lost:
-			transitionImage.setVisible(false);
-			loadingscreen.setVisible(false);
-			wavecomplete.setVisible(false);
-			losescreen.setVisible(true);
-			winscreen.setVisible(false);
-			instruction2.setVisible(false);
-			instruction1.setVisible(false);
-			instruction0.setVisible(false);
-			mainmenu.setVisible(false);
+			resetMenu();
+			losescreen.setVisible(true); 
 
+			if(losescreen.getY() < -1){
+				transition(&losescreen, "top");
+			}else{
+				losescreen.setY(0);
+			}
+
+			break;
+		case GameState::level1Init:
+			resetMenu();
+			resetMenuPos();
+			break;
+		case GameState::level2Init:
+			resetMenu();
+			resetMenuPos();
+			break;
+		case GameState::level3Init:
+			resetMenu();
+			resetMenuPos();
+			break;
+		case GameState::load:
+			resetMenu();
+
+			transition(&loadingscreen, "rightS");
+
+		case GameState::play:
 			break;
 		default:
 			break;
@@ -259,46 +248,62 @@ void MainMenu::onResetDevice(){
 }
 
 void MainMenu::transition(Image *image, std::string side){
-	if(side == "right"){
+	if(side == "rightC"){
 		image->setScale(0);
 		image->setY(0);
 		if(image->getX() > 1){
-			float newX = image->getX()-(image->getX()/10);
+			float newX = image->getX()-(image->getX()/20);
 			image->setX(newX);
 			image->setScale(1 - newX/GAME_WIDTH);
+		}
+		return;
+	}else if(side == "rightS"){
+		image->setY(0);
+		if(image->getX() > 1){
+			float newX = image->getX()-(image->getX()/20);
+			image->setX(newX);
 		}
 		return;
 	}else if(side == "left"){
-		image->setScale(0);
 		image->setY(0);
 		if(image->getX() < GAME_WIDTH-1){
-			float newX = image->getX()+(image->getX()/10);
+			float newX = image->getX()-(image->getX()/20);
 			image->setX(newX);
-			image->setScale(1 - newX/GAME_WIDTH);
 		}
 		return;
 	}else if(side == "top"){
-		image->setScale(0);
 		image->setX(0);
-		if(image->getY() < GAME_HEIGHT-1){
-			float newY = image->getY()-(image->getY()/75);
+		if(image->getY() < -1){
+			float newY = image->getY()-(image->getY()/20);
 			image->setY(newY);
-			image->setScale(1 - newY/GAME_HEIGHT);
 		}
 		return;
-	}else{
-		image->setScale(0);
+	}else if(side == "bottom"){
 		image->setX(0);
 		if(image->getY() > 1){
-			float newY = image->getY()+(image->getY()/75);
+			float newY = image->getY()-(image->getY()/20);
 			image->setY(newY);
-			image->setScale(1 - newY/GAME_HEIGHT);
 		}
 		return;
 	}
 }
 
-void MainMenu::resetMenu(){
+void MainMenu::resetMenu(bool t){
+	transitionImage.setVisible(false);
+	loadingscreen.setVisible(false);
+	wavecomplete.setVisible(false);
+	losescreen.setVisible(false);
+	winscreen.setVisible(false);
+	instruction2.setVisible(false);
+	instruction1.setVisible(false);
+	instruction0.setVisible(false);
+	if(t)
+		mainmenu.setVisible(true);
+	else
+		mainmenu.setVisible(false);
+}
+void MainMenu::resetMenuPos()
+{
 	// center
 	mainmenu.setX(0);
 	mainmenu.setY(0);
@@ -311,15 +316,15 @@ void MainMenu::resetMenu(){
 	instruction2.setY(0);
 	// Off top
 	losescreen.setX(0);
-	losescreen.setY(-GAME_HEIGHT);
+	losescreen.setY(-600);
 	// Off bottom
 	winscreen.setX(0);
 	winscreen.setY(GAME_HEIGHT);
 	// Off left	
-	wavecomplete.setX(-GAME_WIDTH);
+	wavecomplete.setX(-1100);
 	wavecomplete.setY(0);
-	loadingscreen.setX(-GAME_WIDTH);
+	loadingscreen.setX(-1100);
 	loadingscreen.setY(0);
-	transitionImage.setX(-GAME_WIDTH);
+	transitionImage.setX(-1100);
 	transitionImage.setY(0);
 }

@@ -191,7 +191,7 @@ bool StructureManager::addTower(int x, int y)
 	if (isOccupiedAtGrid(xGrid, yGrid, 3, 3) || gameState->getCurrency() < towerNS::PRICE) return false;
 
 	Tower* tower = new Tower();
-	tower->initialize(game, 3, 3, 0, &towerBaseTexture);
+	tower->initialize(game, 3, 3, 0, &towerBaseTexture, particleManager);
 	tower->setupHealthbar(&healthbarTexture);
     if (!grid.addAtGridCoords(tower, xGrid, yGrid)) return false;
 	tower->setProjectileTexture(&towerProjectileTexture);
@@ -276,7 +276,7 @@ void StructureManager::sell(int x, int y)
 	if (toSell->getType() == StructureTypes::base || toSell->getType() == StructureTypes::permWall) return;
 	gameState->addCurrency(toSell->getPrice()*2/3);
 	Audio* audio = game->getAudio();
-	audio->playCue(ENERGY);
+	audio->playCue(ENERGY_CUE);
 	grid.removeAtPixelCoords(x, y);
 	gameState->setSelectionMode(GameState::normal);
 }
@@ -288,7 +288,7 @@ void StructureManager::repair(int x, int y)
 	if (toRepair->getType() == StructureTypes::base || toRepair->getType() == StructureTypes::permWall || toRepair->getPrice() / 2 > gameState->getCurrency()) return;
 	gameState->addCurrency(- (toRepair->getPrice() / 2));
 	Audio* audio = game->getAudio();
-	audio->playCue(PLACEMENT);
+	audio->playCue(REPAIR_CUE);
 	toRepair->repair();
 	gameState->setSelectionMode(GameState::normal);
 }
@@ -396,19 +396,19 @@ void StructureManager::selection()
 	// only trigger on LMB up
 	if (mode == GameState::wallSelection && !input->getMouseLButton() && lastLMBState) {
 		if(addWall(x, y)) // function checks for existing structures
-			audio->playCue(PLACEMENT);
+			audio->playCue(PLACEMENT_CUE);
 	}
 	else if (mode == GameState::turretSelection && !input->getMouseLButton() && lastLMBState) {
 		if(addTurret(x, y))
-			audio->playCue(PLACEMENT);
+			audio->playCue(PLACEMENT_CUE);
 	}
 	else if (mode == GameState::towerSelection && !input->getMouseLButton() && lastLMBState) {
 		if(addTower(x, y))
-			audio->playCue(PLACEMENT);
+			audio->playCue(PLACEMENT_CUE);
 	}
 	else if (mode == GameState::photonCannonSelection && !input->getMouseLButton() && lastLMBState) {
 		if (addPhotonCannon(x, y))
-			audio->playCue(PLACEMENT);
+			audio->playCue(PLACEMENT_CUE);
 	}
 	else if (mode == GameState::sell && !input->getMouseLButton() && lastLMBState) {
 		sell(x, y);

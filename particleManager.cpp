@@ -28,11 +28,10 @@ void ParticleManager::initialize(Graphics * graphics, Game * game)
 	
 	if (!photonExplosionTM.initialize(graphics, PHOTON_CANNON_PROJECTILE_EXPLOSION))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing particle"));
-	
 	listTM.push_back(&photonExplosionTM);
+
 	if (!smokeTM.initialize(graphics, SMOKE_PARTICLE))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing particle"));
-
 	listTM.push_back(&smokeTM);
 
 	if (!genericExplosionTM.initialize(graphics, GENERIC_EXPLOSION))
@@ -41,8 +40,12 @@ void ParticleManager::initialize(Graphics * graphics, Game * game)
 	
 	if (!enemyBloodTM.initialize(graphics, ENEMY_BLOOD))
 		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing particle"));
-	
 	listTM.push_back(&enemyBloodTM);
+
+	if (!laserSparksTM.initialize(graphics, SPARKS_PARTICLE))
+		throw(GameError(gameErrorNS::FATAL_ERROR, "Error initializing particle"));
+	listTM.push_back(&laserSparksTM);
+
 }
 
 void ParticleManager::update(float frameTime)
@@ -151,6 +154,29 @@ void ParticleManager::addSmoke(VECTOR2 center, VECTOR2 vel, float scale, float t
 			particles[i]->setFrames(0, 29);
 			particles[i]->setFrameDelay(timeToLive / 30.0);
 			particles[i]->setColorFilter(D3DCOLOR_ARGB(35, 255, 255, 255));
+			particles[i]->setCurrentFrame(0);
+			particles[i]->setScale(scale);
+			particles[i]->setVelocity(vel);
+			particles[i]->setLoop(false);
+			particles[i]->setTimeToLive(timeToLive);
+			particles[i]->setX(center.x - particles[i]->getWidth() * particles[i]->getScale() / 2);
+			particles[i]->setY(center.y - particles[i]->getHeight() * particles[i]->getScale() / 2);
+			particles[i]->setActive(true);
+			break;
+		}
+	}
+}
+
+void ParticleManager::addLaserSparks(VECTOR2 center, VECTOR2 vel, float scale, float timeToLive)
+{
+	for (int i = 0; i < MAX_PARTICLES; i++) {
+		if (!particles[i]->getActive())
+		{
+			vel = VECTOR2(vel.x + 3 * getVariance(), vel.y + 3 * getVariance());
+			particles[i]->initialize(graphics, 64, 64, 4, &laserSparksTM);
+			particles[i]->setFrames(0, 3);
+			particles[i]->setFrameDelay(timeToLive / 4.0);
+			particles[i]->setColorFilter(D3DCOLOR_ARGB(255, 255, 255, 255));
 			particles[i]->setCurrentFrame(0);
 			particles[i]->setScale(scale);
 			particles[i]->setVelocity(vel);

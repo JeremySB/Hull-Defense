@@ -20,7 +20,8 @@ public:
 
 	void setGameState(GameState* in) { gameState = in; }
 	void transition(Image *image, std::string side);
-	void resetMenu();
+	void resetMenu(bool t = false);
+	void resetMenuPos();
 
 private:
 	// instruction textures
