@@ -26,10 +26,11 @@ public:
 
 	void setTimeToLive(float timeToLive) {
 		this->timeToLive = timeToLive;
+        this->maxTimeToLive = timeToLive;
 	}
 
 protected:
-	float timeToLive;
+	float timeToLive, maxTimeToLive;
 	bool active;
 	VECTOR2 velocity;
 };

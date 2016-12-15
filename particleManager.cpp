@@ -131,16 +131,16 @@ void ParticleManager::addEnemyDeath(Entity *source){
 	if(particles[i]->getActive())
 		return;
 	particles[i]->initialize(graphics, 128, 128, 4, &enemyBloodTM);
-	particles[i]->setFrames(0, 3);
+	particles[i]->setFrames(4, 7);
 	particles[i]->setFrameDelay(.1);
 	particles[i]->setCurrentFrame(0);
 	particles[i]->setScale(.25);
 	particles[i]->setLoop(false);
-	particles[i]->setTimeToLive(.4 * (rand()%21)/20.0);
+	particles[i]->setTimeToLive(.6 * (rand()%21)/20.0);
 	particles[i]->setX(source->getCenterX() - particles[i]->getWidth() * particles[i]->getScale() / 2);
 	particles[i]->setY(source->getCenterY() - particles[i]->getHeight() * particles[i]->getScale() / 2);
 	particles[i]->setRadians((rand()%11) / 10);
-	particles[i]->setVelocity(VECTOR2(10 * (rand()%101) / 100.0,10 * (rand()%101) / 100.0));
+	particles[i]->setVelocity(VECTOR2(30 * (rand()%101) / 100.0,30 * (rand()%101) / 100.0));
 	particles[i]->setActive(true);
 }
 

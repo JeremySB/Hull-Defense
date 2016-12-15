@@ -2,6 +2,8 @@
 #include "graphics.h"
 #include <string>
 
+const int speedModifier = 50;
+
 MainMenu::MainMenu(void)
 {
 }

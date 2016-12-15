@@ -155,10 +155,7 @@ void HullDefense::update()
 
 		gameState.setGamePhase(GameState::play);//GameState::level3Play);
 		break;
-	case GameState::play:
-	/*case GameState::level1Play:
-	case GameState::level2Play:
-	case GameState::level3Play:*/
+	case GameState::Play:
 		structureManager.update(frameTime);
 		particleManager.update(frameTime);
 		gameMenu.update(frameTime);
@@ -291,10 +288,7 @@ void HullDefense::render()
 		//loadingscreen.draw();
 		break;
 
-	//case GameState::level1Play:
-	//case GameState::level2Play:
-	//case GameState::level3Play:
-	case GameState::play:
+	case GameState::Play:
 		background.draw();
 		structureManager.draw();
 		enemyManager.draw();
@@ -348,6 +342,7 @@ void HullDefense::releaseAll()
 	particleManager.onLostDevice();
 	gameMenu.onLostDevice();
 	enemyManager.onLostDevice();
+    mainMenu.onLostDevice();
 	//loadingscreenTexture.onLostDevice();
 	
 	towermenuTexture.onLostDevice();
@@ -384,6 +379,7 @@ void HullDefense::resetAll()
 	particleManager.onResetDevice();
 	gameMenu.onResetDevice();
 	enemyManager.onResetDevice();
+    mainMenu.onResetDevice();
 	//loadingscreenTexture.onResetDevice();
 
 	towermenuTexture.onResetDevice();

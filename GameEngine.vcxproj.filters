@@ -19,99 +19,39 @@
     <Filter Include="WaveFiles">
       <UniqueIdentifier>{b2e8d9e5-63ab-4641-aead-1a276916664f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Sams">
+      <UniqueIdentifier>{d7209065-d3ae-402a-8e0b-c22e98b69509}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Jeremys">
+      <UniqueIdentifier>{10e0acc0-ce45-4c96-9a00-2480b9970991}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Daniels">
+      <UniqueIdentifier>{0d1c841e-429a-4866-8e01-2c13a56245d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Default">
+      <UniqueIdentifier>{10feafec-db43-4639-8c0a-f54ff101296a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Sams">
+      <UniqueIdentifier>{f114583d-5b61-423d-9743-3bebc875a221}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Jeremys">
+      <UniqueIdentifier>{1d3bedda-ec18-4a70-91a4-fd020674ffbe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Daniels">
+      <UniqueIdentifier>{326a334b-dee4-4d17-9a78-87dca27e1a8d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Default">
+      <UniqueIdentifier>{d785884a-ed79-406c-bc19-86272611994c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="game.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="graphics.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="input.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="winmain.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="entity.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="console.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="textDX.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="image.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="audio.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="textureManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="messageDialog.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="dashboard.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="inputDialog.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="text.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="net.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="HullDefense.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="structureGrid.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="structure.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="structureManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="wall.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="turret.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="gameMenu.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="tower.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="EnemyManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Enemy.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="PathFinding.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="base.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="wave.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="gameState.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="waves.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="photonCannon.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="particle.cpp">
@@ -120,117 +60,105 @@
     <ClCompile Include="particleManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="audio.cpp">
+      <Filter>Source Files\Default</Filter>
+    </ClCompile>
+    <ClCompile Include="console.cpp">
+      <Filter>Source Files\Default</Filter>
+    </ClCompile>
+    <ClCompile Include="dashboard.cpp">
+      <Filter>Source Files\Default</Filter>
+    </ClCompile>
+    <ClCompile Include="entity.cpp">
+      <Filter>Source Files\Default</Filter>
+    </ClCompile>
+    <ClCompile Include="game.cpp">
+      <Filter>Source Files\Default</Filter>
+    </ClCompile>
+    <ClCompile Include="graphics.cpp">
+      <Filter>Source Files\Default</Filter>
+    </ClCompile>
+    <ClCompile Include="image.cpp">
+      <Filter>Source Files\Default</Filter>
+    </ClCompile>
+    <ClCompile Include="input.cpp">
+      <Filter>Source Files\Default</Filter>
+    </ClCompile>
+    <ClCompile Include="inputDialog.cpp">
+      <Filter>Source Files\Default</Filter>
+    </ClCompile>
+    <ClCompile Include="messageDialog.cpp">
+      <Filter>Source Files\Default</Filter>
+    </ClCompile>
+    <ClCompile Include="net.cpp">
+      <Filter>Source Files\Default</Filter>
+    </ClCompile>
+    <ClCompile Include="text.cpp">
+      <Filter>Source Files\Default</Filter>
+    </ClCompile>
+    <ClCompile Include="textDX.cpp">
+      <Filter>Source Files\Default</Filter>
+    </ClCompile>
+    <ClCompile Include="textureManager.cpp">
+      <Filter>Source Files\Default</Filter>
+    </ClCompile>
+    <ClCompile Include="enemy.cpp">
+      <Filter>Source Files\Sams</Filter>
+    </ClCompile>
+    <ClCompile Include="enemyManager.cpp">
+      <Filter>Source Files\Sams</Filter>
+    </ClCompile>
+    <ClCompile Include="pathFinding.cpp">
+      <Filter>Source Files\Sams</Filter>
+    </ClCompile>
+    <ClCompile Include="base.cpp">
+      <Filter>Source Files\Jeremys</Filter>
+    </ClCompile>
     <ClCompile Include="permWall.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Jeremys</Filter>
+    </ClCompile>
+    <ClCompile Include="photonCannon.cpp">
+      <Filter>Source Files\Jeremys</Filter>
+    </ClCompile>
+    <ClCompile Include="structure.cpp">
+      <Filter>Source Files\Jeremys</Filter>
+    </ClCompile>
+    <ClCompile Include="structureGrid.cpp">
+      <Filter>Source Files\Jeremys</Filter>
+    </ClCompile>
+    <ClCompile Include="structureManager.cpp">
+      <Filter>Source Files\Jeremys</Filter>
+    </ClCompile>
+    <ClCompile Include="tower.cpp">
+      <Filter>Source Files\Jeremys</Filter>
+    </ClCompile>
+    <ClCompile Include="turret.cpp">
+      <Filter>Source Files\Jeremys</Filter>
+    </ClCompile>
+    <ClCompile Include="wall.cpp">
+      <Filter>Source Files\Jeremys</Filter>
+    </ClCompile>
+    <ClCompile Include="waves.cpp">
+      <Filter>Source Files\Sams</Filter>
+    </ClCompile>
+    <ClCompile Include="wave.cpp">
+      <Filter>Source Files\Sams</Filter>
+    </ClCompile>
+    <ClCompile Include="gameMenu.cpp">
+      <Filter>Source Files\Daniels</Filter>
     </ClCompile>
     <ClCompile Include="mainMenu.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Daniels</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="constants.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="game.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="graphics.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="input.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="entity.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="console.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="textDX.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="image.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="audio.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="textureManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="messageDialog.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="gameError.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="dashboard.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="inputDialog.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="text.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="net.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="structureGrid.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="structure.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="structureManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="wall.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="turret.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="gameMenu.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="tower.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="PathFinding.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="enemy.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="enemyManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="HullDefense.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="base.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="wave.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="gameState.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="heavyEnemy.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="lightEnemy.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="mediumEnemy.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="waves.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="photonCannon.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="particle.h">
@@ -239,17 +167,113 @@
     <ClInclude Include="particleManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="pregnantEnemy.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="audio.h">
+      <Filter>Header Files\Default</Filter>
+    </ClInclude>
+    <ClInclude Include="image.h">
+      <Filter>Header Files\Default</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics.h">
+      <Filter>Header Files\Default</Filter>
+    </ClInclude>
+    <ClInclude Include="gameError.h">
+      <Filter>Header Files\Default</Filter>
+    </ClInclude>
+    <ClInclude Include="game.h">
+      <Filter>Header Files\Default</Filter>
+    </ClInclude>
+    <ClInclude Include="entity.h">
+      <Filter>Header Files\Default</Filter>
+    </ClInclude>
+    <ClInclude Include="textureManager.h">
+      <Filter>Header Files\Default</Filter>
+    </ClInclude>
+    <ClInclude Include="textDX.h">
+      <Filter>Header Files\Default</Filter>
+    </ClInclude>
+    <ClInclude Include="text.h">
+      <Filter>Header Files\Default</Filter>
     </ClInclude>
     <ClInclude Include="babyEnemies.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Sams</Filter>
+    </ClInclude>
+    <ClInclude Include="enemy.h">
+      <Filter>Header Files\Sams</Filter>
+    </ClInclude>
+    <ClInclude Include="enemyManager.h">
+      <Filter>Header Files\Sams</Filter>
+    </ClInclude>
+    <ClInclude Include="heavyEnemy.h">
+      <Filter>Header Files\Sams</Filter>
+    </ClInclude>
+    <ClInclude Include="lightEnemy.h">
+      <Filter>Header Files\Sams</Filter>
+    </ClInclude>
+    <ClInclude Include="mediumEnemy.h">
+      <Filter>Header Files\Sams</Filter>
+    </ClInclude>
+    <ClInclude Include="pathFinding.h">
+      <Filter>Header Files\Sams</Filter>
+    </ClInclude>
+    <ClInclude Include="pregnantEnemy.h">
+      <Filter>Header Files\Sams</Filter>
+    </ClInclude>
+    <ClInclude Include="wave.h">
+      <Filter>Header Files\Sams</Filter>
+    </ClInclude>
+    <ClInclude Include="waves.h">
+      <Filter>Header Files\Sams</Filter>
+    </ClInclude>
+    <ClInclude Include="console.h">
+      <Filter>Header Files\Default</Filter>
+    </ClInclude>
+    <ClInclude Include="dashboard.h">
+      <Filter>Header Files\Default</Filter>
+    </ClInclude>
+    <ClInclude Include="input.h">
+      <Filter>Header Files\Default</Filter>
+    </ClInclude>
+    <ClInclude Include="inputDialog.h">
+      <Filter>Header Files\Default</Filter>
+    </ClInclude>
+    <ClInclude Include="messageDialog.h">
+      <Filter>Header Files\Default</Filter>
+    </ClInclude>
+    <ClInclude Include="net.h">
+      <Filter>Header Files\Default</Filter>
+    </ClInclude>
+    <ClInclude Include="base.h">
+      <Filter>Header Files\Jeremys</Filter>
     </ClInclude>
     <ClInclude Include="permWall.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Jeremys</Filter>
+    </ClInclude>
+    <ClInclude Include="photonCannon.h">
+      <Filter>Header Files\Jeremys</Filter>
+    </ClInclude>
+    <ClInclude Include="structure.h">
+      <Filter>Header Files\Jeremys</Filter>
+    </ClInclude>
+    <ClInclude Include="structureGrid.h">
+      <Filter>Header Files\Jeremys</Filter>
+    </ClInclude>
+    <ClInclude Include="structureManager.h">
+      <Filter>Header Files\Jeremys</Filter>
+    </ClInclude>
+    <ClInclude Include="tower.h">
+      <Filter>Header Files\Jeremys</Filter>
+    </ClInclude>
+    <ClInclude Include="turret.h">
+      <Filter>Header Files\Jeremys</Filter>
+    </ClInclude>
+    <ClInclude Include="wall.h">
+      <Filter>Header Files\Jeremys</Filter>
+    </ClInclude>
+    <ClInclude Include="gameMenu.h">
+      <Filter>Header Files\Daniels</Filter>
     </ClInclude>
     <ClInclude Include="mainMenu.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Daniels</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
