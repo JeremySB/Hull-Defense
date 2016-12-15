@@ -1,6 +1,6 @@
 LRBT
-.5 p m m m m m
-.5 h h h h h
-.5 l l l l l
-1 m m h h l l m h l h
-.2 h m h h m m l l h h h
+.75 l l l m m m h h h l l l l l  p
+.5 p p p p l l l l m m m
+.5 h h h h h h h p p p p p
+1 p p m m m h h h l l l
+.2 p p h h h h m m m m l l l l l
