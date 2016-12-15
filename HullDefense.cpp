@@ -289,7 +289,11 @@ void HullDefense::render()
 		break;
 
 	case GameState::transition:
-		
+		background.draw();
+		structureManager.draw();
+		enemyManager.draw();
+		particleManager.draw();
+		gameMenu.draw();
 		break;
 
 	case GameState::won:
