@@ -146,7 +146,16 @@ void StructureManager::update(float frameTime)
 				if ((*iter)->getHealth() <= (*iter)->getMaxHealth() * 2 / 3 
 					&& (*iter)->getType() != StructureTypes::wall && (*iter)->getType() != StructureTypes::permWall)
 				{
-					particleManager->addSmoke(*(*iter)->getCenter(), VECTOR2(10, -20), 0.25, 2);
+					if ((*iter)->getHealth() > (*iter)->getMaxHealth() * 1 / 3)
+					{
+						particleManager->addSmoke(*(*iter)->getCenter(), VECTOR2(10, -20), 0.25, 2);
+					}
+					else
+					{
+						particleManager->addSmoke(*(*iter)->getCenter(), VECTOR2(20, -20), 0.25, 2.5, 55);
+						particleManager->addSmoke(*(*iter)->getCenter(), VECTOR2(0, -20), 0.25, 2.5, 55);
+					}
+					
 				}
 			}
 		}

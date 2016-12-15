@@ -26,7 +26,7 @@ public:
 	void addPhotonExplosion(int centerX, int centerY, float scale, float timeToLive);
 	void addEnemyDeath(Entity *source);
 	void addStructurePlacement(Entity *source);
-	void addSmoke(VECTOR2 center, VECTOR2 vel, float scale, float timeToLive);
+	void addSmoke(VECTOR2 center, VECTOR2 vel, float scale, float timeToLive, int alpha = 35);
 	void addLaserSparks(VECTOR2 center, VECTOR2 vel, float scale, float timeToLive);
 
 	float getVariance();
