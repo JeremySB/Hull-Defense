@@ -1,0 +1,215 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectName>Hull Defense</ProjectName>
+    <ProjectGuid>{0259B800-2046-467E-94A2-D13B6F5210BC}</ProjectGuid>
+    <RootNamespace>Destroyer</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <PlatformToolset>v120</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v110</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Configuration)\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Configuration)\</IntDir>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>$(DXSDK_DIR)\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <WarningLevel>Level1</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>d3d9.lib;d3dx9.lib;winmm.lib;xinput.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(DXSDK_DIR)\Lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <AdditionalIncludeDirectories>$(DXSDK_DIR)\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>d3d9.lib;d3dx9.lib;winmm.lib;xinput.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(DXSDK_DIR)\Lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="audio.cpp" />
+    <ClCompile Include="base.cpp" />
+    <ClCompile Include="console.cpp" />
+    <ClCompile Include="dashboard.cpp" />
+    <ClCompile Include="enemy.cpp" />
+    <ClCompile Include="enemyManager.cpp" />
+    <ClCompile Include="entity.cpp" />
+    <ClCompile Include="game.cpp" />
+    <ClCompile Include="gameMenu.cpp" />
+    <ClCompile Include="gameState.cpp" />
+    <ClCompile Include="graphics.cpp" />
+    <ClCompile Include="inputDialog.cpp" />
+    <ClCompile Include="mainMenu.cpp" />
+    <ClCompile Include="messageDialog.cpp" />
+    <ClCompile Include="net.cpp" />
+    <ClCompile Include="particle.cpp" />
+    <ClCompile Include="particleManager.cpp" />
+    <ClCompile Include="pathFinding.cpp" />
+    <ClCompile Include="permWall.cpp" />
+    <ClCompile Include="photonCannon.cpp" />
+    <ClCompile Include="structure.cpp" />
+    <ClCompile Include="structureGrid.cpp" />
+    <ClCompile Include="structureManager.cpp" />
+    <ClCompile Include="text.cpp" />
+    <ClCompile Include="textureManager.cpp" />
+    <ClCompile Include="input.cpp" />
+    <ClCompile Include="hullDefense.cpp" />
+    <ClCompile Include="image.cpp" />
+    <ClCompile Include="textDX.cpp" />
+    <ClCompile Include="tower.cpp" />
+    <ClCompile Include="turret.cpp" />
+    <ClCompile Include="wall.cpp" />
+    <ClCompile Include="wave.cpp" />
+    <ClCompile Include="waves.cpp" />
+    <ClCompile Include="winmain.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="audio.h" />
+    <ClInclude Include="babyEnemies.h" />
+    <ClInclude Include="base.h" />
+    <ClInclude Include="console.h" />
+    <ClInclude Include="constants.h" />
+    <ClInclude Include="dashboard.h" />
+    <ClInclude Include="enemy.h" />
+    <ClInclude Include="enemyManager.h" />
+    <ClInclude Include="entity.h" />
+    <ClInclude Include="gameError.h" />
+    <ClInclude Include="game.h" />
+    <ClInclude Include="gameMenu.h" />
+    <ClInclude Include="gameState.h" />
+    <ClInclude Include="graphics.h" />
+    <ClInclude Include="heavyEnemy.h" />
+    <ClInclude Include="inputDialog.h" />
+    <ClInclude Include="lightEnemy.h" />
+    <ClInclude Include="mainMenu.h" />
+    <ClInclude Include="mediumEnemy.h" />
+    <ClInclude Include="messageDialog.h" />
+    <ClInclude Include="net.h" />
+    <ClInclude Include="particle.h" />
+    <ClInclude Include="particleManager.h" />
+    <ClInclude Include="pathFinding.h" />
+    <ClInclude Include="permWall.h" />
+    <ClInclude Include="photonCannon.h" />
+    <ClInclude Include="pregnantEnemy.h" />
+    <ClInclude Include="structure.h" />
+    <ClInclude Include="structureGrid.h" />
+    <ClInclude Include="structureManager.h" />
+    <ClInclude Include="text.h" />
+    <ClInclude Include="textureManager.h" />
+    <ClInclude Include="input.h" />
+    <ClInclude Include="hullDefense.h" />
+    <ClInclude Include="image.h" />
+    <ClInclude Include="textDX.h" />
+    <ClInclude Include="tower.h" />
+    <ClInclude Include="turret.h" />
+    <ClInclude Include="wall.h" />
+    <ClInclude Include="wave.h" />
+    <ClInclude Include="waves.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Change log.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="pictures\background.png" />
+    <Image Include="pictures\background1DAN.png" />
+    <Image Include="pictures\baseDANIEL.png" />
+    <Image Include="pictures\buildmenuDANIEL.png" />
+    <Image Include="pictures\CKfont.png" />
+    <Image Include="pictures\Enemy(1).png" />
+    <Image Include="pictures\Enemy.png" />
+    <Image Include="pictures\EnemyTemp.png" />
+    <Image Include="pictures\goodSelectionJEREMY.png" />
+    <Image Include="pictures\healthBarDANIEL.png" />
+    <Image Include="pictures\instruction1DANIEL.png" />
+    <Image Include="pictures\instruction2DANIEL.png" />
+    <Image Include="pictures\instructionDANIEL.png" />
+    <Image Include="pictures\loseScreenDANIEL.png" />
+    <Image Include="pictures\mainScreenDANIEL.png" />
+    <Image Include="pictures\menu.png" />
+    <Image Include="pictures\menuDefaultDANIEL.png" />
+    <Image Include="pictures\photonCannonGunJEREMY.png" />
+    <Image Include="pictures\photonCannonProjectileJEREMY.png" />
+    <Image Include="pictures\repairmenuDANIEL.png" />
+    <Image Include="pictures\sellmenuDANIEL.png" />
+    <Image Include="pictures\towerBaseJEREMY.png" />
+    <Image Include="pictures\towerGunJEREMY.png" />
+    <Image Include="pictures\towerMenuDANIEL.png" />
+    <Image Include="pictures\turretBaseDANIEL.png" />
+    <Image Include="pictures\turretGunDANIEL.png" />
+    <Image Include="pictures\turretProjectileJEREMY.png" />
+    <Image Include="pictures\turretProjectileJEREMY2.png" />
+    <Image Include="pictures\turretsMenuDANIEL.png" />
+    <Image Include="pictures\wallJEREMY.png" />
+    <Image Include="pictures\wallMenuDANIEL.png" />
+    <Image Include="pictures\waveComplete.png" />
+    <Image Include="pictures\winScreenDANIEL.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="level1.txt" />
+    <Text Include="level2.txt" />
+    <Text Include="level3.txt" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
